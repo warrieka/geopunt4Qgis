@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/plugins/geopunt4Qgis">
+    <file>icon.png</file>
+    <file>geopunt.png</file>
+  </qresource>
+</RCC>
