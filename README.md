@@ -1,7 +1,7 @@
 Geopunt4Qgis
 ============
 
- <a href=http://www.geopunt.be" target="_blank"><img src="images/logogeopunt4Q.png"/></a>
+ <a href="http://www.geopunt.be" target="_blank"><img src="images/logogeopunt4Q.png"/></a>
  <br/>
  *"Geopunt voor QGIS"*
 
@@ -30,5 +30,6 @@ What is Geopunt ?
 
 All components (metadata catalog , download application, data and network services) are directly integrated. The geoportal is the Flemish node in a European spatial data infrastructure and meets the requirements of the [European INSPIRE directive](http://inspire-geoportal.ec.europa.eu/).
 
-Sources: *[http://www.geopunt.be](http://www.geopunt.be/over-geopunt)*
-
+Sources: 
+- *[http://www.geopunt.be](http://www.geopunt.be/over-geopunt)* 
+- *[http://gditestbed.agiv.be/](http://gditestbed.agiv.be/)*
