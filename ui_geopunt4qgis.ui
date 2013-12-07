@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Geopunt</string>
+   <string>Geopunt zoeken op adres</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/geopunt.png</normaloff>:/plugins/geopunt4Qgis/geopunt.png</iconset>
+    <normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

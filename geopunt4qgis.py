@@ -53,7 +53,7 @@ class geopunt4Qgis:
     def initGui(self):
         # Create action that will start plugin configuration
         self.action = QAction(
-            QIcon(":/plugins/geopunt4Qgis/geopunt.png"),
+            QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
              u"Zoek in Geopunt", self.iface.mainWindow())
 	
         # connect the action to the run method

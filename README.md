@@ -1,8 +1,9 @@
-Geopunt4Qgis  
+Geopunt4Qgis
 ============
 
- <a href=http://www.geopunt.be" target="_blank"><img src="logogeopunt.png"/></a>*<br/>
- "Geopunt voor QGIS"*
+ <a href=http://www.geopunt.be" target="_blank"><img src="images/logogeopunt4Q.png"/></a>
+ <br/>
+ *"Geopunt voor QGIS"*
 
 Goals
 -----
