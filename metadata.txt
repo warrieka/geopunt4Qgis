@@ -1,12 +1,6 @@
-# This file contains metadata for your plugin. Beginning
-# with version 1.8 this is the preferred way to supply information about a
-# plugin. The current method of embedding metadata in __init__.py will
-# be supported until version 2.0
-
 # This file should be included when you package your plugin.
 
 # Mandatory items:
-
 
 [general]
 name=geopunt4Qgis
@@ -19,7 +13,6 @@ email=kaywarrie@gmail.com
 # end of mandatory metadata
 
 # Optional items:
-
 # Uncomment the following line and add your changelog entries:
 # changelog=
 
@@ -30,6 +23,7 @@ homepage=https://github.com/warrieka/geopunt4Qgis
 tracker=
 repository=https://github.com/warrieka/geopunt4Qgis
 icon=images/geopunt.png
+category=Web
 # experimental flag
 experimental=True
 
