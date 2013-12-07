@@ -31,7 +31,6 @@ import os.path
 
 
 class geopunt4Qgis:
-
     def __init__(self, iface):
         # Save reference to the QGIS interface
         self.iface = iface
@@ -54,7 +53,7 @@ class geopunt4Qgis:
     def initGui(self):
         # Create action that will start plugin configuration
         self.action = QAction(
-            QIcon(":/plugins/geopunt4qgis/geopunt.png"),
+            QIcon(":/plugins/geopunt4Qgis/geopunt.png"),
              u"Zoek in Geopunt", self.iface.mainWindow())
 	
         # connect the action to the run method

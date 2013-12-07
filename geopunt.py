@@ -1,3 +1,24 @@
+# -*- coding: utf-8 -*-
+"""
+/***************************************************************************
+ geopunt
+                                 
+ "bibliotheek om geopunt in python te gebruiken"
+                             -------------------
+        begin                : 2013-12-05
+        copyright            : (C) 2013 by Kay Warrie
+        email                : kaywarrie@gmail.com
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+"""
 import urllib2, urllib, json
 
 class geopunt:
@@ -22,18 +43,7 @@ class geopunt:
       except:
 	  return "could not connect to geopunt"
       LocationResult = json.load(response)["LocationResult"]
-      result = []
-      for Loc in LocationResult:
-	  adres = Loc["FormattedAddress"]
-	  locType = Loc["LocationType"]
-	  x, y = Loc["Location"]["X_Lambert72"], Loc["Location"]["Y_Lambert72"]
-	  #bbx = Loc['BoundingBox']
-	  #Lower = bbx['LowerLeft']['X_Lambert72']
-	  #Left = bbx['LowerLeft']['Y_Lambert72']
-	  #Upper = bbx['UpperRight']['X_Lambert72']
-	  #Right = bbx['UpperRight']['Y_Lambert72']
-	  result.append(  {'x':x, 'y':y, 'adres': adres,'type': locType} )
-      return result
+      return LocationResult
       
 	
   def _createSuggestionUrl(self, q, c=5):

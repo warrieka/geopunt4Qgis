@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>testPod</class>
- <widget class="QDialog" name="testPod">
+ <class>geopunt4Qgis</class>
+ <widget class="QDialog" name="geopunt4Qgis">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>515</width>
-    <height>356</height>
+    <width>480</width>
+    <height>370</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/testpod/geopunt.png</normaloff>:/plugins/testpod/geopunt.png</iconset>
+    <normaloff>:/plugins/geopunt4Qgis/geopunt.png</normaloff>:/plugins/geopunt4Qgis/geopunt.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -30,7 +30,7 @@
       <item>
        <widget class="QPushButton" name="zoekBtn">
         <property name="text">
-         <string>Zoek</string>
+         <string>Valideer</string>
         </property>
        </widget>
       </item>
@@ -39,6 +39,39 @@
    </item>
    <item>
     <widget class="QListWidget" name="resultLijst"/>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Add2mapKnop">
+        <property name="text">
+         <string>Toevoegen aan Kaart</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ZoomKnop">
+        <property name="text">
+         <string>Zoom naar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>

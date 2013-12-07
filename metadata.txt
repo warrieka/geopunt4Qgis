@@ -29,7 +29,7 @@ tags=
 homepage=
 tracker=
 repository=
-icon=icon.png
+icon=geopunt.png
 # experimental flag
 experimental=True
 
