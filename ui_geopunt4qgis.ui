@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Kay Warrie</author>
  <class>geopunt4Qgis</class>
  <widget class="QDialog" name="geopunt4Qgis">
   <property name="geometry">
@@ -7,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>370</height>
+    <height>359</height>
    </rect>
   </property>
   <property name="windowTitle">
