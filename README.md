@@ -30,6 +30,8 @@ What is Geopunt ?
 
 All components (metadata catalog , download application, data and network services) are directly integrated. The geoportal is the Flemish node in a European spatial data infrastructure and meets the requirements of the [European INSPIRE directive](http://inspire-geoportal.ec.europa.eu/).
 
+The flemish Agency for Geographical Information [(AGIV)](http://www.agiv.be/gis/) is responsible for maintaining geopunt.
+
 Sources: 
 - *[http://www.geopunt.be](http://www.geopunt.be/over-geopunt)* 
 - *[http://gditestbed.agiv.be/](http://gditestbed.agiv.be/)*
