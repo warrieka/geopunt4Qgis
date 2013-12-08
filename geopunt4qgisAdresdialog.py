@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- geopunt4QgisDialog
+ geopunt4qgisdialog
                                  A QGIS plugin
  "Tool om geopunt in QGIS te gebruiken"
                              -------------------
@@ -41,7 +41,7 @@ class geopunt4QgisDialog(QtGui.QDialog):
         self.iface = iface
         
         #setup geopunt
-        self.gp = geopunt.geopuntAdres()
+        self.gp = geopunt.Adres()
         self.gh = gh.geometryHelper(iface)
         
         #event handlers 
@@ -58,11 +58,11 @@ class geopunt4QgisDialog(QtGui.QDialog):
         if suggesties.__class__ == list and len(suggesties) > 0:
 	  self.ui.resultLijst.addItems(suggesties)
 	elif len(suggesties) == 0:
-	  self.bar.pushMessage("Geen resultaten gevonden voor", txt, level=QgsMessageBar.INFO)
+	  self.bar.pushMessage("Geen resultaten gevonden voor", txt, level=QgsMessageBar.INFO, duration=3)
 	elif suggesties.__class__ == str:
-	  self.bar.pushMessage("Waarschuwing", suggesties, level=QgsMessageBar.WARNING)
+	  self.bar.pushMessage("Waarschuwing", suggesties, level=QgsMessageBar.WARNING, duration=3)
 	else:
-	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.ERROR)
+	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.ERROR, duration=3)
         
     def onItemActivated( self , item):
 	txt = item.text()
@@ -92,9 +92,9 @@ class geopunt4QgisDialog(QtGui.QDialog):
 		      QgsPoint(LowerLeftX,LowerLeftY), 31370)
 	    
 	elif locations.__class__ == str:
-	  self.bar.pushMessage("Waarschuwing", locations, level=QgsMessageBar.WARNING)	
+	  self.bar.pushMessage("Waarschuwing", locations, level=QgsMessageBar.WARNING, duration=3)
 	else:
-	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.ERROR)
+	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.CRITICAL, duration=3)
 	    
     def _addToMap(self, txt):
 	locations = self.gp.fetchLocation(txt)
@@ -109,7 +109,7 @@ class geopunt4QgisDialog(QtGui.QDialog):
 	    self.gh.save_point(QgsPoint(lat, lon), adres, LocationType )
 	    
 	elif locations.__class__ == str:
-	  self.bar.pushMessage("Waarschuwing", locations, level=QgsMessageBar.WARNING)	
+	  self.bar.pushMessage("Waarschuwing", locations, level=QgsMessageBar.WARNING, duration=3)	
 	else:
-	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.ERROR)
+	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.CRITICAL, duration=3)
 	    

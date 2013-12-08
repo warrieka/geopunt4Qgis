@@ -98,4 +98,19 @@ class geometryHelper:
 
         self.canvas.refresh()
       
-      
+
+    def getBoundsOfPointArray( self, pointArray):
+	minX = 1.7976931348623157e+308
+	maxX = -1.7976931348623157e+308
+	minY = 1.7976931348623157e+308
+	maxY = -1.7976931348623157e+308
+	
+	for xy in pointArray:
+	  x, y = list(xy)[:2]
+	  if x > maxX: maxX = x
+	  elif x < minX: minX = x
+	  if y > maxY: maxY = y
+	  elif y < minY: minY = y
+	  
+	return [maxX,maxY, minX, minY]
+    

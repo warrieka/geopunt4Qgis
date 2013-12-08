@@ -26,7 +26,8 @@ from qgis.core import *
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialog
-from geopunt4qgisdialog import geopunt4QgisDialog
+from geopunt4qgisAdresdialog import geopunt4QgisDialog
+from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 import os.path
 
 
@@ -48,31 +49,45 @@ class geopunt4Qgis:
                 QCoreApplication.installTranslator(self.translator)
 
         # Create the dialog (after translation) and keep reference
-        self.dlg = geopunt4QgisDialog(self.iface)
+        self.adresdlg = geopunt4QgisDialog(self.iface)
+        self.poiDlg = geopunt4QgisPoidialog(self.iface)
 
     def initGui(self):
-        # Create action that will start plugin configuration
-        self.action = QAction(
+        # Create actions that will start plugin configuration
+        self.adresAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
-             u"Zoek in Geopunt", self.iface.mainWindow())
+             u"Zoek een Adres", self.iface.mainWindow())
+	self.poiAction = QAction(
+            QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
+             u"Zoek een Plaats - interesse punt", self.iface.mainWindow())
+	
 	
         # connect the action to the run method
-        self.action.triggered.connect(self.run)
+        self.adresAction.triggered.connect(self.runAdresDlg)
+        self.poiAction.triggered.connect(self.runPoiDlg)
 
         # Add toolbar button and menu item
-        self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.action)
+        self.iface.addToolBarIcon(self.adresAction)
+        self.iface.addToolBarIcon(self.poiAction)
+        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
+        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.poiAction)
 
     def unload(self):
-        # Remove the plugin menu item and icon
-        self.iface.removePluginMenu(u"&geopunt4Qgis", self.action)
-        self.iface.removeToolBarIcon(self.action)
+        # Remove the plugin menu items and icons
+        self.iface.removePluginMenu(u"&geopunt4Qgis", self.adresAction)
+        self.iface.removeToolBarIcon(self.adresAction)
+        self.iface.removePluginMenu(u"&geopunt4Qgis", self.poiAction)
+        self.iface.removeToolBarIcon(self.poiAction)
 
-    # run method that performs all the real work
-    def run(self):
+    def runAdresDlg(self):
         # show the dialog
-        self.dlg.show()
+        self.adresdlg.show()
         # Run the dialog event loop
-        result = self.dlg.exec_()
+        result = self.adresdlg.exec_()
         
+    def runPoiDlg(self):
+	# show the dialog
+        self.poiDlg.show()
+        # Run the dialog event loop
+        result = self.poiDlg.exec_()
         

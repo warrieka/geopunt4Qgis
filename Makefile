@@ -18,26 +18,26 @@
 # ***************************************************************************/
 
 # CONFIGURATION
-PLUGIN_UPLOAD = $(CURDIR)/plugin_upload.py
+PLUGIN_UPLOAD = $(CURDIR)/hulp/plugin_upload.py
 
 QGISDIR=.qgis2
 
 # Makefile for a PyQGIS plugin 
 
 # translation
-SOURCES = geopunt4qgis.py ui_geopunt4qgis.py __init__.py geopunt4qgisdialog.py
+SOURCES = geopunt4qgis.py ui_geopunt4qgis.py __init__.py geopunt4qgisdialog.py geopunt.py geometryhelper.py
 #TRANSLATIONS = i18n/geopunt4qgis_en.ts
 TRANSLATIONS = 
 
 # global
 
-PLUGINNAME = geopunt4qgis
+PLUGINNAME = geopunt4Qgis
 
-PY_FILES = geopunt4qgis.py geopunt4qgisdialog.py __init__.py
+PY_FILES = geopunt4qgis.py geopunt4qgisdialog.py __init__.py geopunt.py geometryhelper.py
 
-EXTRAS = icon.png metadata.txt
+EXTRAS = images/geopunt.png images/geopuntSmal.png images/logogeopunt4Q.png images/logogeopunt.png images/logoQGIS.png metadata.txt
 
-UI_FILES = ui_geopunt4qgis.py
+UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py
 
 RESOURCE_FILES = resources_rc.py
 
