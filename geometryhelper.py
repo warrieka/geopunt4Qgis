@@ -114,3 +114,15 @@ class geometryHelper:
 	  
 	return [maxX,maxY, minX, minY]
     
+    def getBoundsOfPoint( self , x, y):
+      if log10(x) > 3:
+	delta = 500
+      else:
+	delta = 0.0045
+	
+      xmax = x + delta
+      xmin = x - delta
+      ymax = y + delta
+      ymin = y - delta
+      
+      return [xmax,ymax, xmin, xmin]
