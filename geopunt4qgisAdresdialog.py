@@ -50,6 +50,7 @@ class geopunt4QgisDialog(QtGui.QDialog):
         self.ui.resultLijst.itemDoubleClicked.connect(self.onItemActivated)
         self.ui.ZoomKnop.clicked.connect(self.onZoomKnopClick)
         self.ui.Add2mapKnop.clicked.connect(self.onAdd2mapKnopClick)
+        self.finished.connect(self.clean )
         
     def onZoekActivated(self):
         txt = self.ui.zoekText.text()
@@ -113,3 +114,7 @@ class geopunt4QgisDialog(QtGui.QDialog):
 	else:
 	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.CRITICAL, duration=3)
 	    
+	          
+    def clean(self):
+	self.ui.resultLijst.clear()
+	self.ui.zoekText.setText("")

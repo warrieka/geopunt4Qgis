@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>486</width>
-    <height>362</height>
+    <width>450</width>
+    <height>376</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Zoek naar een plaats:</string>
+      <string>Zoek naar een plaats op naam:</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -39,6 +39,16 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="currentBoundsVink">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>Beperk zoekresultaten tot huidige extent</string>
+     </property>
     </widget>
    </item>
    <item>

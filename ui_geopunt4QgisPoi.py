@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Sun Dec  8 22:58:22 2013
+# Created: Mon Dec  9 20:58:27 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_geopunt4QgisPoiDlg(object):
     def setupUi(self, geopunt4QgisPoiDlg):
         geopunt4QgisPoiDlg.setObjectName(_fromUtf8("geopunt4QgisPoiDlg"))
-        geopunt4QgisPoiDlg.resize(486, 362)
+        geopunt4QgisPoiDlg.resize(450, 376)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntPoiSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         geopunt4QgisPoiDlg.setWindowIcon(icon)
@@ -47,6 +47,10 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.zoekKnop.setObjectName(_fromUtf8("zoekKnop"))
         self.horizontalLayout.addWidget(self.zoekKnop)
         self.verticalLayout.addWidget(self.groupBox)
+        self.currentBoundsVink = QtGui.QCheckBox(geopunt4QgisPoiDlg)
+        self.currentBoundsVink.setEnabled(True)
+        self.currentBoundsVink.setObjectName(_fromUtf8("currentBoundsVink"))
+        self.verticalLayout.addWidget(self.currentBoundsVink)
         self.resultLijst = QtGui.QListWidget(geopunt4QgisPoiDlg)
         self.resultLijst.setObjectName(_fromUtf8("resultLijst"))
         self.verticalLayout.addWidget(self.resultLijst)
@@ -68,6 +72,7 @@ class Ui_geopunt4QgisPoiDlg(object):
     def retranslateUi(self, geopunt4QgisPoiDlg):
         geopunt4QgisPoiDlg.setWindowTitle(_translate("geopunt4QgisPoiDlg", "Zoek een Locatie via geopunt", None))
         self.groupBox.setTitle(_translate("geopunt4QgisPoiDlg", "Zoek naar een plaats:", None))
+        self.currentBoundsVink.setText(_translate("geopunt4QgisPoiDlg", "Beperk zoekresultaten tot huidige extent", None))
         self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))
 
 import resources_rc

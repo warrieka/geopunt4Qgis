@@ -47,14 +47,24 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         #event handlers 
         self.ui.poiText.returnPressed.connect(self.onZoekActivated)
         self.ui.zoekKnop.clicked.connect(self.onZoekActivated)
+        self.finished.connect(self.clean )
         
     def onZoekActivated(self):
 	txt = self.ui.poiText.text()
-	suggesties = self.poi.poiSuggestion(txt)
+	if self.ui.currentBoundsVink.isChecked():
+	  bbox = self.iface.mapCanvas().extent()
+	  minX, minY = self.gh.prjPtFromMapCrs([bbox.xMinimum(),bbox.yMinimum()], 31370)
+	  maxX, maxY = self.gh.prjPtFromMapCrs([bbox.xMaximum(),bbox.yMaximum()], 31370)
+	  lam72Box = [minX, minY, maxX, maxY]
+	  suggesties = self.poi.poiSuggestion(txt, lam72Box)
+	else:
+	  suggesties = self.poi.poiSuggestion(txt)
 	self.ui.resultLijst.clear()
 	self.ui.resultLijst
 	self.ui.resultLijst.addItems(suggesties)
 	
 	#self.bar.pushMessage("Fout",txt, level=QgsMessageBar.CRITICAL, duration=3)
       
-      
+    def clean(self):
+	self.ui.resultLijst.clear()
+	self.ui.poiText.setText("")

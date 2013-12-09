@@ -21,7 +21,6 @@
 """
 from PyQt4.QtCore import *
 from qgis.core import *
-from math import log10
 
 class geometryHelper:
     def __init__(self , iface ):
@@ -35,6 +34,13 @@ class geometryHelper:
       toCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
       xform = QgsCoordinateTransform( fromCrs, toCrs )
       return   xform.transform( point )
+    
+    def prjPtFromMapCrs( self, xy , toCRS=31370 ):
+	point = QgsPoint( xy[0], xy[1] )
+	toCrs = QgsCoordinateReferenceSystem(toCRS)
+	fromCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+	xform = QgsCoordinateTransform( fromCrs, toCrs )
+	return   xform.transform( point )
     
     def zoomtoRec(self, xyMax, xyMin, crs  , adres=''):
 	maxpoint = QgsPoint(xyMax[0], xyMax[1])
@@ -84,11 +90,9 @@ class geometryHelper:
         fet = QgsFeature(fields)
         fet.setGeometry(QgsGeometry.fromPoint(point))
 
-        try: # QGIS < 1.9
-            fet.setAttributeMap({0 : address, 1: typeAddress})
-        except: # QGIS >= 1.9
-            fet['adres'] = address
-            fet['type'] = typeAddress
+	#populate fields
+        fet['adres'] = address
+        fet['type'] = typeAddress
 
         self.provider.addFeatures([ fet ])
 
@@ -98,7 +102,6 @@ class geometryHelper:
 
         self.canvas.refresh()
       
-
     def getBoundsOfPointArray( self, pointArray):
 	minX = 1.7976931348623157e+308
 	maxX = -1.7976931348623157e+308
@@ -115,10 +118,10 @@ class geometryHelper:
 	return [maxX,maxY, minX, minY]
     
     def getBoundsOfPoint( self , x, y):
-      if log10(x) > 3:
-	delta = 500
+      if x >= 360:
+	delta = 500 #x bigger then 360 -> meters
       else:
-	delta = 0.0045
+	delta = 0.0045 #x smaller then 360 -> degrees
 	
       xmax = x + delta
       xmin = x - delta

@@ -67,7 +67,7 @@ class Poi:
   def __init__(self):
       self._poiUrl = "http://poi.api.geopunt.be/core?"
       self.resultCount = 0
-      self.resultBounds = [250674.1, 225576.8, 33074.8, 160149.2]
+      self.resultBounds = [17736,23697,297289,245375]
       self.resultPoi = []
       #maxBounds srs 31370: x between 17736 and 297289, y between 23697 and 245375 
       #TODO: What if no Lambert coordinates as input???
@@ -86,9 +86,15 @@ class Poi:
       else:
 	data["maxModel"] = "false"
       if bbox:
-	if bbox[0] > self.maxBounds[0] and bbox[1] > self.maxBounds[1]:
-	  if bbox[2] < self.maxBounds[2] and bbox[3] < self.maxBounds[3]:
-	    data["bbox"] = "|".join([str(b) for b in bbox])
+	if bbox[0] < self.maxBounds[0]: 
+	   bbox[0] = self.maxBounds[0]
+	if bbox[1] < self.maxBounds[1]:
+	   bbox[1] = self.maxBounds[1]
+	if bbox[2] > self.maxBounds[2]:
+	   bbox[2] = self.maxBounds[2]
+	if bbox[3] > self.maxBounds[3]:
+	   bbox[3] = self.maxBounds[3]
+	data["bbox"] = "|".join([str(b) for b in bbox])
 	
       values = urllib.urlencode(data)
       result = poiUrl + values
@@ -107,11 +113,14 @@ class Poi:
 	self.resultPoi = poi["pois"]
       return poi["pois"]
   
-  def poiSuggestion(self, q ):
-      sug = self.fetchPoi( q, 25, 31370, 0, 1)
-      result = [n["categories"][0]['value'] + ": "+ n["labels"][0]["value"] for n in sug ] #
-      result.sort()
-      return result
+  def poiSuggestion(self, q, bbox=None ):
+      if bbox: mm=1
+      else: mm=0
+      sug = self.fetchPoi( q, 25, 31370, mm, 1, bbox)
+      #categories = [n["categories"][0]['value'] for n in sug ] 
+      labels = [n["labels"][0]["value"] for n in sug ] 
+      labels.sort()
+      return labels
     
   def _getBounds(self, poiResult ):
       minX = 1.7976931348623157e+308
