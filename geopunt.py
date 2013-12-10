@@ -71,10 +71,10 @@ class Poi:
       self.resultPoi = []
       #maxBounds srs 31370: x between 17736 and 297289, y between 23697 and 245375 
       #TODO: What if no Lambert coordinates as input???
-      self.maxBounds = [17736,23697,297289,245375]
+      self.maxBounds = [17750,23720,297240,245340]
 
       
-  def _createPoiUrl(self , q, c=5, srs=31370 , maxModel=False, bbox=[] ):
+  def _createPoiUrl(self , q, c=5, srs=31370 , maxModel=False, bbox=None ):
       poiUrl = self._poiUrl
       data = {}
       data["label"] = q
@@ -113,12 +113,11 @@ class Poi:
 	self.resultPoi = poi["pois"]
       return poi["pois"]
   
-  def poiSuggestion(self, q, bbox=None ):
-      if bbox: mm=1
-      else: mm=0
-      sug = self.fetchPoi( q, 25, 31370, mm, 1, bbox)
-      #categories = [n["categories"][0]['value'] for n in sug ] 
-      labels = [n["labels"][0]["value"] for n in sug ] 
+  def poiSuggestion(self, q, bbox=None, updateResults=True):
+      sug = self.fetchPoi( q, 25, 31370, 1, updateResults, bbox)
+      if sug.__class__ == str:
+	return sug
+      labels = [(n["categories"][0]['value'],n["labels"][0]["value"],n['location']['address']["value"]) for n in sug ] 
       labels.sort()
       return labels
     

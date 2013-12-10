@@ -63,7 +63,7 @@ class geopunt4QgisDialog(QtGui.QDialog):
 	elif suggesties.__class__ == str:
 	  self.bar.pushMessage("Waarschuwing", suggesties, level=QgsMessageBar.WARNING, duration=3)
 	else:
-	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.ERROR, duration=3)
+	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.CRITICAL, duration=3)
         
     def onItemActivated( self , item):
 	txt = item.text()
@@ -89,8 +89,7 @@ class geopunt4QgisDialog(QtGui.QDialog):
 	    UpperRightX = loc['BoundingBox']['UpperRight']['X_Lambert72']
 	    UpperRightY = loc['BoundingBox']['UpperRight']['Y_Lambert72']
 	    
-	    self.gh.zoomtoRec(QgsPoint(UpperRightX, UpperRightY), 
-		      QgsPoint(LowerLeftX,LowerLeftY), 31370)
+	    self.gh.zoomtoRec(QgsPoint(LowerLeftX,LowerLeftY),QgsPoint(UpperRightX, UpperRightY), 31370)
 	    
 	elif locations.__class__ == str:
 	  self.bar.pushMessage("Waarschuwing", locations, level=QgsMessageBar.WARNING, duration=3)

@@ -24,16 +24,16 @@ from qgis.core import *
 
 class geometryHelper:
     def __init__(self , iface ):
-      self.iface = iface
-      self.canvas = iface.mapCanvas()
-      self.layerid = ''
+	self.iface = iface
+	self.canvas = iface.mapCanvas()
+	self.layerid = ''
         
     def prjPtToMapCrs( self, xy , fromCRS=4326 ):
-      point = QgsPoint( xy[0], xy[1] )
-      fromCrs = QgsCoordinateReferenceSystem(fromCRS)
-      toCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
-      xform = QgsCoordinateTransform( fromCrs, toCrs )
-      return   xform.transform( point )
+	point = QgsPoint( xy[0], xy[1] )
+	fromCrs = QgsCoordinateReferenceSystem(fromCRS)
+	toCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+	xform = QgsCoordinateTransform( fromCrs, toCrs )
+	return   xform.transform( point )
     
     def prjPtFromMapCrs( self, xy , toCRS=31370 ):
 	point = QgsPoint( xy[0], xy[1] )
@@ -42,14 +42,13 @@ class geometryHelper:
 	xform = QgsCoordinateTransform( fromCrs, toCrs )
 	return   xform.transform( point )
     
-    def zoomtoRec(self, xyMax, xyMin, crs  , adres=''):
+    def zoomtoRec(self, xyMin, xyMax, crs ):
 	maxpoint = QgsPoint(xyMax[0], xyMax[1])
         minpoint = QgsPoint(xyMin[0], xyMin[1])
         
         pmaxpoint = self.prjPtToMapCrs(maxpoint, crs)
         pminpoint = self.prjPtToMapCrs(minpoint, crs)
       
-	scale = 1000
         # Create a rectangle to cover the new extent
         rect = QgsRectangle( pmaxpoint, pminpoint )
 	
