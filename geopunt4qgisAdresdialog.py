@@ -78,6 +78,10 @@ class geopunt4QgisDialog(QtGui.QDialog):
 	item = self.ui.resultLijst.currentItem()
 	if item:
 	  self._addToMap(item.text())
+	  
+    def clean(self):
+	self.ui.resultLijst.clear()
+	self.ui.zoekText.setText("")
 	
     def _zoomLoc(self, txt):
 	locations = self.gp.fetchLocation(txt)
@@ -112,8 +116,3 @@ class geopunt4QgisDialog(QtGui.QDialog):
 	  self.bar.pushMessage("Waarschuwing", locations, level=QgsMessageBar.WARNING, duration=3)	
 	else:
 	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.CRITICAL, duration=3)
-	    
-	          
-    def clean(self):
-	self.ui.resultLijst.clear()
-	self.ui.zoekText.setText("")

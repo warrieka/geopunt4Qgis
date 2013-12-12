@@ -7,9 +7,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>559</width>
+    <width>490</width>
     <height>370</height>
    </rect>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::ActionsContextMenu</enum>
   </property>
   <property name="windowTitle">
    <string>Zoek een Locatie via geopunt</string>
@@ -89,6 +92,11 @@
      </attribute>
      <column>
       <property name="text">
+       <string>id</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>Categorie</string>
       </property>
      </column>
@@ -105,7 +113,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="buttonWgt" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <spacer name="horizontalSpacer">

@@ -110,21 +110,24 @@ class geometryHelper:
 	for xy in pointArray:
 	  x, y = list(xy)[:2]
 	  if x > maxX: maxX = x
-	  elif x < minX: minX = x
+	  if x < minX: minX = x
 	  if y > maxY: maxY = y
-	  elif y < minY: minY = y
-	  
-	return [maxX,maxY, minX, minY]
+	  if y < minY: minY = y
+	   
+	Xdelta = (maxX - minX) /100
+	Ydelta = (maxY - minY) /100
+	    
+	return [ minX - Xdelta, minY - Ydelta, maxX + Xdelta, maxY + Ydelta]
     
     def getBoundsOfPoint( self , x, y):
       if x >= 360:
-	delta = 500 #x bigger then 360 -> meters
+	delta = 300 #x bigger then 360 -> meters
       else:
-	delta = 0.0045 #x smaller then 360 -> degrees
+	delta = 0.0025 #x smaller then 360 -> degrees
 	
       xmax = x + delta
       xmin = x - delta
       ymax = y + delta
       ymin = y - delta
       
-      return [xmax,ymax, xmin, xmin]
+      return [xmin, ymin, xmax,ymax]

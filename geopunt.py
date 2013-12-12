@@ -58,7 +58,7 @@ class Adres:
       try:
 	  response = urllib2.urlopen(url)
       except:
-	  return "could not connect to geopunt"
+	  return "could not connect to geopunt "
       suggestion = json.load(response)
       return suggestion["SuggestionResult"]
 
@@ -67,12 +67,14 @@ class Poi:
   def __init__(self):
       self._poiUrl = "http://poi.api.geopunt.be/core?"
       self.resultCount = 0
-      self.resultBounds = [17736,23697,297289,245375]
-      self.resultPoi = []
+      
       #maxBounds srs 31370: x between 17736 and 297289, y between 23697 and 245375 
       #TODO: What if no Lambert coordinates as input???
-      self.maxBounds = [17750,23720,297240,245340]
-
+      self.maxBounds = [17750,23720,297240,245340]  
+      self.resultBounds = [17736,23697,297289,245375]
+      self.PoiResult = []
+      self.qeury = ""
+      self.srs = 31370
       
   def _createPoiUrl(self , q, c=5, srs=31370 , maxModel=False, bbox=None ):
       poiUrl = self._poiUrl
@@ -100,24 +102,34 @@ class Poi:
       result = poiUrl + values
       return result
     
-  def fetchPoi(self, q,  c=5, srs=31370 , maxModel=False , updateResults=True, bbox=None ):
+  def fetchPoi(self, q,  c=5, srs=31370 , maxModel=True , updateResults=True, bbox=None ):
       url = self._createPoiUrl( q, c, srs, maxModel, bbox )
       try:
 	  response = urllib2.urlopen(url)
       except:
-	  return "could not connect to geopunt"
-      poi = json.load(response)
-      if updateResults:
-	self.resultCount =  int( poi["label"]["value"] )
-	self.resultBounds = self._getBounds(poi["pois"])
-	self.resultPoi = poi["pois"]
-      return poi["pois"]
+	  return "could not connect to geopunt "
+      else:
+	poi = json.load(response)
+	if updateResults:
+	  self.resultCount =  int( poi["label"]["value"] )
+	  if bbox:
+	    self.resultBounds = bbox
+	  else:
+	    self.resultBounds = self._getBounds(poi["pois"])
+	  self.PoiResult = poi["pois"]
+	  self.qeury = q
+	  self.srs = srs
+	return poi["pois"]
   
-  def poiSuggestion(self, q, bbox=None, updateResults=True):
-      sug = self.fetchPoi( q, 25, 31370, 1, updateResults, bbox)
+  def poiSuggestion(self):
+      if self.PoiResult:
+	sug = self.PoiResult
+      else:
+	sug = self.fetchPoi( self.qeury, 25, 31370, 1, True, False)
       if sug.__class__ == str:
 	return sug
-      labels = [(n["categories"][0]['value'],n["labels"][0]["value"],n['location']['address']["value"]) for n in sug ] 
+      labels = [(n["id"], n["categories"][0]['value'],n["labels"][0]["value"],
+		 n['location']['address']["value"]) for n in sug ] 
       labels.sort()
       return labels
     
@@ -135,7 +147,7 @@ class Poi:
 	if y > maxY: maxY = y
 	elif y < minY: minY = y
 	
-      return [maxX,maxY, minX, minY]
+      return [ minX, minY, maxX, maxY]
 	  
 
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Tue Dec 10 23:27:38 2013
+# Created: Thu Dec 12 22:04:15 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,8 @@ except AttributeError:
 class Ui_geopunt4QgisPoiDlg(object):
     def setupUi(self, geopunt4QgisPoiDlg):
         geopunt4QgisPoiDlg.setObjectName(_fromUtf8("geopunt4QgisPoiDlg"))
-        geopunt4QgisPoiDlg.resize(559, 370)
+        geopunt4QgisPoiDlg.resize(490, 370)
+        geopunt4QgisPoiDlg.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntPoiSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         geopunt4QgisPoiDlg.setWindowIcon(icon)
@@ -60,28 +61,30 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.resultLijst.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.resultLijst.setRowCount(0)
         self.resultLijst.setObjectName(_fromUtf8("resultLijst"))
-        self.resultLijst.setColumnCount(3)
+        self.resultLijst.setColumnCount(4)
         item = QtGui.QTableWidgetItem()
         self.resultLijst.setHorizontalHeaderItem(0, item)
         item = QtGui.QTableWidgetItem()
         self.resultLijst.setHorizontalHeaderItem(1, item)
         item = QtGui.QTableWidgetItem()
         self.resultLijst.setHorizontalHeaderItem(2, item)
+        item = QtGui.QTableWidgetItem()
+        self.resultLijst.setHorizontalHeaderItem(3, item)
         self.resultLijst.horizontalHeader().setSortIndicatorShown(True)
         self.resultLijst.horizontalHeader().setStretchLastSection(False)
         self.resultLijst.verticalHeader().setSortIndicatorShown(False)
         self.verticalLayout.addWidget(self.resultLijst)
-        self.widget = QtGui.QWidget(geopunt4QgisPoiDlg)
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.horizontalLayout_2 = QtGui.QHBoxLayout(self.widget)
+        self.buttonWgt = QtGui.QWidget(geopunt4QgisPoiDlg)
+        self.buttonWgt.setObjectName(_fromUtf8("buttonWgt"))
+        self.horizontalLayout_2 = QtGui.QHBoxLayout(self.buttonWgt)
         self.horizontalLayout_2.setMargin(0)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
-        self.zoomSelKnop = QtGui.QPushButton(self.widget)
+        self.zoomSelKnop = QtGui.QPushButton(self.buttonWgt)
         self.zoomSelKnop.setObjectName(_fromUtf8("zoomSelKnop"))
         self.horizontalLayout_2.addWidget(self.zoomSelKnop)
-        self.verticalLayout.addWidget(self.widget)
+        self.verticalLayout.addWidget(self.buttonWgt)
 
         self.retranslateUi(geopunt4QgisPoiDlg)
         QtCore.QMetaObject.connectSlotsByName(geopunt4QgisPoiDlg)
@@ -92,10 +95,12 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.currentBoundsVink.setText(_translate("geopunt4QgisPoiDlg", "Beperk zoekresultaten tot huidige extent", None))
         self.resultLijst.setSortingEnabled(True)
         item = self.resultLijst.horizontalHeaderItem(0)
-        item.setText(_translate("geopunt4QgisPoiDlg", "Categorie", None))
+        item.setText(_translate("geopunt4QgisPoiDlg", "id", None))
         item = self.resultLijst.horizontalHeaderItem(1)
-        item.setText(_translate("geopunt4QgisPoiDlg", "Naam", None))
+        item.setText(_translate("geopunt4QgisPoiDlg", "Categorie", None))
         item = self.resultLijst.horizontalHeaderItem(2)
+        item.setText(_translate("geopunt4QgisPoiDlg", "Naam", None))
+        item = self.resultLijst.horizontalHeaderItem(3)
         item.setText(_translate("geopunt4QgisPoiDlg", "crab adres", None))
         self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))
 
