@@ -18,10 +18,10 @@ But some services are not standardized because there is no standard. <br/>
 These include:
 
 - **Geocoding** based on the Flemish [CRAB](http://www.agiv.be/gis/projecten/?catid=34) address-database
-- **Location search** based on databases joined the CRAB database.
+- **Location search** based on databases joined the CRAB database, like the locations of the schools in Flanders.
 - **Traffic obstruction information** from the [GIPOD](http://www.agiv.be/gis/diensten/?artid=1739) public works and manifestation database.
 
-The goal of this project is to make these webservices  also available to QGIS-users.
+The goal of this project is to make these webservices  also available to QGIS-users, so they can be uses for research and analyses.
 
 What is Geopunt ?
 --------------
@@ -30,8 +30,9 @@ What is Geopunt ?
 
 All components (metadata catalog , download application, data and network services) are directly integrated. The geoportal is the Flemish node in a European spatial data infrastructure and meets the requirements of the [European INSPIRE directive](http://inspire-geoportal.ec.europa.eu/).
 
-The Flemish Agency for Geographical Information [(AGIV)](http://www.agiv.be/gis/) is responsible for maintaining geopunt.
+Geopunt is the website of the partnership for geographic information within the Flemish government, GDI Flanders (GDI = Spatial Data Infrastructures). The Flemish Agency for Geographical Information [(AGIV)](http://www.agiv.be/gis/) is responsible for organising and maintaining geopunt.
 
 Sources: 
 - *[http://www.geopunt.be](http://www.geopunt.be/over-geopunt)* 
-- *[http://gditestbed.agiv.be/](http://gditestbed.agiv.be/)*
+- *http://gditestbed.agiv.be/*
+- *https://www.agiv.be/*
