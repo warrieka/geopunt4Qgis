@@ -19,7 +19,7 @@
  *                                                                         *
  ***************************************************************************/
 """
-import urllib2, urllib, json
+import urllib2, urllib, json, sys
 
 class Adres:
   def __init__(self):
@@ -39,10 +39,15 @@ class Adres:
       url = self._createLocationUrl(q, c=1)
       try:
 	  response = urllib2.urlopen(url)
+      except urllib2.HTTPError as e:
+	  return json.load(e)["Message"]
+      except urllib2.URLError as e:
+	  return e.reason.__str__()
       except:
-	  return "could not connect to geopunt"
-      LocationResult = json.load(response)
-      return LocationResult["LocationResult"]
+	  return sys.exc_info()[1]
+      else:
+	  LocationResult = json.load(response)
+	  return LocationResult["LocationResult"]
 
   def _createSuggestionUrl(self, q, c=5):
       geopuntUrl = self._sugUrl
@@ -57,11 +62,15 @@ class Adres:
       url = self._createSuggestionUrl(q,c)
       try:
 	  response = urllib2.urlopen(url)
+      except urllib2.HTTPError as e:
+	  return json.load(e)["Message"]
+      except urllib2.URLError as e:
+	  return e.reason.__str__()
       except:
-	  return "could not connect to geopunt "
-      suggestion = json.load(response)
-      return suggestion["SuggestionResult"]
-
+	  return sys.exc_info()[1]
+      else:
+	  suggestion = json.load(response)
+	  return suggestion["SuggestionResult"]
 
 class Poi:
   def __init__(self):
@@ -106,8 +115,12 @@ class Poi:
       url = self._createPoiUrl( q, c, srs, maxModel, bbox )
       try:
 	  response = urllib2.urlopen(url)
+      except urllib2.HTTPError as e:
+	  return json.load(e)["Message"]
+      except urllib2.URLError as e:
+	  return e.reason.__str__()
       except:
-	  return "could not connect to geopunt "
+	  return sys.exc_info()[1]
       else:
 	poi = json.load(response)
 	if updateResults:

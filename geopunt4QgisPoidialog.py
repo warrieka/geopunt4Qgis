@@ -19,43 +19,60 @@
  *                                                                         *
  ***************************************************************************/
 """
+#TODO add more localisation
+
 from PyQt4 import QtCore, QtGui
 from qgis.core import *
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 from ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
 import geometryhelper as gh
-import geopunt 
+import geopunt, os
 
 class geopunt4QgisPoidialog(QtGui.QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self)
-        # Set up the user interface from Designer.
-        self.ui = Ui_geopunt4QgisPoiDlg()
-        self.ui.setupUi(self)
-        
-        #setup a message bar
-        self.bar = QgsMessageBar() 
-        self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
-        self.ui.verticalLayout.addWidget(self.bar)
-        
-        self.iface = iface
-        
-        self.graphicsLayer = []
-        
-        #setup geopunt and geometryHelper objects
-        self.poi = geopunt.Poi()
-        self.gh = gh.geometryHelper(iface)
-        
-        #table ui
-        self.ui.resultLijst.hideColumn(0)
-        
-        #event handlers 
-        self.ui.poiText.returnPressed.connect(self.onZoekActivated)
-        self.ui.zoekKnop.clicked.connect(self.onZoekActivated)
-        self.ui.zoomSelKnop.clicked.connect(self.onZoomSelClicked)
-        self.ui.resultLijst.itemSelectionChanged.connect(self.onSelectionChanged)
-        self.finished.connect(self.clean )
-        
+	QtGui.QDialog.__init__(self)
+	self.iface = iface
+	self.graphicsLayer = []
+
+	# initialize locale
+        locale = QtCore.QSettings().value("locale/userLocale")[0:2]
+        localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
+        if os.path.exists(localePath):
+            self.translator = QtCore.QTranslator()
+            self.translator.load(localePath)
+            if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
+	
+	self._initGui()
+	
+	#setup geopunt and geometryHelper objects
+	self.poi = geopunt.Poi()
+	self.gh = gh.geometryHelper(iface)
+	
+    def _initGui(self):
+	
+	# Set up the user interface from Designer.
+	self.ui = Ui_geopunt4QgisPoiDlg()
+	self.ui.setupUi(self)
+	
+	#setup a message bar
+	self.bar = QgsMessageBar() 
+	self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
+	self.ui.verticalLayout.addWidget(self.bar)
+	
+	#table ui
+	self.ui.resultLijst.hideColumn(0)
+	
+	#actions
+	self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )
+	self.ui.actionZoomtoSelection.triggered.connect(self.onZoomSelClicked)
+	
+	#event handlers 
+	self.ui.poiText.returnPressed.connect(self.onZoekActivated)
+	self.ui.zoekKnop.clicked.connect(self.onZoekActivated)
+	self.ui.zoomSelKnop.clicked.connect(self.onZoomSelClicked)
+	self.ui.resultLijst.itemSelectionChanged.connect(self.onSelectionChanged)
+	self.finished.connect(self.clean )
+	
     def onZoekActivated(self):
 	txt = self.ui.poiText.text()
 	self.ui.resultLijst.clearContents()
@@ -90,16 +107,23 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	  self.ui.resultLijst.setSortingEnabled(True)
 	  
 	elif len(suggesties) == 0:
-	  self.bar.pushMessage("Geen resultaten gevonden voor", txt, level=QgsMessageBar.INFO, duration=3)
+	  self.bar.pushMessage(
+	    QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Geen resultaten gevonden voor"), 
+	    txt, level=QgsMessageBar.INFO, duration=3)
 	elif suggesties.__class__ == str:
-	  self.bar.pushMessage("Waarschuwing", suggesties, level=QgsMessageBar.WARNING, duration=3)
+	  self.bar.pushMessage(
+	    QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"), 
+	    suggesties, level=QgsMessageBar.WARNING)
 	else:
-	  self.bar.pushMessage("Fout", "onbekende fout", level=QgsMessageBar.CRITICAL, duration=3)
-
+	  self.bar.pushMessage("Error",
+		QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","onbekende fout"),
+		level=QgsMessageBar.CRITICAL)
+	
     def onZoomSelClicked(self):
 	selPois = self._getSelectedPois()
 	if len(selPois) <= 0 :
-	  self.bar.pushMessage("Merk op", "Er niets om naar te zoomen" ,level=QgsMessageBar.INFO, duration=3)
+	  self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Merk op"), QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Er niets om naar te zoomen"),
+			level=QgsMessageBar.INFO, duration=3)
 	elif len(selPois) >= 2:
 	  pts = [n['location']['points'][0]['Point']['coordinates'] for n in selPois ] 
 	  bounds = self.gh.getBoundsOfPointArray(pts)
@@ -107,10 +131,8 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	elif len(selPois) == 1:
 	  x,  y = selPois[0]['location']['points'][0]['Point']['coordinates']
 	  bounds = self.gh.getBoundsOfPoint(x,y)
-	  print bounds.__str__()
 	  self.gh.zoomtoRec(bounds[:2], bounds[2:4], 31370)
 	
-	        	        
     def onSelectionChanged(self):
 	selPois = self._getSelectedPois()
 	canvas = self.iface.mapCanvas()
@@ -124,9 +146,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	  self.graphicsLayer.append(m)
 	  m.setCenter(QgsPoint(x,y))
 	  m.setColor(QtGui.QColor(255,255,0))
-	  m.setIconSize(5)
+	  m.setIconSize(9)
 	  m.setIconType(QgsVertexMarker.ICON_BOX) 
-	  m.setPenWidth(3)
+	  m.setPenWidth(5)
 	
     def clean(self):
 	self.ui.poiText.setText("")

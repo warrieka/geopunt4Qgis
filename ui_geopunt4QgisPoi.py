@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Thu Dec 12 22:04:15 2013
+# Created: Fri Dec 13 19:39:58 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_geopunt4QgisPoiDlg(object):
     def setupUi(self, geopunt4QgisPoiDlg):
         geopunt4QgisPoiDlg.setObjectName(_fromUtf8("geopunt4QgisPoiDlg"))
         geopunt4QgisPoiDlg.resize(490, 370)
-        geopunt4QgisPoiDlg.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
+        geopunt4QgisPoiDlg.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntPoiSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         geopunt4QgisPoiDlg.setWindowIcon(icon)
@@ -54,6 +54,7 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.currentBoundsVink.setObjectName(_fromUtf8("currentBoundsVink"))
         self.verticalLayout.addWidget(self.currentBoundsVink)
         self.resultLijst = QtGui.QTableWidget(geopunt4QgisPoiDlg)
+        self.resultLijst.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.resultLijst.setFrameShape(QtGui.QFrame.StyledPanel)
         self.resultLijst.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.resultLijst.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
@@ -85,6 +86,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.zoomSelKnop.setObjectName(_fromUtf8("zoomSelKnop"))
         self.horizontalLayout_2.addWidget(self.zoomSelKnop)
         self.verticalLayout.addWidget(self.buttonWgt)
+        self.actionZoomtoSelection = QtGui.QAction(geopunt4QgisPoiDlg)
+        self.actionZoomtoSelection.setObjectName(_fromUtf8("actionZoomtoSelection"))
 
         self.retranslateUi(geopunt4QgisPoiDlg)
         QtCore.QMetaObject.connectSlotsByName(geopunt4QgisPoiDlg)
@@ -103,5 +106,6 @@ class Ui_geopunt4QgisPoiDlg(object):
         item = self.resultLijst.horizontalHeaderItem(3)
         item.setText(_translate("geopunt4QgisPoiDlg", "crab adres", None))
         self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))
+        self.actionZoomtoSelection.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar Selectie", None))
 
 import resources_rc

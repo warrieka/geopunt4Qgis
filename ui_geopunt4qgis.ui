@@ -12,7 +12,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Geopunt zoeken op adres</string>
+   <string>Zoek een adres via Geopunt </string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">

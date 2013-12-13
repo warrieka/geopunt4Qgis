@@ -59,10 +59,10 @@ class geometryHelper:
 
 #some code shamelessly copied from qgis-geocoding by Alessandro Pasotti: 
 # -> https://github.com/elpaso/qgis-geocoding/blob/master/GeoCoding.py
-    def save_point(self, point, address, typeAddress='' ):
+    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres" ):
         if not QgsMapLayerRegistry.instance().mapLayer(self.layerid) :
             # create layer with same CRS as map canvas
-            self.layer = QgsVectorLayer("Point", "Geopunt_adres", "memory")
+            self.layer = QgsVectorLayer("Point", layername, "memory")
             self.provider = self.layer.dataProvider()
             self.layer.setCrs(self.canvas.mapRenderer().destinationCrs())
 

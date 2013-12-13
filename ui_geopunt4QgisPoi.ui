@@ -12,7 +12,7 @@
    </rect>
   </property>
   <property name="contextMenuPolicy">
-   <enum>Qt::ActionsContextMenu</enum>
+   <enum>Qt::DefaultContextMenu</enum>
   </property>
   <property name="windowTitle">
    <string>Zoek een Locatie via geopunt</string>
@@ -60,6 +60,9 @@
    </item>
    <item>
     <widget class="QTableWidget" name="resultLijst">
+     <property name="contextMenuPolicy">
+      <enum>Qt::ActionsContextMenu</enum>
+     </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
@@ -139,6 +142,11 @@
     </widget>
    </item>
   </layout>
+  <action name="actionZoomtoSelection">
+   <property name="text">
+    <string>Zoom naar Selectie</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="4" margin="4"/>
  <resources>

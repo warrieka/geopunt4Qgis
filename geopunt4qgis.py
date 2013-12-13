@@ -26,7 +26,7 @@ from qgis.core import *
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialog
-from geopunt4qgisAdresdialog import geopunt4QgisDialog
+from geopunt4qgisAdresdialog import geopunt4QgisAdresDialog
 from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 import os.path
 
@@ -37,29 +37,27 @@ class geopunt4Qgis:
         self.iface = iface
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
+        
         # initialize locale
         locale = QSettings().value("locale/userLocale")[0:2]
         localePath = os.path.join(self.plugin_dir, 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
-
         if os.path.exists(localePath):
             self.translator = QTranslator()
             self.translator.load(localePath)
-
-            if qVersion() > '4.3.3':
-                QCoreApplication.installTranslator(self.translator)
+            if qVersion() > '4.3.3': QCoreApplication.installTranslator(self.translator)
 
         # Create the dialog (after translation) and keep reference
-        self.adresdlg = geopunt4QgisDialog(self.iface)
+        self.adresdlg = geopunt4QgisAdresDialog(self.iface)
         self.poiDlg = geopunt4QgisPoidialog(self.iface)
 
     def initGui(self):
         # Create actions that will start plugin configuration
         self.adresAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
-             u"Zoek een Adres", self.iface.mainWindow())
+            QCoreApplication.translate( "geopunt4Qgis" , u"Zoek een Adres"), self.iface.mainWindow())
 	self.poiAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
-             u"Zoek een Plaats - interesse punt", self.iface.mainWindow())
+            QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), self.iface.mainWindow())
 	
 	
         # connect the action to the run method

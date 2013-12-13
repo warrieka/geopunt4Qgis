@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Sun Dec  8 18:55:02 2013
+# Created: Fri Dec 13 19:03:36 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -65,7 +65,7 @@ class Ui_geopunt4Qgis(object):
         QtCore.QMetaObject.connectSlotsByName(geopunt4Qgis)
 
     def retranslateUi(self, geopunt4Qgis):
-        geopunt4Qgis.setWindowTitle(_translate("geopunt4Qgis", "Geopunt zoeken op adres", None))
+        geopunt4Qgis.setWindowTitle(_translate("geopunt4Qgis", "Zoek een adres via Geopunt ", None))
         self.inputBox.setTitle(_translate("geopunt4Qgis", "Geef een adres op:", None))
         self.zoekBtn.setText(_translate("geopunt4Qgis", "Valideer", None))
         self.Add2mapKnop.setText(_translate("geopunt4Qgis", "Toevoegen aan Kaart", None))
