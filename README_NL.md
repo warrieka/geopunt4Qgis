@@ -21,7 +21,15 @@ Het gaat onder andere over:
 - **Locaties zoeken** door koppeling van adressen aan de crab-databank, bijvoorbeeld de scholendatabank van de Vlaamse overheid.
 - **Innames van openbaar domein** van het Generiek Informatieplatform Openbaar Domein (GIPOD)  [GIPOD](http://www.agiv.be/gis/diensten/?artid=1739), de officiële databank met manifestaties, wegewerken en andere obstructies op het openbaar domein.
 
-Het van dit project om deze infotrmatie te ontsluiten naar desktop QGIS-gebruikers, voor gebruik in analyse en onderzoek.
+Het van dit project om deze infotrmatie te ontsluiten naar desktop QGIS-gebruikers, voor gebruik in papieren kaarten en voor het doen van analyse en onderzoek.
+
+**Algemene gebruikers vereisten:**
+
+- De diensten zijn toegankelijk via een interactieve dialoog, geopend wanneer de gebruiker op een knop of menu-item klikt.
+- De dialogen kunnen worden gebruikt en de gegevens kunnen worden weergegeven op elke ondersteund Spatial Reference System, niet alleen het Belgische Lambert 1972 (EPSG: 31370) of WGS84.
+- De gebruiker kan een "text" zoekopdracht in voeren en indien beschikbaar, ook andere zoekopties toevoegen zoals een geografisch gebied.
+- De gebruiker krijgt een lijst met resultaten voor de zoekopdracht en kan zoomen op een​selectie van deze lijst, om te kunnen beoordelen of de variabele de gewenste data is.
+- De gebruiker kan het juiste zoekresultaat selecteren in het dialoogvenster en toevoegen in kaart.
 
 What is Geopunt ?
 --------------
