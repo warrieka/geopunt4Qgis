@@ -19,7 +19,6 @@
  *                                                                         *
  ***************************************************************************/
 """
-#TODO add more localisation
 
 from PyQt4 import QtCore, QtGui
 from qgis.core import *
@@ -65,12 +64,16 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	#actions
 	self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )
 	self.ui.actionZoomtoSelection.triggered.connect(self.onZoomSelClicked)
+	self.ui.resultLijst.addAction( self.ui.actionAddTSeltoMap )
+	self.ui.actionAddTSeltoMap.triggered.connect(self.onAddSelClicked)
 	
 	#event handlers 
 	self.ui.poiText.returnPressed.connect(self.onZoekActivated)
 	self.ui.zoekKnop.clicked.connect(self.onZoekActivated)
 	self.ui.zoomSelKnop.clicked.connect(self.onZoomSelClicked)
+	self.ui.resultLijst.itemDoubleClicked.connect(self.onZoomSelClicked )
 	self.ui.resultLijst.itemSelectionChanged.connect(self.onSelectionChanged)
+	self.ui.addToMapKnop.clicked.connect(self.onAddSelClicked)
 	self.finished.connect(self.clean )
 	
     def onZoekActivated(self):
@@ -146,10 +149,15 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	  self.graphicsLayer.append(m)
 	  m.setCenter(QgsPoint(x,y))
 	  m.setColor(QtGui.QColor(255,255,0))
-	  m.setIconSize(9)
+	  m.setIconSize(1)
 	  m.setIconType(QgsVertexMarker.ICON_BOX) 
-	  m.setPenWidth(5)
-	
+	  m.setPenWidth(10)
+
+    def onAddSelClicked(self):
+	self._clearGraphicsLayer()
+	pts = self._getSelectedPois()
+	self.gh.save_pois_points( pts )
+
     def clean(self):
 	self.ui.poiText.setText("")
 	self.ui.resultLijst.clearContents()

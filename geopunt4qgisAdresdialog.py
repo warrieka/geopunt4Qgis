@@ -150,9 +150,9 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	    adres = loc["FormattedAddress"]
 	    LocationType = loc["LocationType"]
 	    
-	    lat, lon = self.gh.prjPtToMapCrs(QgsPoint( x , y), 31370)
+	    pt = self.gh.prjPtToMapCrs(QgsPoint( x , y), 31370)
 	    
-	    self.gh.save_adres_point(QgsPoint(lat, lon), adres, LocationType )
+	    self.gh.save_adres_point( pt , adres, LocationType )
 	    
 	elif locations.__class__ == str:
 	  self.bar.pushMessage(

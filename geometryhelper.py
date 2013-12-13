@@ -26,7 +26,8 @@ class geometryHelper:
     def __init__(self , iface ):
 	self.iface = iface
 	self.canvas = iface.mapCanvas()
-	self.layerid = ''
+	self.adreslayerid = ''
+	self.poilayerid = ''
         
     def prjPtToMapCrs( self, xy , fromCRS=4326 ):
 	point = QgsPoint( xy[0], xy[1] )
@@ -60,32 +61,30 @@ class geometryHelper:
 #some code shamelessly copied from qgis-geocoding by Alessandro Pasotti: 
 # -> https://github.com/elpaso/qgis-geocoding/blob/master/GeoCoding.py
     def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres" ):
-        if not QgsMapLayerRegistry.instance().mapLayer(self.layerid) :
+        if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid) :
             # create layer with same CRS as map canvas
-            self.layer = QgsVectorLayer("Point", layername, "memory")
-            self.provider = self.layer.dataProvider()
-            self.layer.setCrs(self.canvas.mapRenderer().destinationCrs())
+            self.adreslayer = QgsVectorLayer("Point", layername, "memory")
+            self.adresProvider = self.adreslayer.dataProvider()
+            self.adreslayer.setCrs(self.canvas.mapRenderer().destinationCrs())
 
             # add fields
-            self.provider.addAttributes([QgsField("adres", QVariant.String, len=128), 
-					 QgsField("type", QVariant.String, len=64)])
-
-            self.layer.updateFields()
+            self.adresProvider.addAttributes([QgsField("adres", QVariant.String), 
+					      QgsField("type", QVariant.String)])
+            self.adreslayer.updateFields()
 
             # Labels on
-            label = self.layer.label()
+            label = self.adreslayer.label()
             label.setLabelField(QgsLabel.Text, 0)
-            self.layer.enableLabels(True)
+            self.adreslayer.enableLabels(True)
 
             # add layer if not already
-            QgsMapLayerRegistry.instance().addMapLayer(self.layer)
+            QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
 
             # store layer id
-            self.layerid = self.layer.id()
-
+            self.adreslayerid = self.adreslayer.id()
 
         # add a feature
-        fields=self.layer.pendingFields()
+        fields=self.adreslayer.pendingFields()
         fet = QgsFeature(fields)
         fet.setGeometry(QgsGeometry.fromPoint(point))
 
@@ -93,14 +92,60 @@ class geometryHelper:
         fet['adres'] = address
         fet['type'] = typeAddress
 
-        self.provider.addFeatures([ fet ])
+        self.adresProvider.addFeatures([ fet ])
 
         # update layer's extent when new features have been added
         # because change of extent in provider is not propagated to the layer
-        self.layer.updateExtents()
-
+        self.adreslayer.updateExtents()
         self.canvas.refresh()
-      
+        
+    def save_pois_points(self, points, layername="Geopunt_place" ):
+	if not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid) :
+	  self.poilayer = QgsVectorLayer("Point", layername, "memory")
+	  self.poiProvider = self.poilayer.dataProvider()
+	  self.poilayer.setCrs(self.canvas.mapRenderer().destinationCrs())
+	  
+	  # add fields
+	  self.poiProvider.addAttributes([ 
+	    QgsField("id", QVariant.Int),
+	    QgsField("category", QVariant.String),
+	    QgsField("name", QVariant.String),
+	    QgsField("adres", QVariant.String)])
+	  self.poilayer.updateFields()           
+	  
+	  label = self.poilayer.label()        
+	  label.setLabelField(QgsLabel.Text, 2) #2 = name
+	  self.poilayer.enableLabels(True)    # Labels on
+
+	  # add layer if not already
+	  QgsMapLayerRegistry.instance().addMapLayer(self.poilayer)
+
+	  # store layer id
+	  self.poilayerid = self.poilayer.id()
+	  
+	fields=self.poilayer.pendingFields()
+	for point in points:
+	  pt = self.prjPtToMapCrs( point['location']['points'][0]['Point']['coordinates'], 31370)
+	  
+	  poiId = point["id"]
+	  category =  point["categories"][0]['value']
+	  name = point["labels"][0]["value"]
+	  adres = point['location']['address']["value"].replace("<br />",", ").replace("<br/>",", ")
+	  
+	  # add a feature
+	  fet = QgsFeature(fields)
+	  fet.setGeometry(QgsGeometry.fromPoint(pt))
+	  
+	  fet['id'] = int( poiId )
+	  fet['category'] = category
+	  fet['name'] = name
+	  fet['adres'] = adres
+	  
+	  self.poiProvider.addFeatures([ fet ])
+	  
+	self.poilayer.updateExtents()
+        self.canvas.refresh()
+	
     def getBoundsOfPointArray( self, pointArray):
 	minX = 1.7976931348623157e+308
 	maxX = -1.7976931348623157e+308

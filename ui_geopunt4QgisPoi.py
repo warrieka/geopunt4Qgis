@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Fri Dec 13 19:39:58 2013
+# Created: Fri Dec 13 22:53:14 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -82,12 +82,17 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
+        self.addToMapKnop = QtGui.QPushButton(self.buttonWgt)
+        self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
+        self.horizontalLayout_2.addWidget(self.addToMapKnop)
         self.zoomSelKnop = QtGui.QPushButton(self.buttonWgt)
         self.zoomSelKnop.setObjectName(_fromUtf8("zoomSelKnop"))
         self.horizontalLayout_2.addWidget(self.zoomSelKnop)
         self.verticalLayout.addWidget(self.buttonWgt)
         self.actionZoomtoSelection = QtGui.QAction(geopunt4QgisPoiDlg)
         self.actionZoomtoSelection.setObjectName(_fromUtf8("actionZoomtoSelection"))
+        self.actionAddTSeltoMap = QtGui.QAction(geopunt4QgisPoiDlg)
+        self.actionAddTSeltoMap.setObjectName(_fromUtf8("actionAddTSeltoMap"))
 
         self.retranslateUi(geopunt4QgisPoiDlg)
         QtCore.QMetaObject.connectSlotsByName(geopunt4QgisPoiDlg)
@@ -105,7 +110,9 @@ class Ui_geopunt4QgisPoiDlg(object):
         item.setText(_translate("geopunt4QgisPoiDlg", "Naam", None))
         item = self.resultLijst.horizontalHeaderItem(3)
         item.setText(_translate("geopunt4QgisPoiDlg", "crab adres", None))
+        self.addToMapKnop.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
         self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))
         self.actionZoomtoSelection.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar Selectie", None))
+        self.actionAddTSeltoMap.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
 
 import resources_rc

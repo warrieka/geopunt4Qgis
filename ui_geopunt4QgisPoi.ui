@@ -46,6 +46,8 @@
        </widget>
       </item>
      </layout>
+     <zorder>zoekKnop</zorder>
+     <zorder>poiText</zorder>
     </widget>
    </item>
    <item>
@@ -132,6 +134,13 @@
        </spacer>
       </item>
       <item>
+       <widget class="QPushButton" name="addToMapKnop">
+        <property name="text">
+         <string>Voeg selectie toe aan kaart</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="zoomSelKnop">
         <property name="text">
          <string>Zoom naar selectie</string>
@@ -145,6 +154,11 @@
   <action name="actionZoomtoSelection">
    <property name="text">
     <string>Zoom naar Selectie</string>
+   </property>
+  </action>
+  <action name="actionAddTSeltoMap">
+   <property name="text">
+    <string>Voeg selectie toe aan kaart</string>
    </property>
   </action>
  </widget>
