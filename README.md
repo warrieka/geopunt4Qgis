@@ -21,7 +21,14 @@ These include:
 - **Location search** based on databases joined the CRAB database, like the locations of the schools in Flanders.
 - **Traffic obstruction information** from the [GIPOD](http://www.agiv.be/gis/diensten/?artid=1739) public works and manifestation database.
 
-The goal of this project is to make these webservices  also available to QGIS-users, so they can be uses for research and analyses.
+The goal of this project is to make these webservices available to QGIS-users, so they can be uses for creating print-maps and for doing research and analyses.
+
+**General use cases:**
+- The services are accessed through a interactive dialog, opened when the user clicks a button or menu entry.
+- The dialogs can be used and the data can be displayed at every supported Spatial Reference System, not just Belgian Lambert 1972 (epsg:31370) or wgs84.
+- The user can enter a "text" search query and if available also add other search options like a geographical extent.
+- The gets a list of results for the query and can select zoom to a selection of this list, in order to evaluate if the variable is the wanted data.
+- The user can select the correct search result from the dialog and add it to map.
 
 What is Geopunt ?
 --------------
