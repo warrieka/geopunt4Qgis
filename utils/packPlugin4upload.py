@@ -4,7 +4,7 @@ import zipfile
 
 source = "/home/kay/projects/geopunt4Qgis/"
 target = source + "build/geopunt4Qgis.zip"
-includeFile = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html" ] 
+includeFile = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", "*.qm", "*.ts" ] 
 includeDir = ["images","i18n"]
 
 def makeList( src ):
@@ -19,7 +19,7 @@ def zipdir(path, zip):
   files = makeList(path)
   for zfile in files: 
     sbase = os.path.dirname(source)
-    arcName = zfile.replace( sbase ,"")
+    arcName = zfile.replace( sbase ,"geopunt4Qgis")
     zip.write( zfile , arcName)
 
 if __name__ == '__main__':

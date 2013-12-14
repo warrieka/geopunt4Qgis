@@ -110,7 +110,11 @@ class geometryHelper:
 	    QgsField("id", QVariant.Int),
 	    QgsField("category", QVariant.String),
 	    QgsField("name", QVariant.String),
-	    QgsField("adres", QVariant.String)])
+	    QgsField("adres", QVariant.String),
+	    QgsField("link", QVariant.String),
+	    QgsField("lastupdate", QVariant.String, "DateTime"),
+	    QgsField("owner", QVariant.String)
+	    ])
 	  self.poilayer.updateFields()           
 	  
 	  label = self.poilayer.label()        
@@ -128,9 +132,18 @@ class geometryHelper:
 	  pt = self.prjPtToMapCrs( point['location']['points'][0]['Point']['coordinates'], 31370)
 	  
 	  poiId = point["id"]
-	  category =  point["categories"][0]['value']
+	  if "categories" in  point: category =  point["categories"][0]['value']
+	  else: category = ''
 	  name = point["labels"][0]["value"]
 	  adres = point['location']['address']["value"].replace("<br />",", ").replace("<br/>",", ")
+	  if "links" in point: link = point["links"][0]['href']
+	  else: link = ""
+	  tijd =  point["updated"] 
+	  #tijd = QDateTime().fromString( point["updated"] , "yyyy-MM-ddTHH:mm:ss")
+	  print tijd
+	  if "authors" in point: owner = point["authors"][0]["value"]
+	  else: owner= ""
+
 	  
 	  # add a feature
 	  fet = QgsFeature(fields)
@@ -140,6 +153,9 @@ class geometryHelper:
 	  fet['category'] = category
 	  fet['name'] = name
 	  fet['adres'] = adres
+	  fet['link'] = link
+	  fet['lastupdate'] = tijd
+	  fet['owner'] = owner
 	  
 	  self.poiProvider.addFeatures([ fet ])
 	  

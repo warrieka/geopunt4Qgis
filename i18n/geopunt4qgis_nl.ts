@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="nl_BE" sourcelanguage="nl_BE">
+<!DOCTYPE TS><TS version="2.0" language="nl_BE" sourcelanguage="nl_BE">
+<context>
+    <name>aboutDlg</name>
+    <message>
+        <location filename="../ui_geopunt4QgisAbout.ui" line="14"/>
+        <source>Over Geopunt4QGIS</source>
+        <translation>Over Geopunt4QGIS</translation>
+    </message>
+</context>
 <context>
     <name>geopunt4Qgis</name>
     <message>
@@ -34,14 +41,24 @@
         <translation>Zoek een adres via Geopunt</translation>
     </message>
     <message>
-        <location filename="../geopunt4qgis.py" line="55"/>
+        <location filename="../geopunt4qgis.py" line="58"/>
         <source>Zoek een Adres</source>
         <translation>Zoek een Adres</translation>
     </message>
     <message>
-        <location filename="../geopunt4qgis.py" line="58"/>
+        <location filename="../geopunt4qgis.py" line="61"/>
         <source>Zoek een Plaats - interesse punt</source>
         <translation>Zoek een Plaats - interesse punt</translation>
+    </message>
+    <message>
+        <location filename="../geopunt4qgis.py" line="64"/>
+        <source>Over geopunt</source>
+        <translation type="obsolete">Over geopunt</translation>
+    </message>
+    <message>
+        <location filename="../geopunt4qgis.py" line="64"/>
+        <source>Over geopunt4Qgis</source>
+        <translation>Over geopunt4Qgis</translation>
     </message>
 </context>
 <context>

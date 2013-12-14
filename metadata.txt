@@ -5,8 +5,8 @@
 [general]
 name=geopunt4Qgis
 qgisMinimumVersion=2.0
-description="Plugin om geopunt in QGIS te gebruiken - Plugin to use geopunt in QGIS"
-version=0.2
+description="Plugin om geopunt in QGIS te gebruiken - Plug-in to use geopunt in QGIS"
+version=0.5
 author=Kay Warrie
 email=kaywarrie@gmail.com
 
@@ -17,13 +17,13 @@ email=kaywarrie@gmail.com
 # changelog=
 
 # tags are comma separated with spaces allowed
-tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, GIPOD, FLANDERS, BELGIUM
+tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, GIPOD, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI
 
 homepage=https://github.com/warrieka/geopunt4Qgis
 tracker=
 repository=https://github.com/warrieka/geopunt4Qgis
 icon=images/geopunt.png
-category=Web
+category=
 # experimental flag
 experimental=True
 

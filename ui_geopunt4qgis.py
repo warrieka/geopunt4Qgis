@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Fri Dec 13 19:03:36 2013
+# Created: Sat Dec 14 14:42:57 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,7 +28,7 @@ class Ui_geopunt4Qgis(object):
         geopunt4Qgis.setObjectName(_fromUtf8("geopunt4Qgis"))
         geopunt4Qgis.resize(480, 359)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntSmal.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntAddressSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         geopunt4Qgis.setWindowIcon(icon)
         self.verticalLayout = QtGui.QVBoxLayout(geopunt4Qgis)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))

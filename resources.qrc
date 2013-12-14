@@ -1,9 +1,8 @@
 <RCC>
   <qresource prefix="/plugins/geopunt4Qgis">
+    <file>images/geopuntAddressSmall.png</file>
+    <file>images/geopuntAddress.png</file>
     <file>images/binocularsSmall.png</file>
-    <file>images/agivMedium.png</file>
-    <file>images/agivSmall0.png</file>
-    <file>images/agivSmall.png</file>
     <file>images/geopunt.png</file>
     <file>images/geopuntPoi.png</file>
     <file>images/geopuntPoiSmall.png</file>

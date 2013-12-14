@@ -26,22 +26,21 @@ QGISDIR=.qgis2
 
 # translation
 SOURCES = geopunt4qgis.py ui_geopunt4qgis.py __init__.py geopunt4qgisdialog.py geopunt.py geometryhelper.py
-#TRANSLATIONS = i18n/geopunt4qgis_en.ts
-TRANSLATIONS = 
+TRANSLATIONS = i18n/geopunt4qgis_en.ts i18n/geopunt4qgis_nl.ts
 
 # global
 
 PLUGINNAME = geopunt4Qgis
 
-PY_FILES = geopunt4qgis.py geopunt4qgisdialog.py __init__.py geopunt.py geometryhelper.py
+PY_FILES = geopunt4qgis.py geopunt4qgisAdresdialog.py __init__.py geopunt.py geometryhelper.py about.py geopunt4QgisPoidialog.py
 
 EXTRAS = images/geopunt.png images/geopuntSmal.png images/logogeopunt4Q.png images/logogeopunt.png images/logoQGIS.png metadata.txt
 
-UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py
+UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py
 
 RESOURCE_FILES = resources_rc.py
 
-HELP = help/build/html
+HELP = 
 
 default: compile
 
@@ -114,6 +113,4 @@ transclean:
 clean:
 	rm $(UI_FILES) $(RESOURCE_FILES)
 
-# build documentation with sphinx
-doc: 
-	cd help; make html
+
