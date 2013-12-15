@@ -7,6 +7,16 @@
         <source>Over Geopunt4QGIS</source>
         <translation>Over Geopunt4QGIS</translation>
     </message>
+    <message>
+        <location filename="../ui_geopunt4QgisAbout.ui" line="35"/>
+        <source>images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_geopunt4QgisAbout.ui" line="36"/>
+        <source>../images</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>geopunt4Qgis</name>

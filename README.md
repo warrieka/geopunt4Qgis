@@ -1,10 +1,17 @@
 Geopunt4Qgis
 ============
 
- <a href="http://www.geopunt.be" target="_blank"><img src="images/logogeopunt4Q.png"/></a>
- <br/>
- *"Geopunt voor QGIS"*
+<img src="images/logogeopunt4Q.png"/><br/>
+ *"Geopunt for QGIS"*
 
+System requirements
+-------------------
+
+- QGIS 2.0 or above
+- Python 2.6 or above
+- Any OS capable of running QGIS with python plug-ins: ao. MS Windows, Mac OSX and Linux
+- Requires internet connection, restrictive firewalls may block connection
+ 
 Goals
 -----
 
@@ -24,6 +31,7 @@ These include:
 The goal of this project is to make these webservices available to QGIS-users, so they can be uses for creating print-maps and for doing research and analyses.
 
 **General use cases:**
+
 - The services are accessed through a interactive dialog, opened when the user clicks a button or menu entry.
 - The dialogs can be used and the data can be displayed at every supported Spatial Reference System, not just Belgian Lambert 1972 (epsg:31370) or wgs84.
 - The user can enter a "text" search query and if available also add other search options like a geographical extent.
@@ -40,6 +48,7 @@ All components (metadata catalog , download application, data and network servic
 Geopunt is the website of the partnership for geographic information within the Flemish government, GDI Flanders (GDI = Spatial Data Infrastructures). The Flemish Agency for Geographical Information [(AGIV)](http://www.agiv.be/gis/) is responsible for organising and maintaining geopunt.
 
 Sources: 
+
 - *[http://www.geopunt.be](http://www.geopunt.be/over-geopunt)* 
-- *http://gditestbed.agiv.be/*
-- *https://www.agiv.be/*
+- *[http://gditestbed.agiv.be/](http://gditestbed.agiv.be/)*
+- *[https://www.agiv.be/](https://www.agiv.be/)*
