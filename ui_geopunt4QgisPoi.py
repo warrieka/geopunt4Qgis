@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Sat Dec 14 14:28:32 2013
+# Created: Sun Dec 15 22:39:30 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -89,12 +89,17 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.zoomSelKnop.setObjectName(_fromUtf8("zoomSelKnop"))
         self.horizontalLayout_2.addWidget(self.zoomSelKnop)
         self.verticalLayout.addWidget(self.buttonWgt)
+        self.buttonBox = QtGui.QDialogButtonBox(geopunt4QgisPoiDlg)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close)
+        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
+        self.verticalLayout.addWidget(self.buttonBox)
         self.actionZoomtoSelection = QtGui.QAction(geopunt4QgisPoiDlg)
         self.actionZoomtoSelection.setObjectName(_fromUtf8("actionZoomtoSelection"))
         self.actionAddTSeltoMap = QtGui.QAction(geopunt4QgisPoiDlg)
         self.actionAddTSeltoMap.setObjectName(_fromUtf8("actionAddTSeltoMap"))
 
         self.retranslateUi(geopunt4QgisPoiDlg)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), geopunt4QgisPoiDlg.close)
         QtCore.QMetaObject.connectSlotsByName(geopunt4QgisPoiDlg)
 
     def retranslateUi(self, geopunt4QgisPoiDlg):

@@ -76,7 +76,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	  self.bar.pushMessage(
 	    QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Geen resultaten gevonden voor"), 
 			txt, level=QgsMessageBar.INFO, duration=3)
-	elif suggesties.__class__ == str:
+	elif suggesties.__class__ is str:
 	  self.bar.pushMessage(
 	    QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"),
 			suggesties, level=QgsMessageBar.WARNING)

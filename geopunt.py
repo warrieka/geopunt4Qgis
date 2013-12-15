@@ -72,6 +72,8 @@ class Adres:
 	  suggestion = json.load(response)
 	  return suggestion["SuggestionResult"]
 
+
+
 class Poi:
   def __init__(self):
       self._poiUrl = "http://poi.api.geopunt.be/core?"

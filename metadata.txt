@@ -6,7 +6,7 @@
 name=geopunt4Qgis
 qgisMinimumVersion=2.0
 description="Plugin om geopunt diensten in QGIS te gebruiken - Plug-in to use geopunt services in QGIS"
-version=0.5
+version=0.6
 author=Kay Warrie
 email=kaywarrie@gmail.com
 

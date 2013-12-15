@@ -99,7 +99,7 @@ class geometryHelper:
         self.adreslayer.updateExtents()
         self.canvas.refresh()
         
-    def save_pois_points(self, points, layername="Geopunt_place" ):
+    def save_pois_points(self, points, layername="Geopunt_poi" ):
 	if not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid) :
 	  self.poilayer = QgsVectorLayer("Point", layername, "memory")
 	  self.poiProvider = self.poilayer.dataProvider()
