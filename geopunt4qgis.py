@@ -83,8 +83,9 @@ class geopunt4Qgis:
 
         # Add to toolbar button
         self.iface.addToolBarIcon(self.adresAction)
-        self.iface.addToolBarIcon(self.poiAction)
         self.iface.addToolBarIcon(self.reverseAction)
+        self.iface.addToolBarIcon(self.poiAction)
+        
         # Add to Menu
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.reverseAction)
