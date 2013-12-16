@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="/plugins/geopunt4Qgis">
     <file>images/geopuntAddressSmall.png</file>
+    <file>images/geopuntReverse.png</file>
     <file>images/geopuntAddress.png</file>
     <file>images/binocularsSmall.png</file>
     <file>images/geopunt.png</file>
@@ -9,6 +10,5 @@
     <file>images/geopuntSmal.png</file>
     <file>images/logogeopunt.png</file>
     <file>images/logogeopunt4Q.png</file>
-    <file>images/logoQGIS.png</file>
   </qresource>
 </RCC>

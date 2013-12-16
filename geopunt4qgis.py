@@ -32,7 +32,7 @@ from geopunt4qgisAdresdialog import geopunt4QgisAdresDialog
 from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from reverseAdresMapTool import reverseAdresMapTool
 from about import geopunt4QgisAboutdialog
-import os.path, geopunt, geometryhelper
+import os.path, time, geopunt, geometryhelper
 
 
 class geopunt4Qgis:
@@ -65,7 +65,7 @@ class geopunt4Qgis:
             QIcon(":/plugins/geopunt4Qgis/images/geopuntAddress.png"),
             QCoreApplication.translate( "geopunt4Qgis" , u"Zoek een Adres"), self.iface.mainWindow())
 	self.reverseAction = QAction( 
-	    QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
+	    QIcon(":/plugins/geopunt4Qgis/images/geopuntReverse.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Prik een Adres op kaart"), self.iface.mainWindow())
 	self.poiAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
@@ -134,13 +134,14 @@ class geopunt4Qgis:
 	xform = QgsCoordinateTransform( mapCrs, lam72 )
 	lam72pt = xform.transform( point )
 	
-	#TODO: to clear or not clear that is the question
+	#to clear or not clear that is the question
 	self.iface.messageBar().clearWidgets()
-	
+
 	#fetch Location from geopunt
 	adres = self.adres.fetchLocation(lam72pt.x().__str__() +","+ lam72pt.y().__str__(), 1)
 	
 	if len(adres) and adres.__class__ is list:
+	  #only one result in list, was set in request
 	  FormattedAddress = adres[0]["FormattedAddress"]
 	  
 	  #add a button to the messageBar widget
