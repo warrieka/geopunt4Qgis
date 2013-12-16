@@ -174,6 +174,6 @@ class geopunt4Qgis:
 	xlam72, ylam72 = adres["Location"]["X_Lambert72"] , adres["Location"]["Y_Lambert72"]
 	
 	xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)
-	self.gh.save_adres_point(xy, formattedAddress, locationType )
+	self.gh.save_adres_point(xy, formattedAddress, locationType, "Geopunt_reverse_adres" )
 	self.iface.messageBar().popWidget()	
         
