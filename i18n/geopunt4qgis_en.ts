@@ -109,12 +109,12 @@
         <translation type="obsolete">No results found for</translation>
     </message>
     <message>
-        <location filename="../geopunt4qgisAdresdialog.py" line="157"/>
+        <location filename="../geopunt4qgisAdresdialog.py" line="155"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../geopunt4qgisAdresdialog.py" line="161"/>
+        <location filename="../geopunt4qgisAdresdialog.py" line="159"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
