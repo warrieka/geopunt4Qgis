@@ -157,12 +157,6 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	self._clearGraphicsLayer()
 	pts = self._getSelectedPois()
 	self.gh.save_pois_points( pts )
-
-    def clean(self):
-	self.ui.poiText.setText("")
-	self.ui.resultLijst.clearContents()
-	self.ui.resultLijst.setRowCount(0)
-	self._clearGraphicsLayer()
 	
     def _getSelectedPois(self):
 	pois =  self.poi.PoiResult
@@ -178,3 +172,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	self.iface.mapCanvas().scene().removeItem(graphic)
       self.graphicsLayer = []
       
+    def clean(self):
+	self.bar.clearWidgets()
+	self.ui.poiText.setText("")
+	self.ui.resultLijst.clearContents()
+	self.ui.resultLijst.setRowCount(0)
+	self._clearGraphicsLayer()

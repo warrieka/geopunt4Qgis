@@ -32,8 +32,8 @@ from geopunt4qgisAdresdialog import geopunt4QgisAdresDialog
 from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from reverseAdresMapTool import reverseAdresMapTool
 from about import geopunt4QgisAboutdialog
-import os.path, time, geopunt, geometryhelper
-
+import geopunt, geometryhelper
+import os.path, time
 
 class geopunt4Qgis:
     def __init__(self, iface):
