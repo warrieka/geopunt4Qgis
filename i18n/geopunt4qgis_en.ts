@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="en" sourcelanguage="nl_BE">
+<!DOCTYPE TS><TS version="1.1" language="en">
 <context>
     <name>aboutDlg</name>
     <message>
@@ -54,12 +53,12 @@
     <message>
         <location filename="../geopunt4qgis.py" line="64"/>
         <source>Zoek een Adres</source>
-        <translation>Search for an address</translation>
+        <translation type="obsolete">Search for an address</translation>
     </message>
     <message>
         <location filename="../geopunt4qgis.py" line="70"/>
         <source>Zoek een Plaats - interesse punt</source>
-        <translation>Search a place - point of interest</translation>
+        <translation type="obsolete">Search a place - point of interest</translation>
     </message>
     <message>
         <location filename="../geopunt4qgis.py" line="64"/>
@@ -69,42 +68,42 @@
     <message>
         <location filename="../geopunt4qgis.py" line="73"/>
         <source>Over geopunt4Qgis</source>
-        <translation>About geopunt4Qgis</translation>
+        <translation type="obsolete">About geopunt4Qgis</translation>
     </message>
     <message>
-        <location filename="../geopunt4qgis.py" line="123"/>
+        <location filename="../geopunt4qgis.py" line="125"/>
         <source>Zoek een Adres: </source>
         <translation>Search an adres: </translation>
     </message>
     <message>
-        <location filename="../geopunt4qgis.py" line="123"/>
+        <location filename="../geopunt4qgis.py" line="125"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Click on the map to look the address</translation>
     </message>
     <message>
-        <location filename="../geopunt4qgis.py" line="146"/>
+        <location filename="../geopunt4qgis.py" line="149"/>
         <source>Resultaat: </source>
         <translation>Result: </translation>
     </message>
     <message>
-        <location filename="../geopunt4qgis.py" line="162"/>
+        <location filename="../geopunt4qgis.py" line="165"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../geopunt4qgis.py" line="156"/>
+        <location filename="../geopunt4qgis.py" line="159"/>
         <source>Geen resultaten gevonden</source>
         <translation>No results</translation>
     </message>
     <message>
-        <location filename="../geopunt4qgis.py" line="166"/>
+        <location filename="../geopunt4qgis.py" line="169"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
     <message>
         <location filename="../geopunt4qgis.py" line="67"/>
         <source>Prik een Adres op kaart</source>
-        <translation>Find an address on the  map</translation>
+        <translation type="obsolete">Find an address on the  map</translation>
     </message>
 </context>
 <context>
@@ -168,12 +167,12 @@
         <translation>Zoom to selection</translation>
     </message>
     <message>
-        <location filename="../ui_geopunt4QgisPoi.ui" line="156"/>
+        <location filename="../ui_geopunt4QgisPoi.ui" line="163"/>
         <source>Zoom naar Selectie</source>
         <translation>Zoom to Selection</translation>
     </message>
     <message>
-        <location filename="../ui_geopunt4QgisPoi.ui" line="161"/>
+        <location filename="../ui_geopunt4QgisPoi.ui" line="168"/>
         <source>Voeg selectie toe aan kaart</source>
         <translation>Add selection to map</translation>
     </message>
