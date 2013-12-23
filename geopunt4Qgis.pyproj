@@ -6,19 +6,27 @@
     <ProjectGuid>{589131ab-582b-4335-ac58-e7a3ee6d9379}</ProjectGuid>
     <ProjectHome />
     <StartupFile>utils\testappOnWindows.py</StartupFile>
-    <SearchPath>utils\</SearchPath>
+    <SearchPath>utils\;\OSGeo4W\apps\qgis\python;\OSGeo4W\apps\python27</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <InterpreterId>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</InterpreterId>
-    <InterpreterVersion>2.6</InterpreterVersion>
+    <InterpreterVersion>2.7</InterpreterVersion>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="data\gemeentenVL.json" />
+    <Content Include="i18n\geopunt4qgis_en.ts" />
+    <Content Include="i18n\geopunt4qgis_nl.ts" />
+    <Content Include="i18n\geopunt4qgis_ts.pro" />
     <Content Include="LICENSE.txt" />
+    <Content Include="Makefile" />
     <Content Include="metadata.txt" />
+    <Content Include="README.md" />
+    <Content Include="README_NL.md" />
+    <Content Include="resources.qrc" />
     <Content Include="ui_geopunt4qgis.ui" />
     <Content Include="ui_geopunt4QgisAbout.ui" />
     <Content Include="ui_geopunt4QgisPoi.ui" />
@@ -56,12 +64,13 @@
     <Compile Include="utils\testappOnWindows.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="data\" />
     <Folder Include="i18n" />
     <Folder Include="images" />
     <Folder Include="utils" />
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.6" />
+    <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

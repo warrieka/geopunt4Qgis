@@ -8,8 +8,8 @@ Systeem vereisten
 -----------------
 
 - QGIS 2.0 of hoger
-- Python 2.6 of hoger
-- Elk besturingssysteem dat QGIS met python plug-ins ondersteund: ea. MS Windows, Mac OSX and Linux
+- Python 2.7 (wordt geinstalleerd met qgis)
+- Elk besturingssysteem dat QGIS met python plug-ins ondersteund: ea. MS Windows, Mac OSX en Linux
 - Vereist internet connectie, restrictieve firewalls kunnen mogelijk de connectie blokkeren
 
 Doelsteling

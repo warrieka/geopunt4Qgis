@@ -24,7 +24,6 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.gui import  QgsMessageBar
-from qgis.utils import showPluginHelp
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialog
