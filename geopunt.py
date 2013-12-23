@@ -39,10 +39,8 @@ class Adres:
       url = self._createLocationUrl(q, c=1)
       try:
 	  response = urllib2.urlopen(url)
-      except urllib2.HTTPError as e:
-	  return json.load(e)["Message"]
-      except urllib2.URLError as e:
-	  return e.reason.__str__()
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+	  return str( e.reason )
       except:
 	  return sys.exc_info()[1]
       else:
@@ -62,10 +60,8 @@ class Adres:
       url = self._createSuggestionUrl(q,c)
       try:
 	  response = urllib2.urlopen(url)
-      except urllib2.HTTPError as e:
-	  return json.load(e)["Message"]
-      except urllib2.URLError as e:
-	  return e.reason.__str__()
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+	  return str( e.reason )
       except:
 	  return sys.exc_info()[1]
       else:

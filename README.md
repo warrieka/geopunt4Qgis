@@ -25,7 +25,7 @@ But some services are not standardized because there is no standard. <br/>
 These include:
 
 - **Geocoding** based on the Flemish [CRAB](http://www.agiv.be/gis/projecten/?catid=34) address-database
-- **Location search** based on databases joined the CRAB database, like the locations of the schools in Flanders.
+- **Location search** based on databases joined to the CRAB database, like the locations of the schools in Flanders.
 - **Traffic obstruction information** from the [GIPOD](http://www.agiv.be/gis/diensten/?artid=1739) public works and manifestation database.
 
 The goal of this project is to make these webservices available to QGIS-users, so they can be uses for creating print-maps and for doing research and analyses.

@@ -23,14 +23,13 @@ from PyQt4 import QtCore, QtGui
 from ui_geopunt4qgis import Ui_geopunt4Qgis
 from qgis.core import *
 from qgis.gui import  QgsMessageBar, QgsVertexMarker
-import geopunt, os
+import geopunt, os, json
 import geometryhelper as gh
 
 class geopunt4QgisAdresDialog(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self)
         self.iface = iface
-        
         self.graphicsLayer = []
         
         # initialize locale
@@ -48,9 +47,14 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	self._initGui()
 
     def _initGui(self):
-        # Set up the user interface from Designer.
+        #setup the user interface from Designer.
         self.ui = Ui_geopunt4Qgis()
         self.ui.setupUi(self)
+        
+        #populate gemeenteBox
+        gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),"data/gemeentenVL.json")) )
+        self.ui.gemeenteBox.addItems( [n["Naam"] for n in gemeentes] )
+        self.ui.gemeenteBox.setEditText("Antwerpen")
         
         #setup a message bar
         self.bar = QgsMessageBar() 
@@ -58,8 +62,8 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.ui.verticalLayout.addWidget(self.bar)
 
         #event handlers 
-        self.ui.zoekText.returnPressed.connect(self.onZoekActivated)
-        self.ui.zoekBtn.clicked.connect(self.onZoekActivated)
+	self.ui.zoekText.textChanged.connect(self.onZoekActivated)
+	self.ui.gemeenteBox.currentIndexChanged.connect(self.onZoekActivated)
         self.ui.resultLijst.itemDoubleClicked.connect(self.onItemActivated)
         self.ui.ZoomKnop.clicked.connect(self.onZoomKnopClick)
         self.ui.Add2mapKnop.clicked.connect(self.onAdd2mapKnopClick)
@@ -67,24 +71,22 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         
     def onZoekActivated(self):
 	self._clearGraphicsLayer()
-        txt = self.ui.zoekText.text()
+	self.bar.clearWidgets()
+        txt = self.ui.zoekText.text() +", "+ self.ui.gemeenteBox.currentText() 
+        
         suggesties = self.gp.fetchSuggestion( txt , 25 )
+
         self.ui.resultLijst.clear()
-        if suggesties.__class__ == list and len(suggesties) > 0:
+        if suggesties.__class__ == list and len(suggesties) <> 0:
 	  self.ui.resultLijst.addItems(suggesties)
-	elif len(suggesties) == 0:
-	  self.bar.pushMessage(
-	    QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Geen resultaten gevonden voor"), 
-			txt, level=QgsMessageBar.INFO, duration=3)
+	  if len(suggesties) == 1:
+	    self.ui.resultLijst.setCurrentRow(0)
 	elif suggesties.__class__ is str:
 	  self.bar.pushMessage(
 	    QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"),
-			suggesties, level=QgsMessageBar.WARNING)
-	else:
-	  self.bar.pushMessage("Error", 
-	    QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","onbekende fout"),
-			level=QgsMessageBar.CRITICAL)
-        
+		suggesties, level=QgsMessageBar.WARNING)
+	  
+	  
     def onItemActivated( self , item):
 	txt = item.text()
 	self._zoomLoc(txt)
@@ -99,11 +101,6 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	if item:
 	  self._addToMap(item.text())
 	  
-    def clean(self):
-	self.ui.resultLijst.clear()
-	self.ui.zoekText.setText("")
-	self._clearGraphicsLayer()
-	
     def _clearGraphicsLayer(self):
       for graphic in  self.graphicsLayer: 
 	self.iface.mapCanvas().scene().removeItem(graphic)
@@ -162,3 +159,10 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	  self.bar.pushMessage("Error", 
 		QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","onbekende fout"),
 			level=QgsMessageBar.CRITICAL)
+	  
+    def clean(self):
+	self.bar.clearWidgets()
+	self.ui.resultLijst.clear()
+	self.ui.zoekText.setText("")
+	self._clearGraphicsLayer()
+	

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Mon Dec 16 21:06:42 2013
+# Created: Tue Dec 17 20:33:47 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -39,9 +39,10 @@ class Ui_geopunt4Qgis(object):
         self.zoekText = QtGui.QLineEdit(self.inputBox)
         self.zoekText.setObjectName(_fromUtf8("zoekText"))
         self.horizontalLayout.addWidget(self.zoekText)
-        self.zoekBtn = QtGui.QPushButton(self.inputBox)
-        self.zoekBtn.setObjectName(_fromUtf8("zoekBtn"))
-        self.horizontalLayout.addWidget(self.zoekBtn)
+        self.gemeenteBox = QtGui.QComboBox(self.inputBox)
+        self.gemeenteBox.setEditable(True)
+        self.gemeenteBox.setObjectName(_fromUtf8("gemeenteBox"))
+        self.horizontalLayout.addWidget(self.gemeenteBox)
         self.verticalLayout.addWidget(self.inputBox)
         self.resultLijst = QtGui.QListWidget(geopunt4Qgis)
         self.resultLijst.setObjectName(_fromUtf8("resultLijst"))
@@ -72,7 +73,7 @@ class Ui_geopunt4Qgis(object):
     def retranslateUi(self, geopunt4Qgis):
         geopunt4Qgis.setWindowTitle(_translate("geopunt4Qgis", "Zoek een adres via Geopunt ", None))
         self.inputBox.setTitle(_translate("geopunt4Qgis", "Geef een adres op:", None))
-        self.zoekBtn.setText(_translate("geopunt4Qgis", "Valideer", None))
+        self.zoekText.setPlaceholderText(_translate("geopunt4Qgis", "straat huisnummer", None))
         self.Add2mapKnop.setText(_translate("geopunt4Qgis", "Toevoegen aan Kaart", None))
         self.ZoomKnop.setText(_translate("geopunt4Qgis", "Zoom naar", None))
 

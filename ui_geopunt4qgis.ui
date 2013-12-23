@@ -22,16 +22,20 @@
    <item>
     <widget class="QGroupBox" name="inputBox">
      <property name="title">
-      <string>Geef een adres op:</string>
+      <string>Voer een adres in en selecteer een gemeente</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLineEdit" name="zoekText"/>
+       <widget class="QLineEdit" name="zoekText">
+        <property name="placeholderText">
+         <string>straat huisnummer</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="zoekBtn">
-        <property name="text">
-         <string>Valideer</string>
+       <widget class="QComboBox" name="gemeenteBox">
+        <property name="editable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
