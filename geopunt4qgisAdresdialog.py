@@ -47,14 +47,14 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	self._initGui()
 
     def _initGui(self):
-        #setup the user interface from Designer.
+        """setup the user interface"""
         self.ui = Ui_geopunt4Qgis()
         self.ui.setupUi(self)
         
         #populate gemeenteBox
         gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),"data/gemeentenVL.json")) )
         self.ui.gemeenteBox.addItems( [n["Naam"] for n in gemeentes] )
-        self.ui.gemeenteBox.setEditText("gemeente")
+        self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("gemeente"))
         self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
         self.ui.gemeenteBox.setFocus()
         
@@ -170,7 +170,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	self.bar.clearWidgets()
 	self.ui.resultLijst.clear()
 	self.ui.zoekText.setText("")
-	self.ui.gemeenteBox.setEditText("gemeente")
+	self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("gemeente"))
 	self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
 	self._clearGraphicsLayer()
 	
