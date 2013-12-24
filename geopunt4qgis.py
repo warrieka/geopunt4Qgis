@@ -70,7 +70,7 @@ class geopunt4Qgis:
 	self.poiAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), 
-								 self.iface.mainWindow())
+						 self.iface.mainWindow())
 	self.aboutAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
