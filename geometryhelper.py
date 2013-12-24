@@ -21,6 +21,8 @@
 """
 from PyQt4.QtCore import *
 from qgis.core import *
+from PyQt4.QtGui import QFileDialog
+import os
 
 class geometryHelper:
     def __init__(self , iface ):
@@ -59,17 +61,43 @@ class geometryHelper:
         self.iface.mapCanvas().refresh()
 
 #some code shamelessly copied from qgis-geocoding by Alessandro Pasotti: 
-# -> https://github.com/elpaso/qgis-geocoding/blob/master/GeoCoding.py
-    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres" ):
+# -> https://github.com/elpaso/qgis-geocoding/blob/master/GeoCoding.py 
+
+    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres" , saveToFile=None, sender=None ):
+        fields = [QgsField("adres", QVariant.String), QgsField("type", QVariant.String)]
+        mapcrs = self.canvas.mapRenderer().destinationCrs()
+        
         if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid) :
             # create layer with same CRS as map canvas
-            self.adreslayer = QgsVectorLayer("Point", layername, "memory")
+            if saveToFile:
+                fpath = self._saveToFile( sender )
+                if fpath:
+                   ext = os.path.splitext( fpath )[1]
+                   if "shp" == ext:
+                       flType = "ESRI Shapefile"
+                   elif "json" in ext:
+                       flType = "GeoJSON"
+                   elif "gml" == ext :
+                       flType = "GML"
+                   else:
+                       fpath = fpath + ".shp"
+                       flType = "ESRI Shapefile"
+
+                   writer = QgsVectorFileWriter(fpath, "UTF-8", fields, QGis.WKBPoint, mapcrs, flType )
+                   if writer.hasError() != QgsVectorFileWriter.NoError: 
+                       return
+                   else: 
+                       self.adreslayer = QgsVectorLayer( fpath , layername, flType)
+            else:
+                self.adreslayer = QgsVectorLayer("Point", layername, "memory")
+
+            # set crs
             self.adresProvider = self.adreslayer.dataProvider()
-            self.adreslayer.setCrs(self.canvas.mapRenderer().destinationCrs())
+            # for some reason does not work in windows:
+            #self.adreslayer.setCrs(self.canvas.mapRenderer().destinationCrs())
 
             # add fields
-            self.adresProvider.addAttributes([QgsField("adres", QVariant.String), 
-					      QgsField("type", QVariant.String)])
+            self.adresProvider.addAttributes(fields)
             self.adreslayer.updateFields()
 
             # Labels on
@@ -86,9 +114,13 @@ class geometryHelper:
         # add a feature
         fields=self.adreslayer.pendingFields()
         fet = QgsFeature(fields)
-        fet.setGeometry(QgsGeometry.fromPoint(point))
 
-	#populate fields
+        #set geometry and project from mapCRS
+        xform = QgsCoordinateTransform( mapcrs, self.adreslayer.crs() )
+        prjPoint = xform.transform( point )
+        fet.setGeometry(QgsGeometry.fromPoint(prjPoint))
+
+	    #populate fields
         fet['adres'] = address
         fet['type'] = typeAddress
 
@@ -100,91 +132,107 @@ class geometryHelper:
         self.canvas.refresh()
         
     def save_pois_points(self, points, layername="Geopunt_poi" ):
-	if not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid) :
-	  self.poilayer = QgsVectorLayer("Point", layername, "memory")
-	  self.poiProvider = self.poilayer.dataProvider()
-	  self.poilayer.setCrs(self.canvas.mapRenderer().destinationCrs())
+        
+        if not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid) :
+	      self.poilayer = QgsVectorLayer("Point", layername, "memory")
+	      self.poiProvider = self.poilayer.dataProvider()
+	      #self.poilayer.setCrs(self.canvas.mapRenderer().destinationCrs())
 	  
-	  # add fields
-	  self.poiProvider.addAttributes([ 
-	    QgsField("id", QVariant.Int),
-	    QgsField("category", QVariant.String),
-	    QgsField("name", QVariant.String),
-	    QgsField("adres", QVariant.String),
-	    QgsField("link", QVariant.String),
-	    QgsField("lastupdate", QVariant.String, "DateTime"),
-	    QgsField("owner", QVariant.String)
-	    ])
-	  self.poilayer.updateFields()           
+	      # add fields
+	      self.poiProvider.addAttributes([ 
+	        QgsField("id", QVariant.Int),
+	        QgsField("category", QVariant.String),
+	        QgsField("name", QVariant.String),
+	        QgsField("adres", QVariant.String),
+	        QgsField("link", QVariant.String),
+	        QgsField("lastupdate", QVariant.String, "DateTime"),
+	        QgsField("owner", QVariant.String)  ])
+	      self.poilayer.updateFields()           
 	  
-	  label = self.poilayer.label()        
-	  label.setLabelField(QgsLabel.Text, 2) #2 = name
-	  self.poilayer.enableLabels(True)    # Labels on
+	      label = self.poilayer.label()        
+	      label.setLabelField(QgsLabel.Text, 2) #2 = name
+	      self.poilayer.enableLabels(True)    # Labels on
 
-	  # add layer if not already
-	  QgsMapLayerRegistry.instance().addMapLayer(self.poilayer)
+	      # add layer if not already
+	      QgsMapLayerRegistry.instance().addMapLayer(self.poilayer)
 
-	  # store layer id
-	  self.poilayerid = self.poilayer.id()
+	      # store layer id
+	      self.poilayerid = self.poilayer.id()
 	  
-	fields=self.poilayer.pendingFields()
-	for point in points:
-	  pt = self.prjPtToMapCrs( point['location']['points'][0]['Point']['coordinates'], 31370)
-	  
-	  poiId = point["id"]
-	  if "categories" in  point: category =  point["categories"][0]['value']
-	  else: category = ''
-	  name = point["labels"][0]["value"]
-	  adres = point['location']['address']["value"].replace("<br />",", ").replace("<br/>",", ")
-	  if "links" in point: link = point["links"][0]['href']
-	  else: link = ""
-	  tijd =  point["updated"] 
-	  #tijd = QDateTime().fromString( point["updated"] , "yyyy-MM-ddTHH:mm:ss")
-	  print tijd
-	  if "authors" in point: owner = point["authors"][0]["value"]
-	  else: owner= ""
+        fields=self.poilayer.pendingFields()
+        
+        for point in points:
+            #get values
+            pt = QgsPoint( point['location']['points'][0]['Point']['coordinates'][0], 
+                           point['location']['points'][0]['Point']['coordinates'][1] )
+            poiId = point["id"]
+            if "categories" in  point: category =  point["categories"][0]['value']
+            else: category = ''
+            name = point["labels"][0]["value"]
+            adres = point['location']['address']["value"].replace("<br />",", ").replace("<br/>",", ")
+            if "links" in point: link = point["links"][0]['href']
+            else: link = ""
+            tijd =  point["updated"] 
+            #tijd = QDateTime().fromString( point["updated"] , "yyyy-MM-ddTHH:mm:ss")
+            print tijd
+            if "authors" in point: owner = point["authors"][0]["value"]
+            else: owner= ""
 
+            # add a feature
+            fet = QgsFeature(fields)
+
+            #set geometry
+            fromCrs = QgsCoordinateReferenceSystem(31370)
+            xform = QgsCoordinateTransform( fromCrs, self.poilayer.crs() )
+            prjPt = xform.transform( pt )
+            fet.setGeometry(QgsGeometry.fromPoint(prjPt))
 	  
-	  # add a feature
-	  fet = QgsFeature(fields)
-	  fet.setGeometry(QgsGeometry.fromPoint(pt))
+            fet['id'] = int( poiId )
+            fet['category'] = category
+            fet['name'] = name
+            fet['adres'] = adres
+            fet['link'] = link
+            fet['lastupdate'] = tijd
+            fet['owner'] = owner
 	  
-	  fet['id'] = int( poiId )
-	  fet['category'] = category
-	  fet['name'] = name
-	  fet['adres'] = adres
-	  fet['link'] = link
-	  fet['lastupdate'] = tijd
-	  fet['owner'] = owner
+            self.poiProvider.addFeatures([ fet ])
 	  
-	  self.poiProvider.addFeatures([ fet ])
-	  
-	self.poilayer.updateExtents()
+	    self.poilayer.updateExtents()
         self.canvas.refresh()
 	
+    def _saveToFile( self, sender ):
+        filter = "Shape Files (*.shp);;Geojson File (*.geojson *.json);;GML ( *.gml)"
+        Fdlg = QFileDialog( sender, "open file" , None, filter )
+        Fdlg.setFileMode(QFileDialog.AnyFile)
+        fName = Fdlg.getOpenFileName()
+        if fName:
+            return fName
+        else:
+            return None
+
     def getBoundsOfPointArray( self, pointArray):
-	minX = 1.7976931348623157e+308
-	maxX = -1.7976931348623157e+308
-	minY = 1.7976931348623157e+308
-	maxY = -1.7976931348623157e+308
+        minX = 1.7976931348623157e+308
+        maxX = -1.7976931348623157e+308
+        minY = 1.7976931348623157e+308
+        maxY = -1.7976931348623157e+308
 	
-	for xy in pointArray:
-	  x, y = list(xy)[:2]
-	  if x > maxX: maxX = x
-	  if x < minX: minX = x
-	  if y > maxY: maxY = y
-	  if y < minY: minY = y
-	   
-	Xdelta = (maxX - minX) /100
-	Ydelta = (maxY - minY) /100
+        for xy in pointArray:
+		  x, y = list(xy)[:2]
+		  if x > maxX: maxX = x
+		  if x < minX: minX = x
+		  if y > maxY: maxY = y
+		  if y < minY: minY = y
+		   
+        Xdelta = (maxX - minX) /100
+        Ydelta = (maxY - minY) /100
 	    
 	return [ minX - Xdelta, minY - Ydelta, maxX + Xdelta, maxY + Ydelta]
     
     def getBoundsOfPoint( self , x, y):
       if x >= 360:
-	delta = 300 #x bigger then 360 -> meters
+		delta = 300 #x bigger then 360 -> meters
       else:
-	delta = 0.0025 #x smaller then 360 -> degrees
+		delta = 0.0025 #x smaller then 360 -> degrees
 	
       xmax = x + delta
       xmin = x - delta

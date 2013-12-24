@@ -38,14 +38,14 @@ class Adres:
   def fetchLocation(self, q, c=1):
       url = self._createLocationUrl(q, c=1)
       try:
-	  response = urllib2.urlopen(url)
+	    response = urllib2.urlopen(url)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-	  return str( e.reason )
+	    return str( e.reason )
       except:
-	  return sys.exc_info()[1]
+	    return sys.exc_info()[1]
       else:
-	  LocationResult = json.load(response)
-	  return LocationResult["LocationResult"]
+	    LocationResult = json.load(response)
+	    return LocationResult["LocationResult"]
 
   def _createSuggestionUrl(self, q, c=5):
       geopuntUrl = self._sugUrl
@@ -59,14 +59,14 @@ class Adres:
   def fetchSuggestion(self, q, c=5):
       url = self._createSuggestionUrl(q,c)
       try:
-	  response = urllib2.urlopen(url)
+	    response = urllib2.urlopen(url)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-	  return str( e.reason )
+	    return str( e.reason )
       except:
-	  return sys.exc_info()[1]
+	    return sys.exc_info()[1]
       else:
-	  suggestion = json.load(response)
-	  return suggestion["SuggestionResult"]
+	    suggestion = json.load(response)
+	    return suggestion["SuggestionResult"]
 
 
 
@@ -91,19 +91,19 @@ class Poi:
       data["srsIn"] = srs    #i am asuming srsIn wil alwaysbe = srsOut
       data["maxcount"] = c
       if maxModel:
-	data["maxModel"] = "true"
+	    data["maxModel"] = "true"
       else:
-	data["maxModel"] = "false"
+	    data["maxModel"] = "false"
       if bbox:
-	if bbox[0] < self.maxBounds[0]: 
-	   bbox[0] = self.maxBounds[0]
-	if bbox[1] < self.maxBounds[1]:
-	   bbox[1] = self.maxBounds[1]
-	if bbox[2] > self.maxBounds[2]:
-	   bbox[2] = self.maxBounds[2]
-	if bbox[3] > self.maxBounds[3]:
-	   bbox[3] = self.maxBounds[3]
-	data["bbox"] = "|".join([str(b) for b in bbox])
+	    if bbox[0] < self.maxBounds[0]: 
+	       bbox[0] = self.maxBounds[0]
+	    if bbox[1] < self.maxBounds[1]:
+	       bbox[1] = self.maxBounds[1]
+	    if bbox[2] > self.maxBounds[2]:
+	       bbox[2] = self.maxBounds[2]
+	    if bbox[3] > self.maxBounds[3]:
+	       bbox[3] = self.maxBounds[3]
+	    data["bbox"] = "|".join([str(b) for b in bbox])
 	
       values = urllib.urlencode(data)
       result = poiUrl + values
@@ -134,15 +134,16 @@ class Poi:
   
   def poiSuggestion(self):
       if self.PoiResult:
-	sug = self.PoiResult
+	    sug = self.PoiResult
       else:
-	sug = self.fetchPoi( self.qeury, 25, 31370, 1, True, False)
+	    sug = self.fetchPoi( self.qeury, 25, 31370, 1, True, False)
       if sug.__class__ == str:
-	return sug
-      labels = [(n["id"], n["categories"][0]['value'],n["labels"][0]["value"],
-		 n['location']['address']["value"]) for n in sug ] 
-      labels.sort()
-      return labels
+	    return sug
+      else:
+        labels = [(n["id"], n["categories"][0]['value'],n["labels"][0]["value"],
+		     n['location']['address']["value"]) for n in sug ] 
+        labels.sort()
+        return labels
     
   def _getBounds(self, poiResult ):
       minX = 1.7976931348623157e+308
@@ -152,11 +153,11 @@ class Poi:
       
       points =  [n['location']['points'][0]['Point']['coordinates'] for n in poiResult ]
       for xy in points:
-	x, y = xy
-	if x > maxX: maxX = x
-	elif x < minX: minX = x
-	if y > maxY: maxY = y
-	elif y < minY: minY = y
+	    x, y = xy
+	    if x > maxX: maxX = x
+	    elif x < minX: minX = x
+	    if y > maxY: maxY = y
+	    elif y < minY: minY = y
 	
       return [ minX, minY, maxX, maxY]
 	  

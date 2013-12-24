@@ -6,7 +6,7 @@
 name=geopunt4Qgis
 qgisMinimumVersion=2.0
 description="Plugin om geopunt diensten in QGIS te gebruiken - Plug-in to use geopunt services in QGIS"
-version=0.6
+version=0.7
 author=Kay Warrie
 email=kaywarrie@gmail.com
 
@@ -23,10 +23,10 @@ homepage=https://github.com/warrieka/geopunt4Qgis
 tracker=https://github.com/warrieka/geopunt4Qgis/issues
 repository=https://github.com/warrieka/geopunt4Qgis
 icon=images/geopunt.png
-category=
+category=web
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version
 deprecated=False
-
+qgisMaximumVersion=2.99

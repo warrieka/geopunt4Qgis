@@ -8,7 +8,7 @@ System requirements
 -------------------
 
 - QGIS 2.0 or above
-- Python 2.6 or above
+- Python 2.7 (installed with qgis)
 - Any OS capable of running QGIS with python plug-ins: ao. MS Windows, Mac OSX and Linux
 - Requires internet connection, restrictive firewalls may block connection
  

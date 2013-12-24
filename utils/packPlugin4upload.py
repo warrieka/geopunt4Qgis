@@ -3,10 +3,10 @@ import os, glob
 import zipfile
 
 prjname = "geopunt4Qgis"
-source = "/home/kay/projects/geopunt4Qgis/"
-target = source + "build/geopunt4Qgis.zip"
-includeFile = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", "*.qm", "*.ts" ] 
-includeDir = ["images","i18n"]
+source = os.path.abspath( os.path.basename( __file__ ) + "\\.." )
+target = os.path.join( source , "build\\geopunt4Qgis.zip" )
+includeFile = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", "*.qm", "*.ts","*.json","*.xml" ] 
+includeDir = ["images","i18n","data"]
 
 def makeList( src ):
   fileList = []
