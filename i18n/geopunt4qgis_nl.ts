@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="nl_BE" sourcelanguage="nl_BE">
+<!DOCTYPE TS><TS version="2.0" language="nl_BE" sourcelanguage="nl_BE">
 <context>
     <name>aboutDlg</name>
     <message>
@@ -108,6 +107,11 @@
         <location filename="../geopunt4qgisAdresdialog.py" line="165"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
+    </message>
+    <message>
+        <location filename="../geopunt4qgisAdresdialog.py" line="173"/>
+        <source>gemeente</source>
+        <translation>gemeente</translation>
     </message>
 </context>
 <context>
