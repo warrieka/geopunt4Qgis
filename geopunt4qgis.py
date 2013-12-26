@@ -140,8 +140,6 @@ class geopunt4Qgis:
 	
 	#to clear or not clear that is the question
 	self.iface.messageBar().clearWidgets()
-	self.iface.messageBar().pushMessage( ">>>",
-	  QCoreApplication.translate("geopunt4Qgis","Aan het zoeken ..."), level=QgsMessageBar.INFO)
 
 	#fetch Location from geopunt
 	adres = self.adres.fetchLocation(lam72pt.x().__str__() +","+ lam72pt.y().__str__(), 1)
