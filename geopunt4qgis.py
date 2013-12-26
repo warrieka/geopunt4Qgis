@@ -59,6 +59,10 @@ class geopunt4Qgis:
         self.gh = geometryhelper.geometryHelper(self.iface)
 
     def initGui(self):
+        #get settings
+        self.saveToFile_reverse = True
+        self.layerName_reverse  = 'geopunt_geprikt_adres'
+        
         # Create actions that will start plugin configuration
         self.adresAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopuntAddress.png"),
@@ -136,6 +140,8 @@ class geopunt4Qgis:
 	
 	#to clear or not clear that is the question
 	self.iface.messageBar().clearWidgets()
+	self.iface.messageBar().pushMessage( ">>>",
+	  QCoreApplication.translate("geopunt4Qgis","Aan het zoeken ..."), level=QgsMessageBar.INFO)
 
 	#fetch Location from geopunt
 	adres = self.adres.fetchLocation(lam72pt.x().__str__() +","+ lam72pt.y().__str__(), 1)
@@ -151,7 +157,7 @@ class geopunt4Qgis:
 	  button.clicked.connect(lambda: self._addReverse( adres[0] ) )
 	  button.setText("Voeg toe")
 	  widget.layout().addWidget(button)
-	  
+	  self.iface.messageBar().clearWidgets()
 	  self.iface.messageBar().pushWidget( widget, level=QgsMessageBar.INFO)
 	
 	elif len(adres) == 0:
@@ -174,6 +180,7 @@ class geopunt4Qgis:
 	xlam72, ylam72 = adres["Location"]["X_Lambert72"] , adres["Location"]["Y_Lambert72"]
 	
 	xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)
-	self.gh.save_adres_point(xy, formattedAddress, locationType, "Geopunt_reverse_adres" )
+	self.gh.save_adres_point(xy, formattedAddress, locationType, layername=self.layerName_reverse,
+			  saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow()  )
 	self.iface.messageBar().popWidget()	
         

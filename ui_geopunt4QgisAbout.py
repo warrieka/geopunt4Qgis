@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisAbout.ui'
 #
-# Created: Sun Dec 15 13:55:51 2013
+# Created: Thu Dec 26 16:16:20 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_aboutDlg(object):
     def setupUi(self, aboutDlg):
         aboutDlg.setObjectName(_fromUtf8("aboutDlg"))
-        aboutDlg.resize(400, 300)
+        aboutDlg.resize(440, 428)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntSmal.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         aboutDlg.setWindowIcon(icon)

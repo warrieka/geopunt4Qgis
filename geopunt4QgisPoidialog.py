@@ -61,6 +61,10 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	#table ui
 	self.ui.resultLijst.hideColumn(0)
 	
+	#get settings
+	self.saveToFile = False
+	self.layerName = 'geopunt_poi'
+	
 	#actions
 	self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )
 	self.ui.actionZoomtoSelection.triggered.connect(self.onZoomSelClicked)
@@ -156,8 +160,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     def onAddSelClicked(self):
 	self._clearGraphicsLayer()
 	pts = self._getSelectedPois()
-	self.gh.save_pois_points( pts )
-	
+	self.gh.save_pois_points( pts ,  layername=self.layerName, 
+			  saveToFile=self.saveToFile, sender=self )
+
     def _getSelectedPois(self):
 	pois =  self.poi.PoiResult
 	selPois = []

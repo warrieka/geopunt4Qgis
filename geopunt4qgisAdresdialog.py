@@ -51,6 +51,10 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.ui = Ui_geopunt4Qgis()
         self.ui.setupUi(self)
         
+        #get settings
+        self.saveToFile = True
+        self.layerName = 'geopunt_adres'
+        
         #populate gemeenteBox
         gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),"data/gemeentenVL.json")) )
         self.ui.gemeenteBox.addItems( [n["Naam"] for n in gemeentes] )
@@ -128,7 +132,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	    xlb, ylb = loc["Location"]["X_Lambert72"], loc["Location"]["Y_Lambert72"]
 	    x, y = self.gh.prjPtToMapCrs(QgsPoint( xlb , ylb), 31370)
 	    
-	    m = QgsVertexMarker( self.iface.mapCanvas())
+	    m = QgsVertexMarker(self.iface.mapCanvas())
 	    self.graphicsLayer.append(m)
 	    m.setCenter(QgsPoint(x,y))
 	    m.setColor(QtGui.QColor(255,255,0))
@@ -153,9 +157,10 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	    adres = loc["FormattedAddress"]
 	    LocationType = loc["LocationType"]
 	    
-	    pt = self.gh.prjPtToMapCrs(QgsPoint( x , y), 31370)
+	    pt = self.gh.prjPtToMapCrs(QgsPoint( x, y), 31370)
 	    
-	    self.gh.save_adres_point( pt , adres, LocationType )
+	    self.gh.save_adres_point( pt, adres, typeAddress=LocationType, 
+			 layername=self.layerName, saveToFile=self.saveToFile, sender=self )
 	    
 	elif locations.__class__ == str:
 	  self.bar.pushMessage(

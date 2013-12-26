@@ -61,43 +61,18 @@ class geometryHelper:
         self.iface.mapCanvas().refresh()
 
 
-    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres", saveToFile=None, sender=None ):
+    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres", saveToFile=None, sender=None):
         attributes = [QgsField("adres", QVariant.String), QgsField("type", QVariant.String)]
         mapcrs = self.canvas.mapRenderer().destinationCrs()
         
-        if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid) :
-            # create layer with same CRS as map canvas
-	    if saveToFile:
-                save = self._saveToFile( sender )
-                if save:
-		  fpath, flType = save
-		  writer = QgsVectorFileWriter(fpath, "UTF-8", attributes, QGis.WKBPoint, mapcrs, flType )
-		  if writer.hasError() != QgsVectorFileWriter.NoError: 
-		        return None
-		  else: return None
-		else: 
-		    self.adreslayer = QgsVectorLayer( fpath , layername, flType)
-		    self.adresProvider = self.poilayer.dataProvider()
-	    else:
-                self.adreslayer = QgsVectorLayer("Point", layername, "memory")
-		self.adresProvider = self.adreslayer.dataProvider()
-                # add fields
-		self.adresProvider.addAttributes(attributes)
-		self.adreslayer.updateFields()
-
-            # Labels on
-            label = self.adreslayer.label()
-            label.setLabelField(QgsLabel.Text, 0)
-            self.adreslayer.enableLabels(True)
-
-            # add layer if not already
-            QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
-
-            # store layer id
-            self.adreslayerid = self.adreslayer.id()
+        if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid):
+	    self.adreslayer = QgsVectorLayer("Point", layername, "memory")
+	    self.adresProvider = self.adreslayer.dataProvider()
+	    self.adresProvider.addAttributes(attributes)
+	    self.adreslayer.updateFields()
 
         # add a feature
-        fields=self.adreslayer.pendingFields()
+        fields= self.adreslayer.pendingFields()
         fet = QgsFeature(fields)
 
         #set geometry and project from mapCRS
@@ -108,15 +83,37 @@ class geometryHelper:
 	    #populate fields
         fet['adres'] = address
         fet['type'] = typeAddress
-
         self.adresProvider.addFeatures([ fet ])
-
-        # update layer's extent when new features have been added
-        # because change of extent in provider is not propagated to the layer
-        self.adreslayer.updateExtents()
-        self.canvas.refresh()
         
-    def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None , sender=None ):
+        # update layer's extent when new features have been added
+	# because change of extent in provider is not propagated to the layer
+	self.adreslayer.updateExtents()
+        
+        if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid): 
+	  save = self._saveToFile( sender )
+	  if save:
+	    fpath, flType = save                
+	    error = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fpath, "utf-8", None, flType)
+	    if error == QgsVectorFileWriter.NoError:
+	      self.adreslayer = QgsVectorLayer( fpath, layername, "ogr")
+	      self.adresProvider = self.adreslayer.dataProvider()
+	    else: 
+	      del self.adreslayer, self.adresProvider 
+	      return
+	  else: 
+	    del self.adreslayer, self.adresProvider 
+	    return
+	  
+	#  set id, add to map, Labels on, refresh
+	self.adreslayerid = self.adreslayer.id()
+	QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
+	label = self.adreslayer.label()
+	labelField = self.adresProvider.fieldNameMap()["adres"]
+	label.setLabelField(QgsLabel.Text, labelField)
+	self.adreslayer.enableLabels(True)
+	self.canvas.refresh()
+        
+    def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None, sender=None ):
         mapcrs = self.canvas.mapRenderer().destinationCrs()
         attributes = [  QgsField("id", QVariant.Int),
 			QgsField("category", QVariant.String),
@@ -127,33 +124,10 @@ class geometryHelper:
 			QgsField("owner", QVariant.String)  ]
 	
         if not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid) :
-	      if saveToFile:
-                save = self._saveToFile( sender )
-                if save:
-		  fpath, flType = save
-		  writer = QgsVectorFileWriter(fpath, "UTF-8", attributes, QGis.WKBPoint, mapcrs, flType )
-		  if writer.hasError() != QgsVectorFileWriter.NoError: 
-		        return None
-		  else: return None
-		else: 
-		    self.poilayer = QgsVectorLayer( fpath , layername, flType)
-		    self.poiProvider = self.poilayer.dataProvider()
-	      else:
 		self.poilayer = QgsVectorLayer("Point", layername, "memory")
 		self.poiProvider = self.poilayer.dataProvider()
 		self.poiProvider.addAttributes(attributes)
 		self.poilayer.updateFields()    
-		
-	      # add Labels
-	      label = self.poilayer.label()        
-	      label.setLabelField(QgsLabel.Text, 2) #2 = name
-	      self.poilayer.enableLabels(True)    # Labels on
-
-	      # add layer if not already
-	      QgsMapLayerRegistry.instance().addMapLayer(self.poilayer)
-
-	      # store layer id
-	      self.poilayerid = self.poilayer.id()
 	  
         fields=self.poilayer.pendingFields()
         
@@ -170,7 +144,6 @@ class geometryHelper:
             else: link = ""
             tijd =  point["updated"] 
             #tijd = QDateTime().fromString( point["updated"] , "yyyy-MM-ddTHH:mm:ss")
-            print tijd
             if "authors" in point: owner = point["authors"][0]["value"]
             else: owner= ""
 
@@ -192,25 +165,51 @@ class geometryHelper:
             fet['owner'] = owner
 	  
             self.poiProvider.addFeatures([ fet ])
-	  
 	    self.poilayer.updateExtents()
+	
+	if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid):
+	      save = self._saveToFile( sender )
+	      if save:
+		fpath, flType = save
+		error = QgsVectorFileWriter.writeAsVectorFormat(self.poilayer, fpath, "utf-8", None, flType)
+		if error == QgsVectorFileWriter.NoError:
+		    self.poilayer = QgsVectorLayer( fpath , layername, "ogr")
+		    self.poiProvider = self.poilayer.dataProvider()
+		else: 
+		    del self.poilayer, self.poiProvider 
+		    return 
+	      else: 
+		del self.poilayer, self.poiProvider 
+		return 
+
+	# add Labels
+	label = self.poilayer.label()   
+	labelField = self.poiProvider.fieldNameMap()["name"]
+	label.setLabelField(QgsLabel.Text, labelField) 
+	self.poilayer.enableLabels(True) 
+	
+	# add layer if not already
+	QgsMapLayerRegistry.instance().addMapLayer(self.poilayer)
+
+	# store layer id and refresh
+	self.poilayerid = self.poilayer.id()
         self.canvas.refresh()
 	
     def _saveToFile( self, sender ):
-        filter = "Shape Files (*.shp);;Geojson File (*.geojson *.json);;GML ( *.gml)"
-        Fdlg = QFileDialog( sender, "open file" , None, filter )
+        filter = "Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Any File (*.*)"
+        Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName = Fdlg.getOpenFileName()
+        fName = Fdlg.getSaveFileName( sender, "open file" , None, filter)
         if fName:
-	    ext = os.path.splitext( fpath )[1]
-	    if "shp" == ext:
+	    ext = os.path.splitext( fName )[1]
+	    if "SHP" in ext.upper():
 		flType = "ESRI Shapefile"
-	    elif "json" in ext:
+	    elif "GEOJSON" in ext.upper():
 		flType = "GeoJSON"
-	    elif "gml" == ext :
+	    elif "GML" in ext.upper():
 		flType = "GML"
 	    else:
-		fpath = fpath + ".shp"
+		fName = fName + ".shp"
 		flType = "ESRI Shapefile"
 	    return (fName , flType )
         else:

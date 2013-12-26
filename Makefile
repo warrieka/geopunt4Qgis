@@ -36,7 +36,7 @@ PY_FILES = geopunt4qgis.py geopunt4qgisAdresdialog.py __init__.py geopunt.py geo
 
 EXTRAS = images/geopunt.png images/geopuntSmal.png images/logogeopunt4Q.png images/logogeopunt.png images/logoQGIS.png metadata.txt
 
-UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py
+UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py ui_geopunt4QgisSettings.py
 
 RESOURCE_FILES = resources_rc.py
 

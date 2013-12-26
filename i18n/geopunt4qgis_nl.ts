@@ -38,7 +38,7 @@
     <message>
         <location filename="../ui_geopunt4qgis.ui" line="67"/>
         <source>Toevoegen aan Kaart</source>
-        <translation>straat huisnummer</translation>
+        <translation>Toevoegen aan Kaart</translation>
     </message>
     <message>
         <location filename="../ui_geopunt4qgis.ui" line="74"/>
