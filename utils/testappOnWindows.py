@@ -2,9 +2,10 @@
 import os, shutil, glob
 
 prjname = "geopunt4Qgis"
-source = os.path.abspath( os.path.basename( __file__ ) + "\\.." )
-target = r'C:\OSGeo4W\apps\qgis\python\plugins\geopunt4Qgis'
-includeFile = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", "*.qm", "*.ts","*.json","*.xml" ] 
+source = os.path.abspath( os.path.dirname( __file__ ) + "\\.." )
+target =  os.path.join( os.environ["HOME"], '.qgis2/python/plugins/geopunt4Qgis' )
+includeFile = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", 
+	       "*.qm", "*.ts","*.json","*.xml" ] 
 includeDir = ["images","i18n","data"]
 
 def makeList( src ):
@@ -31,7 +32,6 @@ def main():
       else:
           tfile = os.path.join( target, os.path.basename( sfile ) )
       
-
       shutil.copy2( sfile, tfile )
   os.startfile(r'C:\OSGeo4W\bin\qgis.bat')
 

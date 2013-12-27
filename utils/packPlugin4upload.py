@@ -3,8 +3,9 @@ import os, glob
 import zipfile
 
 prjname = "geopunt4Qgis"
-source = os.path.abspath( os.path.basename( __file__ ) + "\\.." )
-target = os.path.join( source , "build\\geopunt4Qgis.zip" )
+source = os.path.abspath( os.path.dirname( __file__ ) + "/.." )
+print source
+target = os.path.join( source , "build/geopunt4Qgis.zip" )
 includeFile = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", "*.qm", "*.ts","*.json","*.xml" ] 
 includeDir = ["images","i18n","data"]
 
