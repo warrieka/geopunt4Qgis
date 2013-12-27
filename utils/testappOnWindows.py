@@ -3,7 +3,7 @@ import os, shutil, glob
 
 prjname = "geopunt4Qgis"
 source = os.path.abspath( os.path.dirname( __file__ ) + "\\.." )
-target =  os.path.join( os.environ["HOME"], '.qgis2/python/plugins/geopunt4Qgis' )
+target =  os.path.join( os.environ["HOMEPATH"], '.qgis2\\python\\plugins\\geopunt4Qgis' )
 includeFile = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", 
 	       "*.qm", "*.ts","*.json","*.xml" ] 
 includeDir = ["images","i18n","data"]

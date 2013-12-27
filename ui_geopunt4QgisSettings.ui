@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>380</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>380</height>
+    <height>400</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
         <x>0</x>
         <y>0</y>
         <width>382</width>
-        <height>233</height>
+        <height>242</height>
        </rect>
       </property>
       <attribute name="label">
@@ -121,8 +121,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>221</width>
-        <height>141</height>
+        <width>382</width>
+        <height>242</height>
        </rect>
       </property>
       <attribute name="label">
@@ -185,8 +185,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>221</width>
-        <height>141</height>
+        <width>382</width>
+        <height>242</height>
        </rect>
       </property>
       <attribute name="label">
@@ -244,6 +244,13 @@
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
     </widget>
    </item>
    <item>

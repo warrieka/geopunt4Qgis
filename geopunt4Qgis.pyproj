@@ -18,33 +18,78 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="build\geopunt4Qgis.zip" />
     <Content Include="data\gemeentenVL.json" />
     <Content Include="i18n\geopunt4qgis_en.ts" />
     <Content Include="i18n\geopunt4qgis_nl.ts" />
     <Content Include="i18n\geopunt4qgis_ts.pro" />
-    <Content Include="LICENSE.txt" />
-    <Content Include="Makefile" />
-    <Content Include="metadata.txt" />
-    <Content Include="README.md" />
-    <Content Include="README_NL.md" />
-    <Content Include="resources.qrc" />
-    <Content Include="ui_geopunt4qgis.ui" />
-    <Content Include="ui_geopunt4QgisAbout.ui" />
-    <Content Include="ui_geopunt4QgisPoi.ui" />
-    <Compile Include="about.py" />
-    <Compile Include="geometryhelper.py" />
-    <Compile Include="geopunt.py" />
-    <Compile Include="geopunt4qgis.py" />
-    <Compile Include="geopunt4qgisAdresdialog.py" />
-    <Compile Include="geopunt4QgisPoidialog.py" />
-    <Compile Include="geopunt4QgisSettingsdialog.py" />
-    <Compile Include="resources_rc.py" />
-    <Compile Include="reverseAdresMapTool.py" />
-    <Compile Include="ui_geopunt4qgis.py" />
-    <Compile Include="ui_geopunt4QgisAbout.py" />
-    <Compile Include="ui_geopunt4QgisPoi.py" />
-    <Compile Include="ui_geopunt4QgisSettings.py" />
-    <Compile Include="__init__.py" />
+    <Content Include="LICENSE.txt">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Makefile">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="metadata.txt">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="README.md">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="README_NL.md">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="resources.qrc">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="ui_geopunt4qgis.ui">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="ui_geopunt4QgisAbout.ui">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="ui_geopunt4QgisPoi.ui">
+      <Publish>True</Publish>
+    </Content>
+    <Compile Include="geometryhelper.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="geopunt.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="geopunt4qgis.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="geopunt4QgisAbout.py" />
+    <Compile Include="geopunt4qgisAdresdialog.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="geopunt4QgisPoidialog.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="geopunt4QgisSettingsdialog.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="resources_rc.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="reverseAdresMapTool.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="ui_geopunt4qgis.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="ui_geopunt4QgisAbout.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="ui_geopunt4QgisPoi.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="ui_geopunt4QgisSettings.py">
+      <Publish>True</Publish>
+    </Compile>
+    <Compile Include="__init__.py">
+      <Publish>True</Publish>
+    </Compile>
     <Content Include="i18n\about-en.html" />
     <Content Include="i18n\about-nl.html" />
     <Content Include="images\binoculars.png" />
@@ -59,7 +104,9 @@
     <Content Include="images\geopuntSmal.png" />
     <Content Include="images\logogeopunt.png" />
     <Content Include="images\logogeopunt4Q.png" />
-    <Content Include="ui_geopunt4QgisSettings.ui" />
+    <Content Include="ui_geopunt4QgisSettings.ui">
+      <Publish>True</Publish>
+    </Content>
     <Content Include="utils\compile_translations.ps1" />
     <Content Include="utils\compile_translations.sh" />
     <Compile Include="utils\packPlugin4upload.py" />
@@ -68,6 +115,7 @@
     <Compile Include="utils\testappOnWindows.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="build\" />
     <Folder Include="data\" />
     <Folder Include="i18n" />
     <Folder Include="images" />

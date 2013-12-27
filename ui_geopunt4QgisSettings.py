@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisSettings.ui'
 #
-# Created: Fri Dec 27 17:20:03 2013
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Fri Dec 27 18:44:16 2013
+#      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,22 +12,13 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+    _fromUtf8 = lambda s: s
 
 class Ui_settingsDlg(object):
     def setupUi(self, settingsDlg):
         settingsDlg.setObjectName(_fromUtf8("settingsDlg"))
-        settingsDlg.resize(400, 380)
-        settingsDlg.setMinimumSize(QtCore.QSize(400, 380))
+        settingsDlg.resize(400, 400)
+        settingsDlg.setMinimumSize(QtCore.QSize(400, 400))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         settingsDlg.setWindowIcon(icon)
@@ -36,7 +27,7 @@ class Ui_settingsDlg(object):
         self.settingsTab = QtGui.QToolBox(settingsDlg)
         self.settingsTab.setObjectName(_fromUtf8("settingsTab"))
         self.adresTab = QtGui.QWidget()
-        self.adresTab.setGeometry(QtCore.QRect(0, 0, 382, 233))
+        self.adresTab.setGeometry(QtCore.QRect(0, 0, 382, 242))
         self.adresTab.setObjectName(_fromUtf8("adresTab"))
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.adresTab)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
@@ -74,7 +65,7 @@ class Ui_settingsDlg(object):
         self.verticalLayout_3.addItem(spacerItem)
         self.settingsTab.addItem(self.adresTab, _fromUtf8(""))
         self.reverseTab = QtGui.QWidget()
-        self.reverseTab.setGeometry(QtCore.QRect(0, 0, 221, 141))
+        self.reverseTab.setGeometry(QtCore.QRect(0, 0, 382, 242))
         self.reverseTab.setObjectName(_fromUtf8("reverseTab"))
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.reverseTab)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
@@ -100,7 +91,7 @@ class Ui_settingsDlg(object):
         self.verticalLayout_5.addItem(spacerItem1)
         self.settingsTab.addItem(self.reverseTab, _fromUtf8(""))
         self.poiTab = QtGui.QWidget()
-        self.poiTab.setGeometry(QtCore.QRect(0, 0, 221, 141))
+        self.poiTab.setGeometry(QtCore.QRect(0, 0, 382, 242))
         self.poiTab.setObjectName(_fromUtf8("poiTab"))
         self.verticalLayout_7 = QtGui.QVBoxLayout(self.poiTab)
         self.verticalLayout_7.setObjectName(_fromUtf8("verticalLayout_7"))
@@ -126,6 +117,11 @@ class Ui_settingsDlg(object):
         self.verticalLayout_7.addItem(spacerItem2)
         self.settingsTab.addItem(self.poiTab, _fromUtf8(""))
         self.verticalLayout.addWidget(self.settingsTab)
+        self.line = QtGui.QFrame(settingsDlg)
+        self.line.setFrameShape(QtGui.QFrame.HLine)
+        self.line.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line.setObjectName(_fromUtf8("line"))
+        self.verticalLayout.addWidget(self.line)
         self.label = QtGui.QLabel(settingsDlg)
         self.label.setObjectName(_fromUtf8("label"))
         self.verticalLayout.addWidget(self.label)
@@ -141,25 +137,25 @@ class Ui_settingsDlg(object):
         QtCore.QMetaObject.connectSlotsByName(settingsDlg)
 
     def retranslateUi(self, settingsDlg):
-        settingsDlg.setWindowTitle(_translate("settingsDlg", "Instellingen", None))
-        self.searchOptionsBox_1.setTitle(_translate("settingsDlg", "Zoeken naar adressen", None))
-        self.adresSearchOnEditChk.setText(_translate("settingsDlg", "Zoeken bij elke verandering in de zoektekst", None))
-        self.adresSearchOnEnterChk.setText(_translate("settingsDlg", "Zoeken enkel als ENTER wordt ingedrukt", None))
-        self.add2mapBox_1.setTitle(_translate("settingsDlg", "Toevoegen punten aan de kaart", None))
-        self.adresSavetoFileChk.setText(_translate("settingsDlg", "Opslaan naar bestand ", None))
-        self.adresSaveMemoryChk.setText(_translate("settingsDlg", "Opslaan naar tijdelijke laag", None))
-        self.label_1.setText(_translate("settingsDlg", "Naam  van de laag met adrespunten:", None))
-        self.settingsTab.setItemText(self.settingsTab.indexOf(self.adresTab), _translate("settingsDlg", "Zoeken naar adressen", None))
-        self.add2mapBox_2.setTitle(_translate("settingsDlg", "Toevoegen punten aan de kaart", None))
-        self.reverseSavetoFileChk.setText(_translate("settingsDlg", "Opslaan naar bestand ", None))
-        self.reverseSaveMemoryChk.setText(_translate("settingsDlg", "Opslaan naar tijdelijke laag", None))
-        self.label_2.setText(_translate("settingsDlg", "Naam  van de laag met adrespunten:", None))
-        self.settingsTab.setItemText(self.settingsTab.indexOf(self.reverseTab), _translate("settingsDlg", "Prikken van een adres", None))
-        self.add2mapBox_3.setTitle(_translate("settingsDlg", "Toevoegen punten aan de kaart", None))
-        self.poiSavetoFileChk.setText(_translate("settingsDlg", "Opslaan naar bestand ", None))
-        self.poiSaveMemoryChk.setText(_translate("settingsDlg", "Opslaan naar tijdelijke laag", None))
-        self.label_3.setText(_translate("settingsDlg", "Naam  van de laag met adrespunten:", None))
-        self.settingsTab.setItemText(self.settingsTab.indexOf(self.poiTab), _translate("settingsDlg", "Zoeken naar plaatsen", None))
-        self.label.setText(_translate("settingsDlg", "Om toe te passen, kan het zijn dat je qgis moet herstarten!", None))
+        settingsDlg.setWindowTitle(QtGui.QApplication.translate("settingsDlg", "Instellingen", None, QtGui.QApplication.UnicodeUTF8))
+        self.searchOptionsBox_1.setTitle(QtGui.QApplication.translate("settingsDlg", "Zoeken naar adressen", None, QtGui.QApplication.UnicodeUTF8))
+        self.adresSearchOnEditChk.setText(QtGui.QApplication.translate("settingsDlg", "Zoeken bij elke verandering in de zoektekst", None, QtGui.QApplication.UnicodeUTF8))
+        self.adresSearchOnEnterChk.setText(QtGui.QApplication.translate("settingsDlg", "Zoeken enkel als ENTER wordt ingedrukt", None, QtGui.QApplication.UnicodeUTF8))
+        self.add2mapBox_1.setTitle(QtGui.QApplication.translate("settingsDlg", "Toevoegen punten aan de kaart", None, QtGui.QApplication.UnicodeUTF8))
+        self.adresSavetoFileChk.setText(QtGui.QApplication.translate("settingsDlg", "Opslaan naar bestand ", None, QtGui.QApplication.UnicodeUTF8))
+        self.adresSaveMemoryChk.setText(QtGui.QApplication.translate("settingsDlg", "Opslaan naar tijdelijke laag", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_1.setText(QtGui.QApplication.translate("settingsDlg", "Naam  van de laag met adrespunten:", None, QtGui.QApplication.UnicodeUTF8))
+        self.settingsTab.setItemText(self.settingsTab.indexOf(self.adresTab), QtGui.QApplication.translate("settingsDlg", "Zoeken naar adressen", None, QtGui.QApplication.UnicodeUTF8))
+        self.add2mapBox_2.setTitle(QtGui.QApplication.translate("settingsDlg", "Toevoegen punten aan de kaart", None, QtGui.QApplication.UnicodeUTF8))
+        self.reverseSavetoFileChk.setText(QtGui.QApplication.translate("settingsDlg", "Opslaan naar bestand ", None, QtGui.QApplication.UnicodeUTF8))
+        self.reverseSaveMemoryChk.setText(QtGui.QApplication.translate("settingsDlg", "Opslaan naar tijdelijke laag", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("settingsDlg", "Naam  van de laag met adrespunten:", None, QtGui.QApplication.UnicodeUTF8))
+        self.settingsTab.setItemText(self.settingsTab.indexOf(self.reverseTab), QtGui.QApplication.translate("settingsDlg", "Prikken van een adres", None, QtGui.QApplication.UnicodeUTF8))
+        self.add2mapBox_3.setTitle(QtGui.QApplication.translate("settingsDlg", "Toevoegen punten aan de kaart", None, QtGui.QApplication.UnicodeUTF8))
+        self.poiSavetoFileChk.setText(QtGui.QApplication.translate("settingsDlg", "Opslaan naar bestand ", None, QtGui.QApplication.UnicodeUTF8))
+        self.poiSaveMemoryChk.setText(QtGui.QApplication.translate("settingsDlg", "Opslaan naar tijdelijke laag", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_3.setText(QtGui.QApplication.translate("settingsDlg", "Naam  van de laag met adrespunten:", None, QtGui.QApplication.UnicodeUTF8))
+        self.settingsTab.setItemText(self.settingsTab.indexOf(self.poiTab), QtGui.QApplication.translate("settingsDlg", "Zoeken naar plaatsen", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("settingsDlg", "Om toe te passen, kan het zijn dat je qgis moet herstarten!", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
