@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Tue Dec 24 15:12:09 2013
+# Created: Fri Dec 27 15:43:30 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -65,6 +65,12 @@ class Ui_geopunt4Qgis(object):
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.verticalLayout.addWidget(self.buttonBox)
+        self.laraLbl = QtGui.QLabel(geopunt4Qgis)
+        self.laraLbl.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing)
+        self.laraLbl.setMargin(-1)
+        self.laraLbl.setOpenExternalLinks(True)
+        self.laraLbl.setObjectName(_fromUtf8("laraLbl"))
+        self.verticalLayout.addWidget(self.laraLbl)
 
         self.retranslateUi(geopunt4Qgis)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), geopunt4Qgis.close)
@@ -77,5 +83,6 @@ class Ui_geopunt4Qgis(object):
         self.zoekText.setPlaceholderText(_translate("geopunt4Qgis", "straat huisnummer", None))
         self.Add2mapKnop.setText(_translate("geopunt4Qgis", "Toevoegen aan Kaart", None))
         self.ZoomKnop.setText(_translate("geopunt4Qgis", "Zoom naar", None))
+        self.laraLbl.setText(_translate("geopunt4Qgis", "<small><a href=\"http://crab.agiv.be/Lara\">Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)</a></small>", None))
 
 import resources_rc

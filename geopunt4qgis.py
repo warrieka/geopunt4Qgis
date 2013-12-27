@@ -26,11 +26,13 @@ from qgis.core import *
 from qgis.gui import  QgsMessageBar
 # Initialize Qt resources from file resources.py
 import resources_rc
-# Import the code for the dialog
+# Import the code for the dialogs
 from geopunt4qgisAdresdialog import geopunt4QgisAdresDialog
 from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from reverseAdresMapTool import reverseAdresMapTool
-from about import geopunt4QgisAboutdialog
+from geopunt4QgisAbout import geopunt4QgisAboutdialog
+from geopunt4QgisSettingsdialog import geopunt4QgisSettingsdialog
+#import from libraries
 import geopunt, geometryhelper
 import os.path, time
 
@@ -52,16 +54,18 @@ class geopunt4Qgis:
         # Create the dialog (after translation) and keep reference
         self.adresdlg = geopunt4QgisAdresDialog(self.iface)
         self.poiDlg = geopunt4QgisPoidialog(self.iface)
+        self.settingsDlg = geopunt4QgisSettingsdialog()
         self.aboutDlg = geopunt4QgisAboutdialog()
         
-        #geopunt adres object
+        #geopunt adres and geometry object
         self.adres = geopunt.Adres()
         self.gh = geometryhelper.geometryHelper(self.iface)
 
     def initGui(self):
         #get settings
-        self.saveToFile_reverse = True
-        self.layerName_reverse  = 'geopunt_geprikt_adres'
+        self.s = QSettings()
+        self.saveToFile_reverse = int( self.s.value("geopunt4qgis/reverseSavetoFile", 0))
+        self.layerName_reverse  = self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
         
         # Create actions that will start plugin configuration
         self.adresAction = QAction(
@@ -74,14 +78,19 @@ class geopunt4Qgis:
             QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), 
 						 self.iface.mainWindow())
+	self.settingsAction = QAction(
+            QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
+            QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())
 	self.aboutAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
 	
+
         # connect the action to the run method
         self.adresAction.triggered.connect(self.runAdresDlg)
         self.reverseAction.triggered.connect( self.reverse )
         self.poiAction.triggered.connect(self.runPoiDlg)
+        self.settingsAction.triggered.connect(self.runSettingsDlg)
         self.aboutAction.triggered.connect(self.runAbout)
 
         # Add to toolbar button
@@ -93,6 +102,7 @@ class geopunt4Qgis:
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.reverseAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.poiAction)
+        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
 
 
@@ -102,9 +112,10 @@ class geopunt4Qgis:
         self.iface.removeToolBarIcon(self.adresAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.poiAction)
         self.iface.removeToolBarIcon(self.poiAction)
-        self.iface.removePluginMenu(u"&geopunt4Qgis", self.aboutAction)
-        self.iface.removeToolBarIcon(self.reverseAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.reverseAction)
+	self.iface.removeToolBarIcon(self.reverseAction)
+        self.iface.removePluginMenu(u"&geopunt4Qgis", self.aboutAction)
+        self.iface.removePluginMenu(u"&geopunt4Qgis", self.settingsAction)
 
     def runAdresDlg(self):
         # show the dialog
@@ -117,6 +128,12 @@ class geopunt4Qgis:
         self.poiDlg.show()
         # Run the dialog event loop
         result = self.poiDlg.exec_()
+        
+    def runSettingsDlg(self):
+      # show the dialog
+	self.settingsDlg.show()
+	# Run the dialog event loop
+        result = self.settingsDlg.exec_()
         
     def runAbout(self):
 	# show the dialog

@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- geopunt4qgisdialog
-                                 A QGIS plugin
- "Tool om geopunt in QGIS te gebruiken"
-                             -------------------
-        begin                : 2013-12-05
-        copyright            : (C) 2013 by Kay Warrie
-        email                : kaywarrie@gmail.com
- ***************************************************************************/
+geopunt4qgisdialog
+				A QGIS plugin
+"Tool om geopunt in QGIS te gebruiken"
+			    -------------------
+	begin                : 2013-12-05
+	copyright            : (C) 2013 by Kay Warrie
+	email                : kaywarrie@gmail.com
+***************************************************************************/
 
 /***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
 """
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4qgis import Ui_geopunt4Qgis
@@ -28,53 +28,58 @@ import geometryhelper as gh
 
 class geopunt4QgisAdresDialog(QtGui.QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self)
-        self.iface = iface
-        self.graphicsLayer = []
-        
-        # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale")[0:2]
-        localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
-        if os.path.exists(localePath):
-            self.translator = QtCore.QTranslator()
-            self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
+	QtGui.QDialog.__init__(self)
+	self.iface = iface
+	self.graphicsLayer = []
+	
+	# initialize locale
+	locale = QtCore.QSettings().value("locale/userLocale")[0:2]
+	localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
+	if os.path.exists(localePath):
+	    self.translator = QtCore.QTranslator()
+	    self.translator.load(localePath)
+	    if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
 	
 	#setup geopunt and geometryHelper objects
-        self.gp = geopunt.Adres()
-        self.gh = gh.geometryHelper(iface)
-        
+	self.gp = geopunt.Adres()
+	self.gh = gh.geometryHelper(iface)
+	
 	self._initGui()
 
     def _initGui(self):
-        """setup the user interface"""
-        self.ui = Ui_geopunt4Qgis()
-        self.ui.setupUi(self)
-        
-        #get settings
-        self.saveToFile = True
-        self.layerName = 'geopunt_adres'
-        
-        #populate gemeenteBox
-        gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),"data/gemeentenVL.json")) )
-        self.ui.gemeenteBox.addItems( [n["Naam"] for n in gemeentes] )
-        self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","gemeente"))
-        self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
-        self.ui.gemeenteBox.setFocus()
-        
-        #setup a message bar
-        self.bar = QgsMessageBar() 
-        self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
-        self.ui.verticalLayout.addWidget(self.bar)
+	"""setup the user interface"""
+	self.ui = Ui_geopunt4Qgis()
+	self.ui.setupUi(self)
+	
+	#get settings
+	self.s = QtCore.QSettings()
+	self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 0))
+	self.layerName =  self.s.value("geopunt4qgis/adreslayerText", "geopunt_adres")
+	adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 1))
+	
+	#populate gemeenteBox
+	gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),"data/gemeentenVL.json")) )
+	self.ui.gemeenteBox.addItems( [n["Naam"] for n in gemeentes] )
+	self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","gemeente"))
+	self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
+	self.ui.gemeenteBox.setFocus()
+	
+	#setup a message bar
+	self.bar = QgsMessageBar() 
+	self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
+	self.ui.verticalLayout.addWidget(self.bar)
 
-        #event handlers 
-	self.ui.zoekText.textChanged.connect(self.onZoekActivated)
+	#event handlers 
+	if adresSearchOnEnter:
+	  self.ui.zoekText.returnPressed.connect(self.onZoekActivated)
+	else:
+	  self.ui.zoekText.textChanged.connect(self.onZoekActivated)
 	self.ui.gemeenteBox.currentIndexChanged.connect(self.onZoekActivated)
-        self.ui.resultLijst.itemDoubleClicked.connect(self.onItemActivated)
-        self.ui.ZoomKnop.clicked.connect(self.onZoomKnopClick)
-        self.ui.Add2mapKnop.clicked.connect(self.onAdd2mapKnopClick)
-        self.finished.connect(self.clean )
-        
+	self.ui.resultLijst.itemDoubleClicked.connect(self.onItemActivated)
+	self.ui.ZoomKnop.clicked.connect(self.onZoomKnopClick)
+	self.ui.Add2mapKnop.clicked.connect(self.onAdd2mapKnopClick)
+	self.finished.connect(self.clean )
+	
     def onZoekActivated(self):
 	self._clearGraphicsLayer()
 	self.bar.clearWidgets()
@@ -160,7 +165,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	    pt = self.gh.prjPtToMapCrs(QgsPoint( x, y), 31370)
 	    
 	    self.gh.save_adres_point( pt, adres, typeAddress=LocationType, 
-			 layername=self.layerName, saveToFile=self.saveToFile, sender=self )
+			layername=self.layerName, saveToFile=self.saveToFile, sender=self )
 	    
 	elif locations.__class__ == str:
 	  self.bar.pushMessage(

@@ -6,12 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>441</width>
-    <height>343</height>
+    <width>400</width>
+    <height>380</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>380</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Instellingen</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -21,14 +31,40 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>423</width>
-        <height>213</height>
+        <width>382</width>
+        <height>233</height>
        </rect>
       </property>
       <attribute name="label">
        <string>Zoek naar adres</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QGroupBox" name="searchOptionsBox_1">
+         <property name="title">
+          <string>Zoeken naar adressen</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QRadioButton" name="adresSearchOnEditChk">
+            <property name="text">
+             <string>Zoeken bij elke verandering in de zoektekst</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="adresSearchOnEnterChk">
+            <property name="text">
+             <string>Zoeken enkel als ENTER wordt ingedrukt</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item>
         <widget class="QGroupBox" name="add2mapBox_1">
          <property name="title">
@@ -85,8 +121,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>423</width>
-        <height>213</height>
+        <width>221</width>
+        <height>141</height>
        </rect>
       </property>
       <attribute name="label">
@@ -149,8 +185,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>423</width>
-        <height>213</height>
+        <width>382</width>
+        <height>233</height>
        </rect>
       </property>
       <attribute name="label">
@@ -211,6 +247,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Om toe te passen, kan het zijn dat je qgis moet herstarten!</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -222,7 +265,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>
