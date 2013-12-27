@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisSettings.ui'
 #
-# Created: Fri Dec 27 16:01:53 2013
+# Created: Fri Dec 27 17:20:03 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -29,7 +29,7 @@ class Ui_settingsDlg(object):
         settingsDlg.resize(400, 380)
         settingsDlg.setMinimumSize(QtCore.QSize(400, 380))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntSmal.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         settingsDlg.setWindowIcon(icon)
         self.verticalLayout = QtGui.QVBoxLayout(settingsDlg)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -100,7 +100,7 @@ class Ui_settingsDlg(object):
         self.verticalLayout_5.addItem(spacerItem1)
         self.settingsTab.addItem(self.reverseTab, _fromUtf8(""))
         self.poiTab = QtGui.QWidget()
-        self.poiTab.setGeometry(QtCore.QRect(0, 0, 382, 233))
+        self.poiTab.setGeometry(QtCore.QRect(0, 0, 221, 141))
         self.poiTab.setObjectName(_fromUtf8("poiTab"))
         self.verticalLayout_7 = QtGui.QVBoxLayout(self.poiTab)
         self.verticalLayout_7.setObjectName(_fromUtf8("verticalLayout_7"))
@@ -149,7 +149,7 @@ class Ui_settingsDlg(object):
         self.adresSavetoFileChk.setText(_translate("settingsDlg", "Opslaan naar bestand ", None))
         self.adresSaveMemoryChk.setText(_translate("settingsDlg", "Opslaan naar tijdelijke laag", None))
         self.label_1.setText(_translate("settingsDlg", "Naam  van de laag met adrespunten:", None))
-        self.settingsTab.setItemText(self.settingsTab.indexOf(self.adresTab), _translate("settingsDlg", "Zoek naar adres", None))
+        self.settingsTab.setItemText(self.settingsTab.indexOf(self.adresTab), _translate("settingsDlg", "Zoeken naar adressen", None))
         self.add2mapBox_2.setTitle(_translate("settingsDlg", "Toevoegen punten aan de kaart", None))
         self.reverseSavetoFileChk.setText(_translate("settingsDlg", "Opslaan naar bestand ", None))
         self.reverseSaveMemoryChk.setText(_translate("settingsDlg", "Opslaan naar tijdelijke laag", None))

@@ -79,7 +79,7 @@ class geopunt4Qgis:
             QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), 
 						 self.iface.mainWindow())
 	self.settingsAction = QAction(
-            QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
+            QIcon(":/plugins/geopunt4Qgis/images/geopuntSettings.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())
 	self.aboutAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),

@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</iconset>
+    <normaloff>:/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -36,7 +36,7 @@
        </rect>
       </property>
       <attribute name="label">
-       <string>Zoek naar adres</string>
+       <string>Zoeken naar adressen</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -185,8 +185,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>382</width>
-        <height>233</height>
+        <width>221</width>
+        <height>141</height>
        </rect>
       </property>
       <attribute name="label">
