@@ -43,14 +43,17 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	# Set up the user interface from Designer.
 	self.ui = Ui_geopunt4QgisPoiDlg()
 	self.ui.setupUi(self)
+    
+    #set settings
+    self.s = QtCore.QSettings()
 	
-	self.loadSettings()
+    self.loadSettings()
 	
 	#event handlers 
-	self.accepted.connect(self.saveSettings)
+    self.accepted.connect(self.saveSettings)
 	
     def loadSettings(self):
-      pass
+        self.ui.saveMemoryAdresChk.isChecked()
 	
     def saveSettings(self):
       pass

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>392</width>
-    <height>301</height>
+    <width>441</width>
+    <height>343</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,26 +16,34 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QToolBox" name="settingsTab">
-     <widget class="QWidget" name="adresTab" native="true">
+     <widget class="QWidget" name="adresTab">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>423</width>
+        <height>213</height>
+       </rect>
+      </property>
       <attribute name="label">
        <string>Zoek naar adres</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QGroupBox" name="add2mapBox_1">
          <property name="title">
           <string>Toevoegen punten aan de kaart</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QRadioButton" name="savetoFileAdresChk">
+           <widget class="QRadioButton" name="adresSavetoFileChk">
             <property name="text">
              <string>Opslaan naar bestand </string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="saveMemoryAdresChk">
+           <widget class="QRadioButton" name="adresSaveMemoryChk">
             <property name="text">
              <string>Opslaan naar tijdelijke laag</string>
             </property>
@@ -44,11 +52,21 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QLabel" name="label_1">
+            <property name="text">
+             <string>Naam  van de laag met adrespunten:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="adresLayerTxt"/>
+          </item>
          </layout>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="verticalSpacer_1">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -62,26 +80,34 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="reverseTab" native="true">
+     <widget class="QWidget" name="reverseTab">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>423</width>
+        <height>213</height>
+       </rect>
+      </property>
       <attribute name="label">
        <string>Prikken van een adres</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="QGroupBox" name="groupBox_2">
+        <widget class="QGroupBox" name="add2mapBox_2">
          <property name="title">
           <string>Toevoegen punten aan de kaart</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QRadioButton" name="savetoFileReverseChk">
+           <widget class="QRadioButton" name="reverseSavetoFileChk">
             <property name="text">
              <string>Opslaan naar bestand </string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="saveMemoryReverseChk">
+           <widget class="QRadioButton" name="reverseSaveMemoryChk">
             <property name="text">
              <string>Opslaan naar tijdelijke laag</string>
             </property>
@@ -89,6 +115,16 @@
              <bool>true</bool>
             </property>
            </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Naam  van de laag met adrespunten:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="reverseLayerTxt"/>
           </item>
          </layout>
         </widget>
@@ -108,26 +144,34 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="poiTab" native="true">
+     <widget class="QWidget" name="poiTab">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>423</width>
+        <height>213</height>
+       </rect>
+      </property>
       <attribute name="label">
        <string>Zoeken naar plaatsen</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <widget class="QGroupBox" name="groupBox_3">
+        <widget class="QGroupBox" name="add2mapBox_3">
          <property name="title">
           <string>Toevoegen punten aan de kaart</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="QRadioButton" name="savetoFileReverseChk_2">
+           <widget class="QRadioButton" name="poiSavetoFileChk">
             <property name="text">
              <string>Opslaan naar bestand </string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="saveMemoryReverseChk_2">
+           <widget class="QRadioButton" name="poiSaveMemoryChk">
             <property name="text">
              <string>Opslaan naar tijdelijke laag</string>
             </property>
@@ -135,6 +179,16 @@
              <bool>true</bool>
             </property>
            </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Naam  van de laag met adrespunten:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="poiLayerTxt"/>
           </item>
          </layout>
         </widget>
