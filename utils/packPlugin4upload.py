@@ -2,31 +2,35 @@
 import os, glob
 import zipfile
 
-prjname = "geopunt4Qgis"
-source = os.path.abspath( os.path.dirname( __file__ ) + "/.." )
-print source
-target = os.path.join( source , "build/geopunt4Qgis.zip" )
-includeFile = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", "*.qm", "*.ts","*.json","*.xml" ] 
-includeDir = ["images","i18n","data"]
+#TODO: import  setting form makefile instead
+PROJECT = "geopunt4Qgis"
+INCLUDEFILE = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", "*.qm", "*.ts","*.json","*.xml" ] 
+INCLUDEDIR = ["images","i18n","data"]
 
 def makeList( src ):
   fileList = []
-  for incl in includeFile: 
-    for idir in includeDir:
+  for incl in INCLUDEFILE: 
+    for idir in INCLUDEDIR:
       fileList = fileList + glob.glob( os.path.join(  src , idir , incl ))
     fileList = fileList + glob.glob(os.path.join( src , incl )) 
   return fileList
 
-def zipdir(path, zip):
+def zipdir(path, zipf):
   files = makeList(path)
   for zfile in files: 
-    sbase = os.path.dirname(source)
-    arcName = zfile.replace( sbase ,prjname)
-    zip.write( zfile , arcName)
+    sbase = os.path.dirname(path)
+    arcName = zfile.replace( sbase ,"")
+    zipf.write( zfile , arcName)
 
-if __name__ == '__main__':
+def main(src, target):
     if os.path.exists( target ):
       os.remove(target)
     zipf = zipfile.ZipFile( target , 'w')
-    zipdir( source , zipf)
-    zipf.close()
+    zipdir( src , zipf)
+    print "zipped all deploy files in %s to %s" % ( src, target)
+    zipf.close() 
+
+if __name__ == '__main__':
+    SOURCE = os.path.abspath( os.path.dirname( __file__ ) + "/.." )
+    TARGET = os.path.join( SOURCE , "build/%s.zip" % PROJECT )
+    main(SOURCE, TARGET)

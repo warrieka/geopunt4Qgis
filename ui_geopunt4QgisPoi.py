@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Sun Dec 15 22:39:30 2013
+# Created: Sat Dec 28 03:03:10 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
