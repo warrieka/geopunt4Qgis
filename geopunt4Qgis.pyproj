@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{589131ab-582b-4335-ac58-e7a3ee6d9379}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>utils\testappOnWindows.py</StartupFile>
+    <StartupFile>utils\testPlugin.py</StartupFile>
     <SearchPath>utils\;\OSGeo4W\apps\qgis\python;\OSGeo4W\apps\python27;..\geopunt4Qgis</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -22,7 +22,8 @@
     <Content Include="data\gemeentenVL.json" />
     <Content Include="i18n\geopunt4qgis_en.ts" />
     <Content Include="i18n\geopunt4qgis_nl.ts" />
-    <Content Include="i18n\geopunt4qgis_ts.pro" />
+    <Content Include="images\geopuntSettings.png" />
+    <Content Include="images\geopuntSettingsSmall.png" />
     <Content Include="LICENSE.txt">
       <Publish>True</Publish>
     </Content>
@@ -87,6 +88,7 @@
     <Compile Include="ui_geopunt4QgisSettings.py">
       <Publish>True</Publish>
     </Compile>
+    <Compile Include="utils\testPlugin.py" />
     <Compile Include="__init__.py">
       <Publish>True</Publish>
     </Compile>
@@ -111,8 +113,6 @@
     <Content Include="utils\compile_translations.sh" />
     <Compile Include="utils\packPlugin4upload.py" />
     <Compile Include="utils\plugin_upload.py" />
-    <Compile Include="utils\testappOnLinux.py" />
-    <Compile Include="utils\testappOnWindows.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="build\" />

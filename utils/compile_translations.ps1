@@ -1,4 +1,5 @@
-C:\OSGeo4W\bin\pylupdate4.exe ..\i18n\geopunt4qgis_ts.pro
+# make sure you "set-executionpolicy Unrestricted" to run this file. 
+C:\OSGeo4W\bin\pylupdate4.exe ../Makefile
 Get-ChildItem  ..\i18n\*.ts | foreach {C:\OSGeo4W\bin\lrelease.exe $_.FullName  }
 
 [string]$OLD = 'images/logogeopunt4Q.png'
