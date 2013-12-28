@@ -4,6 +4,8 @@
 *.zip
 *.kdev4
 .directory
+*.kate-swp
+
 
 #################
 ## Eclipse
