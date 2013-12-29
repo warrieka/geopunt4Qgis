@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="nl_BE">
+<!DOCTYPE TS><TS version="2.0" language="nl_BE" sourcelanguage="">
 <context>
     <name>aboutDlg</name>
     <message>
@@ -78,22 +78,22 @@
     <message>
         <location filename="geopunt4qgis.py" line="71"/>
         <source>Zoek een Adres</source>
-        <translation type="obsolete">Zoek een Adres</translation>
+        <translation>Zoek een Adres</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="74"/>
         <source>Prik een Adres op kaart</source>
-        <translation type="obsolete">Prik een Adres op kaart</translation>
+        <translation>Prik een Adres op kaart</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="77"/>
         <source>Zoek een Plaats - interesse punt</source>
-        <translation type="obsolete">Zoek een Plaats - interesse punt</translation>
+        <translation>Zoek een Plaats - interesse punt</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="84"/>
         <source>Over geopunt4Qgis</source>
-        <translation type="obsolete">Over geopunt4Qgis</translation>
+        <translation>Over geopunt4Qgis</translation>
     </message>
     <message>
         <location filename="ui_geopunt4qgis.ui" line="91"/>
@@ -103,7 +103,7 @@
     <message>
         <location filename="geopunt4qgis.py" line="81"/>
         <source>Instellingen</source>
-        <translation type="obsolete">Instellingen</translation>
+        <translation>Instellingen</translation>
     </message>
 </context>
 <context>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="en">
+<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
 <context>
     <name>aboutDlg</name>
     <message>
@@ -78,27 +78,32 @@
     <message>
         <location filename="geopunt4qgis.py" line="71"/>
         <source>Zoek een Adres</source>
-        <translation type="obsolete">Search an Address</translation>
+        <translation>Search an Address</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="74"/>
         <source>Prik een Adres op kaart</source>
-        <translation type="obsolete">Find an Address on the map</translation>
+        <translation>Find an Address on the map</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="77"/>
         <source>Zoek een Plaats - interesse punt</source>
-        <translation type="obsolete">Search for a place of intrest</translation>
+        <translation>Search for a place of intrest</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="84"/>
         <source>Over geopunt4Qgis</source>
-        <translation type="obsolete">About geopunt4Qgis</translation>
+        <translation>About geopunt4Qgis</translation>
     </message>
     <message>
         <location filename="ui_geopunt4qgis.ui" line="91"/>
         <source>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</source>
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Wrong addresses should be reported through LARA(for members of GDI-Flanders)&lt;/a&gt;&lt;/small&gt;</translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="81"/>
+        <source>Instellingen</source>
+        <translation>Settings</translation>
     </message>
 </context>
 <context>
