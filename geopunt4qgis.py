@@ -32,6 +32,7 @@ from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from reverseAdresMapTool import reverseAdresMapTool
 from geopunt4QgisAbout import geopunt4QgisAboutdialog
 from geopunt4QgisSettingsdialog import geopunt4QgisSettingsdialog
+from batchGeoCode import batcGeoCodedialog
 #import from libraries
 import geopunt, geometryhelper
 import os.path, time
@@ -56,6 +57,8 @@ class geopunt4Qgis:
         self.poiDlg = geopunt4QgisPoidialog(self.iface)
         self.settingsDlg = geopunt4QgisSettingsdialog()
         self.aboutDlg = geopunt4QgisAboutdialog()
+        
+        self.batchgeoDlg = batcGeoCodedialog(self.iface) 
         
         #geopunt adres and geometry object
         self.adres = geopunt.Adres()
@@ -85,6 +88,9 @@ class geopunt4Qgis:
             QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
 	
+	self.batchAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
+	    QCoreApplication.translate("geopunt4Qgis" , u"batchGeoCode"),
+	    self.iface.mainWindow())
 
         # connect the action to the run method
         self.adresAction.triggered.connect(self.runAdresDlg)
@@ -92,11 +98,15 @@ class geopunt4Qgis:
         self.poiAction.triggered.connect(self.runPoiDlg)
         self.settingsAction.triggered.connect(self.runSettingsDlg)
         self.aboutAction.triggered.connect(self.runAbout)
+        
+        self.batchAction.triggered.connect(self.runBatch)
 
         # Add to toolbar button
         self.iface.addToolBarIcon(self.adresAction)
         self.iface.addToolBarIcon(self.reverseAction)
         self.iface.addToolBarIcon(self.poiAction)
+        
+        self.iface.addToolBarIcon(self.batchAction)
         
         # Add to Menu
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
@@ -128,6 +138,12 @@ class geopunt4Qgis:
         self.poiDlg.show()
         # Run the dialog event loop
         result = self.poiDlg.exec_()
+        
+    def runBatch(self):
+	# show the dialog
+	self.batchgeoDlg.show()
+	# Run the dialog event loop
+        self.batchgeoDlg.exec_()
         
     def runSettingsDlg(self):
       # show the dialog

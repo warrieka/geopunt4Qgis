@@ -29,7 +29,7 @@ class Adres:
   def _createLocationUrl(self, q, c=1):
       geopuntUrl = self._locUrl
       data = {}
-      data["q"] = q
+      data["q"] = unicode(q).encode('utf-8')
       data["c"] = c
       values = urllib.urlencode(data)
       result = geopuntUrl + values
@@ -50,7 +50,7 @@ class Adres:
   def _createSuggestionUrl(self, q, c=5):
       geopuntUrl = self._sugUrl
       data = {}
-      data["q"] = q
+      data["q"] = unicode(q).encode('utf-8')
       data["c"] = c
       values = urllib.urlencode(data)
       result = geopuntUrl + values
@@ -86,7 +86,7 @@ class Poi:
   def _createPoiUrl(self , q, c=5, srs=31370 , maxModel=False, bbox=None ):
       poiUrl = self._poiUrl
       data = {}
-      data["label"] = q
+      data["label"] = unicode(q).encode('utf-8')
       data["srsOut"] = srs
       data["srsIn"] = srs    #i am asuming srsIn wil alwaysbe = srsOut
       data["maxcount"] = c
