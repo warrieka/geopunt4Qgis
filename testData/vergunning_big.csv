@@ -1,0 +1,618 @@
+OGC_FID,dossiernr,voorwerp_van_aanvraag,klasse,naam_inrichting,straat_inrichting,huisnr_inrichting,huisnr_tot_inrichting,bus_inrichting,district_inrichting,postnr_inrichting,gemeente_inrichting,kadastergegevens,adres_nr
+1,19641,de exploitatie van een nieuwe inrichting,1,Anthonis Antoine,Florastraat,126,,,BO,2140,Antwerpen,11312_A_0017_S_016_00,Florastraat  126
+2,19661,de exploitatie van een nieuwe inrichting,0,BP Belgium,Laarsebaan,1,,,ME,2170,Antwerpen,11028_A_0141_F_014_00,Laarsebaan  1
+3,19662,de exploitatie van een nieuwe inrichting,2,Van Assche Gustaaf,Dichtersstraat,6,,,WI,2610,Antwerpen,11462_A_0050_H_005_00,Dichtersstraat  6
+4,19663,de exploitatie van een nieuwe inrichting,1,Reynders Joseph,Berendrechtstraat,37,,,AN,2020,Antwerpen,11809_I_2411_R_007_00,Berendrechtstraat  37
+5,19664,de exploitatie van een nieuwe inrichting,2,Nooyens,Leugenberg,160,,,EK,2180,Antwerpen,11014_H_0288_L_000_00,Leugenberg  160
+6,19665,de exploitatie van een nieuwe inrichting,1,Akbar,Statielei,77,,,BO,2140,Antwerpen,11312_A_0071_G_007_00,Statielei  77
+7,19671,de exploitatie van een nieuwe inrichting,1,A. Freyman & Van Loon,Bremenstraat,3,,,AN,2030,Antwerpen,11807_G_1543_F_002_00,Bremenstraat  3
+8,19672,de exploitatie van een nieuwe inrichting,1,Elf België,Antwerpsesteenweg,135,,,HO,2660,Antwerpen,11383_B_0265_G_012_00,Antwerpsesteenweg  135
+9,19673,de exploitatie van een nieuwe inrichting,1,Scheepvaart en Konstruktiebedrijf Longueville,Royerssluis,,,,AN,2030,Antwerpen,11807_G_1338_C_000_22,
+10,19701,de exploitatie van een nieuwe inrichting,1,Inwes,Guldenvliesstraat,58,,,BE,2600,Antwerpen,11302_D_1290_E_019_00,Guldenvliesstraat  58
+11,19711,de exploitatie van een nieuwe inrichting,1,Tyteca,Haïfastraat,11,,,AN,2030,Antwerpen,11807_G_1682_P_000_00,Haïfastraat  11
+12,19712,de exploitatie van een nieuwe inrichting,2,Wouters J.H.,Lamorinièrestraat,69,71,,AN,2018,Antwerpen,11806_F_1230_Z_009_00,Lamorinièrestraat  69
+13,19712,de exploitatie van een nieuwe inrichting,2,Wouters J.H.,Lamorinièrestraat,69,71,,AN,2018,Antwerpen,11806_F_1252_Z_005_00,Lamorinièrestraat  69
+14,19713,de exploitatie van een nieuwe inrichting,1,Aral,'s-Herenstraat,42,,,BO,2140,Antwerpen,11006_A_0316_V_000_00,'s-Herenstraat  42
+15,19721,"het veranderen van een inrichting, met precisering dat het betreft",1,BP Belgium,Laarsebaan,1,,,ME,2170,Antwerpen,11028_A_0141_F_014_00,Laarsebaan  1
+16,19722,de exploitatie van een nieuwe inrichting,0,Brijsbaert G.,Provinciestraat,279,,,AN,2018,Antwerpen,11806_F_1222_M_006_00,Provinciestraat  279
+17,19731,de exploitatie van een nieuwe inrichting,1,,Van Schoonbekeplein,6,,,AN,2000,Antwerpen,11002_A_0127_B_000_00,Van Schoonbekeplein  6
+18,19731,de exploitatie van een nieuwe inrichting,1,,Van Schoonbekeplein,6,,,AN,2000,Antwerpen,11002_A_0130_C_000_00,Van Schoonbekeplein  6
+19,19732,de exploitatie van een nieuwe inrichting,1,Kranen Michielsens,Tweemontstraat,100,102,,DE,2100,Antwerpen,11012_A_0126_B_003_00,Tweemontstraat  100
+20,19732,de exploitatie van een nieuwe inrichting,1,Kranen Michielsens,Tweemontstraat,100,102,,DE,2100,Antwerpen,11012_A_0126_Y_002_00,Tweemontstraat  100
+21,19741,de exploitatie van een nieuwe inrichting,2,,Churchilldok,,,,AN,2030,Antwerpen,,
+22,19742,de exploitatie van een nieuwe inrichting,1,Etn John Lins,Tunnelplaats,3,7,,AN,2000,Antwerpen,11802_B_0316_S_000_00,Tunnelplaats  3
+23,19743,"het veranderen van een inrichting, met precisering dat het betreft",1,Etn John Lins,Tunnelplaats,3,7,,AN,2000,Antwerpen,11802_B_0316_S_000_00,Tunnelplaats  3
+24,19761,de exploitatie van een nieuwe inrichting,1,Belgian Pakhoed,Luithagen-Haven,9,,,AN,2030,Antwerpen,,Luithagen-Haven  9
+25,19762,de exploitatie van een nieuwe inrichting,1,Stevedoring Company Gylsen,Zesde Havendok,,,,AN,2030,Antwerpen,11815_A_0261_R_000_00,
+26,19762,de exploitatie van een nieuwe inrichting,1,Stevedoring Company Gylsen,Zesde Havendok,,,,AN,2030,Antwerpen,11815_A_0261_B_003_00,
+27,19762,de exploitatie van een nieuwe inrichting,1,Stevedoring Company Gylsen,Zesde Havendok,,,,AN,2030,Antwerpen,11815_A_0261_E_003_00,
+28,19762,de exploitatie van een nieuwe inrichting,1,Stevedoring Company Gylsen,Zesde Havendok,,,,AN,2030,Antwerpen,11815_A_0261_G_000_00,
+29,19762,de exploitatie van een nieuwe inrichting,1,Stevedoring Company Gylsen,Zesde Havendok,,,,AN,2030,Antwerpen,11815_A_0261_F_002_00,
+30,19762,de exploitatie van een nieuwe inrichting,1,Stevedoring Company Gylsen,Zesde Havendok,,,,AN,2030,Antwerpen,11815_A_0265_C_000_00,
+31,19763,de exploitatie van een nieuwe inrichting,1,,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0241_E_002_00,Scheldelaan  420
+32,19764,de exploitatie van een nieuwe inrichting,2,Hessenatie,Bellestraat,24,34,,AN,2030,Antwerpen,11816_A_0210_A_000_05,Bellestraat  24
+33,19764,de exploitatie van een nieuwe inrichting,2,Hessenatie,Bellestraat,24,34,,AN,2030,Antwerpen,11816_C_0188_G_003_00,Bellestraat  24
+34,19764,de exploitatie van een nieuwe inrichting,2,Hessenatie,Bellestraat,24,34,,AN,2030,Antwerpen,11816_C_0188_G_004_00,Bellestraat  24
+35,19764,de exploitatie van een nieuwe inrichting,2,Hessenatie,Bellestraat,24,34,,AN,2030,Antwerpen,11816_C_0188_L_003_00,Bellestraat  24
+36,19764,de exploitatie van een nieuwe inrichting,2,Hessenatie,Bellestraat,24,34,,AN,2030,Antwerpen,11816_C_0188_L_004_00,Bellestraat  24
+37,19764,de exploitatie van een nieuwe inrichting,2,Hessenatie,Bellestraat,24,34,,AN,2030,Antwerpen,11816_C_0188_M_004_00,Bellestraat  24
+38,19771,springstoffen klasse 2,2,,Lombardenvest,8,10,,AN,2000,Antwerpen,11803_C_1909_D_000_00,Lombardenvest  8
+39,19772,de exploitatie van een nieuwe inrichting,1,,Kanaaldok B1,,,,AN,2040,Antwerpen,11816_A_0036_F_000_00,
+40,19772,de exploitatie van een nieuwe inrichting,1,,Kanaaldok B1,,,,AN,2040,Antwerpen,11818_E_0196___000_04,
+41,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0068_K_004_00,Universiteitsplein  1
+42,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0068_M_003_00,Universiteitsplein  1
+43,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0054_E_000_00,Universiteitsplein  1
+44,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_E_000_00,Universiteitsplein  1
+45,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0039_A_002_00,Universiteitsplein  1
+46,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0038_R_002_00,Universiteitsplein  1
+47,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_G_000_00,Universiteitsplein  1
+48,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_F_000_00,Universiteitsplein  1
+49,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_H_000_00,Universiteitsplein  1
+50,19773,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_D_000_00,Universiteitsplein  1
+51,19774,de exploitatie van een nieuwe inrichting,2,,Klein Heiken,,,,EK,2180,Antwerpen,11014_H_0460_Z_002_00,
+52,19781,de exploitatie van een nieuwe inrichting,2,,Conterscherp,130,,,ZA,2040,Antwerpen,11820_A_0174_C_000_00,Conterscherp  130
+53,19781,de exploitatie van een nieuwe inrichting,2,,Conterscherp,130,,,ZA,2040,Antwerpen,11820_A_0140_A_000_00,Conterscherp  130
+54,19782,de exploitatie van een nieuwe inrichting,2,,Dorpstraat,83,,,BD,2040,Antwerpen,11819_B_0186_R_000_00,Dorpstraat  83
+55,19782,de exploitatie van een nieuwe inrichting,2,,Dorpstraat,83,,,BD,2040,Antwerpen,11819_B_0186_S_000_00,Dorpstraat  83
+56,19783,de exploitatie van een nieuwe inrichting,1,Aral,*Verenigde Natieslaan 1/Sint-Bernardsesteenweg,,,,,2660,Antwerpen,11383_B_0636_K_000_00,
+57,19791,"het veranderen van een inrichting, met precisering dat het betreft",1,Etn John Lins,Tunnelplaats,3,7,,AN,2000,Antwerpen,11802_B_0316_S_000_00,Tunnelplaats  3
+58,19792,de exploitatie van een nieuwe inrichting,1,,Lange Bremstraat,70,,,ME,2170,Antwerpen,11423_B_0182_X_000_00,Lange Bremstraat  70
+59,19793,"het veranderen van een inrichting, met precisering dat het betreft",1,BASF Antwerpen,Scheldelaan,600,,,AN,2040,Antwerpen,11820_A_0001_F_003_00,Scheldelaan  600
+60,19794,de exploitatie van een nieuwe inrichting,1,,Muisbroeklaan,57,,,AN,2030,Antwerpen,11816_A_0039_E_000_00,Muisbroeklaan  57
+61,19794,de exploitatie van een nieuwe inrichting,1,,Muisbroeklaan,57,,,AN,2030,Antwerpen,11816_A_0039_N_000_00,Muisbroeklaan  57
+62,19794,de exploitatie van een nieuwe inrichting,1,,Muisbroeklaan,57,,,AN,2030,Antwerpen,11816_A_0039_P_000_00,Muisbroeklaan  57
+63,19801,het hernieuwen van een vergunning voor een bestaande inrichting,1,Texaco Belgium,Dokter Van de Perrelei,48,,,BO,2140,Antwerpen,11313_B_1040_H_000_00,Dokter Van de Perrelei  48
+64,19802,"het veranderen van een inrichting, met precisering dat het betreft",1,Scheepvaart en Konstruktiebedrijf Longueville,Royerssluis,,,,AN,2030,Antwerpen,11807_G_1338_C_000_22,
+65,19811,de exploitatie van een nieuwe inrichting,2,Autobanden Robert Gebr.,Bredabaan,100,,,ME,2170,Antwerpen,11422_C_0010_P_003_00,Bredabaan  100
+66,19812,het hernieuwen van een vergunning voor een bestaande inrichting,2,Annaert Albert,Florent Cootmansplein,2,,,BE,2600,Antwerpen,11302_A_0168_E_007_00,Florent Cootmansplein  2
+67,19813,de exploitatie van een nieuwe inrichting,1,Garage Deurne Motors,Bisschoppenhoflaan,76,82,,DE,2100,Antwerpen,11342_A_0028_P_015_00,Bisschoppenhoflaan  76
+68,19813,de exploitatie van een nieuwe inrichting,1,Garage Deurne Motors,Bisschoppenhoflaan,76,82,,DE,2100,Antwerpen,11342_A_0028_M_013_00,Bisschoppenhoflaan  76
+69,19814,de exploitatie van een nieuwe inrichting,2,Herald Estates (Sanyo),Katwilgweg,4,,5,AN,2050,Antwerpen,11813_N_0223_N_000_00,Katwilgweg  4
+70,19821,"het veranderen van een inrichting, met precisering dat het betreft",1,Autobanden Robert Gebr.,Bredabaan,100,,,ME,2170,Antwerpen,11422_C_0010_P_003_00,Bredabaan  100
+71,19822,"het veranderen van een inrichting, met precisering dat het betreft",1,,Kanaaldok B1,,,,AN,2040,Antwerpen,11816_A_0036_F_000_00,
+72,19822,"het veranderen van een inrichting, met precisering dat het betreft",1,,Kanaaldok B1,,,,AN,2040,Antwerpen,11818_E_0196___000_04,
+73,19823,de exploitatie van een nieuwe inrichting,2,Katholieke Industriële Hogeschool Antwerpen,Salesianenlaan,30,,,HO,2660,Antwerpen,11383_B_0701_C_000_00,Salesianenlaan  30
+74,19823,de exploitatie van een nieuwe inrichting,2,Katholieke Industriële Hogeschool Antwerpen,Salesianenlaan,30,,,HO,2660,Antwerpen,11383_B_0705_V_003_00,Salesianenlaan  30
+75,19823,de exploitatie van een nieuwe inrichting,2,Katholieke Industriële Hogeschool Antwerpen,Salesianenlaan,30,,,HO,2660,Antwerpen,11383_B_0711_A_002_00,Salesianenlaan  30
+76,19823,de exploitatie van een nieuwe inrichting,2,Katholieke Industriële Hogeschool Antwerpen,Salesianenlaan,30,,,HO,2660,Antwerpen,11383_B_0711_C_002_00,Salesianenlaan  30
+77,19831,de exploitatie van een nieuwe inrichting,0,,Borrewaterstraat,2,,,ME,2170,Antwerpen,11422_C_0312_P_000_00,Borrewaterstraat  2
+78,19832,de exploitatie van een nieuwe inrichting,2,Slagerij Lucas,Generaal Slingeneyerlaan,118,,,DE,2100,Antwerpen,11342_A_0240_E_014_00,Generaal Slingeneyerlaan  118
+79,19833,"het veranderen van een inrichting, met precisering dat het betreft",1,Cargas,Jules Moretuslei,59,,,WI,2610,Antwerpen,11462_A_0379_A_006_00,Jules Moretuslei  59
+80,19834,de exploitatie van een nieuwe inrichting,1,Frans Van Beylen,Hertstraat,5,,,DE,2100,Antwerpen,11343_A_0778_F_000_00,Hertstraat  5
+81,19835,de exploitatie van een nieuwe inrichting,2,Goudblomme vzw,Sint-Jacobsmarkt,38,,,AN,2000,Antwerpen,11802_B_1616_D_000_00,Sint-Jacobsmarkt  38
+82,19841,de exploitatie van een nieuwe inrichting,3,Vema,Terbekehofdreef,6,8,,WI,2610,Antwerpen,11463_D_0270_K_000_00,Terbekehofdreef  6
+83,19842,"het veranderen van een inrichting, met precisering dat het betreft",2,Vema,Terbekehofdreef,2013/08/06,,,WI,2610,Antwerpen,11463_D_0270_K_000_00,Terbekehofdreef  2013/08/06
+84,19843,de exploitatie van een nieuwe inrichting,2,Neon,Statielei,53,55,,BO,2140,Antwerpen,11312_A_0071_H_007_00,Statielei  53
+85,19844,de exploitatie van een nieuwe inrichting,2,Crikemans Frans,Du Chastellei,78,,,ME,2170,Antwerpen,11423_B_0323_E_002_00,Du Chastellei  78
+86,19844,de exploitatie van een nieuwe inrichting,2,Crikemans Frans,Du Chastellei,78,,,ME,2170,Antwerpen,11423_B_0323_F_002_00,Du Chastellei  78
+87,19845,springstoffen klasse 1,1,,Schansstraat,,,,HO,2660,Antwerpen,11382_C_0691_X_000_00,
+88,19851,de exploitatie van een nieuwe inrichting,2,Hamvas Janos,Schoenstraat,26,,,BO,2140,Antwerpen,11006_A_0582_P_004_00,Schoenstraat  26
+89,19852,de exploitatie van een nieuwe inrichting,1,Driessens Walter,Zoutedijk,1,,,ZA,2040,Antwerpen,11820_D_0136_H_000_00,Zoutedijk  1
+90,19853,de exploitatie van een nieuwe inrichting,2,Dillemans Marc,Lange Beeldekensstraat,166,,,AN,2060,Antwerpen,11805_E_0696_S_002_00,Lange Beeldekensstraat  166
+91,19854,"het veranderen van een inrichting, met precisering dat het betreft",1,De Vlijt,Katwilgweg,2,,,AN,2050,Antwerpen,11813_N_0223_T_002_00,Katwilgweg  2
+92,19861,de exploitatie van een nieuwe inrichting,2,Matterne Firmin,Pierre Van den Eedenstraat,15,,,HO,2660,Antwerpen,11382_A_0328_S_003_00,Pierre Van den Eedenstraat  15
+93,19862,"het veranderen van een inrichting, met precisering dat het betreft",1,Etn John Lins,Tunnelplaats,3,7,,AN,2000,Antwerpen,11802_B_0316_S_000_00,Tunnelplaats  3
+94,19863,de exploitatie van een nieuwe inrichting,1,Seca,Provinciestraat,80,82,,AN,2018,Antwerpen,11808_H_1101_T_004_00,Provinciestraat  80
+95,19864,de exploitatie van een nieuwe inrichting,1,Ablaer,Desguinlei,94,,,AN,2018,Antwerpen,11810_K_2181_E_002_00,Desguinlei  94
+96,19872,de exploitatie van een nieuwe inrichting,2,,Laaglandlaan,76,80,,ME,2170,Antwerpen,11422_C_0136_X_002_00,Laaglandlaan  76
+97,19872,de exploitatie van een nieuwe inrichting,2,,Laaglandlaan,76,80,,ME,2170,Antwerpen,11422_C_0136_H_002_00,Laaglandlaan  76
+98,19873,de exploitatie van een nieuwe inrichting,2,Verlinde Delva,Brederodestraat,32,34,,AN,2018,Antwerpen,11811_L_3609_P_000_00,Brederodestraat  32
+99,19874,de exploitatie van een nieuwe inrichting,1,Antwerpse Automobielmaatschappij,Kempischdok-Westkaai,101,,,AN,2000,Antwerpen,11807_G_0157___000_12,Kempischdok-Westkaai  101
+100,19874,de exploitatie van een nieuwe inrichting,1,Antwerpse Automobielmaatschappij,Kempischdok-Westkaai,101,,,AN,2000,Antwerpen,11807_G_0157___000_13,Kempischdok-Westkaai  101
+101,19874,de exploitatie van een nieuwe inrichting,1,Antwerpse Automobielmaatschappij,Kempischdok-Westkaai,101,,,AN,2000,Antwerpen,11807_G_0157___000_14,Kempischdok-Westkaai  101
+102,19875,het hernieuwen van een vergunning voor een bestaande inrichting,1,Drukkerij en Publiciteit Brabo,Ossenmarkt,25,26,,AN,2000,Antwerpen,11802_B_1867_E_000_00,Ossenmarkt  25
+103,19876,de exploitatie van een nieuwe inrichting,1,Samga,Boerinnestraat,2,,,AN,2030,Antwerpen,11807_G_1332_M_000_12,Boerinnestraat  2
+104,19876,de exploitatie van een nieuwe inrichting,1,Samga,Boerinnestraat,2,,,AN,2030,Antwerpen,11807_G_1332_M_000_15,Boerinnestraat  2
+105,19876,de exploitatie van een nieuwe inrichting,1,Samga,Boerinnestraat,2,,,AN,2030,Antwerpen,11807_G_1332_P_000_15,Boerinnestraat  2
+106,19876,de exploitatie van een nieuwe inrichting,1,Samga,Boerinnestraat,2,,,AN,2030,Antwerpen,11807_G_1331_X_000_00,Boerinnestraat  2
+107,19876,de exploitatie van een nieuwe inrichting,1,Samga,Boerinnestraat,2,,,AN,2030,Antwerpen,11807_G_1331_T_000_00,Boerinnestraat  2
+108,19876,de exploitatie van een nieuwe inrichting,1,Samga,Boerinnestraat,2,,,AN,2030,Antwerpen,11807_G_1338_A_000_23,Boerinnestraat  2
+109,19877,de exploitatie van een nieuwe inrichting,2,Goudblomme vzw,Oever,14,,,AN,2000,Antwerpen,11804_D_3389_L_000_00,Oever  14
+110,19881,de exploitatie van een nieuwe inrichting,1,,Oostkaai,9,,,ME,2170,Antwerpen,11422_C_0293_Z_005_00,Oostkaai  9
+111,19882,de exploitatie van een nieuwe inrichting,1,Carrosserie Krekels Franken,Heirmanstraat,59,,,ME,2170,Antwerpen,11422_C_0423_T_010_00,Heirmanstraat  59
+112,19883,de exploitatie van een nieuwe inrichting,1,Truyens en Zonen,Oostkaai,24,,,ME,2170,Antwerpen,11422_C_0276_C_003_00,Oostkaai  24
+113,19884,de exploitatie van een nieuwe inrichting,2,Michielsen Lodewijk,Anselmostraat,43,,,AN,2018,Antwerpen,11810_K_2760_M_007_00,Anselmostraat  43
+114,19885,de exploitatie van een nieuwe inrichting,2,Beenhouwerij Albert,Gasstraat,122,,,AN,2060,Antwerpen,11805_E_0490_E_023_00,Gasstraat  122
+115,19886,de exploitatie van een nieuwe inrichting,2,Pauwels Martha,Sint-Jansplein,35,,,AN,2060,Antwerpen,11805_E_0523_Z_000_00,Sint-Jansplein  35
+116,19887,de exploitatie van een nieuwe inrichting,2,Kärcher nv,Kernenergiestraat,14,16,,WI,2610,Antwerpen,11463_D_0326_W_002_00,Kernenergiestraat  14
+117,19888,de exploitatie van een nieuwe inrichting,1,Ditmar,Carnotstraat,56,,,AN,2060,Antwerpen,11808_H_1018_B_000_00,Carnotstraat  56
+118,19889,de exploitatie van een nieuwe inrichting,2,,Markgravelei,41,,,AN,2018,Antwerpen,11810_K_1780_E_002_00,Markgravelei  41
+119,19889,de exploitatie van een nieuwe inrichting,2,,Markgravelei,41,,,AN,2018,Antwerpen,11810_K_1780_F_002_00,Markgravelei  41
+120,19891,de exploitatie van een nieuwe inrichting,1,,Van Duyststraat,52,,,DE,2100,Antwerpen,11012_A_0016_E_015_00,Van Duyststraat  52
+121,19891,de exploitatie van een nieuwe inrichting,1,,Van Duyststraat,52,,,DE,2100,Antwerpen,11012_A_0016_Y_016_00,Van Duyststraat  52
+122,19892,de exploitatie van een nieuwe inrichting,1,,Mechanicalaan,6,8,,WI,2610,Antwerpen,11463_D_0176_G_003_00,Mechanicalaan  6
+123,19893,de exploitatie van een nieuwe inrichting,1,,Boomsesteenweg,364,,,WI,2610,Antwerpen,11462_A_0373_R_000_00,Boomsesteenweg  364
+124,19894,de exploitatie van een nieuwe inrichting,1,,Bikschotelaan,311,,,BO,2140,Antwerpen,11313_B_0877_L_005_00,Bikschotelaan  311
+125,19895,de exploitatie van een nieuwe inrichting,0,,Oudebareellei,60,,,ME,2170,Antwerpen,11423_B_0308_L_006_00,Oudebareellei  60
+126,19896,de exploitatie van een nieuwe inrichting,2,Geerts Patrick,Moeshofstraat,150,,,ME,2170,Antwerpen,11422_C_0132_M_003_00,Moeshofstraat  150
+127,19897,de exploitatie van een nieuwe inrichting,1,Belgian Pakhoed,Oosterweelsteenweg,,,,AN,2030,Antwerpen,,
+128,19898,de exploitatie van een nieuwe inrichting,2,De Decker Dirk,Sint-Bernardsesteenweg,585,,,HO,2660,Antwerpen,11019_B_0185_N_004_00,Sint-Bernardsesteenweg  585
+129,19899,de exploitatie van een nieuwe inrichting,1,Stefens Industries,Noorderlaan,107,,,AN,2030,Antwerpen,11807_G_1671_S_000_00,Noorderlaan  107
+130,19901,"het veranderen van een inrichting, met precisering dat het betreft",2,,Conterscherp,130,,,ZA,2040,Antwerpen,11820_A_0174_C_000_00,Conterscherp  130
+131,19901,"het veranderen van een inrichting, met precisering dat het betreft",2,,Conterscherp,130,,,ZA,2040,Antwerpen,11820_A_0140_A_000_00,Conterscherp  130
+132,19902,de exploitatie van een nieuwe inrichting,0,Debord Alexander,Rolwagenstraat,38,46,,AN,2018,Antwerpen,11806_F_1221_A_006_00,Rolwagenstraat  38
+133,19903,de exploitatie van een nieuwe inrichting,2,,Moerelei,12,32,,WI,2610,Antwerpen,11463_D_0241_B_000_00,Moerelei  12
+134,19904,de exploitatie van een nieuwe inrichting,1,,Slachthuislaan,9,,,AN,2060,Antwerpen,11807_G_0367_L_004_00,Slachthuislaan  9
+135,19905,"het veranderen van een inrichting, met precisering dat het betreft",1,Belgian Pakhoed,Oosterweelsteenweg,,,,AN,2030,Antwerpen,,
+136,19906,"het veranderen van een inrichting, met precisering dat het betreft",1,Belgian Pakhoed,Oosterweelsteenweg,,,,AN,2030,Antwerpen,,
+137,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0068_K_004_00,Universiteitsplein  1
+138,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0068_M_003_00,Universiteitsplein  1
+139,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0054_E_000_00,Universiteitsplein  1
+140,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_E_000_00,Universiteitsplein  1
+141,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0039_A_002_00,Universiteitsplein  1
+142,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0038_R_002_00,Universiteitsplein  1
+143,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_G_000_00,Universiteitsplein  1
+144,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_F_000_00,Universiteitsplein  1
+145,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_H_000_00,Universiteitsplein  1
+146,19907,"het veranderen van een inrichting, met precisering dat het betreft",1,Universitaire Instelling Antwerpen,Universiteitsplein,1,,,WI,2610,Antwerpen,11051_C_0048_D_000_00,Universiteitsplein  1
+147,19908,de exploitatie van een nieuwe inrichting,2,Neetens Roland,Paardenmarkt,41,,,AN,2000,Antwerpen,11802_B_0470_C_000_00,Paardenmarkt  41
+148,19909,de exploitatie van een nieuwe inrichting,1,Alschrijn,Groenenhoekstraat,19b,,,BE,2600,Antwerpen,11302_A_0295_W_003_00,Groenenhoekstraat  19b
+149,19911,de exploitatie van een nieuwe inrichting,2,Jacobs Filip,Sint-Bernardsesteenweg,868,870,,HO,2660,Antwerpen,11019_B_0212_X_008_00,Sint-Bernardsesteenweg  868
+150,19912,de melding van een nieuwe inrichting,3,Mols Fernand Fotogravuur FM,Cornelis Schutstraat,28,,5,DE,2100,Antwerpen,11343_A_0568_W_003_00,Cornelis Schutstraat  28
+151,19915,het hernieuwen van een vergunning voor een bestaande inrichting,2,Algemene Aannemingen Ibens,Lamorinièrestraat,159,164,,AN,2018,Antwerpen,11806_F_1317_M_012_00,Lamorinièrestraat  159
+152,19915,het hernieuwen van een vergunning voor een bestaande inrichting,2,Algemene Aannemingen Ibens,Lamorinièrestraat,159,164,,AN,2018,Antwerpen,11806_F_1317_N_012_00,Lamorinièrestraat  159
+153,19915,het hernieuwen van een vergunning voor een bestaande inrichting,2,Algemene Aannemingen Ibens,Lamorinièrestraat,159,164,,AN,2018,Antwerpen,11806_F_1317_P_012_00,Lamorinièrestraat  159
+154,19915,het hernieuwen van een vergunning voor een bestaande inrichting,2,Algemene Aannemingen Ibens,Lamorinièrestraat,159,164,,AN,2018,Antwerpen,11806_F_1317_R_010_00,Lamorinièrestraat  159
+155,19915,het hernieuwen van een vergunning voor een bestaande inrichting,2,Algemene Aannemingen Ibens,Lamorinièrestraat,159,164,,AN,2018,Antwerpen,11806_F_1307_C_007_00,Lamorinièrestraat  159
+156,19916,de exploitatie van een nieuwe inrichting,2,Chaffart,Boomgaardstraat,224,226,,BE,2600,Antwerpen,11003_A_0117_R_007_00,Boomgaardstraat  224
+157,19919,de melding van een nieuwe inrichting,3,Hendrickx Frank,Schomstraat,43,,,BE,2600,Antwerpen,11303_C_0264_V_015_00,Schomstraat  43
+158,19921,de exploitatie van een nieuwe inrichting,2,Laboleen,Wetstraat,45,,,AN,2060,Antwerpen,11805_E_0585_N_000_00,Wetstraat  45
+159,19922,het hernieuwen van een vergunning voor een bestaande inrichting,2,Katoen Natie,Wilmarsdonksteenweg,,,,AN,2030,Antwerpen,11814_B_0041_V_000_02,
+160,19923,de melding van verandering van een bestaande inrichting derde klasse die na verandering in de derde klasse blijft ingedeeld en die geen milieutechnische eenheid vormt met een inrichting vergund als klasse 1 of klasse 2,0,Katoen Natie,Schenkeldijk,,,,AN,2030,Antwerpen,11807_G_1733_C_000_00,
+161,19924,de melding van een nieuwe inrichting,3,Huysmans Peter,Secretaris Meyerlei,26,,,ME,2170,Antwerpen,11423_B_0288_V_005_00,Secretaris Meyerlei  26
+162,19925,de melding van een nieuwe inrichting,3,Chapwerken A. De Cock,Coöperatielaan,89,1,,HO,2660,Antwerpen,11019_B_0179_L_004_00,Coöperatielaan  89
+163,19927,de melding van een nieuwe inrichting,3,Vlaamse Vervoermaatschappij,Frederik van Eedenplein,,,,AN,2050,Antwerpen,11813_N_9999___000_00,
+164,19928,de melding van een nieuwe inrichting,3,Wereldwijd,Arthur Goemaerelei,69,,,AN,2018,Antwerpen,11810_K_1903_K_003_00,Arthur Goemaerelei  69
+165,19929,de melding van een nieuwe inrichting,3,Wils Leopold,Antwerpsebaan,424,,,AN,2040,Antwerpen,11820_B_0419_C_009_00,Antwerpsebaan  424
+166,19931,het hernieuwen van een vergunning voor een bestaande inrichting,2,Imalso,*Brouwersvliet/Imalsoplein,10,,,AN,2000,Antwerpen,11002_A_0179_C_000_00,*Brouwersvliet/Imalsoplein  10
+167,19931,het hernieuwen van een vergunning voor een bestaande inrichting,2,Imalso,*Brouwersvliet/Imalsoplein,10,,,AN,2000,Antwerpen,11813_N_0884_G_000_00,*Brouwersvliet/Imalsoplein  10
+168,19932,"het veranderen van een inrichting, met precisering dat het betreft",1,Esso,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0038_L_000_00,Polderdijkweg  3
+169,19932,"het veranderen van een inrichting, met precisering dat het betreft",1,Esso,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0051_F_000_00,Polderdijkweg  3
+170,19932,"het veranderen van een inrichting, met precisering dat het betreft",1,Esso,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0120_T_000_00,Polderdijkweg  3
+171,19932,"het veranderen van een inrichting, met precisering dat het betreft",1,Esso,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0134_F_003_00,Polderdijkweg  3
+172,19932,"het veranderen van een inrichting, met precisering dat het betreft",1,Esso,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0134_G_003_00,Polderdijkweg  3
+173,19933,de exploitatie van een nieuwe inrichting,2,Keerbergens Transportbedrijf,Nieuwelandenweg,5B,,,AN,2030,Antwerpen,11817_F_0906_H_000_00,Nieuwelandenweg  5B
+174,19934,de melding van een nieuwe inrichting,3,Seaport Terminals,Blauweweg,247,255,,AN,2030,Antwerpen,11814_A_0269_A_007_00,Blauweweg  247
+175,19934,de melding van een nieuwe inrichting,3,Seaport Terminals,Blauweweg,247,255,,AN,2030,Antwerpen,11814_B_0041_B_007_00,Blauweweg  247
+176,19934,de melding van een nieuwe inrichting,3,Seaport Terminals,Blauweweg,247,255,,AN,2030,Antwerpen,11814_B_0041_A_007_00,Blauweweg  247
+177,19935,de melding van verandering van een bestaande inrichting derde klasse die na verandering in de derde klasse blijft ingedeeld en die geen milieutechnische eenheid vormt met een inrichting vergund als klasse 1 of klasse 2,3,Katoen Natie,Oosterweelsteenweg,,,,AN,2030,Antwerpen,11807_G_1754_D_000_00,
+178,19936,de melding van een nieuwe inrichting,3,Katoen Natie,Noorderlaan,700,,,AN,2030,Antwerpen,11818_E_0211_V_000_00,Noorderlaan  700
+179,19936,de melding van een nieuwe inrichting,3,Katoen Natie,Noorderlaan,700,,,AN,2030,Antwerpen,11818_E_0211_X_000_00,Noorderlaan  700
+180,19936,de melding van een nieuwe inrichting,3,Katoen Natie,Noorderlaan,700,,,AN,2030,Antwerpen,11818_E_0211_Y_000_00,Noorderlaan  700
+181,19937,de melding van een nieuwe inrichting,3,Kerkfabriek Sint-Jozef,Boekenberglei,207,,,DE,2100,Antwerpen,11346_B_0544_S_000_00,Boekenberglei  207
+182,19938,de melding van een nieuwe inrichting,3,,Drakenhoflaan,246,,,DE,2100,Antwerpen,11346_B_0704_K_000_00,Drakenhoflaan  246
+183,19938,de melding van een nieuwe inrichting,3,,Drakenhoflaan,246,,,DE,2100,Antwerpen,11346_B_0699_Z_000_00,Drakenhoflaan  246
+184,19939,"het veranderen van een inrichting, met precisering dat het betreft",2,,Clara Snellingsstraat,33,43,,DE,2100,Antwerpen,11343_A_0568_W_003_00,Clara Snellingsstraat  33
+185,19941,de exploitatie van een nieuwe inrichting,1,Indaver,Poldervlietweg,,,,AN,2030,Antwerpen,11818_D_0080_B_000_00,
+186,19941,de exploitatie van een nieuwe inrichting,1,Indaver,Poldervlietweg,,,,AN,2030,Antwerpen,11818_D_0028_C_000_00,
+187,19942,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,Hessenatie,Leopolddok,,,,AN,2030,Antwerpen,11815_C_0231_H_005_00,
+188,19942,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,Hessenatie,Leopolddok,,,,AN,2030,Antwerpen,11815_C_0231_K_005_00,
+189,19942,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,Hessenatie,Leopolddok,,,,AN,2030,Antwerpen,11815_C_0231_L_005_00,
+190,19942,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,Hessenatie,Leopolddok,,,,AN,2030,Antwerpen,11815_C_0231_M_005_00,
+191,19942,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,Hessenatie,Leopolddok,,,,AN,2030,Antwerpen,11815_C_0231_N_005_00,
+192,19942,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,Hessenatie,Leopolddok,,,,AN,2030,Antwerpen,11815_C_0231_P_005_00,
+193,19942,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,Hessenatie,Leopolddok,,,,AN,2030,Antwerpen,11815_C_0231_R_005_00,
+194,19942,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,Hessenatie,Leopolddok,,,,AN,2030,Antwerpen,11815_C_0231_X_005_00,
+195,19943,de exploitatie van een nieuwe inrichting,2,Roelands Eduard,Bleekhofstraat,99,,,BO,2140,Antwerpen,11006_A_0349_C_015_00,Bleekhofstraat  99
+196,19944,de exploitatie van een nieuwe inrichting,2,Plastinova,Belcrownlaan,40,,,DE,2100,Antwerpen,11012_A_0265_S_000_00,Belcrownlaan  40
+197,19945,de exploitatie van een nieuwe inrichting,2,Garage Kerschot,Antwerpsebaan,107,,,BD,2040,Antwerpen,11819_B_0636_H_000_00,Antwerpsebaan  107
+198,19945,de exploitatie van een nieuwe inrichting,2,Garage Kerschot,Antwerpsebaan,107,,,BD,2040,Antwerpen,11819_B_0638_K_000_00,Antwerpsebaan  107
+199,19945,de exploitatie van een nieuwe inrichting,2,Garage Kerschot,Antwerpsebaan,107,,,BD,2040,Antwerpen,11819_B_0638_L_000_00,Antwerpsebaan  107
+200,19946,"het veranderen van een inrichting, met precisering dat het betreft",1,Union Minière,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0552_Z_002_00,Adolf Greinerstraat  14
+201,19946,"het veranderen van een inrichting, met precisering dat het betreft",1,Union Minière,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0557_F_004_00,Adolf Greinerstraat  14
+202,19946,"het veranderen van een inrichting, met precisering dat het betreft",1,Union Minière,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0243_E_003_00,Adolf Greinerstraat  14
+203,19947,de exploitatie van een nieuwe inrichting,1,Ippa Bank,Brusselstraat,45,,,AN,2018,Antwerpen,11811_L_3835_M_002_00,Brusselstraat  45
+204,19948,"het veranderen van een inrichting, met precisering dat het betreft",2,Garage Lucas,Merksemsesteenweg,149,,,DE,2100,Antwerpen,11012_A_0133_D_005_00,Merksemsesteenweg  149
+205,19949,de exploitatie van een nieuwe inrichting,2,Argentor Essayeurs,Lange Herentalsestraat,52,,,AN,2018,Antwerpen,11808_H_1175_W_009_00,Lange Herentalsestraat  52
+206,19951,de melding van een nieuwe inrichting,3,I.M.E.A.,Herentalsebaan,419,421,,DE,2100,Antwerpen,11345_B_0224_S_002_00,Herentalsebaan  419
+207,19952,de melding van een nieuwe inrichting,3,Evag,Kortrijkstraat,64,,,BO,2140,Antwerpen,11312_A_0024_H_051_00,Kortrijkstraat  64
+208,19953,de melding van een nieuwe inrichting,3,Evag,Prins Leopoldstraat,53,,,BO,2140,Antwerpen,11006_A_0300_Z_005_00,Prins Leopoldstraat  53
+209,19954,de melding van een nieuwe inrichting,3,Evag,Wijnegemstraat,41,59,,BO,2140,Antwerpen,11312_A_0018_Z_015_00,Wijnegemstraat  41
+210,19955,de melding van een nieuwe inrichting,3,Evag,Helmstraat,101,,,BO,2140,Antwerpen,11312_A_0002_Y_006_00,Helmstraat  101
+211,19956,de melding van een nieuwe inrichting,3,Evag,Sint-Erasmusstraat,50,,,BO,2140,Antwerpen,11006_A_0490_N_007_00,Sint-Erasmusstraat  50
+212,19957,de melding van een nieuwe inrichting,3,Evag,Luitenant Naeyaertplein,28,,,BO,2140,Antwerpen,11006_A_0320_D_014_00,Luitenant Naeyaertplein  28
+213,19958,de melding van een nieuwe inrichting,3,Evag,Blijde-Inkomststraat,1,,,BO,2140,Antwerpen,11006_A_0624_S_000_00,Blijde-Inkomststraat  1
+214,19959,de melding van een nieuwe inrichting,3,Evag,Luitenant Lippenslaan,36,,,BO,2140,Antwerpen,11006_A_0225_H_014_00,Luitenant Lippenslaan  36
+215,19962,"het veranderen van een inrichting, met precisering dat het betreft",1,Industrial Coating & Construction,Braziliëstraat,28,30,,AN,2000,Antwerpen,11807_G_0126_M_016_02,Braziliëstraat  28
+216,19963,de exploitatie van een nieuwe inrichting,1,Progas,Deurnestraat,300,,,,2640,Antwerpen,11002_A_9999___000_00,Deurnestraat  300
+217,19963,de exploitatie van een nieuwe inrichting,1,Progas,Deurnestraat,300,,,,2640,Antwerpen,11346_B_0772_H_000_00,Deurnestraat  300
+218,19963,de exploitatie van een nieuwe inrichting,1,Progas,Deurnestraat,300,,,,2640,Antwerpen,11346_B_0773_M_002_00,Deurnestraat  300
+219,19963,de exploitatie van een nieuwe inrichting,1,Progas,Deurnestraat,300,,,,2640,Antwerpen,11346_B_0773_N_003_00,Deurnestraat  300
+220,19963,de exploitatie van een nieuwe inrichting,1,Progas,Deurnestraat,300,,,,2640,Antwerpen,11346_B_0773_S_003_00,Deurnestraat  300
+221,19963,de exploitatie van een nieuwe inrichting,1,Progas,Deurnestraat,300,,,,2640,Antwerpen,11346_B_0777_V_002_00,Deurnestraat  300
+222,19964,het hernieuwen van een vergunning voor een bestaande inrichting,1,Texaco Belgium,Doornstraat,226,,,WI,2610,Antwerpen,11463_D_0360_B_003_00,Doornstraat  226
+223,19965,de exploitatie van een nieuwe inrichting,2,Veludec,Sint-Jacobsmarkt,71,,,AN,2000,Antwerpen,11802_B_1531_D_000_00,Sint-Jacobsmarkt  71
+224,19966,"het veranderen van een inrichting, met precisering dat het betreft",1,Degussa Antwerpen,Tijsmanstunnel-West,,,,AN,2040,Antwerpen,11818_F_0114_B_000_00,
+225,19967,"het veranderen van een inrichting, met precisering dat het betreft",1,Van Wellen Stevedoring,Moerstraat,9,,,AN,2040,Antwerpen,11818_E_0211_M_002_00,Moerstraat  9
+226,19968,de exploitatie van een nieuwe inrichting,1,Union Minière,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0244_C_005_00,Adolf Greinerstraat  14
+227,19968,de exploitatie van een nieuwe inrichting,1,Union Minière,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0557_E_004_00,Adolf Greinerstraat  14
+228,19969,het hernieuwen van een vergunning voor een bestaande inrichting,2,Inwes,Leugenberg,160,,,EK,2180,Antwerpen,11014_H_0288_L_000_00,Leugenberg  160
+229,19969,het hernieuwen van een vergunning voor een bestaande inrichting,2,Inwes,Leugenberg,160,,,EK,2180,Antwerpen,11014_H_0288_M_000_00,Leugenberg  160
+230,19972,de melding van een nieuwe inrichting,3,I.M.E.A.,Dorpstraat,32,,,EK,2180,Antwerpen,11364_F_0519_M_000_00,Dorpstraat  32
+231,19973,de exploitatie van een nieuwe inrichting,2,Depaire Edmond,Boomsesteenweg,801,803,,WI,2610,Antwerpen,11463_D_0419_C_002_00,Boomsesteenweg  801
+232,19974,springstoffen klasse 2 overname,2,Herlegem,Amerikalei,122,,,AN,2000,Antwerpen,11811_L_3702_W_002_00,Amerikalei  122
+233,19976,de exploitatie van een nieuwe inrichting,1,Rentoclean,Leon Bonnetweg,,,,AN,2030,Antwerpen,11814_C_0106_G_004_00,
+234,19977,de exploitatie van een nieuwe inrichting,1,Givadeg,Adolf Greinerstraat,,,,HO,2660,Antwerpen,11382_C_0010_W_002_00,
+235,19977,de exploitatie van een nieuwe inrichting,1,Givadeg,Adolf Greinerstraat,,,,HO,2660,Antwerpen,11382_C_0010_Y_002_00,
+236,19978,de exploitatie van een nieuwe inrichting,1,Van Der Gucht Adolf,Adolf Greinerstraat,,,,HO,2660,Antwerpen,,
+237,19979,het hernieuwen van een vergunning voor een bestaande inrichting,1,Tabaknatie,Antwerpsebaan,,,,AN,2040,Antwerpen,11818_C_0062_F_000_00,
+238,19979,het hernieuwen van een vergunning voor een bestaande inrichting,1,Tabaknatie,Antwerpsebaan,,,,AN,2040,Antwerpen,11818_C_0062_F_000_07,
+239,19981,de melding van een nieuwe inrichting,3,Kazmi Mushtaq,Carnotstraat,134,,1,AN,2060,Antwerpen,11808_H_1066_E_000_00,Carnotstraat  134
+240,19982,de melding van een nieuwe inrichting,3,Heymans & Co,Schroeilaan,13,,,HO,2660,Antwerpen,11382_A_0298_V_000_00,Schroeilaan  13
+241,19983,de melding van een nieuwe inrichting,3,Van Deun-Schoeters,Slachthuislaan,70,,,AN,2060,Antwerpen,11807_G_0333_N_002_00,Slachthuislaan  70
+242,19984,de melding van een nieuwe inrichting,3,Goeminne Peter,Kapelstraat,185,,,HO,2660,Antwerpen,11382_C_0255_K_017_00,Kapelstraat  185
+243,19985,de melding van een nieuwe inrichting,3,Carrosserie Edmond De Moor,Turnhoutsebaan,164,168,,DE,2100,Antwerpen,11345_B_0040_R_005_00,Turnhoutsebaan  164
+244,19985,de melding van een nieuwe inrichting,3,Carrosserie Edmond De Moor,Turnhoutsebaan,164,168,,DE,2100,Antwerpen,11345_B_0040_P_005_00,Turnhoutsebaan  164
+245,19985,de melding van een nieuwe inrichting,3,Carrosserie Edmond De Moor,Turnhoutsebaan,164,168,,DE,2100,Antwerpen,11345_B_0040_X_004_00,Turnhoutsebaan  164
+246,19986,de melding van een nieuwe inrichting,3,Familia Sint-Rochus,Karel Govaertsstraat,53,,,DE,2100,Antwerpen,11346_B_0475_R_018_00,Karel Govaertsstraat  53
+247,19986,de melding van een nieuwe inrichting,3,Familia Sint-Rochus,Karel Govaertsstraat,53,,,DE,2100,Antwerpen,11346_B_0475_S_018_00,Karel Govaertsstraat  53
+248,19986,de melding van een nieuwe inrichting,3,Familia Sint-Rochus,Karel Govaertsstraat,53,,,DE,2100,Antwerpen,11346_B_0475_X_019_00,Karel Govaertsstraat  53
+249,19987,de melding van een nieuwe inrichting,3,Academie,Stuivenbergplein,7,,,AN,2060,Antwerpen,11805_E_0421_A_009_00,Stuivenbergplein  7
+250,19988,de melding van een nieuwe inrichting,3,Rosy Blue,Hoveniersstraat,53,,127,AN,2018,Antwerpen,11808_H_1182_A_019_00,Hoveniersstraat  53
+251,19991,de melding van een nieuwe inrichting,3,Kempenaers Robert,Ekerseveldslagstraat,11,,,AN,2030,Antwerpen,11817_F_0829_W_004_00,Ekerseveldslagstraat  11
+252,19992,de melding van een nieuwe inrichting,3,Abarent,Steenovenstraat,47,,,BD,2040,Antwerpen,11819_C_0046_S_000_00,Steenovenstraat  47
+253,19992,de melding van een nieuwe inrichting,3,Abarent,Steenovenstraat,47,,,BD,2040,Antwerpen,11819_C_0046_T_000_00,Steenovenstraat  47
+254,19993,de exploitatie van een nieuwe inrichting,2,Alpas,Droogdokkenweg,2,10,,AN,2030,Antwerpen,11807_G_9999___000_00,Droogdokkenweg  2
+255,19994,wijzigen van de exploitatievoorwaarden,1,BASF Antwerpen,Scheldelaan,600,,,AN,2040,Antwerpen,11820_A_0001_G_000_02,Scheldelaan  600
+256,19995,het hernieuwen van een vergunning voor een bestaande inrichting,2,Bakkerij Goossens,Apollostraat,150,,A,BE,2600,Antwerpen,11302_A_0070_D_023_00,Apollostraat  150
+257,19995,het hernieuwen van een vergunning voor een bestaande inrichting,2,Bakkerij Goossens,Apollostraat,150,,A,BE,2600,Antwerpen,11302_A_0070_X_022_00,Apollostraat  150
+258,19996,de melding van een nieuwe inrichting,3,Van Esbroeck Jan,Van Kerckhovenstraat,15,,,AN,2060,Antwerpen,11805_E_0212_R_013_00,Van Kerckhovenstraat  15
+259,19997,de melding van een nieuwe inrichting,3,Luyckx Francois,Jaak Lindersstraat,12,,,EK,2180,Antwerpen,11364_F_0048_W_003_00,Jaak Lindersstraat  12
+260,19997,de melding van een nieuwe inrichting,3,Luyckx Francois,Jaak Lindersstraat,12,,,EK,2180,Antwerpen,11364_F_0048_H_005_00,Jaak Lindersstraat  12
+261,19998,de exploitatie van een nieuwe inrichting,1,Garage Veroost,Veltwijcklaan,60,,,EK,2180,Antwerpen,11364_F_0356_C_002_00,Veltwijcklaan  60
+262,19999,de melding van een nieuwe inrichting,3,Van Hoebeeck Nadine,Nieuwstad,6,,,AN,2000,Antwerpen,11803_C_0699_F_000_00,Nieuwstad  6
+263,20001,bodemsanering,0,Vereniging van Mede-eigenaars Regent III,De Roest d' Alkemadelaan,9,11,,BE,2600,Antwerpen,11003_A_0228_G_000_00,De Roest d' Alkemadelaan  9
+264,20002,bodemsanering,0,Vereniging van mede-eigenaars Regent V,De Roest d' Alkemadelaan,5,7,,BE,2600,Antwerpen,11003_A_0221_C_000_00,De Roest d' Alkemadelaan  5
+265,20003,bodemsanering,0,Photogravure De Schutter,Venusstraat,23,,,AN,2000,Antwerpen,11802_B_0958_F_000_00,Venusstraat  23
+266,20004,bodemsanering,0,Vereniging van mede-eigenaars Residentie Malpertuus,Wouter Haecklaan,15,16,,DE,2100,Antwerpen,11345_B_0201_X_002_00,Wouter Haecklaan  15
+267,20005,de exploitatie van een nieuwe inrichting,2,,Indiëstraat,10,,,AN,2000,Antwerpen,11807_G_0155_M_006_00,Indiëstraat  10
+268,20006,"het veranderen van een inrichting, met precisering dat het betreft",1,,Beliweg,22,,,,2030,Antwerpen,11814_C_0070_G_000_00,Beliweg  22
+269,20007,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,,Scheldelaan,2,4,,AN,2030,Antwerpen,11814_C_0065_G_000_00,Scheldelaan  2
+270,20008,de exploitatie van een nieuwe inrichting,2,,Koordekenshoef,zn,,,AN,2030,Antwerpen,,Koordekenshoef  zn
+271,20009,de exploitatie van een nieuwe inrichting,2,Grencobel,Slachthuislaan,72,,,AN,2060,Antwerpen,11805_E_0384_P_007_00,Slachthuislaan  72
+272,20011,"het veranderen van een inrichting, met precisering dat het betreft",1,Degussa Antwerpen,Frans Tijsmanstunnel,,,,AN,2040,Antwerpen,11818_F_0114_B_000_00,
+273,20011,"het veranderen van een inrichting, met precisering dat het betreft",1,Degussa Antwerpen,Frans Tijsmanstunnel,,,,AN,2040,Antwerpen,11818_F_0114_C_000_00,
+274,20011,"het veranderen van een inrichting, met precisering dat het betreft",1,Degussa Antwerpen,Frans Tijsmanstunnel,,,,AN,2040,Antwerpen,11818_F_0114_D_000_00,
+275,20012,de exploitatie van een nieuwe inrichting,2,Gemeentelijk Havenbedrijf,Siberiastraat,,,,AN,2030,Antwerpen,11807_G_1338_A_000_16,
+276,20013,de melding van een nieuwe inrichting,3,Kunos,Bist,28b,,,EK,2180,Antwerpen,11364_F_0125_K_000_00,Bist  28b
+277,20013,de melding van een nieuwe inrichting,3,Kunos,Bist,28b,,,EK,2180,Antwerpen,11364_F_0241_K_005_00,Bist  28b
+278,20014,bodemsanering,0,Smeets nv,Ullensstraat,25,,,WI,2610,Antwerpen,11051_C_0237_F_011_00,Ullensstraat  25
+279,20014,bodemsanering,0,Smeets nv,Ullensstraat,25,,,WI,2610,Antwerpen,11051_C_0237_W_009_00,Ullensstraat  25
+280,20015,bodemsanering,0,Group Govaert nv,Kerkstraat,141,,,AN,2060,Antwerpen,11805_E_0736_F_000_00,Kerkstraat  141
+281,20015,bodemsanering,0,Group Govaert nv,Kerkstraat,141,,,AN,2060,Antwerpen,11805_E_0745_H_000_00,Kerkstraat  141
+282,20015,bodemsanering,0,Group Govaert nv,Kerkstraat,141,,,AN,2060,Antwerpen,11805_E_0734_D_000_00,Kerkstraat  141
+283,20015,bodemsanering,0,Group Govaert nv,Kerkstraat,141,,,AN,2060,Antwerpen,11805_E_0734_X_000_00,Kerkstraat  141
+284,20016,de exploitatie van een tijdelijke inrichting,1,Watco Recycling & Trading nv,Noorderlaan,600,,,AN,2030,Antwerpen,11815_D_0267_F_000_00,Noorderlaan  600
+285,20016,de exploitatie van een tijdelijke inrichting,1,Watco Recycling & Trading nv,Noorderlaan,600,,,AN,2030,Antwerpen,11815_D_0267_G_000_00,Noorderlaan  600
+286,20017,de melding van de overname van een vergunde inrichting,2,,Lange Lozanastraat,170,,,,2018,Antwerpen,11810_K_1626_W_003_00,Lange Lozanastraat  170
+287,20018,"het veranderen van een inrichting, met precisering dat het betreft",1,Crown Cork Company Belgium (Packaging Division),Merksemsesteenweg-Belcrownlaan,148,,,DE,2100,Antwerpen,11012_A_0143_D_000_00,Merksemsesteenweg-Belcrownlaan  148
+288,20019,de exploitatie van een nieuwe inrichting,2,,Diksmuidelaan,312,,,BE,2600,Antwerpen,11302_A_0314_P_003_00,Diksmuidelaan  312
+289,20021,"het veranderen van een inrichting, met precisering dat het betreft",2,Rapid Container Services,Antwerpsebaan,56,,,,2040,Antwerpen,11818_C_0097___000_04,Antwerpsebaan  56
+290,20022,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,Stordiau,Frans Van Hombeeckplein,37,39,,BE,2600,Antwerpen,11303_B_0441_M_006_00,Frans Van Hombeeckplein  37
+291,20023,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,Solvay nv,Scheldelaan,480,,,BZL,2040,Antwerpen,11818_A_0061_L_000_00,Scheldelaan  480
+292,20024,het hernieuwen van een vergunning voor een bestaande inrichting,2,Music All Inn BVBA,Cogelsplein,7,9,,DE,2100,Antwerpen,11343_A_0722_B_002_00,Cogelsplein  7
+293,20025,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,Solvay nv,Scheldelaan,480,,,BZL,2040,Antwerpen,11818_A_0061_L_000_00,Scheldelaan  480
+294,20026,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,Solvay nv,Scheldelaan,480,,,BZL,2040,Antwerpen,11818_A_0061_L_000_00,Scheldelaan  480
+295,20027,de exploitatie van een nieuwe inrichting,2,Mutinvest C.V.B.A. met S.O.,*Emiel Vloorsstraat / Sint-Bernardsesteenweg,,,,AN,2020,Antwerpen,11809_I_2511_T_000_00,
+296,20028,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,Agfa-Gevaert,Hendrik Kuypersstraat,,,,BE,2600,Antwerpen,11003_A_0366_H_002_00,
+297,20028,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,Agfa-Gevaert,Hendrik Kuypersstraat,,,,BE,2600,Antwerpen,11003_A_0358_G_004_00,
+298,20029,het hernieuwen van een vergunning voor een bestaande inrichting,2,Garage Ooms Renault,Heistraat,70,,,WI,2610,Antwerpen,11051_B_0163_G_004_00,Heistraat  70
+299,20029,het hernieuwen van een vergunning voor een bestaande inrichting,2,Garage Ooms Renault,Heistraat,70,,,WI,2610,Antwerpen,11051_B_0163_A_006_00,Heistraat  70
+300,20029,het hernieuwen van een vergunning voor een bestaande inrichting,2,Garage Ooms Renault,Heistraat,70,,,WI,2610,Antwerpen,11051_B_0163_P_005_00,Heistraat  70
+301,20029,het hernieuwen van een vergunning voor een bestaande inrichting,2,Garage Ooms Renault,Heistraat,70,,,WI,2610,Antwerpen,11051_B_0163_E_006_00,Heistraat  70
+302,20031,de melding van een nieuwe inrichting,3,,Mechelsesteenweg,198 B,,,AN,2018,Antwerpen,11810_K_1543_R_040_00,Mechelsesteenweg  198 B
+303,20032,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",2,NMBS,Noorderlaan,630,,,AN,2030,Antwerpen,11817_G_0193_B_000_00,Noorderlaan  630
+304,20033,de exploitatie van een nieuwe inrichting,2,,D'Herbouvillekaai,47,,,AN,2020,Antwerpen,11809_I_2704_E_000_00,D'Herbouvillekaai  47
+305,20034,de exploitatie van een nieuwe inrichting,2,Nationale Maatschappij der Belgische Spoorwegen,Noorderlaan,630,,,AN,2030,Antwerpen,11817_G_0291_F_000_00,Noorderlaan  630
+306,20035,wijzigen van de exploitatievoorwaarden,1,,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0120_T_000_00,Polderdijkweg  3
+307,20035,wijzigen van de exploitatievoorwaarden,1,,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0134_F_003_00,Polderdijkweg  3
+308,20035,wijzigen van de exploitatievoorwaarden,1,,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0134_G_003_00,Polderdijkweg  3
+309,20035,wijzigen van de exploitatievoorwaarden,1,,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0051_F_000_00,Polderdijkweg  3
+310,20035,wijzigen van de exploitatievoorwaarden,1,,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0038_L_000_00,Polderdijkweg  3
+311,20035,wijzigen van de exploitatievoorwaarden,1,,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0305_C_002_00,Polderdijkweg  3
+312,20035,wijzigen van de exploitatievoorwaarden,1,,Polderdijkweg,3,,,AN,2030,Antwerpen,11814_A_0375_B_000_02,Polderdijkweg  3
+313,20037,de melding van een nieuwe inrichting,3,Aba Sales,Antwerpsebaan,216,,,BD,2040,Antwerpen,11819_C_0079_K_002_00,Antwerpsebaan  216
+314,20037,de melding van een nieuwe inrichting,3,Aba Sales,Antwerpsebaan,216,,,BD,2040,Antwerpen,11819_C_0079_L_002_00,Antwerpsebaan  216
+315,20037,de melding van een nieuwe inrichting,3,Aba Sales,Antwerpsebaan,216,,,BD,2040,Antwerpen,11819_C_0079_H_003_00,Antwerpsebaan  216
+316,20038,de melding van de overname van een vergunde inrichting,1,,Terbekehofdreef,25,29,,,2610,Antwerpen,11463_D_0149_M_000_00,Terbekehofdreef  25
+317,20039,ioniserende stralingen klasse 3,3,,Schupstraat,21,,,AN,2018,Antwerpen,11808_H_1176_S_018_00,Schupstraat  21
+318,20041,de melding van een nieuwe inrichting,3,,Boterhamvaartweg,2,,7,AN,2030,Antwerpen,11807_G_1595_F_000_67,Boterhamvaartweg  2
+319,20042,ioniserende stralingen klasse 3,3,,Edmond de Coussemakerstraat,1,,4,AN,2050,Antwerpen,11813_N_0833_G_000_00,Edmond de Coussemakerstraat  1
+320,20043,ioniserende stralingen klasse 3,3,ITS Caleb Brett Belgium,Kruisschansweg,11,,,AN,2030,Antwerpen,11807_G_9999___000_00,Kruisschansweg  11
+321,20044,ioniserende stralingen klasse 3,3,,Florent Pauwelslei,1,,,DE,2100,Antwerpen,11345_B_0223_B_005_00,Florent Pauwelslei  1
+322,20045,ioniserende stralingen klasse 2 kleine verandering,2,Bayer Antwerpen,Scheldelaan,420,,,,2040,Antwerpen,11816_D_0081_H_000_02,Scheldelaan  420
+323,20046,de exploitatie van een tijdelijke inrichting,1,,Noordersingel,5,,,BO,2140,Antwerpen,11312_A_0056_W_009_00,Noordersingel  5
+324,20046,de exploitatie van een tijdelijke inrichting,1,,Noordersingel,5,,,BO,2140,Antwerpen,11312_A_0056_V_009_00,Noordersingel  5
+325,20047,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,,Rooiplein,2,,,BE,2600,Antwerpen,11003_A_0334_C_000_00,Rooiplein  2
+326,20048,"het veranderen van een inrichting, met precisering dat het betreft",1,Monsanto Europe,Scheldelaan,460,,,AN,2040,Antwerpen,11818_A_0162_P_000_00,Scheldelaan  460
+327,20049,de exploitatie van een nieuwe inrichting,2,S.M.D. Carburants nv,Maria de Heeltstraat,54,,,DE,2100,Antwerpen,11342_A_0216_T_000_00,Maria de Heeltstraat  54
+328,20051,ioniserende stralingen klasse 3,3,Altapra,Eliaertsstraat,15,,,BO,2140,Antwerpen,11006_A_0553_T_000_00,Eliaertsstraat  15
+329,20051,ioniserende stralingen klasse 3,3,Altapra,Eliaertsstraat,15,,,BO,2140,Antwerpen,11006_A_0553_V_000_00,Eliaertsstraat  15
+330,20052,de melding van een nieuwe inrichting,3,Merksemse Tennisclub,Rodeloopstraat,4,,,ME,2170,Antwerpen,11422_C_0112_F_000_00,Rodeloopstraat  4
+331,20053,"het veranderen van een inrichting, met precisering dat het betreft",2,Gosselin World Wide Moving nv,Belcrownlaan,21,25,,DE,2100,Antwerpen,11012_A_0268_M_000_00,Belcrownlaan  21
+332,20053,"het veranderen van een inrichting, met precisering dat het betreft",2,Gosselin World Wide Moving nv,Belcrownlaan,21,25,,DE,2100,Antwerpen,11012_A_0269_W_000_00,Belcrownlaan  21
+333,20054,de exploitatie van een nieuwe inrichting,2,Smuggy BVBA,Kribbestraat,20,22,,AN,2000,Antwerpen,11802_B_0045_W_004_00,Kribbestraat  20
+334,20055,de melding van verandering van een bestaande inrichting derde klasse die na verandering in de derde klasse blijft ingedeeld en die geen milieutechnische eenheid vormt met een inrichting vergund als klasse 1 of klasse 2,3,,De Keyserlei,13,15,,AN,2018,Antwerpen,11808_H_1243_S_004_00,De Keyserlei  13
+335,20056,de melding van een nieuwe inrichting,3,Jounes,Handelstraat,13,,,AN,2060,Antwerpen,11805_E_0441_B_010_00,Handelstraat  13
+336,20057,de melding van een nieuwe inrichting,3,AMD CARS,Paleisstraat,73,75,,AN,2018,Antwerpen,11810_K_1701_B_002_00,Paleisstraat  73
+337,20058,ondergrondse uitgravingen,0,Maatschappij voor Ontwikkeling van Ondergrondse Werken,Scheldedijk (MOOW tunnel),,,,,2040,Antwerpen,11816_F_0222_B_000_00,
+338,20058,ondergrondse uitgravingen,0,Maatschappij voor Ontwikkeling van Ondergrondse Werken,Scheldedijk (MOOW tunnel),,,,,2040,Antwerpen,11816_F_0224_A_000_00,
+339,20058,ondergrondse uitgravingen,0,Maatschappij voor Ontwikkeling van Ondergrondse Werken,Scheldedijk (MOOW tunnel),,,,,2040,Antwerpen,11816_F_0225_C_000_00,
+340,20058,ondergrondse uitgravingen,0,Maatschappij voor Ontwikkeling van Ondergrondse Werken,Scheldedijk (MOOW tunnel),,,,,2040,Antwerpen,11816_F_0225_V_000_00,
+341,20059,de exploitatie van een nieuwe inrichting,2,,Noorderlaan,,,,AN,2030,Antwerpen,11816_C_0356_B_002_00,
+342,20061,bodemsanering,0,NB Noord nv (garage Nissan Antwerpen Noord),Merksemsesteenweg,149,,,DE,2100,Antwerpen,11012_A_0133_D_005_00,Merksemsesteenweg  149
+343,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0426_P_003_00,Herentalsebaan  502
+344,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0427_W_013_00,Herentalsebaan  502
+345,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0427_M_014_00,Herentalsebaan  502
+346,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0427_T_014_00,Herentalsebaan  502
+347,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0431_Z_000_00,Herentalsebaan  502
+348,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0428_P_002_00,Herentalsebaan  502
+349,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0428_R_002_00,Herentalsebaan  502
+350,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0428_W_002_00,Herentalsebaan  502
+351,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0428_S_002_00,Herentalsebaan  502
+352,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0428_M_002_00,Herentalsebaan  502
+353,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0427_G_013_00,Herentalsebaan  502
+354,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0427_V_014_00,Herentalsebaan  502
+355,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_0428_X_002_00,Herentalsebaan  502
+356,20062,bodemsanering,0,Px3 Development nv (vuurwerkfabriek Eugene Hendrickx),Herentalsebaan,502,,,DE,2100,Antwerpen,11345_B_9999___000_00,Herentalsebaan  502
+357,20063,bodemsanering,0,Den Bosuil nv (Hertsens),Vaartkaai,28,31,,ME,2170,Antwerpen,11422_C_0583_S_000_00,Vaartkaai  28
+358,20063,bodemsanering,0,Den Bosuil nv (Hertsens),Vaartkaai,28,31,,ME,2170,Antwerpen,11422_C_9999___000_00,Vaartkaai  28
+359,20064,de melding van een nieuwe inrichting,3,Den Lobroek,Lange Lobroekstraat,105,111,,AN,2060,Antwerpen,11807_G_0422_A_018_00,Lange Lobroekstraat  105
+360,20065,,2,,,,,,,,Antwerpen,,
+361,20066,de exploitatie van een nieuwe inrichting,1,,Unitaslaan,83,,,DE,2100,Antwerpen,11346_B_0568_E_000_00,Unitaslaan  83
+362,20067,het hernieuwen van een vergunning voor een bestaande inrichting,2,,Zomerweg,28,,,AN,2030,Antwerpen,11815_A_0261_M_002_00,Zomerweg  28
+363,20068,het hernieuwen van een vergunning voor een bestaande inrichting,2,Van Look Olivier,Schriek,87,,,EK,2180,Antwerpen,11364_F_0042_K_000_00,Schriek  87
+364,20068,het hernieuwen van een vergunning voor een bestaande inrichting,2,Van Look Olivier,Schriek,87,,,EK,2180,Antwerpen,11364_F_0043___000_00,Schriek  87
+365,20068,het hernieuwen van een vergunning voor een bestaande inrichting,2,Van Look Olivier,Schriek,87,,,EK,2180,Antwerpen,11364_F_0044___000_00,Schriek  87
+366,20068,het hernieuwen van een vergunning voor een bestaande inrichting,2,Van Look Olivier,Schriek,87,,,EK,2180,Antwerpen,11364_F_0045_G_000_00,Schriek  87
+367,20069,wijzigen van de exploitatievoorwaarden,2,Café Local,Waalsekaai,25,,,AN,2000,Antwerpen,11811_L_3965_R_000_00,Waalsekaai  25
+368,20071,de melding van een nieuwe inrichting,3,,Laarsebaan,24,26,,ME,2170,Antwerpen,11422_C_0040_W_002_00,Laarsebaan  24
+369,20072,de melding van een nieuwe inrichting,3,ARPA,Stenenbrug,159,,,BO,2140,Antwerpen,11006_A_0207_X_008_00,Stenenbrug  159
+370,20073,de melding van een nieuwe inrichting,3,Mehmet Yurdakral,Diepestraat,12,18,,AN,2060,Antwerpen,11805_E_0509_K_007_00,Diepestraat  12
+371,20073,de melding van een nieuwe inrichting,3,Mehmet Yurdakral,Diepestraat,12,18,,AN,2060,Antwerpen,11805_E_0509_N_007_00,Diepestraat  12
+372,20074,bodemsanering,0,De Lijn,Putsebaan,204,,,BD,2040,Antwerpen,11820_C_0580_T_000_00,Putsebaan  204
+373,20074,bodemsanering,0,De Lijn,Putsebaan,204,,,BD,2040,Antwerpen,11820_C_0570_E_005_00,Putsebaan  204
+374,20074,bodemsanering,0,De Lijn,Putsebaan,204,,,BD,2040,Antwerpen,11820_C_0570_F_005_00,Putsebaan  204
+375,20075,de melding van een nieuwe inrichting,3,Heyndrickx,Turnhoutsebaan,335,,,BO,2140,Antwerpen,11312_A_0103_S_000_00,Turnhoutsebaan  335
+376,20076,de melding van een nieuwe inrichting,3,P.R.T.,Kasteelstraat,58,,,AN,2000,Antwerpen,11811_L_3736_G_002_00,Kasteelstraat  58
+377,20077,de melding van een nieuwe inrichting,3,,Boomsesteenweg,392,,,AN,2020,Antwerpen,11809_I_2342_B_005_00,Boomsesteenweg  392
+378,20078,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,Aquafin nv,Kielsbroek,5,,,AN,2020,Antwerpen,11809_I_2652_C_000_00,Kielsbroek  5
+379,20079,de melding van een nieuwe inrichting,3,,VIIde-Olympiadelaan,66,,,AN,2020,Antwerpen,11809_I_2348_R_002_00,VIIde-Olympiadelaan  66
+380,20079,de melding van een nieuwe inrichting,3,,VIIde-Olympiadelaan,66,,,AN,2020,Antwerpen,11809_I_2348_V_002_00,VIIde-Olympiadelaan  66
+381,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0593___000_00,Adolf Greinerstraat  14
+382,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0594___000_00,Adolf Greinerstraat  14
+383,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0595_A_000_00,Adolf Greinerstraat  14
+384,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0600_E_000_00,Adolf Greinerstraat  14
+385,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0584_T_000_00,Adolf Greinerstraat  14
+386,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0582_F_000_00,Adolf Greinerstraat  14
+387,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0583_H_000_00,Adolf Greinerstraat  14
+388,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0584_Y_000_00,Adolf Greinerstraat  14
+389,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0597_C_000_00,Adolf Greinerstraat  14
+390,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0596_H_000_00,Adolf Greinerstraat  14
+391,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0599_H_000_00,Adolf Greinerstraat  14
+392,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0515_E_000_00,Adolf Greinerstraat  14
+393,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0517_B_000_00,Adolf Greinerstraat  14
+394,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0521_D_000_00,Adolf Greinerstraat  14
+395,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0516_K_000_00,Adolf Greinerstraat  14
+396,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0526_L_000_00,Adolf Greinerstraat  14
+397,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0526_M_000_00,Adolf Greinerstraat  14
+398,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0526_N_000_00,Adolf Greinerstraat  14
+399,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0525_T_000_00,Adolf Greinerstraat  14
+400,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0524_C_000_00,Adolf Greinerstraat  14
+401,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0507_P_000_00,Adolf Greinerstraat  14
+402,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0516_N_000_00,Adolf Greinerstraat  14
+403,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0520_R_000_00,Adolf Greinerstraat  14
+404,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0557_F_004_00,Adolf Greinerstraat  14
+405,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0557_D_004_00,Adolf Greinerstraat  14
+406,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0516_M_000_00,Adolf Greinerstraat  14
+407,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0557_E_004_00,Adolf Greinerstraat  14
+408,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0552_Z_002_00,Adolf Greinerstraat  14
+409,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0242_T_022_00,Adolf Greinerstraat  14
+410,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0244_C_005_00,Adolf Greinerstraat  14
+411,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0242_T_023_00,Adolf Greinerstraat  14
+412,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0244___000_02,Adolf Greinerstraat  14
+413,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0243_E_003_00,Adolf Greinerstraat  14
+414,20081,bodemsanering,0,Umicore nv,Adolf Greinerstraat,14,,,HO,2660,Antwerpen,11382_C_0010_R_002_00,Adolf Greinerstraat  14
+415,20082,het hernieuwen van een vergunning voor een bestaande inrichting,2,Frigo nv,Lange Lobroekstraat,120,,,AN,2060,Antwerpen,11807_G_0333_B_003_00,Lange Lobroekstraat  120
+416,20083,de melding van een nieuwe inrichting,3,Stroykens Peter,Helmstraat,142,,,BO,2140,Antwerpen,11312_A_1004_W_011_00,Helmstraat  142
+417,20084,de melding van een nieuwe inrichting,3,Euro - As,Oostkaai,2013/07/25,,,ME,2170,Antwerpen,11422_C_0276_F_003_00,Oostkaai  2013/07/25
+418,20085,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,ExxonMobil Petroleum & Chemical bvba,Leugenberg,204,,,EK,2180,Antwerpen,11014_H_0275_B_000_00,Leugenberg  204
+419,20086,"het veranderen van een inrichting, met precisering dat het betreft",1,,Tijsmanstunnel-West,,,,AN,2040,Antwerpen,11818_F_0114_C_000_00,
+420,20086,"het veranderen van een inrichting, met precisering dat het betreft",1,,Tijsmanstunnel-West,,,,AN,2040,Antwerpen,11818_F_0114_D_000_00,
+421,20086,"het veranderen van een inrichting, met precisering dat het betreft",1,,Tijsmanstunnel-West,,,,AN,2040,Antwerpen,11818_F_0114_G_000_00,
+422,20086,"het veranderen van een inrichting, met precisering dat het betreft",1,,Tijsmanstunnel-West,,,,AN,2040,Antwerpen,11818_F_0114_F_000_00,
+423,20086,"het veranderen van een inrichting, met precisering dat het betreft",1,,Tijsmanstunnel-West,,,,AN,2040,Antwerpen,11818_F_0114_H_000_00,
+424,20086,"het veranderen van een inrichting, met precisering dat het betreft",1,,Tijsmanstunnel-West,,,,AN,2040,Antwerpen,11818_F_0114_K_000_00,
+425,20087,de melding van een nieuwe inrichting,3,Jimila,Begijnenstraat,95,,,AN,2000,Antwerpen,11804_D_1986_R_004_00,Begijnenstraat  95
+426,20088,ioniserende stralingen klasse 3,3,,Zilversmidstraat,5,,,AN,2000,Antwerpen,11002_A_1446_F_000_00,Zilversmidstraat  5
+427,20089,ioniserende stralingen klasse 3,3,,Grotesteenweg,335,,,BE,2600,Antwerpen,11303_C_0239_A_002_00,Grotesteenweg  335
+428,20091,het hernieuwen van een vergunning voor een bestaande inrichting,1,BASF Antwerpen,Scheldelaan,600,,,BZL,2040,Antwerpen,11820_D_0009_Z_000_00,Scheldelaan  600
+429,20092,de exploitatie van een nieuwe inrichting,1,VLEEMO nv,Moerstraat,99,,,AN,2030,Antwerpen,11818_D_0191_B_000_00,Moerstraat  99
+430,20093,de melding van een nieuwe inrichting,3,lavamet,Lange Lobroekstraat,200,,,AN,2060,Antwerpen,11807_G_0300_X_003_00,Lange Lobroekstraat  200
+431,20094,de melding van een nieuwe inrichting,3,Rodax nv,Santvoortbeeklaan,33,,,DE,2100,Antwerpen,11012_A_0271_S_000_00,Santvoortbeeklaan  33
+432,20095,de melding van een nieuwe inrichting,3,Willems Joris,Sint-Jobstraat,45,,,AN,2060,Antwerpen,11807_G_0229_C_002_00,Sint-Jobstraat  45
+433,20096,het hernieuwen van een vergunning voor een bestaande inrichting,2,Centraal Laboratorium Antwerpen,Frankrijklei,67,69,,AN,2000,Antwerpen,11808_H_1207_M_006_00,Frankrijklei  67
+434,20097,de melding van een nieuwe inrichting,3,Cassimo,Helmstraat,10,18,,BO,2140,Antwerpen,11312_A_0873_L_000_00,Helmstraat  10
+435,20098,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,Sita Recycling Services,Schomhoeveweg,1,,,AN,2030,Antwerpen,11815_D_0267_G_000_00,Schomhoeveweg  1
+436,20099,de melding van een nieuwe inrichting,3,Dierckx en zn,Lange Slachterijstraat,15,19,,AN,2060,Antwerpen,11807_G_0422_Z_012_00,Lange Slachterijstraat  15
+437,20099,de melding van een nieuwe inrichting,3,Dierckx en zn,Lange Slachterijstraat,15,19,,AN,2060,Antwerpen,11807_G_0422_A_013_00,Lange Slachterijstraat  15
+438,20099,de melding van een nieuwe inrichting,3,Dierckx en zn,Lange Slachterijstraat,15,19,,AN,2060,Antwerpen,11807_G_0422_Y_012_00,Lange Slachterijstraat  15
+439,20101,ioniserende stralingen klasse 3,3,,Gloriantlaan,26,,,AN,2050,Antwerpen,11813_N_0725_H_002_00,Gloriantlaan  26
+440,20102,"het veranderen van een inrichting, met precisering dat het betreft",1,LBC,Leon Bonnetweg,28,,,AN,2030,Antwerpen,11814_C_0106_G_004_00,Leon Bonnetweg  28
+441,20102,"het veranderen van een inrichting, met precisering dat het betreft",1,LBC,Leon Bonnetweg,28,,,AN,2030,Antwerpen,11814_B_0034_S_003_00,Leon Bonnetweg  28
+442,20102,"het veranderen van een inrichting, met precisering dat het betreft",1,LBC,Leon Bonnetweg,28,,,AN,2030,Antwerpen,11814_B_0034_Z_002_00,Leon Bonnetweg  28
+443,20103,"het veranderen van een inrichting, met precisering dat het betreft",1,Aquafin,Moerstraat,22,,,AN,2030,Antwerpen,11816_B_0048___000_02,Moerstraat  22
+444,20103,"het veranderen van een inrichting, met precisering dat het betreft",1,Aquafin,Moerstraat,22,,,AN,2030,Antwerpen,11816_B_0028_L_000_00,Moerstraat  22
+445,20103,"het veranderen van een inrichting, met precisering dat het betreft",1,Aquafin,Moerstraat,22,,,AN,2030,Antwerpen,11816_B_0028_K_000_00,Moerstraat  22
+446,20103,"het veranderen van een inrichting, met precisering dat het betreft",1,Aquafin,Moerstraat,22,,,AN,2030,Antwerpen,11816_B_0028_E_000_00,Moerstraat  22
+447,20103,"het veranderen van een inrichting, met precisering dat het betreft",1,Aquafin,Moerstraat,22,,,AN,2030,Antwerpen,11816_B_0028_H_000_00,Moerstraat  22
+448,20103,"het veranderen van een inrichting, met precisering dat het betreft",1,Aquafin,Moerstraat,22,,,AN,2030,Antwerpen,11816_B_0028_G_000_00,Moerstraat  22
+449,20103,"het veranderen van een inrichting, met precisering dat het betreft",1,Aquafin,Moerstraat,22,,,AN,2030,Antwerpen,11816_B_0028_C_000_00,Moerstraat  22
+450,20104,de melding van de overname van een vergunde inrichting,2,,Boterlaarbaan,267,269,,DE,2100,Antwerpen,11345_B_0236_T_008_00,Boterlaarbaan  267
+451,20105,wijzigen van de exploitatievoorwaarden,1,Colombus-HTC nv,*Scheldelaan - Industriedok,373,,,AN,2030,Antwerpen,11814_A_0436_X_000_00,*Scheldelaan - Industriedok  373
+452,20106,de melding van een nieuwe inrichting,3,Van De Vyvere Dick,Oudaan,15,,,AN,2000,Antwerpen,11804_D_1572_E_000_00,Oudaan  15
+453,20107,"het veranderen van een inrichting, met precisering dat het betreft",2,Wasserij Ideale,Kapelsesteenweg,519,,,EK,2180,Antwerpen,11364_F_0168_A_003_00,Kapelsesteenweg  519
+454,20107,"het veranderen van een inrichting, met precisering dat het betreft",2,Wasserij Ideale,Kapelsesteenweg,519,,,EK,2180,Antwerpen,11364_F_0001_G_005_00,Kapelsesteenweg  519
+455,20109,de melding van een nieuwe inrichting,3,Ugur Faruk,Van Halmalestraat,10,,,AN,2020,Antwerpen,11809_I_2386_P_012_00,Van Halmalestraat  10
+456,20111,de melding van de overname van een vergunde inrichting,2,,Francis Wellesplein,1,,,AN,2018,Antwerpen,11810_K_1687_X_000_00,Francis Wellesplein  1
+457,20112,bodemsanering,0,,Alfons Schneiderlaan,67,,,DE,2100,Antwerpen,11344_A_0457_C_015_00,Alfons Schneiderlaan  67
+458,20112,bodemsanering,0,,Alfons Schneiderlaan,67,,,DE,2100,Antwerpen,11344_A_0457_Y_013_00,Alfons Schneiderlaan  67
+459,20112,bodemsanering,0,,Alfons Schneiderlaan,67,,,DE,2100,Antwerpen,11344_A_0461_H_007_00,Alfons Schneiderlaan  67
+460,20112,bodemsanering,0,,Alfons Schneiderlaan,67,,,DE,2100,Antwerpen,11344_A_0462_V_004_00,Alfons Schneiderlaan  67
+461,20113,bodemsanering,0,,Blauweweg,245,247,,AN,2030,Antwerpen,11814_A_0269_K_008_00,Blauweweg  245
+462,20114,de melding van een nieuwe inrichting,3,I.M.E.A,Bredabaan,891,893,,ME,2170,Antwerpen,11423_B_0233_E_002_00,Bredabaan  891
+463,20115,de melding van een nieuwe inrichting,3,De Witte Waanzin,Oranjestraat,78a,,,AN,2060,Antwerpen,11807_G_0226_V_004_00,Oranjestraat  78a
+464,20116,de melding van een nieuwe inrichting,3,Infrabel,Noorderlaan,630,,,AN,2030,Antwerpen,11816_B_0192_T_000_00,Noorderlaan  630
+465,20117,de melding van een nieuwe inrichting,3,Van Asbroeck Jozef,Letterkundestraat,1,3,,WI,2610,Antwerpen,11462_A_0134_G_015_00,Letterkundestraat  1
+466,20118,de melding van een nieuwe inrichting,3,Capelle Daniel,Sint-Jansplein,35,,,AN,2060,Antwerpen,11805_E_0523_Z_000_00,Sint-Jansplein  35
+467,20119,bodemsanering,0,,Noorderlaan,111,,,AN,2030,Antwerpen,11807_G_1671_P_000_00,Noorderlaan  111
+468,20119,bodemsanering,0,,Noorderlaan,111,,,AN,2030,Antwerpen,11807_G_1671_S_000_00,Noorderlaan  111
+469,20121,"de mededeling van een kleine verandering van een bestaande inrichting tweede klasse, omvattende",2,Cofinimmo nv,Posthofbrug,10,16,,BE,2600,Antwerpen,11003_A_0160_K_002_00,Posthofbrug  10
+470,20122,de melding van verandering van een bestaande inrichting derde klasse die na verandering in de derde klasse blijft ingedeeld en die geen milieutechnische eenheid vormt met een inrichting vergund als klasse 1 of klasse 2,3,KPN Group Belgium,Ruggeveldlaan,471,,,DE,2100,Antwerpen,11345_B_0119_H_000_00,Ruggeveldlaan  471
+471,20123,de exploitatie van een nieuwe inrichting,2,Jeugdhuis Tel 18 - Telex vzw,Waterstraat,16,,,EK,2180,Antwerpen,11364_F_0111_H_002_00,Waterstraat  16
+472,20124,de melding van verandering van een bestaande inrichting derde klasse die na verandering in de derde klasse blijft ingedeeld en die geen milieutechnische eenheid vormt met een inrichting vergund als klasse 1 of klasse 2,3,KPN Group Belgium,Jagersstraat,23,25,,BO,2140,Antwerpen,11006_A_0260_C_004_00,Jagersstraat  23
+473,20125,"het veranderen van een inrichting, met precisering dat het betreft",2,,Jennevalstraat,20,,,BE,2600,Antwerpen,11303_B_0438_E_020_00,Jennevalstraat  20
+474,20125,"het veranderen van een inrichting, met precisering dat het betreft",2,,Jennevalstraat,20,,,BE,2600,Antwerpen,11303_B_0438_N_020_00,Jennevalstraat  20
+475,20126,de melding van een nieuwe inrichting,3,Meyland Services,Smallandlaan,6B,,,HO,2660,Antwerpen,11382_A_0407_C_000_00,Smallandlaan  6B
+476,20127,"het veranderen van een inrichting, met precisering dat het betreft",2,Gemeentelijk Havenbedrijf Antwerpen,Loodglansstraat,7,,,AN,2030,Antwerpen,11807_G_1595_H_000_13,Loodglansstraat  7
+477,20127,"het veranderen van een inrichting, met precisering dat het betreft",2,Gemeentelijk Havenbedrijf Antwerpen,Loodglansstraat,7,,,AN,2030,Antwerpen,11807_G_0000___000_00,Loodglansstraat  7
+478,20128,het hernieuwen van een vergunning voor een bestaande inrichting,2,Euro-Sweets nv,Eikelstraat,66,68,,BE,2600,Antwerpen,11003_B_0001_Z_008_00,Eikelstraat  66
+479,20129,de melding van een nieuwe inrichting,3,Aannemingen Van Wellen,Ellermanstraat,71,81,,AN,2060,Antwerpen,11807_G_1309_K_003_00,Ellermanstraat  71
+480,20131,de melding van een nieuwe inrichting,3,Highway 66 Truchwash & Stop,Luithagen-Haven,2,,,AN,2030,Antwerpen,11817_F_0633___000_04,Luithagen-Haven  2
+481,20132,erkenning muziekactiviteit,0,,Kazerneplein,,,,AN,2040,Antwerpen,,
+482,20133,ioniserende stralingen klasse 2 kleine verandering,2,Janssen Pharmaceutica,Lange Bremstraat,70,,,ME,2170,Antwerpen,11423_B_0182_Z_000_00,Lange Bremstraat  70
+483,20133,ioniserende stralingen klasse 2 kleine verandering,2,Janssen Pharmaceutica,Lange Bremstraat,70,,,ME,2170,Antwerpen,11423_B_0182_A_002_00,Lange Bremstraat  70
+484,20134,de melding van een nieuwe inrichting,3,Bakkerij Terminus bvba,Bredabaan,756,,,ME,2170,Antwerpen,11422_C_0207_Z_021_00,Bredabaan  756
+485,20135,de melding van een nieuwe inrichting,3,Ugur Faruk,Sint-Bernardsesteenweg,627,,,HO,2660,Antwerpen,11019_B_0184_T_005_00,Sint-Bernardsesteenweg  627
+486,20136,de melding van verandering van een bestaande inrichting derde klasse die na verandering in de derde klasse blijft ingedeeld en die geen milieutechnische eenheid vormt met een inrichting vergund als klasse 1 of klasse 2,3,Kranen Michielsens nv,Scheldelaan,16,,,AN,2030,Antwerpen,11815_B_0250_Z_000_00,Scheldelaan  16
+487,20137,"het veranderen van een inrichting, met precisering dat het betreft",1,Scheepsherstellersbedrijf Van Rousselt,Kempenstraat,9,,,AN,2030,Antwerpen,11807_G_0167_A_000_12,Kempenstraat  9
+488,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0081_A_000_02,Scheldelaan  420
+489,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0081_B_000_02,Scheldelaan  420
+490,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0081_D_000_02,Scheldelaan  420
+491,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0081_E_000_02,Scheldelaan  420
+492,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0081_L_000_02,Scheldelaan  420
+493,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0081_N_000_02,Scheldelaan  420
+494,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0081_V_000_02,Scheldelaan  420
+495,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0082_C_000_02,Scheldelaan  420
+496,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0234_B_002_00,Scheldelaan  420
+497,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0234_D_002_00,Scheldelaan  420
+498,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0234_E_002_00,Scheldelaan  420
+499,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0234_G_002_00,Scheldelaan  420
+500,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0234_H_002_00,Scheldelaan  420
+501,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0241_E_002_00,Scheldelaan  420
+502,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0241_F_002_00,Scheldelaan  420
+503,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0241_G_002_00,Scheldelaan  420
+504,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0241_N_002_00,Scheldelaan  420
+505,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0241_R_002_00,Scheldelaan  420
+506,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_F_0241_Z_000_00,Scheldelaan  420
+507,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0081_G_002_02,Scheldelaan  420
+508,20138,"het veranderen van een inrichting, met precisering dat het betreft",1,Lanxess nv - Victor Peeters O.I.W. nv,Scheldelaan,420,,,AN,2040,Antwerpen,11816_D_0081_H_002_02,Scheldelaan  420
+509,20139,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,BASF Antwerpen,Scheldelaan,600,,,BZL,2040,Antwerpen,11820_D_0032_B_000_00,Scheldelaan  600
+510,20139,"de mededeling van een kleine verandering van een bestaande inrichting eerste of tweede klasse, omvattende",1,BASF Antwerpen,Scheldelaan,600,,,BZL,2040,Antwerpen,11820_A_0205_D_000_00,Scheldelaan  600
+511,198810,de exploitatie van een nieuwe inrichting,2,De Pauw,Paardenmarkt,5,,,AN,2000,Antwerpen,11802_B_0452_B_000_00,Paardenmarkt  5
+512,198811,de exploitatie van een nieuwe inrichting,1,Locadif,Plantin en Moretuslei,62,,,AN,2018,Antwerpen,,Plantin en Moretuslei  62
+513,198812,"het veranderen van een inrichting, met precisering dat het betreft",1,,Muisbroeklaan,57,,,AN,2030,Antwerpen,11816_A_0039_E_000_00,Muisbroeklaan  57
+514,198812,"het veranderen van een inrichting, met precisering dat het betreft",1,,Muisbroeklaan,57,,,AN,2030,Antwerpen,11816_A_0039_N_000_00,Muisbroeklaan  57
+515,198812,"het veranderen van een inrichting, met precisering dat het betreft",1,,Muisbroeklaan,57,,,AN,2030,Antwerpen,11816_A_0039_P_000_00,Muisbroeklaan  57
+516,198910,ioniserende stralingen klasse 3,3,Maerivoet Henri,Kioskplaats,97,,,HO,2660,Antwerpen,11382_C_0066_Y_008_00,Kioskplaats  97
+517,199010,"het veranderen van een inrichting, met precisering dat het betreft",1,,Lange Bremstraat,70,,,ME,2170,Antwerpen,11423_B_0182_X_000_00,Lange Bremstraat  70
+518,199011,de exploitatie van een nieuwe inrichting,1,Antwerpse Automobielmaatschappij,Carrettestraat,17,,,ME,2170,Antwerpen,11422_C_0597_Z_003_00,Carrettestraat  17
+519,199012,de exploitatie van een nieuwe inrichting,1,,Bisschoppenhoflaan,489,,,DE,2100,Antwerpen,11012_A_0281_K_004_00,Bisschoppenhoflaan  489
+520,199013,de exploitatie van een nieuwe inrichting,2,,Laar,30,,,EK,2180,Antwerpen,11363_E_0175_D_000_00,Laar  30
+521,199110,de melding van een nieuwe inrichting,3,Deburggraeve Marc,Oosterlinckhoflaan,29,,,EK,2180,Antwerpen,11364_F_0293_Y_012_00,Oosterlinckhoflaan  29
+522,199112,de melding van een nieuwe inrichting,3,,Lange Dijkstraat,98,,,AN,2060,Antwerpen,11807_G_0188_E_002_00,Lange Dijkstraat  98
+523,199113,de melding van een nieuwe inrichting,3,El Battouye M'Hamed ben Hassan,Koxplein,7,,,BO,2140,Antwerpen,11006_A_0349_V_011_00,Koxplein  7
+524,199114,de melding van een nieuwe inrichting,3,Van Den Bossche Jean Marie,Parijslaan,134,,,HO,2660,Antwerpen,11382_C_0643_Y_000_00,Parijslaan  134
+525,199115,de melding van een nieuwe inrichting,3,De Maeyer Nicole,Parijslaan,134,,,HO,2660,Antwerpen,11382_C_0643_Y_000_00,Parijslaan  134
+526,199117,de exploitatie van een nieuwe inrichting,2,D'Hondt Francois,Sint-Bernardsesteenweg,776,,,HO,2660,Antwerpen,11019_B_0211_G_010_00,Sint-Bernardsesteenweg  776
+527,199117,de exploitatie van een nieuwe inrichting,2,D'Hondt Francois,Sint-Bernardsesteenweg,776,,,HO,2660,Antwerpen,11019_B_0211_H_010_00,Sint-Bernardsesteenweg  776
+528,199118,de exploitatie van een nieuwe inrichting,2,Intraco,Kernenergiestraat,43,,,WI,2610,Antwerpen,11463_D_0327_D_002_00,Kernenergiestraat  43
+529,199120,de exploitatie van een nieuwe inrichting,2,P. Schoeters,Smallandlaan,5,,,HO,2660,Antwerpen,11382_A_0475_D_000_00,Smallandlaan  5
+530,199121,de exploitatie van een nieuwe inrichting,2,Verbeeck Jozef,Schotensesteenweg,16,,,DE,2100,Antwerpen,11344_A_0434_P_003_00,Schotensesteenweg  16
+531,199122,de exploitatie van een nieuwe inrichting,2,Gunco,Noorderlaan,608,,,AN,2030,Antwerpen,11815_D_0271_A_000_06,Noorderlaan  608
+532,199124,de melding van een inrichting die na wijziging of aanvulling van de indelingslijst meldingsplichtig wordt,3,Algemeen Medisch Laboratorium,Desguinlei,88,,,AN,2018,Antwerpen,11810_K_2181_G_002_00,Desguinlei  88
+533,199125,het hernieuwen van een vergunning voor een bestaande inrichting,2,Van Gampelaere Karel,Victor Jacobslei,20,,,BE,2600,Antwerpen,11003_B_0034_D_007_00,Victor Jacobslei  20
+534,199126,de melding van een nieuwe inrichting,3,Bauwens Wim,Groot Hagelkruis,179,,181,EK,2180,Antwerpen,11817_F_0768_S_005_00,Groot Hagelkruis  179
+535,199127,het hernieuwen van een vergunning voor een bestaande inrichting,2,De Keye Jean-Louis,Schijfstraat,4,6,,AN,2020,Antwerpen,11809_I_2498_X_011_00,Schijfstraat  4
+536,199127,het hernieuwen van een vergunning voor een bestaande inrichting,2,De Keye Jean-Louis,Schijfstraat,4,6,,AN,2020,Antwerpen,11809_I_2498_Y_011_00,Schijfstraat  4
+537,199128,de exploitatie van een nieuwe inrichting,2,Lambrechts,Pierre Van den Eedenstraat,65,67,,HO,2660,Antwerpen,11382_A_0333_R_000_00,Pierre Van den Eedenstraat  65
+538,199129,de exploitatie van een nieuwe inrichting,2,Donne,Pierre Van den Eedenstraat,65,67,,HO,2660,Antwerpen,11382_A_0333_R_000_00,Pierre Van den Eedenstraat  65
+539,199130,de melding van een nieuwe inrichting,3,Zozan,Dambruggestraat,246,,,AN,2060,Antwerpen,11805_E_0212_A_016_00,Dambruggestraat  246
+540,199131,de melding van een nieuwe inrichting,3,Vandenhove Gerard,Desguinlei,232,,,AN,2018,Antwerpen,11810_K_1915_S_004_00,Desguinlei  232
+541,199132,de melding van een nieuwe inrichting,3,Deroo Robert,Klein Hagelkruis,64,,,EK,2180,Antwerpen,11364_F_0658_X_002_00,Klein Hagelkruis  64
+542,199133,"het veranderen van een inrichting, met precisering dat het betreft",2,Electrabel,Legerstraat,9,,,WI,2610,Antwerpen,11462_A_0447_K_000_00,Legerstraat  9
+543,199134,de exploitatie van een nieuwe inrichting,1,Van Wellen Stevedoring,Noorderlaan,,,,AN,2030,Antwerpen,11818_E_0211_M_002_00,
+544,199135,de melding van een nieuwe inrichting,3,Van Den Bosch André,Zoutestraat,126,,,,2040,Antwerpen,11820_C_0421_G_000_05,Zoutestraat  126
+545,199136,"het veranderen van een inrichting, met precisering dat het betreft",2,Electrabel,Uitbreidingstraat,580,,,BE,2600,Antwerpen,11302_A_0019_Z_002_00,Uitbreidingstraat  580
+546,199137,het hernieuwen van een vergunning voor een bestaande inrichting,2,Thuy,Lakborslei,81,,,DE,2100,Antwerpen,11343_A_0616_Y_000_00,Lakborslei  81
+547,199137,het hernieuwen van een vergunning voor een bestaande inrichting,2,Thuy,Lakborslei,81,,,DE,2100,Antwerpen,11343_A_0616_P_000_00,Lakborslei  81
+548,199137,het hernieuwen van een vergunning voor een bestaande inrichting,2,Thuy,Lakborslei,81,,,DE,2100,Antwerpen,11343_A_0621_A_000_00,Lakborslei  81
+549,199137,het hernieuwen van een vergunning voor een bestaande inrichting,2,Thuy,Lakborslei,81,,,DE,2100,Antwerpen,11343_A_0616_X_000_00,Lakborslei  81
+550,199139,de melding van een inrichting die na wijziging of aanvulling van de indelingslijst meldingsplichtig wordt,3,Van Den Bossche Jean Marie,Parijslaan,134,,,HO,2660,Antwerpen,11382_C_0643_Y_000_00,Parijslaan  134
+551,199140,de melding van een nieuwe inrichting,3,De Vleeschmeesters,Weerstandlaan,40,,,HO,2660,Antwerpen,11019_B_0023_B_006_00,Weerstandlaan  40
+552,199141,de melding van een nieuwe inrichting,3,Vanderjeught Marc,De Bosschaertstraat,275,,,AN,2020,Antwerpen,11809_I_2341_C_007_00,De Bosschaertstraat  275
+553,199142,de exploitatie van een nieuwe inrichting,2,Zuidnatie,*Moleneind Achterkaai Churchilldok,414,,,AN,2030,Antwerpen,11815_A_0223_P_002_00,*Moleneind Achterkaai Churchilldok  414
+554,199143,de melding van een nieuwe inrichting,3,Katoen Natie,Ouland,20,,,AN,2030,Antwerpen,11807_G_1822_C_000_00,Ouland  20
+555,199143,de melding van een nieuwe inrichting,3,Katoen Natie,Ouland,20,,,AN,2030,Antwerpen,11807_G_1828_E_000_00,Ouland  20
+556,199144,de melding van een nieuwe inrichting,3,Katoen Natie,Schenkeldijk,,,,AN,2030,Antwerpen,11807_G_1733_C_000_00,
+557,199146,de exploitatie van een nieuwe inrichting,2,Credit Lyonnais Belgium,Lange Gasthuisstraat,9,11,,AN,2000,Antwerpen,11803_C_1079_F_000_00,Lange Gasthuisstraat  9
+558,199147,"het veranderen van een inrichting, met precisering dat het betreft",2,Delta Container Services,Nieuwe Westweg Kaai,734,,,,2040,Antwerpen,11818_C_0097___000_02,Nieuwe Westweg Kaai  734
+559,199148,de exploitatie van een nieuwe inrichting,2,International Diamond Manufactures,Lange Herentalsestraat,74,,,AN,2018,Antwerpen,11808_H_1176_Y_012_00,Lange Herentalsestraat  74
+560,199149,de melding van een nieuwe inrichting,3,Pauwels Francois,Alfons Schneiderlaan,87,,1,DE,2100,Antwerpen,11344_A_0461_G_005_00,Alfons Schneiderlaan  87
+561,199150,de melding van een nieuwe inrichting,3,Meert,Hof Ter Heidelaan,58,,,HO,2660,Antwerpen,11019_B_0121_H_008_00,Hof Ter Heidelaan  58
+562,199151,de melding van een nieuwe inrichting,3,Hendrickx Francis,De Vrièrestraat,16,,,AN,2000,Antwerpen,11811_L_3565_E_002_00,De Vrièrestraat  16
+563,199152,de melding van een nieuwe inrichting,3,Wils Joseph,Ijskelderstraat,49,,,HO,2660,Antwerpen,11382_A_0364_B_003_00,Ijskelderstraat  49
+564,199153,de exploitatie van een nieuwe inrichting,2,Boons Willy,Stephensonstraat,18,,,HO,2660,Antwerpen,11382_C_0231_G_008_00,Stephensonstraat  18
+565,199154,de exploitatie van een nieuwe inrichting,2,Redox,Smallandlaan,14,,10A,HO,2660,Antwerpen,11382_A_0498_P_000_00,Smallandlaan  14
+566,199155,"het veranderen van een inrichting, met precisering dat het betreft",2,Baltic Stevedoring & Tallying CY,Muisbroeklaan,,,,AN,2030,Antwerpen,11816_C_0188_T_003_00,
+567,199157,de melding van een nieuwe inrichting,3,Germonpre Daniel,Isabellalei,53,,,AN,2030,Antwerpen,11806_F_1340_F_010_00,Isabellalei  53
+568,199158,de exploitatie van een nieuwe inrichting,2,Isolatiewerken Maes,Belcrownlaan,18,,,DE,2100,Antwerpen,11012_A_0167_R_000_00,Belcrownlaan  18
+569,199159,de melding van een nieuwe inrichting,3,Coating Consultants,Commandant Weynsstraat,85,,,HO,2660,Antwerpen,11382_A_0321_D_000_00,Commandant Weynsstraat  85
+570,199159,de melding van een nieuwe inrichting,3,Coating Consultants,Commandant Weynsstraat,85,,,HO,2660,Antwerpen,11382_A_0320_Z_006_00,Commandant Weynsstraat  85
+571,199161,het hernieuwen van een vergunning voor een bestaande inrichting,2,Meersman Hubert,Heistraat,300,,,WI,2610,Antwerpen,11051_B_0191_L_008_00,Heistraat  300
+572,199161,het hernieuwen van een vergunning voor een bestaande inrichting,2,Meersman Hubert,Heistraat,300,,,WI,2610,Antwerpen,11051_B_0191_F_009_00,Heistraat  300
+573,199162,de exploitatie van een nieuwe inrichting,2,Van Sluys & Bayet,Oude Veer,,,,AN,2020,Antwerpen,11809_I_2880___000_03,
+574,199165,de melding van een nieuwe inrichting,3,Nijverheidsinstellingen Anckaerts,Pieter Jozef Nauwelaertsstraat,20,,,BE,2600,Antwerpen,11302_A_0099_M_008_00,Pieter Jozef Nauwelaertsstraat  20
+575,199166,de melding van een nieuwe inrichting,3,Rusthuizen Zuster Van Berlaar,Kerkstraat,159,,,AN,2060,Antwerpen,11805_E_0730_A_011_00,Kerkstraat  159
+576,199167,de melding van een nieuwe inrichting,3,Lauwers Marc,Van Schoonbekestraat,106,,,AN,2018,Antwerpen,11810_K_1625_L_002_00,Van Schoonbekestraat  106
+577,199168,het hernieuwen van een vergunning voor een bestaande inrichting,2,GB-INNO-BM,Frank Craeybeckxlaan,33,,,DE,2100,Antwerpen,11343_A_0587_W_000_00,Frank Craeybeckxlaan  33
+578,199169,"het veranderen van een inrichting, met precisering dat het betreft",2,Denac,Smallandlaan,1,3,,HO,2660,Antwerpen,11382_A_0410_D_000_00,Smallandlaan  1
+579,199169,"het veranderen van een inrichting, met precisering dat het betreft",2,Denac,Smallandlaan,1,3,,HO,2660,Antwerpen,11382_A_0410_G_000_00,Smallandlaan  1
+580,199170,"het veranderen van een inrichting, met precisering dat het betreft",2,A.D.F. Model- en Vormmakerij,Koornbloemstraat,148,,,WI,2610,Antwerpen,11462_A_0394_A_003_00,Koornbloemstraat  148
+581,199171,"het veranderen van een inrichting, met precisering dat het betreft",2,Transport Nagels,Vaartdijk,1,3,,ME,2170,Antwerpen,11422_D_0006_V_002_00,Vaartdijk  1
+582,199172,de exploitatie van een nieuwe inrichting,1,BASF Antwerpen,Scheldelaan,600,,,AN,2040,Antwerpen,11820_D_0026_D_000_00,Scheldelaan  600
+583,199173,de exploitatie van een nieuwe inrichting,2,Sumitomo Warehouse (Europe) GMBH,Fotografielaan,37,39,,WI,2610,Antwerpen,11463_D_0171_B_000_00,Fotografielaan  37
+584,199174,de exploitatie van een nieuwe inrichting,2,Antverpia,Boshovestraat,56,62,,DE,2100,Antwerpen,11344_A_0538_S_004_00,Boshovestraat  56
+585,199174,de exploitatie van een nieuwe inrichting,2,Antverpia,Boshovestraat,56,62,,DE,2100,Antwerpen,11344_A_0538_Y_004_00,Boshovestraat  56
+586,199176,"het veranderen van een inrichting, met precisering dat het betreft",2,Bakkerij De Kort,Du Montstraat,41,63,,DE,2100,Antwerpen,11343_A_0596_A_011_00,Du Montstraat  41
+587,199176,"het veranderen van een inrichting, met precisering dat het betreft",2,Bakkerij De Kort,Du Montstraat,41,63,,DE,2100,Antwerpen,11343_A_0596_B_011_00,Du Montstraat  41
+588,199176,"het veranderen van een inrichting, met precisering dat het betreft",2,Bakkerij De Kort,Du Montstraat,41,63,,DE,2100,Antwerpen,11343_A_0596_D_012_00,Du Montstraat  41
+589,199177,de exploitatie van een nieuwe inrichting,2,Torfs Transport,Noorderlaan,185,,,AN,2030,Antwerpen,11815_A_0223_B_005_00,Noorderlaan  185
+590,199177,de exploitatie van een nieuwe inrichting,2,Torfs Transport,Noorderlaan,185,,,AN,2030,Antwerpen,11815_A_0223_V_004_00,Noorderlaan  185
+591,199178,de melding van een nieuwe inrichting,3,Brabo,Schuildok Berendrechtsluis,,,,,2030,Antwerpen,11819_A_0045_N_000_00,
+592,199179,de melding van verandering van een bestaande inrichting derde klasse die na verandering in de derde klasse blijft ingedeeld en die geen milieutechnische eenheid vormt met een inrichting vergund als klasse 1 of klasse 2,3,Distridetail,Waalsekaai,57,58,,AN,2000,Antwerpen,11811_L_3940_P_000_00,Waalsekaai  57
+593,199180,"het veranderen van een inrichting, met precisering dat het betreft",2,Garage De Dageraad,Kreeftstraat,15,,,,2018,Antwerpen,11806_F_1284_C_011_00,Kreeftstraat  15
+594,199180,"het veranderen van een inrichting, met precisering dat het betreft",2,Garage De Dageraad,Kreeftstraat,15,,,,2018,Antwerpen,11806_F_1284_D_011_00,Kreeftstraat  15
+595,199181,de exploitatie van een nieuwe inrichting,2,Esprit Belgie,Meir,52,,,AN,2000,Antwerpen,11803_C_1359_G_000_00,Meir  52
+596,199182,het hernieuwen van een vergunning voor een bestaande inrichting,2,Van Look Pieter,Guldensporenstraat,,,,BO,2140,Antwerpen,11312_A_0024_A_000_09,
+597,199183,het hernieuwen van een vergunning voor een bestaande inrichting,2,Kadic,Rysheuvelsstraat,21,23,,BE,2600,Antwerpen,11303_C_0264_Z_017_00,Rysheuvelsstraat  21
+598,199184,de exploitatie van een nieuwe inrichting,2,Wepico,Oostkaai,23,,6,ME,2170,Antwerpen,11422_C_0276_F_003_00,Oostkaai  23
+599,199185,de melding van een nieuwe inrichting,3,Vlaamse Vervoermaatschappij,Boudewijnsteeg,9,,,AN,2018,Antwerpen,11810_K_1685_X_004_00,Boudewijnsteeg  9
+600,199187,de melding van een nieuwe inrichting,3,Vlaamse Vervoermaatschappij,Hooftvunderlei,19,,,DE,2100,Antwerpen,11345_B_0036_Y_008_00,Hooftvunderlei  19
+601,199188,de melding van een nieuwe inrichting,3,Vlaamse Vervoermaatschappij,Desguinlei,,,,AN,2018,Antwerpen,11809_I_2170_G_009_00,
+602,199189,"het veranderen van een inrichting, met precisering dat het betreft",1,Monsanto Europe,Scheldelaan,460,,,AN,2040,Antwerpen,11818_A_0162_D_000_00,Scheldelaan  460
+603,199189,"het veranderen van een inrichting, met precisering dat het betreft",1,Monsanto Europe,Scheldelaan,460,,,AN,2040,Antwerpen,11818_A_0162_M_000_00,Scheldelaan  460
+604,199190,de exploitatie van een nieuwe inrichting,2,Somex,Malachietstraat,2,,,AN,2030,Antwerpen,11807_G_1492_B_006_00,Malachietstraat  2
+605,199191,"het veranderen van een inrichting, met precisering dat het betreft",2,International Diamond Manufactures,Lange Herentalsestraat,74,,,AN,2018,Antwerpen,11808_H_1176_Y_012_00,Lange Herentalsestraat  74
+606,199192,de exploitatie van een nieuwe inrichting,2,K S Schlüter Holzindustrie GMBH,Industriedok,,,,AN,2030,Antwerpen,11814_A_0436_W_000_00,
+607,199193,de melding van een nieuwe inrichting,3,Gold Star,Lange Slachterijstraat,62,,,AN,2060,Antwerpen,11807_G_0422_W_013_00,Lange Slachterijstraat  62
+608,199193,de melding van een nieuwe inrichting,3,Gold Star,Lange Slachterijstraat,62,,,AN,2060,Antwerpen,11807_G_0422_X_013_00,Lange Slachterijstraat  62
+609,199194,de melding van een nieuwe inrichting,3,Van Hecke Jean Pierre,Venneborglaan,106,,,DE,2100,Antwerpen,11344_A_0460_A_005_00,Venneborglaan  106
+610,199195,de melding van een nieuwe inrichting,3,Putzeys Joannes,Frans De Cortlaan,49,,,WI,2610,Antwerpen,11051_B_0210_G_005_00,Frans De Cortlaan  49
+611,199210,de melding van een nieuwe inrichting,3,Van Den Broecke Peter,Viaduct-Dam,3,,,AN,2060,Antwerpen,11807_G_0282_N_003_00,Viaduct-Dam  3
+612,199211,de exploitatie van een nieuwe inrichting,2,Ziegler,Groenendaallaan,41,,,AN,2030,Antwerpen,11807_G_2131_X_000_00,Groenendaallaan  41
+613,199212,de exploitatie van een nieuwe inrichting,2,Havenbedrijf Noord Natie,Hansadok,,,,AN,2030,Antwerpen,11815_B_0049_V_000_00,
+614,199213,de melding van een nieuwe inrichting,3,Eerland Rudi,Hoogpadlaan,,,,EK,2180,Antwerpen,11363_E_0137_R_007_00,
+615,199214,de exploitatie van een nieuwe inrichting,2,Amerikaanse Stockhuizen Lathouwers,Boombekelaan,,,,HO,2660,Antwerpen,11382_A_0498_M_000_00,
+616,199217,de exploitatie van een nieuwe inrichting,2,ABC,Grote Markt,48,,,AN,2000,Antwerpen,11002_A_1356_A_000_00,Grote Markt  48
+617,199219,de exploitatie van een nieuwe inrichting,2,Gebroeders Delhaize  en cie ""De Leeuw"",Boomsesteenweg,176,,,WI,2610,Antwerpen,11462_A_0098_F_003_00,Boomsesteenweg  176

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Tue Dec 31 14:51:40 2013
+# Created: Thu Jan  2 01:24:05 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -184,15 +184,43 @@ class Ui_batchGeocodeDlg(object):
         self.addToMapKnop = QtGui.QPushButton(self.buttonWgt)
         self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
         self.horizontalLayout_7.addWidget(self.addToMapKnop)
-        self.zoomSelKnop = QtGui.QPushButton(self.buttonWgt)
-        self.zoomSelKnop.setObjectName(_fromUtf8("zoomSelKnop"))
-        self.horizontalLayout_7.addWidget(self.zoomSelKnop)
         self.verticalLayout.addWidget(self.buttonWgt)
         self.buttonBox = QtGui.QDialogButtonBox(batchGeocodeDlg)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.verticalLayout.addWidget(self.buttonBox)
+        self.line = QtGui.QFrame(batchGeocodeDlg)
+        self.line.setFrameShape(QtGui.QFrame.HLine)
+        self.line.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line.setObjectName(_fromUtf8("line"))
+        self.verticalLayout.addWidget(self.line)
+        self.statusBar = QtGui.QWidget(batchGeocodeDlg)
+        self.statusBar.setAutoFillBackground(False)
+        self.statusBar.setObjectName(_fromUtf8("statusBar"))
+        self.horizontalLayout_8 = QtGui.QHBoxLayout(self.statusBar)
+        self.horizontalLayout_8.setMargin(0)
+        self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
+        self.statusMsg = QtGui.QLabel(self.statusBar)
+        self.statusMsg.setFrameShape(QtGui.QFrame.NoFrame)
+        self.statusMsg.setText(_fromUtf8(""))
+        self.statusMsg.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.statusMsg.setObjectName(_fromUtf8("statusMsg"))
+        self.horizontalLayout_8.addWidget(self.statusMsg)
+        self.statusProgress = QtGui.QProgressBar(self.statusBar)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.statusProgress.sizePolicy().hasHeightForWidth())
+        self.statusProgress.setSizePolicy(sizePolicy)
+        self.statusProgress.setMinimumSize(QtCore.QSize(200, 0))
+        self.statusProgress.setMaximum(10)
+        self.statusProgress.setProperty("value", 0)
+        self.statusProgress.setTextVisible(True)
+        self.statusProgress.setInvertedAppearance(False)
+        self.statusProgress.setObjectName(_fromUtf8("statusProgress"))
+        self.horizontalLayout_8.addWidget(self.statusProgress)
+        self.verticalLayout.addWidget(self.statusBar)
 
         self.retranslateUi(batchGeocodeDlg)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), batchGeocodeDlg.accept)
@@ -212,7 +240,6 @@ class Ui_batchGeocodeDlg(object):
         self.label.setText(_translate("batchGeocodeDlg", "(Optioneel) Gemeente kolom:", None))
         self.validateBtn.setText(_translate("batchGeocodeDlg", "Valideer", None))
         self.outPutTbl.setSortingEnabled(True)
-        self.addToMapKnop.setText(_translate("batchGeocodeDlg", "Voeg selectie toe aan kaart", None))
-        self.zoomSelKnop.setText(_translate("batchGeocodeDlg", "Zoom naar selectie", None))
+        self.addToMapKnop.setText(_translate("batchGeocodeDlg", "Voeg valide adressen toe aan de kaart", None))
 
 import resources_rc

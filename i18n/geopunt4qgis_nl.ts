@@ -19,6 +19,69 @@
     </message>
 </context>
 <context>
+    <name>batchGeocodeDlg</name>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="14"/>
+        <source>Batch geocodeer adressen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="46"/>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="71"/>
+        <source>Separator: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="88"/>
+        <source>Puntcomma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="93"/>
+        <source>Comma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="98"/>
+        <source>Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="103"/>
+        <source>Ander: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="156"/>
+        <source>Adres (straat &lt;huisnr&gt;, &lt;gemeente&gt;):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="180"/>
+        <source>(Optioneel) Huisnummer kolom: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="203"/>
+        <source>(Optioneel) Gemeente kolom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="252"/>
+        <source>Valideer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="293"/>
+        <source>Voeg valide adressen toe aan de kaart</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>geopunt4Qgis</name>
     <message>
         <location filename="ui_geopunt4qgis.ui" line="15"/>
@@ -46,52 +109,52 @@
         <translation>Zoom naar</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="145"/>
+        <location filename="geopunt4qgis.py" line="161"/>
         <source>Zoek een Adres: </source>
         <translation>Zoek een Adres:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="145"/>
+        <location filename="geopunt4qgis.py" line="161"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Klik op de kaart om het adres op te vragen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="169"/>
+        <location filename="geopunt4qgis.py" line="185"/>
         <source>Resultaat: </source>
         <translation>Resultaat:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="185"/>
+        <location filename="geopunt4qgis.py" line="201"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="179"/>
+        <location filename="geopunt4qgis.py" line="195"/>
         <source>Geen resultaten gevonden</source>
         <translation>Geen resultaten gevonden</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="189"/>
+        <location filename="geopunt4qgis.py" line="205"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="71"/>
+        <location filename="geopunt4qgis.py" line="74"/>
         <source>Zoek een Adres</source>
         <translation>Zoek een Adres</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="74"/>
+        <location filename="geopunt4qgis.py" line="77"/>
         <source>Prik een Adres op kaart</source>
         <translation>Prik een Adres op kaart</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="77"/>
+        <location filename="geopunt4qgis.py" line="80"/>
         <source>Zoek een Plaats - interesse punt</source>
         <translation>Zoek een Plaats - interesse punt</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="84"/>
+        <location filename="geopunt4qgis.py" line="87"/>
         <source>Over geopunt4Qgis</source>
         <translation>Over geopunt4Qgis</translation>
     </message>
@@ -101,9 +164,14 @@
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="81"/>
+        <location filename="geopunt4qgis.py" line="84"/>
         <source>Instellingen</source>
         <translation>Instellingen</translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="91"/>
+        <source>batchGeoCode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

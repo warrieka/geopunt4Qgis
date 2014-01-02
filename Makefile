@@ -27,23 +27,23 @@ SOURCES         = geopunt4qgis.py \
 		  geopunt4QgisPoidialog.py \
 		  geopunt4qgisAdresdialog.py \
 		  geopunt4QgisAbout.py \
-		  geopunt4QgisSettingsdialog.py
+		  geopunt4QgisSettingsdialog.py batchGeoCode.py
 
 FORMS           = ui_geopunt4qgis.ui \
 		  ui_geopunt4QgisPoi.ui \
 		  ui_geopunt4QgisAbout.ui \
-		  ui_geopunt4QgisSettings.ui  
+		  ui_geopunt4QgisSettings.ui  ui_geopunt4QgisBatchGeoCode.ui
 		    
 TRANSLATIONS = i18n/geopunt4qgis_en.ts i18n/geopunt4qgis_nl.ts
 
 # plugin
 PLUGINNAME = geopunt4Qgis
 
-PY_FILES = geometryhelper.py geopunt.py geopunt4qgis.py geopunt4QgisAbout.py geopunt4qgisAdresdialog.py geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py resources_rc.py reverseAdresMapTool.py  __init__.py
+PY_FILES = batchGeoCode.py UnicodeCsvReader.py geometryhelper.py geopunt.py geopunt4qgis.py geopunt4QgisAbout.py geopunt4qgisAdresdialog.py geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py resources_rc.py reverseAdresMapTool.py  __init__.py
 
-EXTRAS = images/binoculars.png images/binocularsSmall.png images/geopunt.png images/geopuntAddress.png  images/geopuntAddressSmall.png images/geopuntIcoTemplate.png images/geopuntPoi.png images/geopuntPoiSmall.png images/geopuntReverse.png images/geopuntSettings.png images/geopuntSettingsSmall.png images/geopuntSmal.png images/logogeopunt.png images/logogeopunt4Q.png metadata.txt 
+EXTRAS = images/binoculars.png images/binocularsSmall.png images/geopunt.png images/geopuntAddress.png  images/geopuntAddressSmall.png images/geopuntIcoTemplate.png images/geopuntPoi.png images/geopuntPoiSmall.png images/geopuntReverse.png images/geopuntSettings.png images/geopuntSettingsSmall.png images/geopuntSmal.png images/logogeopunt.png images/logogeopunt4Q.png metadata.txt i18n/about-en.html i18n/about-nl.html
 
-UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py ui_geopunt4QgisSettings.py
+UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py
 
 RESOURCE_FILES = resources_rc.py
 
@@ -51,7 +51,7 @@ RESOURCE_FILES = resources_rc.py
 
 default: compile
 
-compile: $(UI_FILES) $(RESOURCE_FILES)
+compile: $(UI_FILES) $(RESOURCE_FILES) 
 
 %_rc.py : %.qrc
 	pyrcc4 -o $*_rc.py  $<
@@ -98,6 +98,7 @@ derase:
 # 	cd $(HOME)/$(QGISDIR)/python/plugins; zip -9r $(CURDIR)/$(PLUGINNAME).zip $(PLUGINNAME)
 zip:
 	python $(CURDIR)/utils/packPlugin4upload.py
+
 
 # Create a zip package of the plugin named $(PLUGINNAME).zip. 
 # This requires use of git (your plugin development directory must be a 

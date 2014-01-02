@@ -4,7 +4,7 @@ import zipfile
 
 #TODO: import  setting form makefile instead
 PROJECT = "geopunt4Qgis"
-INCLUDEFILE = ["*.py", "*.txt", "*.qrc", "*.ui", "*.md","*.gif", "*.jpg", "*.png","*.html", "*.qm", "*.ts","*.json","*.xml" ] 
+INCLUDEFILE = ["*.py", "*.txt", "*.qrc", "*.md", "*.gif", "*.jpg", "*.png", "*.html", "*.qm", "*.json", "*.xml" ] 
 INCLUDEDIR = ["images","i18n","data"]
 
 def makeList( src ):

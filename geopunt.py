@@ -162,4 +162,9 @@ class Poi:
       return [ minX, minY, maxX, maxY]
 	  
 
-
+def internet_on():
+    try:
+        response=urllib2.urlopen('http://loc.api.geopunt.be',timeout=10)
+        return True
+    except: 
+	return False

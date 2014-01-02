@@ -72,10 +72,12 @@ if __name__ == '__main__':
     #commandline arguments
     if len(sys.argv) >= 2: QGISEXE = sys.argv[1]
     else: QGISEXE = None
+    
     #settings are in packPlugin4upload
     PROJECT = pack.PROJECT
     SOURCE = os.path.abspath( os.path.dirname( __file__ ) + "/.." )
     TARGETZIP =  os.path.join( SOURCE , "build/%s.zip" % PROJECT )
+    
     #pack first then extract to QGISDIR
     pack.main(SOURCE, TARGETZIP)
     main(TARGETZIP,PROJECT,QGISEXE)

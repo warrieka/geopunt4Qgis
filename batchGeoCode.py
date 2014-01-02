@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- batcGeoCodedialog 
-                                 A QGIS plugin
- "Tool om geopunt in QGIS te gebruiken"
-                             -------------------
-        begin                : 2013-12-08
-        copyright            : (C) 2013 by Kay Warrie
-        email                : kaywarrie@gmail.com
- ***************************************************************************/
+batcGeoCodedialog 
+				A QGIS plugin
+"Tool om geopunt in QGIS te gebruiken"
+			    -------------------
+	begin                : 2013-12-08
+	copyright            : (C) 2013 by Kay Warrie
+	email                : kaywarrie@gmail.com
+***************************************************************************/
 
 /***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
 """
 import os.path
 from PyQt4 import QtCore, QtGui
@@ -32,13 +32,13 @@ class batcGeoCodedialog(QtGui.QDialog):
 	self.iface = iface
 
 	# initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale")[0:2]
-        localePath = os.path.join(os.path.dirname(__file__), 'i18n', 
+	locale = QtCore.QSettings().value("locale/userLocale")[0:2]
+	localePath = os.path.join(os.path.dirname(__file__), 'i18n', 
 				  'geopunt4qgis_{}.qm'.format(locale))
-        if os.path.exists(localePath):
-            self.translator = QtCore.QTranslator()
-            self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
+	if os.path.exists(localePath):
+	    self.translator = QtCore.QTranslator()
+	    self.translator.load(localePath)
+	    if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
 	#load gui
 	self._initGui()
 	
@@ -94,7 +94,7 @@ class batcGeoCodedialog(QtGui.QDialog):
 	  self.ui.outPutTbl.insertRow(rowCount)
 	  for col in range(colCount):
 	    self.ui.outPutTbl.setItem(rowCount, col, 
-			       QtGui.QTableWidgetItem(line[col]))
+			      QtGui.QTableWidgetItem(line[col]))
 	    
 	self.ui.adresWgt.setDisabled(False)
 
@@ -119,6 +119,12 @@ class batcGeoCodedialog(QtGui.QDialog):
 	    self.loadTable()
 
     def validate(self):
+        #check if online before starting
+        internet_on = geopunt.internet_on()
+	if True != internet_on:
+	  self.ui.statusMsg.setText("<div style='color:red'>Kon geen connectie maken met geopunt</div>")
+	  return
+      
 	adresTxt = self.ui.adresColSelect.currentText()
 	huisnrTxt = self.ui.huisnrSelect.currentText()
 	gemeenteTxt = self.ui.gemeenteColSelect.currentText()
@@ -131,13 +137,20 @@ class batcGeoCodedialog(QtGui.QDialog):
 	  
 	contoleCol = len( self.headers ) 
 	
-	#TODO: check if online before starting
-	for rowIdx in range( self.ui.outPutTbl.rowCount()):
+	rowCount = self.ui.outPutTbl.rowCount()
+	self.ui.statusProgress.setValue(0)
+	self.ui.statusProgress.setMaximum(rowCount)
+	self.ui.statusMsg.setText("vooruitgang: ")
+	
+	for rowIdx in range(rowCount):
+	  #status Progress
+	  self.ui.statusProgress.setValue(rowIdx)
+	      
 	  adres = self.ui.outPutTbl.item(rowIdx,adresCol).text()
 	  if huisnrTxt != '<geen>':
 	    adres += " " +  self.ui.outPutTbl.item(rowIdx, huisnrCol).text()
 	  if gemeenteTxt != '<geen>': 
-	    adres += ', ' + self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()
+	    adres = ",".join([adres, self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()])
 	    
 	  adres = " ".join( adres.split())  #remove too many spaces
 	  validAdres = self.gp.fetchSuggestion(adres, 5)
@@ -158,14 +171,18 @@ class batcGeoCodedialog(QtGui.QDialog):
 	    self.ui.outPutTbl.setCellWidget(rowIdx, contoleCol, None)
 	    for col in range(len(self.headers)):
 	      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor(255,190,190))
+	      
+	  #reset statusProgress
+	self.ui.statusMsg.setText("")
+	self.ui.statusProgress.setValue(0)
 
     def openInputCsv(self):
 	fd = QtGui.QFileDialog()
 	filter = "Comma separated value File (.csv) (*.csv);;Text Files (.txt) (*.txt);;Any File (*.*)"
-        fd.setFileMode(QtGui.QFileDialog.AnyFile)
-        #testdata:  /home/kay/projects/geopunt4Qgis/testData/vergunning2.csv
-        fName = fd.getOpenFileName( self, "open file" , None, filter)
-        if fName:
+	fd.setFileMode(QtGui.QFileDialog.AnyFile)
+	#testdata:  /home/kay/projects/geopunt4Qgis/testData/vergunning2.csv
+	fName = fd.getOpenFileName( self, "open file" , None, filter)
+	if fName:
 	    self.csv = fName
 	    self.ui.inputTxt.setText(fName)
 	    self.loadTable()
@@ -180,6 +197,8 @@ class batcGeoCodedialog(QtGui.QDialog):
 	self.ui.huisnrSelect.clear()
 	self.ui.gemeenteColSelect.clear()
 	self.ui.adresWgt.setEnabled(False)
+	self.ui.statusProgress.setValue(0)
+	self.ui.statusMsg.setText("")
 	#vars
 	self.csv = None
 	self.delimiter = ';'
