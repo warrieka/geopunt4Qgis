@@ -61,7 +61,7 @@ class geometryHelper:
         self.iface.mapCanvas().refresh()
 
 
-    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres", saveToFile=None, sender=None):
+    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres", saveToFile=False, sender=None):
         attributes = [QgsField("adres", QVariant.String), QgsField("type", QVariant.String)]
         mapcrs = self.canvas.mapRenderer().destinationCrs()
         

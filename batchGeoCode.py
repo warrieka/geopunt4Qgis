@@ -24,12 +24,14 @@ from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
 import geopunt
 import UnicodeCsvReader as csv
+from batchGeoHelper import batcGeoHelper
 
 class batcGeoCodedialog(QtGui.QDialog):
     def __init__(self, iface):
 	QtGui.QDialog.__init__(self)
 	#set iface
 	self.iface = iface
+	self.batcGeoHelper = batcGeoHelper(iface, self)
 
 	# initialize locale
 	locale = QtCore.QSettings().value("locale/userLocale")[0:2]
@@ -54,13 +56,42 @@ class batcGeoCodedialog(QtGui.QDialog):
 	self.gp = geopunt.Adres()
 	
 	self.ui.delimEdit.setEnabled(False)
+	self.ui.addToMapKnop.setEnabled(False)
 	
 	#event handlers 
 	self.ui.inputBtn.clicked.connect(self.openInputCsv)
 	self.ui.inputTxt.returnPressed.connect(self.loadTable)
 	self.ui.delimSelect.activated.connect(self.setDelim) 
 	self.ui.validateBtn.clicked.connect(self.validate)
+	self.ui.addToMapKnop.clicked.connect(self.addToMap)
 	self.finished.connect(self.clean)
+	
+    def addToMap(self):
+	adresCol = len( self.headers ) 
+	rowCount = self.ui.outPutTbl.rowCount()
+	
+	self.ui.statusProgress.setValue(0)
+	self.ui.statusProgress.setMaximum(rowCount)
+	
+	for row in range(rowCount):
+	  attributes = {}
+	  self.ui.statusProgress.setValue(row)
+	  if self.ui.outPutTbl.cellWidget(row,adresCol):
+	    adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
+	  else: 
+	    continue
+	  for name, colIdx in self.headers.items():
+	    val= self.ui.outPutTbl.item(row, colIdx).text()
+	    attributes[name] = val
+	  
+	  loc = self.gp.fetchLocation(adres,1)
+	  if loc and loc.__class__ is list:
+	    xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
+	    xyType = loc[0]["LocationType"]
+	    xymap = self.batcGeoHelper.prjPtToMapCrs(xylb, 31370)
+	    self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes )
+	  elif loc.__class__ is str:
+	    self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
 	
     def loadTable(self):
 	#clear existing
@@ -93,8 +124,7 @@ class batcGeoCodedialog(QtGui.QDialog):
 	for line in csvReader:
 	  self.ui.outPutTbl.insertRow(rowCount)
 	  for col in range(colCount):
-	    self.ui.outPutTbl.setItem(rowCount, col, 
-			      QtGui.QTableWidgetItem(line[col]))
+	    self.ui.outPutTbl.setItem(rowCount, col, QtGui.QTableWidgetItem(line[col]))
 	    
 	self.ui.adresWgt.setDisabled(False)
 
@@ -175,6 +205,7 @@ class batcGeoCodedialog(QtGui.QDialog):
 	  #reset statusProgress
 	self.ui.statusMsg.setText("")
 	self.ui.statusProgress.setValue(0)
+	self.ui.addToMapKnop.setEnabled(True)
 
     def openInputCsv(self):
 	fd = QtGui.QFileDialog()
@@ -197,6 +228,7 @@ class batcGeoCodedialog(QtGui.QDialog):
 	self.ui.huisnrSelect.clear()
 	self.ui.gemeenteColSelect.clear()
 	self.ui.adresWgt.setEnabled(False)
+	self.ui.addToMapKnop.setEnabled(False)
 	self.ui.statusProgress.setValue(0)
 	self.ui.statusMsg.setText("")
 	#vars

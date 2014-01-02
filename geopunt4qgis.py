@@ -127,6 +127,8 @@ class geopunt4Qgis:
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.aboutAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.settingsAction)
 
+	self.iface.removeToolBarIcon(self.batchAction)
+
     def runAdresDlg(self):
         # show the dialog
         self.adresdlg.show()
