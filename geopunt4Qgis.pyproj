@@ -51,6 +51,7 @@
     <Content Include="ui_geopunt4QgisPoi.ui">
       <Publish>True</Publish>
     </Content>
+    <Compile Include="batchGeoCode.py" />
     <Compile Include="geometryhelper.py">
       <Publish>True</Publish>
     </Compile>
@@ -82,12 +83,14 @@
     <Compile Include="ui_geopunt4QgisAbout.py">
       <Publish>True</Publish>
     </Compile>
+    <Compile Include="ui_geopunt4QgisBatchGeoCode.py" />
     <Compile Include="ui_geopunt4QgisPoi.py">
       <Publish>True</Publish>
     </Compile>
     <Compile Include="ui_geopunt4QgisSettings.py">
       <Publish>True</Publish>
     </Compile>
+    <Compile Include="UnicodeCsvReader.py" />
     <Compile Include="utils\testPlugin.py" />
     <Compile Include="__init__.py">
       <Publish>True</Publish>
