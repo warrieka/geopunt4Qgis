@@ -66,6 +66,9 @@
         <property name="text">
          <string>Toevoegen aan Kaart</string>
         </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
       <item>

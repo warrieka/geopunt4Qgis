@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Sat Dec 28 15:03:14 2013
+# Created: Fri Jan  3 22:02:37 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -46,6 +46,7 @@ class Ui_geopunt4QgisPoiDlg(object):
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/binocularsSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.zoekKnop.setIcon(icon1)
+        self.zoekKnop.setAutoDefault(False)
         self.zoekKnop.setObjectName(_fromUtf8("zoekKnop"))
         self.horizontalLayout.addWidget(self.zoekKnop)
         self.verticalLayout.addWidget(self.groupBox)
@@ -83,6 +84,7 @@ class Ui_geopunt4QgisPoiDlg(object):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.addToMapKnop = QtGui.QPushButton(self.buttonWgt)
+        self.addToMapKnop.setAutoDefault(False)
         self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
         self.horizontalLayout_2.addWidget(self.addToMapKnop)
         self.zoomSelKnop = QtGui.QPushButton(self.buttonWgt)

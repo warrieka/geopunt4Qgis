@@ -43,6 +43,9 @@
          <iconset resource="resources.qrc">
           <normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</iconset>
         </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
      </layout>
@@ -137,6 +140,9 @@
        <widget class="QPushButton" name="addToMapKnop">
         <property name="text">
          <string>Voeg selectie toe aan kaart</string>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
         </property>
        </widget>
       </item>

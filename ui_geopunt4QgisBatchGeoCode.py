@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Thu Jan  2 01:24:05 2014
+# Created: Fri Jan  3 22:02:37 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,11 +26,14 @@ except AttributeError:
 class Ui_batchGeocodeDlg(object):
     def setupUi(self, batchGeocodeDlg):
         batchGeocodeDlg.setObjectName(_fromUtf8("batchGeocodeDlg"))
-        batchGeocodeDlg.resize(541, 449)
+        batchGeocodeDlg.resize(531, 457)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntSmal.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         batchGeocodeDlg.setWindowIcon(icon)
+        batchGeocodeDlg.setWindowOpacity(1.0)
+        batchGeocodeDlg.setSizeGripEnabled(False)
         self.verticalLayout = QtGui.QVBoxLayout(batchGeocodeDlg)
+        self.verticalLayout.setContentsMargins(-1, -1, -1, 2)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.inputWgt = QtGui.QWidget(batchGeocodeDlg)
         self.inputWgt.setObjectName(_fromUtf8("inputWgt"))
@@ -48,6 +51,7 @@ class Ui_batchGeocodeDlg(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.inputBtn.sizePolicy().hasHeightForWidth())
         self.inputBtn.setSizePolicy(sizePolicy)
+        self.inputBtn.setAutoDefault(False)
         self.inputBtn.setDefault(False)
         self.inputBtn.setFlat(False)
         self.inputBtn.setObjectName(_fromUtf8("inputBtn"))
@@ -163,6 +167,7 @@ class Ui_batchGeocodeDlg(object):
         sizePolicy.setHeightForWidth(self.validateBtn.sizePolicy().hasHeightForWidth())
         self.validateBtn.setSizePolicy(sizePolicy)
         self.validateBtn.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.validateBtn.setAutoDefault(True)
         self.validateBtn.setObjectName(_fromUtf8("validateBtn"))
         self.horizontalLayout_5.addWidget(self.validateBtn)
         self.verticalLayout_2.addLayout(self.horizontalLayout_5)
@@ -179,17 +184,28 @@ class Ui_batchGeocodeDlg(object):
         self.horizontalLayout_7 = QtGui.QHBoxLayout(self.buttonWgt)
         self.horizontalLayout_7.setMargin(0)
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_7.addItem(spacerItem1)
-        self.addToMapKnop = QtGui.QPushButton(self.buttonWgt)
-        self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
-        self.horizontalLayout_7.addWidget(self.addToMapKnop)
         self.verticalLayout.addWidget(self.buttonWgt)
+        self.horizontalLayout_9 = QtGui.QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_9.addItem(spacerItem1)
+        self.addToMapKnop = QtGui.QPushButton(batchGeocodeDlg)
+        self.addToMapKnop.setAutoDefault(False)
+        self.addToMapKnop.setDefault(True)
+        self.addToMapKnop.setFlat(False)
+        self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
+        self.horizontalLayout_9.addWidget(self.addToMapKnop)
         self.buttonBox = QtGui.QDialogButtonBox(batchGeocodeDlg)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.buttonBox.sizePolicy().hasHeightForWidth())
+        self.buttonBox.setSizePolicy(sizePolicy)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.verticalLayout.addWidget(self.buttonBox)
+        self.horizontalLayout_9.addWidget(self.buttonBox)
+        self.verticalLayout.addLayout(self.horizontalLayout_9)
         self.line = QtGui.QFrame(batchGeocodeDlg)
         self.line.setFrameShape(QtGui.QFrame.HLine)
         self.line.setFrameShadow(QtGui.QFrame.Sunken)
@@ -202,7 +218,8 @@ class Ui_batchGeocodeDlg(object):
         self.horizontalLayout_8.setMargin(0)
         self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
         self.statusMsg = QtGui.QLabel(self.statusBar)
-        self.statusMsg.setFrameShape(QtGui.QFrame.NoFrame)
+        self.statusMsg.setFrameShape(QtGui.QFrame.Panel)
+        self.statusMsg.setFrameShadow(QtGui.QFrame.Sunken)
         self.statusMsg.setText(_fromUtf8(""))
         self.statusMsg.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.statusMsg.setObjectName(_fromUtf8("statusMsg"))
@@ -223,7 +240,6 @@ class Ui_batchGeocodeDlg(object):
         self.verticalLayout.addWidget(self.statusBar)
 
         self.retranslateUi(batchGeocodeDlg)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), batchGeocodeDlg.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), batchGeocodeDlg.reject)
         QtCore.QMetaObject.connectSlotsByName(batchGeocodeDlg)
 

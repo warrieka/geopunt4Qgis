@@ -1,8 +1,5 @@
 #!/bin/bash
 
-pylupdate4 Makefile
-lrelease i18n/*.ts
-
 OLD='images\/logogeopunt4Q.png'
 NEW='..\/images\/logogeopunt4Q.png'
 

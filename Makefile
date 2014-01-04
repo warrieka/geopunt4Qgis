@@ -115,11 +115,12 @@ upload: zip
 
 # transup
 # update .ts translation files, compile to .qm and .mk to .html
-# [KW]: replaced with custom compile_translations bash file 
-# transup:
-# 	pylupdate4 Makefile
+# [KW]: added custom compile_translations for html
 transup: transclean
-	utils/compile_translations.sh
+# 	utils/compile_translations.sh
+	pylupdate4 Makefile
+	lrelease i18n/*.ts
+	utils/compile_html_translations.sh
 
 # transcompile
 # compile translation files into .qm binary format

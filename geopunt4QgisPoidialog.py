@@ -39,8 +39,8 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	if os.path.exists(localePath):
 	    self.translator = QtCore.QTranslator()
 	    self.translator.load(localePath)
-	    if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
-	
+	    if QtCore.qVersion() > '4.3.3': 
+	      QtCore.QCoreApplication.installTranslator(self.translator)
 	self._initGui()
 	
 	#setup geopunt and geometryHelper objects
@@ -116,11 +116,11 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	  
 	elif len(suggesties) == 0:
 	  self.bar.pushMessage(
-	    QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Geen resultaten gevonden voor"), 
+	    QCoreApplication.translate( "Geen resultaten gevonden voor"), 
 	    txt, level=QgsMessageBar.INFO, duration=3)
 	elif suggesties.__class__ == str:
 	  self.bar.pushMessage(
-	    QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"), 
+	    QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"), 
 	    suggesties, level=QgsMessageBar.WARNING)
 	else:
 	  self.bar.pushMessage("Error",
@@ -130,7 +130,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     def onZoomSelClicked(self):
 	selPois = self._getSelectedPois()
 	if len(selPois) <= 0 :
-	  self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Merk op"), QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Er niets om naar te zoomen"),
+	  self.bar.pushMessage( QCoreApplication.translate("geopunt4QgisPoidialog", "Merk op"), QCoreApplication.translate("geopunt4QgisPoidialog", "Er niets om naar te zoomen"),
 			level=QgsMessageBar.INFO, duration=3)
 	elif len(selPois) >= 2:
 	  pts = [n['location']['points'][0]['Point']['coordinates'] for n in selPois ] 

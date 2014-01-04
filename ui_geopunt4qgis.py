@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Sat Dec 28 15:03:14 2013
+# Created: Fri Jan  3 22:02:37 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -55,6 +55,7 @@ class Ui_geopunt4Qgis(object):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.Add2mapKnop = QtGui.QPushButton(self.widget)
+        self.Add2mapKnop.setAutoDefault(False)
         self.Add2mapKnop.setObjectName(_fromUtf8("Add2mapKnop"))
         self.horizontalLayout_2.addWidget(self.Add2mapKnop)
         self.ZoomKnop = QtGui.QPushButton(self.widget)
