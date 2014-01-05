@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Fri Jan  3 22:02:37 2014
+# Created: Sun Jan  5 18:06:43 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,7 +28,7 @@ class Ui_batchGeocodeDlg(object):
         batchGeocodeDlg.setObjectName(_fromUtf8("batchGeocodeDlg"))
         batchGeocodeDlg.resize(531, 457)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntSmal.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntBatchgeocodeSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         batchGeocodeDlg.setWindowIcon(icon)
         batchGeocodeDlg.setWindowOpacity(1.0)
         batchGeocodeDlg.setSizeGripEnabled(False)
@@ -190,8 +190,10 @@ class Ui_batchGeocodeDlg(object):
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_9.addItem(spacerItem1)
         self.addToMapKnop = QtGui.QPushButton(batchGeocodeDlg)
-        self.addToMapKnop.setAutoDefault(False)
-        self.addToMapKnop.setDefault(True)
+        self.addToMapKnop.setEnabled(False)
+        self.addToMapKnop.setCheckable(False)
+        self.addToMapKnop.setAutoDefault(True)
+        self.addToMapKnop.setDefault(False)
         self.addToMapKnop.setFlat(False)
         self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
         self.horizontalLayout_9.addWidget(self.addToMapKnop)

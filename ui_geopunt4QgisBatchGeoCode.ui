@@ -16,7 +16,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</iconset>
+    <normaloff>:/plugins/geopunt4Qgis/images/geopuntBatchgeocodeSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntBatchgeocodeSmall.png</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
@@ -309,14 +309,20 @@
      </item>
      <item>
       <widget class="QPushButton" name="addToMapKnop">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Voeg valide adressen toe aan de kaart</string>
        </property>
-       <property name="autoDefault">
+       <property name="checkable">
         <bool>false</bool>
        </property>
-       <property name="default">
+       <property name="autoDefault">
         <bool>true</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>

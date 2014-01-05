@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="/plugins/geopunt4Qgis">
+    <file>images/geopuntBatchgeocode.png</file>
+    <file>images/geopuntBatchgeocodeSmall.png</file>
     <file>images/geopuntSettingsSmall.png</file>
     <file>images/geopuntSettings.png</file>
     <file>images/geopuntAddressSmall.png</file>

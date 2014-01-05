@@ -32,7 +32,7 @@ from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from reverseAdresMapTool import reverseAdresMapTool
 from geopunt4QgisAbout import geopunt4QgisAboutdialog
 from geopunt4QgisSettingsdialog import geopunt4QgisSettingsdialog
-from batchGeoCode import batcGeoCodedialog
+from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodedialog
 #import from libraries
 import geopunt, geometryhelper
 import os.path, time
@@ -58,7 +58,7 @@ class geopunt4Qgis:
         self.settingsDlg = geopunt4QgisSettingsdialog()
         self.aboutDlg = geopunt4QgisAboutdialog()
         
-        self.batchgeoDlg = batcGeoCodedialog(self.iface) 
+        self.batchgeoDlg = geopunt4QgisBatcGeoCodedialog(self.iface) 
         
         #geopunt adres and geometry object
         self.adres = geopunt.Adres()
@@ -67,8 +67,7 @@ class geopunt4Qgis:
     def initGui(self):
         #get settings
         self.s = QSettings()
-        self.saveToFile_reverse = int( self.s.value("geopunt4qgis/reverseSavetoFile", 0))
-        self.layerName_reverse  = self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
+        self.loadSettings()
         
         # Create actions that will start plugin configuration
         self.adresAction = QAction(
@@ -76,11 +75,15 @@ class geopunt4Qgis:
             QCoreApplication.translate( "geopunt4Qgis" , u"Zoek een Adres"), self.iface.mainWindow())
 	self.reverseAction = QAction( 
 	    QIcon(":/plugins/geopunt4Qgis/images/geopuntReverse.png"),
-            QCoreApplication.translate("geopunt4Qgis" , u"Prik een Adres op kaart"), self.iface.mainWindow())
+            QCoreApplication.translate("geopunt4Qgis", u"Prik een Adres op kaart"), 
+            self.iface.mainWindow())
+	self.batchAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntBatchgeocode.png"),
+	    QCoreApplication.translate("geopunt4Qgis", u"CSV-adresbestanden geocoderen"),
+	    self.iface.mainWindow())
 	self.poiAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), 
-						 self.iface.mainWindow())
+	    self.iface.mainWindow())
 	self.settingsAction = QAction(
             QIcon(":/plugins/geopunt4Qgis/images/geopuntSettings.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())
@@ -88,29 +91,24 @@ class geopunt4Qgis:
             QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
 	
-	self.batchAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
-	    QCoreApplication.translate("geopunt4Qgis" , u"batchGeoCode"),
-	    self.iface.mainWindow())
-
         # connect the action to the run method
         self.adresAction.triggered.connect(self.runAdresDlg)
         self.reverseAction.triggered.connect( self.reverse )
+        self.batchAction.triggered.connect(self.runBatch)
         self.poiAction.triggered.connect(self.runPoiDlg)
         self.settingsAction.triggered.connect(self.runSettingsDlg)
         self.aboutAction.triggered.connect(self.runAbout)
-        
-        self.batchAction.triggered.connect(self.runBatch)
 
         # Add to toolbar button
         self.iface.addToolBarIcon(self.adresAction)
         self.iface.addToolBarIcon(self.reverseAction)
-        self.iface.addToolBarIcon(self.poiAction)
-        
         self.iface.addToolBarIcon(self.batchAction)
+        self.iface.addToolBarIcon(self.poiAction)
         
         # Add to Menu
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.reverseAction)
+        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.batchAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.poiAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
@@ -124,11 +122,26 @@ class geopunt4Qgis:
         self.iface.removeToolBarIcon(self.poiAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.reverseAction)
 	self.iface.removeToolBarIcon(self.reverseAction)
+	self.iface.removePluginMenu(u"&geopunt4Qgis", self.batchAction)
+	self.iface.removeToolBarIcon(self.batchAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.aboutAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.settingsAction)
-
-	self.iface.removeToolBarIcon(self.batchAction)
-
+	
+    def loadSettings(self):
+	self.saveToFile_reverse = int( self.s.value("geopunt4qgis/reverseSavetoFile", 0))
+        self.layerName_reverse  = self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
+        
+    def runSettingsDlg(self):
+      # show the dialog
+	self.settingsDlg.show()
+	# Run the dialog event loop
+        result = self.settingsDlg.exec_()
+	if result:
+	  self.loadSettings()
+	  self.adresdlg.loadSettings()
+	  self.poiDlg.loadSettings()
+	  self.batchgeoDlg.loadSettings()
+        
     def runAdresDlg(self):
         # show the dialog
         self.adresdlg.show()
@@ -146,13 +159,7 @@ class geopunt4Qgis:
 	self.batchgeoDlg.show()
 	# Run the dialog event loop
         self.batchgeoDlg.exec_()
-        
-    def runSettingsDlg(self):
-      # show the dialog
-	self.settingsDlg.show()
-	# Run the dialog event loop
-        result = self.settingsDlg.exec_()
-        
+	  
     def runAbout(self):
 	# show the dialog
         self.aboutDlg.show()

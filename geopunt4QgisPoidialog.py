@@ -55,8 +55,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	
 	#get settings
 	self.s = QtCore.QSettings()
-	self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 0))
-	self.layerName =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
+	self.loadSettings()
 	
 	#setup a message bar
 	self.bar = QgsMessageBar() 
@@ -80,6 +79,10 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	self.ui.resultLijst.itemSelectionChanged.connect(self.onSelectionChanged)
 	self.ui.addToMapKnop.clicked.connect(self.onAddSelClicked)
 	self.finished.connect(self.clean )
+	
+    def loadSettings(self):
+	self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 0))
+	self.layerName =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
 	
     def onZoekActivated(self):
 	txt = self.ui.poiText.text()

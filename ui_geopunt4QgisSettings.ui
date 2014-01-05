@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>400</height>
+    <width>421</width>
+    <height>424</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -26,15 +26,22 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QToolBox" name="settingsTab">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
      <widget class="QWidget" name="adresTab">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>382</width>
-        <height>242</height>
+        <width>403</width>
+        <height>258</height>
        </rect>
       </property>
+      <attribute name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/plugins/geopunt4Qgis/images/geopuntAddressSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntAddressSmall.png</iconset>
+      </attribute>
       <attribute name="label">
        <string>Zoeken naar adressen</string>
       </attribute>
@@ -69,6 +76,9 @@
         <widget class="QGroupBox" name="add2mapBox_1">
          <property name="title">
           <string>Toevoegen punten aan de kaart</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
@@ -121,10 +131,14 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>382</width>
-        <height>242</height>
+        <width>221</width>
+        <height>141</height>
        </rect>
       </property>
+      <attribute name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</iconset>
+      </attribute>
       <attribute name="label">
        <string>Prikken van een adres</string>
       </attribute>
@@ -180,21 +194,127 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="batchgeoCodeTab">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>371</width>
+        <height>177</height>
+       </rect>
+      </property>
+      <attribute name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/plugins/geopunt4Qgis/images/geopuntBatchgeocodeSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntBatchgeocodeSmall.png</iconset>
+      </attribute>
+      <attribute name="label">
+       <string>CSV-adresbestanden geocoderen</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_10">
+       <item>
+        <widget class="QGroupBox" name="add2mapBox_3">
+         <property name="title">
+          <string>Toevoegen punten aan de kaart</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QRadioButton" name="batchSavetoFileChk">
+            <property name="text">
+             <string>Opslaan naar bestand </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="batchSaveMemoryChk">
+            <property name="text">
+             <string>Opslaan naar tijdelijke laag</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Naam  van de laag met adrespunten:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="batchLayerTxt"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="maxRecordsLabel">
+           <property name="text">
+            <string>Maximaal aantal rijen dat inlezen mag worden: &lt;br/&gt;
+(Grote bestanden kunnen de servers van AGIV belasten)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="maxRowsSpinBox">
+           <property name="suffix">
+            <string/>
+           </property>
+           <property name="prefix">
+            <string/>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>5000</number>
+           </property>
+           <property name="value">
+            <number>100</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>70</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="poiTab">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>382</width>
-        <height>242</height>
+        <width>221</width>
+        <height>141</height>
        </rect>
       </property>
+      <attribute name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/plugins/geopunt4Qgis/images/geopuntPoiSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntPoiSmall.png</iconset>
+      </attribute>
       <attribute name="label">
        <string>Zoeken naar plaatsen</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <widget class="QGroupBox" name="add2mapBox_3">
+        <widget class="QGroupBox" name="add2mapBox_4">
          <property name="title">
           <string>Toevoegen punten aan de kaart</string>
          </property>
@@ -217,7 +337,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="label_4">
             <property name="text">
              <string>Naam  van de laag met adrespunten:</string>
             </property>
@@ -230,7 +350,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_3">
+        <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -250,13 +370,6 @@
     <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Om toe te passen, kan het zijn dat je qgis moet herstarten!</string>
      </property>
     </widget>
    </item>

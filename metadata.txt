@@ -5,7 +5,7 @@
 [general]
 name=geopunt4Qgis
 qgisMinimumVersion=2.0
-description="Plugin om geopunt diensten in QGIS te gebruiken - Plug-in to use geopunt services in QGIS"
+description="Plugin om geopunt diensten in QGIS te gebruiken - Plug-in to use geopunt services in QGIS: > Geocodeer op basis van Crab (vlaanderen) en urbis (Brussel). > Zoek naar Intressepunten. TODO: Zoeken naar werken en manifestaties (GIPOD)" 
 version=0.8
 author=Kay Warrie
 email=kaywarrie@gmail.com
@@ -17,7 +17,7 @@ email=kaywarrie@gmail.com
 # changelog=
 
 # tags are comma separated with spaces allowed
-tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, GIPOD, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI
+tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, GIPOD, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS
 
 homepage=https://github.com/warrieka/geopunt4Qgis
 tracker=https://github.com/warrieka/geopunt4Qgis/issues
