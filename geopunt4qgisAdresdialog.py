@@ -53,9 +53,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	
 	#get settings
 	self.s = QtCore.QSettings()
-	self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 0))
-	self.layerName =  self.s.value("geopunt4qgis/adreslayerText", "geopunt_adres")
-	adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 1))
+	self.loadSettings()
 	
 	#populate gemeenteBox
 	gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),"data/gemeentenVL.json")) )
@@ -70,7 +68,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	self.ui.verticalLayout.addWidget(self.bar)
 
 	#event handlers 
-	if adresSearchOnEnter:
+	if self.adresSearchOnEnter:
 	  self.ui.zoekText.returnPressed.connect(self.onZoekActivated)
 	else:
 	  self.ui.zoekText.textChanged.connect(self.onZoekActivated)
@@ -79,6 +77,11 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	self.ui.ZoomKnop.clicked.connect(self.onZoomKnopClick)
 	self.ui.Add2mapKnop.clicked.connect(self.onAdd2mapKnopClick)
 	self.finished.connect(self.clean )
+	
+    def loadSettings(self):
+	self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 0))
+	self.layerName =  self.s.value("geopunt4qgis/adreslayerText", "geopunt_adres")
+	self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 1))
 	
     def onZoekActivated(self):
 	self._clearGraphicsLayer()

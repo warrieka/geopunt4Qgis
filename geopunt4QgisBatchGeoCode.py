@@ -19,6 +19,7 @@ batcGeoCodedialog
 *                                                                         *
 ***************************************************************************/
 """
+#TODO: create triggers, validate selected, zoom to selected
 import os.path
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
@@ -26,14 +27,11 @@ import geopunt
 import UnicodeCsvReader as csv
 from batchGeoHelper import batcGeoHelper
 
-class batcGeoCodedialog(QtGui.QDialog):
+class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
     def __init__(self, iface):
 	QtGui.QDialog.__init__(self)
-	#self.setWindowFlags(self.windowFlags() &  ~QtCore.Qt.WindowMaximizeButtonHint )
-	#set iface
 	self.iface = iface
-	self.batcGeoHelper = batcGeoHelper(iface, self)
-
+	
 	# initialize locale
 	locale = QtCore.QSettings().value("locale/userLocale")[0:2]
 	localePath = os.path.join(os.path.dirname(__file__), 'i18n', 
@@ -52,15 +50,15 @@ class batcGeoCodedialog(QtGui.QDialog):
 	self.ui.setupUi(self)
 	
 	#settings
-	self.maxRows = 300
-	self.saveToFile = 1
-	self.layerName = "geopunt_adressen"
+	self.s = QtCore.QSettings()
+	self.loadSettings()
 	
 	#set vars
 	self.csv = None
 	self.delimiter = ';'
 	self.headers = None
 	self.gp = geopunt.Adres()
+	self.batcGeoHelper = batcGeoHelper(self.iface, self)
 	
 	self.ui.delimEdit.setEnabled(False)
 	self.ui.addToMapKnop.setEnabled(False)
@@ -72,6 +70,11 @@ class batcGeoCodedialog(QtGui.QDialog):
 	self.ui.validateBtn.clicked.connect(self.validate)
 	self.ui.addToMapKnop.clicked.connect(self.addToMap)
 	self.finished.connect(self.clean)
+	
+    def loadSettings(self): 
+	self.maxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 100 ))
+	self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 0))
+	self.layerName = self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
 	
     def addToMap(self):
 	adresCol = len( self.headers ) 
