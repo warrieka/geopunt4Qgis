@@ -111,7 +111,7 @@ package: clean transclean dclean
 		echo "Created package: $(PLUGINNAME)-$(VERSION).zip"
 
 upload: zip
-	$(PLUGIN_UPLOAD) $(PLUGINNAME).zip
+	$(PLUGIN_UPLOAD) build/$(PLUGINNAME).zip
 
 # transup
 # update .ts translation files, compile to .qm and .mk to .html
