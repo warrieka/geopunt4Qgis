@@ -22,6 +22,8 @@
     <Content Include="data\gemeentenVL.json" />
     <Content Include="i18n\geopunt4qgis_en.ts" />
     <Content Include="i18n\geopunt4qgis_nl.ts" />
+    <Content Include="images\geopuntBatchgeocode.png" />
+    <Content Include="images\geopuntBatchgeocodeSmall.png" />
     <Content Include="images\geopuntSettings.png" />
     <Content Include="images\geopuntSettingsSmall.png" />
     <Content Include="LICENSE.txt">
@@ -52,6 +54,7 @@
       <Publish>True</Publish>
     </Content>
     <Compile Include="batchGeoCode.py" />
+    <Compile Include="batchGeoHelper.py" />
     <Compile Include="geometryhelper.py">
       <Publish>True</Publish>
     </Compile>
@@ -65,6 +68,7 @@
     <Compile Include="geopunt4qgisAdresdialog.py">
       <Publish>True</Publish>
     </Compile>
+    <Compile Include="geopunt4QgisBatchGeoCode.py" />
     <Compile Include="geopunt4QgisPoidialog.py">
       <Publish>True</Publish>
     </Compile>
