@@ -63,11 +63,17 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.ui.delimEdit.setEnabled(False)
 	self.ui.addToMapKnop.setEnabled(False)
 	
+	#actions
+	self.ui.outPutTbl.addAction( self.ui.actionValidateSelection )
+	self.ui.outPutTbl.addAction( self.ui.actionValidateAll)
+	self.ui.outPutTbl.addAction( self.ui.actionAddValidToMap )
+	
 	#event handlers 
 	self.ui.inputBtn.clicked.connect(self.openInputCsv)
 	self.ui.inputTxt.returnPressed.connect(self.loadTable)
 	self.ui.delimSelect.activated.connect(self.setDelim) 
-	self.ui.validateBtn.clicked.connect(self.validate)
+	self.ui.validateBtn.clicked.connect(self.validateAll)
+	self.ui.validateSelBtn.clicked.connect(self.validateSelection)
 	self.ui.addToMapKnop.clicked.connect(self.addToMap)
 	self.finished.connect(self.clean)
 	
@@ -107,7 +113,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	if self.saveToFile:
 	  self.batcGeoHelper.saveMem2file(self.layerName)
 	    
-	self.close()
+	self.accept()
 	
     def loadTable(self):
 	#clear existing
@@ -137,6 +143,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	
 	for i in range(colCount):
 	  self.headers[header[i]]= i
+	  
 	self.ui.outPutTbl.setColumnCount(colCount + 1)
 	self.ui.outPutTbl.setHorizontalHeaderLabels(header +  [QtCore.QCoreApplication.translate(
 							       "batcGeoCodedialog", "gevalideerd adres")])
@@ -195,48 +202,61 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	    self.ui.delimEdit.setText(self.delimiter)
 	    self.loadTable()
 
-    def validate(self):
-        #check if online before starting
-        internet_on = geopunt.internet_on()
-	if True != internet_on:
-	  self.ui.statusMsg.setText(
-	    QtCore.QCoreApplication.translate("batcGeoCodedialog", "<div style='color:red'>Kon geen connectie maken met geopunt</div>"))
+    def validateSelection(self):
+	#check if online before starting
+	if True != self.internet_on():
 	  return
-      
+	
+	rows = self.getSelectedRows()
+	
+	self.validateRows(rows)
+	self.ui.addToMapKnop.setEnabled(True)
+
+    def validateAll(self):
+        #check if online before starting
+	if True != self.internet_on():
+	  return
+	
+	rowCount = self.ui.outPutTbl.rowCount()
+	rows = range(rowCount)
+	
+	self.validateRows(rows)
+	self.ui.addToMapKnop.setEnabled(True)
+	
+    def validateRows(self , rowIds):
 	adresTxt = self.ui.adresColSelect.currentText()
 	huisnrTxt = self.ui.huisnrSelect.currentText()
 	gemeenteTxt = self.ui.gemeenteColSelect.currentText()
-	
+      
+	contoleCol = len( self.headers ) 
 	adresCol = self.headers[adresTxt] 
 	if gemeenteTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
 	  gemeenteCol = self.headers[gemeenteTxt] 
 	if huisnrTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
 	  huisnrCol = self.headers[huisnrTxt] 
-	  
-	contoleCol = len( self.headers ) 
 	
-	rowCount = self.ui.outPutTbl.rowCount()
 	self.ui.statusProgress.setValue(0)
-	self.ui.statusProgress.setMaximum(rowCount)
+	self.ui.statusProgress.setMaximum(len(rowIds))
 	self.ui.statusMsg.setText("vooruitgang: ")
 	
-	for rowIdx in range(rowCount):
+	for rowIdx in rowIds:
 	  #status Progress
 	  self.ui.statusProgress.setValue(rowIdx)
-	      
-	  adres = self.ui.outPutTbl.item(rowIdx,adresCol).text()
+
+	  adres = self.ui.outPutTbl.item(rowIdx, adresCol).text()
+	  
 	  if huisnrTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
 	    adres += " " +  self.ui.outPutTbl.item(rowIdx, huisnrCol).text()
 	  if gemeenteTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"): 
 	    adres = ",".join([adres, self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()])
 	    
 	  adres = " ".join( adres.split())  #remove too many spaces
+	  #self.ui.statusMsg.setText(adres)
 	  validAdres = self.gp.fetchSuggestion(adres, 5)
 	  if validAdres and validAdres.__class__ is list: 
 	    validCombo = QtGui.QComboBox(self.ui.adresColSelect)
 	    validCombo.addItems(validAdres)
 	    self.ui.outPutTbl.setCellWidget(rowIdx, contoleCol, validCombo)
-	    #out=> self.ui.outPutTbl.cellWidget(rowIdx,contoleCol).currentText()
 	    
 	    if len(validAdres) == 1:
 	      for col in range(len(self.headers)):
@@ -249,11 +269,10 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	    self.ui.outPutTbl.setCellWidget(rowIdx, contoleCol, None)
 	    for col in range(len(self.headers)):
 	      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor(255,190,190))
-	      
-	  #reset statusProgress
+	  
+	  #reset statusbar
 	self.ui.statusMsg.setText("")
 	self.ui.statusProgress.setValue(0)
-	self.ui.addToMapKnop.setEnabled(True)
 
     def openInputCsv(self):
 	fd = QtGui.QFileDialog()
@@ -265,10 +284,22 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	    self.ui.inputTxt.setText(fName)
 	    self.loadTable()
 
+    def internet_on(self):
+	inet_on = geopunt.internet_on()
+	if True != inet_on:
+	  self.ui.statusMsg.setText(
+	    QtCore.QCoreApplication.translate("batcGeoCodedialog", "<div style='color:red'>Kon geen connectie maken met geopunt</div>"))
+	return inet_on
+
+    def getSelectedRows(self):
+	selected = set( [sel.row() for sel in self.ui.outPutTbl.selectedIndexes()] )
+	return selected
+
     def clean(self):
 	self.batcGeoHelper.clear()
 	#ui
 	self.ui.inputTxt.setText("")
+	self.ui.delimSelect.setCurrentIndex(0)
 	self.ui.outPutTbl.clearContents()
 	self.ui.outPutTbl.setRowCount(0)
 	self.ui.outPutTbl.setColumnCount(0)

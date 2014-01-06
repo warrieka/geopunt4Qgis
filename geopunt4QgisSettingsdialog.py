@@ -88,7 +88,7 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	batchLayerText = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
 	self.ui.batchLayerTxt.setText(batchLayerText)
 	
-	batchMaxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 100 ))
+	batchMaxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
 	self.ui.maxRowsSpinBox.setValue(batchMaxRows)	
 	
 	#geopunt4QgisPoiDialog settings

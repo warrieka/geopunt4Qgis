@@ -67,9 +67,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	
 	#actions
 	self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )
-	self.ui.actionZoomtoSelection.triggered.connect(self.onZoomSelClicked)
+	#self.ui.actionZoomtoSelection.triggered.connect(self.onZoomSelClicked)
 	self.ui.resultLijst.addAction( self.ui.actionAddTSeltoMap )
-	self.ui.actionAddTSeltoMap.triggered.connect(self.onAddSelClicked)
+	#self.ui.actionAddTSeltoMap.triggered.connect(self.onAddSelClicked)
 	
 	#event handlers 
 	self.ui.poiText.returnPressed.connect(self.onZoekActivated)

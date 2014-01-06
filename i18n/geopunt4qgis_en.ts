@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="en">
+<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
 <context>
     <name>aboutDlg</name>
     <message>
@@ -22,57 +21,57 @@
 <context>
     <name>batcGeoCodedialog</name>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="128"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="135"/>
         <source>&lt;div style=&apos;color:red&apos;&gt;%s bestaat niet&lt;/div&gt;</source>
         <translation>&lt;div style=&apos;color:red&apos;&gt;%s does not exist&lt;/div&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="140"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="148"/>
         <source>gevalideerd adres</source>
         <translation>validated address</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="229"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="250"/>
         <source>&lt;geen&gt;</source>
         <translation>&lt;None&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="189"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="197"/>
         <source>Andere separator</source>
         <translation>Other delimiter</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="189"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="197"/>
         <source>Stel zelf een separator in: (Maximaal 1 karakter)</source>
         <translation>Appoint a delimiter (max 1 character)</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="201"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="290"/>
         <source>&lt;div style=&apos;color:red&apos;&gt;Kon geen connectie maken met geopunt&lt;/div&gt;</source>
         <translation>&lt;div style=&apos;color:red&apos;&gt;Can&apos;t connect to geopunt&lt;/div&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="158"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="166"/>
         <source>%s heeft meer dan %s rijen</source>
         <translation>%s has more then %s rows</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="160"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="168"/>
         <source>Je bestand heeft meer dan %s rijen.&lt;br/&gt;</source>
         <translation>Your file has more then %s rows.&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="162"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="170"/>
         <source>Om de servers van agiv niet te zwaar te belasten is de toepassing beperkt tot %s rijen.&lt;br/&gt;</source>
         <translation>To prevent overburdening AGIV servers, the application is limited to %s rows.&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="164"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="172"/>
         <source>Deelnemers van GDI-vlaanderen kunnen gebruik maken van Crab Match om grote bestanden te valideren en geocoderen: &lt;br/&gt;</source>
         <translation>if you participate in GDI-Flanders, you can use Crab match to validate and geocode large files: &lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="166"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="174"/>
         <source>&lt;a href=&apos;https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand&apos;&gt;Meer info&lt;/a&gt;</source>
         <translation>&lt;a href=&apos;https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand&apos;&gt;More info&lt;/a&gt;</translation>
     </message>
@@ -82,62 +81,82 @@
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="15"/>
         <source>Batch geocodeer adressen</source>
-        <translation>Batch geocode addresses</translation>
+        <translation type="obsolete">Batch geocode addresses</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="56"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="59"/>
         <source>Open</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="84"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="87"/>
         <source>Separator: </source>
         <translation>Delimiter: </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="101"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="107"/>
         <source>Puntcomma</source>
         <translation>Puntcomma</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="106"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="112"/>
         <source>Comma</source>
         <translation>Comma</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="111"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="117"/>
         <source>Tab</source>
         <translation>Tab</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="116"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="122"/>
         <source>Ander: </source>
         <translation>Other: </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="169"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="175"/>
         <source>Adres (straat &lt;huisnr&gt;, &lt;gemeente&gt;):</source>
         <translation>Address (street &lt;housenr&gt;, &lt;municipality&gt;):</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="193"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="202"/>
         <source>(Optioneel) Huisnummer kolom: </source>
         <translation>(Optional) Housenumber: </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="216"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="228"/>
         <source>(Optioneel) Gemeente kolom:</source>
         <translation>(Optional) Municipality:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="265"/>
         <source>Valideer</source>
-        <translation>Validate</translation>
+        <translation type="obsolete">Validate</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="316"/>
         <source>Voeg valide adressen toe aan de kaart</source>
-        <translation>Add valid addresses to map</translation>
+        <translation type="obsolete">Add valid addresses to map</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="443"/>
+        <source>Valideer selectie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="448"/>
+        <source>Valideer alle Adressen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="438"/>
+        <source>Voeg alle valide adressen toe aan de kaart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="18"/>
+        <source>CSV-adresbestanden geocoderen</source>
+        <translation type="unfinished">geocode CSV-files</translation>
     </message>
 </context>
 <context>

@@ -196,5 +196,37 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAddTSeltoMap</sender>
+   <signal>triggered()</signal>
+   <receiver>addToMapKnop</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>259</x>
+     <y>320</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionZoomtoSelection</sender>
+   <signal>triggered()</signal>
+   <receiver>zoomSelKnop</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>416</x>
+     <y>320</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

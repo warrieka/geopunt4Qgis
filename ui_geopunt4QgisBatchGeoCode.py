@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Sun Jan  5 18:06:43 2014
+# Created: Mon Jan  6 19:33:27 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,8 @@ except AttributeError:
 class Ui_batchGeocodeDlg(object):
     def setupUi(self, batchGeocodeDlg):
         batchGeocodeDlg.setObjectName(_fromUtf8("batchGeocodeDlg"))
-        batchGeocodeDlg.resize(531, 457)
+        batchGeocodeDlg.resize(457, 457)
+        batchGeocodeDlg.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntBatchgeocodeSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         batchGeocodeDlg.setWindowIcon(icon)
@@ -160,19 +161,22 @@ class Ui_batchGeocodeDlg(object):
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_5.addItem(spacerItem)
+        self.validateSelBtn = QtGui.QPushButton(self.adresWgt)
+        self.validateSelBtn.setObjectName(_fromUtf8("validateSelBtn"))
+        self.horizontalLayout_5.addWidget(self.validateSelBtn)
         self.validateBtn = QtGui.QPushButton(self.adresWgt)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.validateBtn.sizePolicy().hasHeightForWidth())
         self.validateBtn.setSizePolicy(sizePolicy)
-        self.validateBtn.setMaximumSize(QtCore.QSize(120, 16777215))
         self.validateBtn.setAutoDefault(True)
         self.validateBtn.setObjectName(_fromUtf8("validateBtn"))
         self.horizontalLayout_5.addWidget(self.validateBtn)
         self.verticalLayout_2.addLayout(self.horizontalLayout_5)
         self.verticalLayout.addWidget(self.adresWgt)
         self.outPutTbl = QtGui.QTableWidget(batchGeocodeDlg)
+        self.outPutTbl.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.outPutTbl.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.outPutTbl.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.outPutTbl.setObjectName(_fromUtf8("outPutTbl"))
@@ -237,16 +241,30 @@ class Ui_batchGeocodeDlg(object):
         self.statusProgress.setProperty("value", 0)
         self.statusProgress.setTextVisible(True)
         self.statusProgress.setInvertedAppearance(False)
+        self.statusProgress.setTextDirection(QtGui.QProgressBar.TopToBottom)
         self.statusProgress.setObjectName(_fromUtf8("statusProgress"))
         self.horizontalLayout_8.addWidget(self.statusProgress)
         self.verticalLayout.addWidget(self.statusBar)
+        self.actionAddValidToMap = QtGui.QAction(batchGeocodeDlg)
+        self.actionAddValidToMap.setObjectName(_fromUtf8("actionAddValidToMap"))
+        self.actionValidateSelection = QtGui.QAction(batchGeocodeDlg)
+        self.actionValidateSelection.setObjectName(_fromUtf8("actionValidateSelection"))
+        self.actionValidateAll = QtGui.QAction(batchGeocodeDlg)
+        self.actionValidateAll.setObjectName(_fromUtf8("actionValidateAll"))
+        self.label_1.setBuddy(self.delimSelect)
+        self.label_2.setBuddy(self.adresColSelect)
+        self.label_3.setBuddy(self.huisnrSelect)
+        self.label.setBuddy(self.gemeenteColSelect)
 
         self.retranslateUi(batchGeocodeDlg)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), batchGeocodeDlg.reject)
+        QtCore.QObject.connect(self.actionAddValidToMap, QtCore.SIGNAL(_fromUtf8("triggered()")), self.addToMapKnop.click)
+        QtCore.QObject.connect(self.actionValidateSelection, QtCore.SIGNAL(_fromUtf8("triggered()")), self.validateSelBtn.click)
+        QtCore.QObject.connect(self.actionValidateAll, QtCore.SIGNAL(_fromUtf8("triggered()")), self.validateBtn.click)
         QtCore.QMetaObject.connectSlotsByName(batchGeocodeDlg)
 
     def retranslateUi(self, batchGeocodeDlg):
-        batchGeocodeDlg.setWindowTitle(_translate("batchGeocodeDlg", "Batch geocodeer adressen", None))
+        batchGeocodeDlg.setWindowTitle(_translate("batchGeocodeDlg", "CSV-adresbestanden geocoderen", None))
         self.inputBtn.setText(_translate("batchGeocodeDlg", "Open", None))
         self.label_1.setText(_translate("batchGeocodeDlg", "Separator: ", None))
         self.delimSelect.setItemText(0, _translate("batchGeocodeDlg", "Puntcomma", None))
@@ -256,8 +274,12 @@ class Ui_batchGeocodeDlg(object):
         self.label_2.setText(_translate("batchGeocodeDlg", "Adres (straat <huisnr>, <gemeente>):", None))
         self.label_3.setText(_translate("batchGeocodeDlg", "(Optioneel) Huisnummer kolom: ", None))
         self.label.setText(_translate("batchGeocodeDlg", "(Optioneel) Gemeente kolom:", None))
-        self.validateBtn.setText(_translate("batchGeocodeDlg", "Valideer", None))
+        self.validateSelBtn.setText(_translate("batchGeocodeDlg", "Valideer selectie", None))
+        self.validateBtn.setText(_translate("batchGeocodeDlg", "Valideer alle Adressen", None))
         self.outPutTbl.setSortingEnabled(True)
-        self.addToMapKnop.setText(_translate("batchGeocodeDlg", "Voeg valide adressen toe aan de kaart", None))
+        self.addToMapKnop.setText(_translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None))
+        self.actionAddValidToMap.setText(_translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None))
+        self.actionValidateSelection.setText(_translate("batchGeocodeDlg", "Valideer selectie", None))
+        self.actionValidateAll.setText(_translate("batchGeocodeDlg", "Valideer alle Adressen", None))
 
 import resources_rc
