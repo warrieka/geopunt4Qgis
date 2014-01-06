@@ -5,8 +5,8 @@
 [general]
 name=geopunt4Qgis
 qgisMinimumVersion=2.0
-description="Plugin om geopunt diensten in QGIS te gebruiken - Plug-in to use geopunt services in QGIS: > Geocodeer op basis van CRAB (vlaanderen) en urbis (Brussel). > Zoek naar Intressepunten. TODO: Zoeken naar werken en manifestaties (GIPOD)" 
-version=0.8beta
+description="EN: Plug-in to use geopunt services in QGIS > Geocoding [regular, batch and reverse] based on CRAB (Flanders) and and URBIS (Brussels) > search for POI's - NL: Plugin om geopunt diensten in QGIS te gebruiken > Geocodeer [gewoon, prikken en in batch] op basis van CRAB (Vlaanderen) en URBIS (Brussel). > Zoek naar Intressepunten." 
+version=0.8
 author=Kay Warrie
 email=kaywarrie@gmail.com
 
