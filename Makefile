@@ -116,8 +116,7 @@ upload: zip
 # transup
 # update .ts translation files, compile to .qm and .mk to .html
 # [KW]: added custom compile_translations for html
-transup: transclean
-# 	utils/compile_translations.sh
+transup: 
 	pylupdate4 Makefile
 	lrelease i18n/*.ts
 	utils/compile_html_translations.sh

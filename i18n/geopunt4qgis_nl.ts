@@ -141,22 +141,22 @@
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="443"/>
         <source>Valideer selectie</source>
-        <translation type="unfinished"></translation>
+        <translation>Valideer selectie</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="448"/>
         <source>Valideer alle Adressen</source>
-        <translation type="unfinished"></translation>
+        <translation>Valideer alle Adressen</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="438"/>
         <source>Voeg alle valide adressen toe aan de kaart</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="18"/>
         <source>CSV-adresbestanden geocoderen</source>
-        <translation type="unfinished">CSV-adresbestanden geocoderen</translation>
+        <translation>CSV-adresbestanden geocoderen</translation>
     </message>
 </context>
 <context>
