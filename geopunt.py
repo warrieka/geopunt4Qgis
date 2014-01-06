@@ -22,7 +22,8 @@
 import urllib2, urllib, json, sys
 
 class Adres:
-  def __init__(self):
+  def __init__(self, timeout=15):
+    self.timeout = timeout
     self._locUrl = "http://loc.api.geopunt.be/geolocation/Location?"
     self._sugUrl = "http://loc.api.geopunt.be/geolocation/Suggestion?"
 
@@ -38,11 +39,11 @@ class Adres:
   def fetchLocation(self, q, c=1):
       url = self._createLocationUrl(q, c=1)
       try:
-	    response = urllib2.urlopen(url)
+	    response = urllib2.urlopen(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
 	    return str( e.reason )
       except:
-	    return sys.exc_info()[1]
+	    return str( sys.exc_info()[1] )
       else:
 	    LocationResult = json.load(response)
 	    return LocationResult["LocationResult"]
@@ -59,11 +60,11 @@ class Adres:
   def fetchSuggestion(self, q, c=5):
       url = self._createSuggestionUrl(q,c)
       try:
-	    response = urllib2.urlopen(url)
+	    response = urllib2.urlopen(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
 	    return str( e.reason )
       except:
-	    return sys.exc_info()[1]
+	    return  str( sys.exc_info()[1] )
       else:
 	    suggestion = json.load(response)
 	    return suggestion["SuggestionResult"]
@@ -71,7 +72,8 @@ class Adres:
 
 
 class Poi:
-  def __init__(self):
+  def __init__(self, timeout=15):
+      self.timeout = timeout
       self._poiUrl = "http://poi.api.geopunt.be/core?"
       self.resultCount = 0
       
@@ -112,13 +114,13 @@ class Poi:
   def fetchPoi(self, q,  c=5, srs=31370 , maxModel=True , updateResults=True, bbox=None ):
       url = self._createPoiUrl( q, c, srs, maxModel, bbox )
       try:
-	  response = urllib2.urlopen(url)
+	  response = urllib2.urlopen(url, timeout=self.timeout)
       except urllib2.HTTPError as e:
 	  return json.load(e)["Message"]
       except urllib2.URLError as e:
-	  return e.reason.__str__()
+	  return str( e.reason )
       except:
-	  return sys.exc_info()[1]
+	  return  str( sys.exc_info()[1] )
       else:
 	poi = json.load(response)
 	if updateResults:
@@ -161,9 +163,9 @@ class Poi:
 	
       return [ minX, minY, maxX, maxY]
 	  
-def internet_on():
+def internet_on(timeout=15):
     try:
-	response=urllib2.urlopen('http://loc.api.geopunt.be',timeout=10)
+	response=urllib2.urlopen('http://loc.api.geopunt.be',timeout=timeout)
 	return True
     except: 
 	return False

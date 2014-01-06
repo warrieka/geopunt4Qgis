@@ -19,7 +19,7 @@ batcGeoCodedialog
 *                                                                         *
 ***************************************************************************/
 """
-#TODO: create triggers, validate selected, zoom to selected
+#TODO:  zoom to selected
 import os.path
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
@@ -109,6 +109,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 					 layername=self.layerName )
 	  elif loc.__class__ is str:
 	    self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
+	    return
 	    
 	if self.saveToFile:
 	  self.batcGeoHelper.saveMem2file(self.layerName)
@@ -253,7 +254,10 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	  adres = " ".join( adres.split())  #remove too many spaces
 	  #self.ui.statusMsg.setText(adres)
 	  validAdres = self.gp.fetchSuggestion(adres, 5)
-	  if validAdres and validAdres.__class__ is list: 
+	  if validAdres and validAdres.__class__ is str: 
+	    self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
+	    return
+	  elif validAdres and validAdres.__class__ is list: 
 	    validCombo = QtGui.QComboBox(self.ui.adresColSelect)
 	    validCombo.addItems(validAdres)
 	    self.ui.outPutTbl.setCellWidget(rowIdx, contoleCol, validCombo)
