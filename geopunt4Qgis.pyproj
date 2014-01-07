@@ -50,10 +50,10 @@
     <Content Include="ui_geopunt4QgisAbout.ui">
       <Publish>True</Publish>
     </Content>
+    <Content Include="ui_geopunt4QgisBatchGeoCode.ui" />
     <Content Include="ui_geopunt4QgisPoi.ui">
       <Publish>True</Publish>
     </Content>
-    <Compile Include="batchGeoCode.py" />
     <Compile Include="batchGeoHelper.py" />
     <Compile Include="geometryhelper.py">
       <Publish>True</Publish>
