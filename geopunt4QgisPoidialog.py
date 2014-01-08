@@ -43,46 +43,46 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	      QtCore.QCoreApplication.installTranslator(self.translator)
 	self._initGui()
 	
-	#setup geopunt and geometryHelper objects
-	self.poi = geopunt.Poi()
-	self.gh = gh.geometryHelper(iface)
-	
     def _initGui(self):
+        # Set up the user interface from Designer.
+        self.ui = Ui_geopunt4QgisPoiDlg()
+        self.ui.setupUi(self)	
 	
-	# Set up the user interface from Designer.
-	self.ui = Ui_geopunt4QgisPoiDlg()
-	self.ui.setupUi(self)	
+        #get settings
+        self.s = QtCore.QSettings()
+        self.loadSettings()
+
+        #setup geopunt and geometryHelper objects
+        self.poi = geopunt.Poi(self.timeout)
+        self.gh = gh.geometryHelper(self.iface)
 	
-	#get settings
-	self.s = QtCore.QSettings()
-	self.loadSettings()
+        #setup a message bar
+        self.bar = QgsMessageBar() 
+        self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
+        self.ui.verticalLayout.addWidget(self.bar)
 	
-	#setup a message bar
-	self.bar = QgsMessageBar() 
-	self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
-	self.ui.verticalLayout.addWidget(self.bar)
+        #table ui
+        self.ui.resultLijst.hideColumn(0)
 	
-	#table ui
-	self.ui.resultLijst.hideColumn(0)
+        #actions
+        self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )
+        #self.ui.actionZoomtoSelection.triggered.connect(self.onZoomSelClicked)
+        self.ui.resultLijst.addAction( self.ui.actionAddTSeltoMap )
+        #self.ui.actionAddTSeltoMap.triggered.connect(self.onAddSelClicked)
 	
-	#actions
-	self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )
-	#self.ui.actionZoomtoSelection.triggered.connect(self.onZoomSelClicked)
-	self.ui.resultLijst.addAction( self.ui.actionAddTSeltoMap )
-	#self.ui.actionAddTSeltoMap.triggered.connect(self.onAddSelClicked)
-	
-	#event handlers 
-	self.ui.poiText.returnPressed.connect(self.onZoekActivated)
-	self.ui.zoekKnop.clicked.connect(self.onZoekActivated)
-	self.ui.zoomSelKnop.clicked.connect(self.onZoomSelClicked)
-	self.ui.resultLijst.itemDoubleClicked.connect(self.onZoomSelClicked )
-	self.ui.resultLijst.itemSelectionChanged.connect(self.onSelectionChanged)
-	self.ui.addToMapKnop.clicked.connect(self.onAddSelClicked)
-	self.finished.connect(self.clean )
+        #event handlers 
+        self.ui.poiText.returnPressed.connect(self.onZoekActivated)
+        self.ui.zoekKnop.clicked.connect(self.onZoekActivated)
+        self.ui.zoomSelKnop.clicked.connect(self.onZoomSelClicked)
+        self.ui.resultLijst.itemDoubleClicked.connect(self.onZoomSelClicked )
+        self.ui.resultLijst.itemSelectionChanged.connect(self.onSelectionChanged)
+        self.ui.addToMapKnop.clicked.connect(self.onAddSelClicked)
+        self.finished.connect(self.clean )
 	
     def loadSettings(self):
-	self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 0))
-	self.layerName =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
+        self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 0))
+        self.layerName =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
+        self.timeout = 15
 	
     def onZoekActivated(self):
 	txt = self.ui.poiText.text()
@@ -182,8 +182,8 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
       self.graphicsLayer = []
       
     def clean(self):
-	self.bar.clearWidgets()
-	self.ui.poiText.setText("")
-	self.ui.resultLijst.clearContents()
-	self.ui.resultLijst.setRowCount(0)
-	self._clearGraphicsLayer()
+        self.bar.clearWidgets()
+        self.ui.poiText.setText("")
+        self.ui.resultLijst.clearContents()
+        self.ui.resultLijst.setRowCount(0)
+        self._clearGraphicsLayer()

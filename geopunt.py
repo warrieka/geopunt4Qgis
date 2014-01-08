@@ -69,8 +69,6 @@ class Adres:
 	    suggestion = json.load(response)
 	    return suggestion["SuggestionResult"]
 
-
-
 class Poi:
   def __init__(self, timeout=15):
       self.timeout = timeout

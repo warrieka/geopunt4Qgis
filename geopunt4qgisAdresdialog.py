@@ -40,10 +40,6 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	    self.translator.load(localePath)
 	    if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
 	
-	#setup geopunt and geometryHelper objects
-	self.gp = geopunt.Adres()
-	self.gh = gh.geometryHelper(iface)
-	
 	self._initGui()
 
     def _initGui(self):
@@ -55,6 +51,10 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	self.s = QtCore.QSettings()
 	self.loadSettings()
 	
+    #setup geopunt and geometryHelper objects
+	self.gp = geopunt.Adres(self.timeout)
+	self.gh = gh.geometryHelper(self.iface)
+
 	#populate gemeenteBox
 	gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),"data/gemeentenVL.json")) )
 	self.ui.gemeenteBox.addItems( [n["Naam"] for n in gemeentes] )
@@ -79,9 +79,10 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	self.finished.connect(self.clean )
 	
     def loadSettings(self):
-	self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 0))
-	self.layerName =  self.s.value("geopunt4qgis/adreslayerText", "geopunt_adres")
-	self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 1))
+        self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 0))
+        self.layerName =  self.s.value("geopunt4qgis/adreslayerText", "geopunt_adres")
+        self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 1))
+        self.timeout = 15
 	
     def onZoekActivated(self):
 	self._clearGraphicsLayer()
@@ -180,10 +181,10 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 			level=QgsMessageBar.CRITICAL)
 	  
     def clean(self):
-	self.bar.clearWidgets()
-	self.ui.resultLijst.clear()
-	self.ui.zoekText.setText("")
-	self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","gemeente"))
-	self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
-	self._clearGraphicsLayer()
+        self.bar.clearWidgets()
+        self.ui.resultLijst.clear()
+        self.ui.zoekText.setText("")
+        self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","gemeente"))
+        self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
+        self._clearGraphicsLayer()
 	

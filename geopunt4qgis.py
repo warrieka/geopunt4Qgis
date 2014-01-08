@@ -34,8 +34,10 @@ from geopunt4QgisAbout import geopunt4QgisAboutdialog
 from geopunt4QgisSettingsdialog import geopunt4QgisSettingsdialog
 from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodedialog
 #import from libraries
-import geopunt, geometryhelper
-import os.path, time
+import geopunt
+import geometryhelper
+import os.path
+import time
 
 class geopunt4Qgis:
     def __init__(self, iface):
@@ -52,48 +54,42 @@ class geopunt4Qgis:
             self.translator.load(localePath)
             if qVersion() > '4.3.3': QCoreApplication.installTranslator(self.translator)
 
-        # Create the dialog (after translation) and keep reference
+        # Create the dialogs (after translation) and keep reference
         self.adresdlg = geopunt4QgisAdresDialog(self.iface)
+        self.batchgeoDlg = geopunt4QgisBatcGeoCodedialog(self.iface) 
         self.poiDlg = geopunt4QgisPoidialog(self.iface)
         self.settingsDlg = geopunt4QgisSettingsdialog()
         self.aboutDlg = geopunt4QgisAboutdialog()
         
-        self.batchgeoDlg = geopunt4QgisBatcGeoCodedialog(self.iface) 
-        
-        #geopunt adres and geometry object
-        self.adres = geopunt.Adres()
-        self.gh = geometryhelper.geometryHelper(self.iface)
-
     def initGui(self):
         #get settings
         self.s = QSettings()
         self.loadSettings()
         
+        #geopunt adres and geometry object
+        self.adres = geopunt.Adres(self.timeout)
+        self.gh = geometryhelper.geometryHelper(self.iface)
+
         # Create actions that will start plugin configuration
-        self.adresAction = QAction(
-            QIcon(":/plugins/geopunt4Qgis/images/geopuntAddress.png"),
-            QCoreApplication.translate( "geopunt4Qgis" , u"Zoek een Adres"), self.iface.mainWindow())
-	self.reverseAction = QAction( 
-	    QIcon(":/plugins/geopunt4Qgis/images/geopuntReverse.png"),
-            QCoreApplication.translate("geopunt4Qgis", u"Prik een Adres op kaart"), 
-            self.iface.mainWindow())
-	self.batchAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntBatchgeocode.png"),
-	    QCoreApplication.translate("geopunt4Qgis", u"CSV-adresbestanden geocoderen"),
-	    self.iface.mainWindow())
-	self.poiAction = QAction(
-            QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
-            QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), 
-	    self.iface.mainWindow())
-	self.settingsAction = QAction(
-            QIcon(":/plugins/geopunt4Qgis/images/geopuntSettings.png"),
-            QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())
-	self.aboutAction = QAction(
-            QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
-            QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
+        self.adresAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntAddress.png"),
+            QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Adres"), self.iface.mainWindow())
+        self.reverseAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntReverse.png"),
+                QCoreApplication.translate("geopunt4Qgis", u"Prik een Adres op kaart"), 
+                self.iface.mainWindow())
+        self.batchAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntBatchgeocode.png"),
+	        QCoreApplication.translate("geopunt4Qgis", u"CSV-adresbestanden geocoderen"),
+	        self.iface.mainWindow())
+        self.poiAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
+                QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), 
+	        self.iface.mainWindow())
+        self.settingsAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntSettings.png"),
+                QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())
+        self.aboutAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
+                QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
 	
         # connect the action to the run method
         self.adresAction.triggered.connect(self.runAdresDlg)
-        self.reverseAction.triggered.connect( self.reverse )
+        self.reverseAction.triggered.connect(self.reverse)
         self.batchAction.triggered.connect(self.runBatch)
         self.poiAction.triggered.connect(self.runPoiDlg)
         self.settingsAction.triggered.connect(self.runSettingsDlg)
@@ -121,26 +117,27 @@ class geopunt4Qgis:
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.poiAction)
         self.iface.removeToolBarIcon(self.poiAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.reverseAction)
-	self.iface.removeToolBarIcon(self.reverseAction)
-	self.iface.removePluginMenu(u"&geopunt4Qgis", self.batchAction)
-	self.iface.removeToolBarIcon(self.batchAction)
+        self.iface.removeToolBarIcon(self.reverseAction)
+        self.iface.removePluginMenu(u"&geopunt4Qgis", self.batchAction)
+        self.iface.removeToolBarIcon(self.batchAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.aboutAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.settingsAction)
-	
+
     def loadSettings(self):
-	self.saveToFile_reverse = int( self.s.value("geopunt4qgis/reverseSavetoFile", 0))
-        self.layerName_reverse  = self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
+        self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
+        self.layerName_reverse = self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
+        self.timeout = 15
         
     def runSettingsDlg(self):
-      # show the dialog
-	self.settingsDlg.show()
-	# Run the dialog event loop
+        # show the dialog
+        self.settingsDlg.show()
+        # Run the dialog event loop
         result = self.settingsDlg.exec_()
-	if result:
-	  self.loadSettings()
-	  self.adresdlg.loadSettings()
-	  self.poiDlg.loadSettings()
-	  self.batchgeoDlg.loadSettings()
+        if result:
+	        self.loadSettings()
+	        self.adresdlg.loadSettings()
+	        self.poiDlg.loadSettings()
+	        self.batchgeoDlg.loadSettings()
         
     def runAdresDlg(self):
         # show the dialog
@@ -155,9 +152,9 @@ class geopunt4Qgis:
         result = self.poiDlg.exec_()
         
     def runBatch(self):
-	# show the dialog
-	self.batchgeoDlg.show()
-	# Run the dialog event loop
+        # show the dialog
+        self.batchgeoDlg.show()
+        # Run the dialog event loop
         self.batchgeoDlg.exec_()
 	  
     def runAbout(self):
@@ -167,48 +164,44 @@ class geopunt4Qgis:
         result = self.aboutDlg.exec_()
         
     def reverse(self):
-	self.iface.messageBar().pushMessage(
-	  QCoreApplication.translate("geopunt4Qgis" ,"Zoek een Adres: "), 
-	  QCoreApplication.translate("geopunt4Qgis" ,"Klik op de kaart om het adres op te vragen")
-				     ,level=QgsMessageBar.INFO)
-        reverseAdresTool = reverseAdresMapTool( self.iface, self._reverseAdresCallback ) 
+        self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis" ,"Zoek een Adres: "), 
+        QCoreApplication.translate("geopunt4Qgis" ,"Klik op de kaart om het adres op te vragen")
+				        ,level=QgsMessageBar.INFO)
+        reverseAdresTool = reverseAdresMapTool(self.iface, self._reverseAdresCallback) 
         self.iface.mapCanvas().setMapTool(reverseAdresTool)
         
     def _reverseAdresCallback(self, point):
-	lam72 = QgsCoordinateReferenceSystem(31370)
-	mapCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
-	xform = QgsCoordinateTransform( mapCrs, lam72 )
-	lam72pt = xform.transform( point )
+        lam72 = QgsCoordinateReferenceSystem(31370)
+        mapCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+        xform = QgsCoordinateTransform(mapCrs, lam72)
+        lam72pt = xform.transform(point)
 	
 	#to clear or not clear that is the question
 	self.iface.messageBar().clearWidgets()
 
 	#fetch Location from geopunt
-	adres = self.adres.fetchLocation(lam72pt.x().__str__() +","+ lam72pt.y().__str__(), 1)
+	adres = self.adres.fetchLocation(lam72pt.x().__str__() + "," + lam72pt.y().__str__(), 1)
 	
 	if len(adres) and adres.__class__ is list:
 	  #only one result in list, was set in request
 	  FormattedAddress = adres[0]["FormattedAddress"]
 	  
 	  #add a button to the messageBar widget
-	  widget = self.iface.messageBar().createMessage(
-	    QCoreApplication.translate("geopunt4Qgis" ,"Resultaat: "), FormattedAddress)
+	  widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis" ,"Resultaat: "), FormattedAddress)
 	  button = QPushButton(widget)
-	  button.clicked.connect(lambda: self._addReverse( adres[0] ) )
+	  button.clicked.connect(lambda: self._addReverse(adres[0]))
 	  button.setText("Voeg toe")
 	  widget.layout().addWidget(button)
 	  self.iface.messageBar().clearWidgets()
-	  self.iface.messageBar().pushWidget( widget, level=QgsMessageBar.INFO)
+	  self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
 	
 	elif len(adres) == 0:
-	  self.iface.messageBar().pushMessage( 
-	    QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
+	  self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
 	    QCoreApplication.translate("geopunt4Qgis","Geen resultaten gevonden"), 
 		        level=QgsMessageBar.INFO, duration=3)
 	  
 	elif adres.__class__ is str:
-	  self.iface.messageBar().pushMessage(
-	    QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
+	  self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
 			adres, level=QgsMessageBar.WARNING)
 	else:
 	  self.iface.messageBar().pushMessage("Error", 
@@ -221,6 +214,6 @@ class geopunt4Qgis:
 	
 	xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)
 	self.gh.save_adres_point(xy, formattedAddress, locationType, layername=self.layerName_reverse,
-			  saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow()  )
+			  saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow())
 	self.iface.messageBar().popWidget()	
         
