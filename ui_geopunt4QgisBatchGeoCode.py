@@ -34,7 +34,6 @@ class Ui_batchGeocodeDlg(object):
         batchGeocodeDlg.setWindowOpacity(1.0)
         batchGeocodeDlg.setSizeGripEnabled(False)
         self.verticalLayout = QtGui.QVBoxLayout(batchGeocodeDlg)
-        self.verticalLayout.setContentsMargins(-1, -1, -1, 2)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.inputWgt = QtGui.QWidget(batchGeocodeDlg)
         self.inputWgt.setObjectName(_fromUtf8("inputWgt"))
