@@ -291,24 +291,67 @@
     </widget>
    </item>
    <item>
-    <widget class="QTableWidget" name="outPutTbl">
-     <property name="contextMenuPolicy">
-      <enum>Qt::ActionsContextMenu</enum>
+    <widget class="QFrame" name="tlFrame">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
      </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::ExtendedSelection</enum>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
      </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QWidget" name="buttonWgt" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_7"/>
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="zoomToSelBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Zoom naar selectie</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0" rowspan="2">
+       <widget class="QTableWidget" name="outPutTbl">
+        <property name="contextMenuPolicy">
+         <enum>Qt::ActionsContextMenu</enum>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -432,6 +475,22 @@
      </layout>
     </widget>
    </item>
+   <item>
+    <widget class="QLabel" name="laraLbl">
+     <property name="text">
+      <string>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+     </property>
+     <property name="margin">
+      <number>-1</number>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
   <action name="actionAddValidToMap">
    <property name="text">
@@ -454,16 +513,16 @@
      <normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</iconset>
    </property>
    <property name="text">
-    <string>zoom naar selectie</string>
+    <string>Zoom naar selectie</string>
    </property>
   </action>
-  <zorder>outPutTbl</zorder>
   <zorder>inputWgt</zorder>
   <zorder>delimWgt</zorder>
   <zorder>adresWgt</zorder>
-  <zorder>buttonWgt</zorder>
   <zorder>statusBar</zorder>
   <zorder>line</zorder>
+  <zorder>tlFrame</zorder>
+  <zorder>laraLbl</zorder>
  </widget>
  <resources>
   <include location="resources.qrc"/>
@@ -482,6 +541,22 @@
     <hint type="destinationlabel">
      <x>270</x>
      <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoomToSelBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>actionZoomToSelection</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>478</x>
+     <y>289</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>
