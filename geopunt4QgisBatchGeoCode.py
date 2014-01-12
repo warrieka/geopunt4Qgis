@@ -23,7 +23,7 @@ batcGeoCodedialog
 import os.path
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
-import geopunt
+import geopunt, geometryhelper
 import UnicodeCsvReader as csv
 from batchGeoHelper import batcGeoHelper
 
@@ -46,179 +46,186 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	
     def _initGui(self):
       # Set up the user interface from Designer.
-        self.ui = Ui_batchGeocodeDlg()
-        self.ui.setupUi(self)
+	self.ui = Ui_batchGeocodeDlg()
+	self.ui.setupUi(self)
 	
-        #settings
-        self.s = QtCore.QSettings()
-        self.loadSettings()
+	#settings
+	self.s = QtCore.QSettings()
+	self.loadSettings()
 	
-        #set vars
-        self.csv = None
-        self.delimiter = ';'
-        self.headers = None
-        self.gp = geopunt.Adres(self.timeout)
-        self.batcGeoHelper = batcGeoHelper(self.iface, self)
+	#set vars
+	self.csv = None
+	self.delimiter = ';'
+	self.headers = None
+	self.graphicsLayer = []
+	self.gp = geopunt.Adres(self.timeout)
+	self.batcGeoHelper = batcGeoHelper(self.iface, self)
+	self.gh = geometryhelper.geometryHelper(self.iface)
 	
-        self.ui.delimEdit.setEnabled(False)
-        self.ui.addToMapKnop.setEnabled(False)
+	self.ui.delimEdit.setEnabled(False)
+	self.ui.addToMapKnop.setEnabled(False)
 	
-        #actions
-        self.ui.outPutTbl.addAction( self.ui.actionValidateSelection )
-        self.ui.outPutTbl.addAction( self.ui.actionValidateAll)
-        self.ui.outPutTbl.addAction( self.ui.actionAddValidToMap )
+	#actions
+	self.ui.outPutTbl.addAction( self.ui.actionValidateSelection)
+	self.ui.actionValidateSelection.triggered.connect( self.validateSelection)
+	self.ui.outPutTbl.addAction( self.ui.actionValidateAll)
+	self.ui.actionValidateAll.triggered.connect(self.validateAll)
+	self.ui.outPutTbl.addAction( self.ui.actionAddValidToMap )
+	self.ui.actionAddValidToMap.triggered.connect(self.addToMap)
+	self.ui.outPutTbl.addAction( self.ui.actionZoomToSelection )
+	self.ui.actionZoomToSelection.triggered.connect(self.zoomtoSelection)
 	
-        #event handlers 
-        self.ui.inputBtn.clicked.connect(self.openInputCsv)
-        self.ui.inputTxt.returnPressed.connect(self.loadTable)
-        self.ui.delimSelect.activated.connect(self.setDelim) 
-        self.ui.validateBtn.clicked.connect(self.validateAll)
-        self.ui.validateSelBtn.clicked.connect(self.validateSelection)
-        self.ui.addToMapKnop.clicked.connect(self.addToMap)
-        self.finished.connect(self.clean)
+	#event handlers 
+	self.ui.inputBtn.clicked.connect(self.openInputCsv)
+	self.ui.inputTxt.returnPressed.connect(self.loadTable)
+	self.ui.delimSelect.activated.connect(self.setDelim) 
+	self.ui.validateBtn.clicked.connect(self.validateAll)
+	self.ui.validateSelBtn.clicked.connect(self.validateSelection)
+	self.ui.addToMapKnop.clicked.connect(self.addToMap)
+	self.finished.connect(self.clean)
 	
     def loadSettings(self): 
-        self.maxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
-        self.saveToFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 0))
-        self.layerName = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
-        self.timeout = 15
+	self.maxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
+	self.saveToFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 0))
+	self.layerName = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
+	self.timeout = 15
 	
     def addToMap(self):
-        adresCol = len( self.headers ) 
-        rowCount = self.ui.outPutTbl.rowCount()
+	adresCol = self.ui.outPutTbl.columnCount() -1
+	rowCount = self.ui.outPutTbl.rowCount()
 	
-        self.ui.statusProgress.setValue(0)
-        self.ui.statusProgress.setMaximum(rowCount)
+	self.ui.statusProgress.setValue(0)
+	self.ui.statusProgress.setMaximum(rowCount)
 	
-        for row in range(rowCount):
-	        attributes = {}
-	        self.ui.statusProgress.setValue(row)
-	        if self.ui.outPutTbl.cellWidget(row,adresCol):
-	            adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
-	        else: 
-	            continue
+	for row in range(rowCount):
+		attributes = {}
+		self.ui.statusProgress.setValue(row)
+		if self.ui.outPutTbl.cellWidget(row,adresCol):
+		    adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
+		else: 
+		    continue
 
-	        for name, colIdx in self.headers.items():
-	            val= self.ui.outPutTbl.item(row, colIdx).text()
-	            attributes[name] = val
+		for name, colIdx in self.headers.items():
+		    val= self.ui.outPutTbl.item(row, colIdx).text()
+		    attributes[name] = val
 	  
-	        loc = self.gp.fetchLocation(adres,1)
-	        if loc and loc.__class__ is list:
-	            xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
-	            xyType = loc[0]["LocationType"]
-	            xymap = self.batcGeoHelper.prjPtToMapCrs(xylb, 31370)
-	            self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, 
-					            layername=self.layerName )
-	        elif loc.__class__ is str:
-	            self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
-	        return
+		loc = self.gp.fetchLocation(adres,1)
+		if loc and loc.__class__ is list:
+		    xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
+		    xyType = loc[0]["LocationType"]
+		    xymap = self.batcGeoHelper.prjPtToMapCrs(xylb, 31370)
+		    self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, 
+						    layername=self.layerName )
+		elif loc.__class__ is str:
+		    self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
+		    return
 	    
-        if self.saveToFile:
-	        self.batcGeoHelper.saveMem2file(self.layerName)
-	    
-        self.accept()
+	if self.saveToFile:
+	      self.batcGeoHelper.saveMem2file(self.layerName)
+	      
+	self.accept()
 	
     def loadTable(self):
-	    #clear existing
-	    self.ui.outPutTbl.clearContents()
-	    self.ui.outPutTbl.setColumnCount(0)
-	    self.ui.outPutTbl.setRowCount(0)
-	    self.ui.adresColSelect.clear()
-	    self.ui.huisnrSelect.clear()
-	    self.ui.gemeenteColSelect.clear()
-	    self.ui.statusMsg.clear()
-	    self.headers = {}
+	  #clear existing
+	  self.ui.outPutTbl.clearContents()
+	  self.ui.outPutTbl.setColumnCount(0)
+	  self.ui.outPutTbl.setRowCount(0)
+	  self.ui.adresColSelect.clear()
+	  self.ui.huisnrSelect.clear()
+	  self.ui.gemeenteColSelect.clear()
+	  self.ui.statusMsg.clear()
+	  self.clearGraphicsLayer()
+	  self.headers = {}
+      
+	  self.csv = self.ui.inputTxt.text()
+      
+	  if not self.csv :  #none or empty string
+	    self.ui.adresWgt.setDisabled(True)
+	    return
+	  elif not os.path.exists(self.csv):
+	    self.ui.statusMsg.setText(QtCore.QCoreApplication.translate("batcGeoCodedialog", 
+			"<div style='color:red'>%s bestaat niet</div>") % self.csv)
+	    self.ui.adresWgt.setDisabled(True)
+	    return 
+      
+	  csvReader = csv.UnicodeCsvReader(open( self.csv, 'rb'), delimiter=self.delimiter)
+	  header = csvReader.next()
+	  colCount = len(header)
+      
+	  for i in range(colCount):
+	    self.headers[header[i]]= i
 	
-	    self.csv = self.ui.inputTxt.text()
-	
-	    if not self.csv :  #none or empty string
-	      self.ui.adresWgt.setDisabled(True)
-	      return
-	    elif not os.path.exists(self.csv):
-	      self.ui.statusMsg.setText(QtCore.QCoreApplication.translate("batcGeoCodedialog", 
-		         "<div style='color:red'>%s bestaat niet</div>") % self.csv)
-	      self.ui.adresWgt.setDisabled(True)
-	      return 
-	
-	    csvReader = csv.UnicodeCsvReader(open( self.csv, 'rb'), delimiter=self.delimiter)
-	    header = csvReader.next()
-	    colCount = len(header)
-	
-	    for i in range(colCount):
-	      self.headers[header[i]]= i
+	  self.ui.outPutTbl.setColumnCount(colCount + 1)
+	  self.ui.outPutTbl.setColumnWidth(colCount, 250)
+	  self.ui.outPutTbl.setHorizontalHeaderLabels(header + [QtCore.QCoreApplication.translate(
+							 "batcGeoCodedialog", "gevalideerd adres")])
+	  self.ui.adresColSelect.insertItems(0, header)
+	  self.ui.gemeenteColSelect.insertItems(0, header + [QtCore.QCoreApplication.translate(
+								  "batcGeoCodedialog", "<geen>")])
+	  self.ui.gemeenteColSelect.setCurrentIndex(colCount)
+	  self.ui.huisnrSelect.insertItems(0, header + [QtCore.QCoreApplication.translate(
+								  "batcGeoCodedialog", "<geen>")])
+	  self.ui.huisnrSelect.setCurrentIndex(colCount)
+      
+	  rowCount = 0
+	  for line in csvReader:
+	    self.ui.outPutTbl.insertRow(rowCount)
+	    for col in range(colCount):
+	      self.ui.outPutTbl.setItem(rowCount, col, QtGui.QTableWidgetItem(line[col]))
+	    rowCount += 1
+	    if rowCount > self.maxRows:
+	      warnTitle = QtCore.QCoreApplication.translate("batcGeoCodedialog", 
+		  "%s heeft meer dan %s rijen") % (os.path.basename(self.csv), self.maxRows)
+	      warnMsg = "<div>" 
+	      warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog", 
+	      "Je bestand heeft meer dan %s rijen.<br/>" ) % self.maxRows 
+	      warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog",
+	      "Om de servers van agiv niet te zwaar te belasten is de toepassing beperkt tot %s rijen.<br/>" ) % self.maxRows 
+	      warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog",
+	      "Deelnemers van GDI-vlaanderen kunnen gebruik maken van Crab Match om grote bestanden te valideren en geocoderen: <br/>"  )
+	      warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog", 
+	      "<a href='https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand'>Meer info</a>")
+	      warnMsg += "</div>"
 	  
-	    self.ui.outPutTbl.setColumnCount(colCount + 1)
-	    self.ui.outPutTbl.setHorizontalHeaderLabels(header +  [QtCore.QCoreApplication.translate(
-							           "batcGeoCodedialog", "gevalideerd adres")])
-	    self.ui.adresColSelect.insertItems(0, header)
-	    self.ui.gemeenteColSelect.insertItems(0, header + [QtCore.QCoreApplication.translate(
-							           "batcGeoCodedialog", "<geen>")])
-	    self.ui.gemeenteColSelect.setCurrentIndex(colCount)
-	    self.ui.huisnrSelect.insertItems(0, header + [QtCore.QCoreApplication.translate(
-	                                                           "batcGeoCodedialog", "<geen>")])
-	    self.ui.huisnrSelect.setCurrentIndex(colCount)
-	
-	    rowCount = 0
-	    for line in csvReader:
-	      self.ui.outPutTbl.insertRow(rowCount)
-	      for col in range(colCount):
-	        self.ui.outPutTbl.setItem(rowCount, col, QtGui.QTableWidgetItem(line[col]))
-	      rowCount += 1
-	      if rowCount > self.maxRows:
-	        warnTitle = QtCore.QCoreApplication.translate("batcGeoCodedialog", 
-		    "%s heeft meer dan %s rijen") % (os.path.basename(self.csv), self.maxRows)
-	        warnMsg = "<div>" 
-	        warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog", 
-	        "Je bestand heeft meer dan %s rijen.<br/>" ) % self.maxRows 
-	        warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog",
-	        "Om de servers van agiv niet te zwaar te belasten is de toepassing beperkt tot %s rijen.<br/>" ) % self.maxRows 
-	        warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog",
-	        "Deelnemers van GDI-vlaanderen kunnen gebruik maken van Crab Match om grote bestanden te valideren en geocoderen: <br/>"  )
-	        warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog", 
-	        "<a href='https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand'>Meer info</a>")
-	        warnMsg += "</div>"
-	    
-	        self.ui.statusMsg.setText("<div style='color:red'>"+ warnTitle +"</div>")
-	        QtGui.QMessageBox.warning(self, warnTitle, warnMsg )
-	        break
-	    
-	    self.ui.adresWgt.setDisabled(False)
+	      self.ui.statusMsg.setText("<div style='color:red'>"+ warnTitle +"</div>")
+	      QtGui.QMessageBox.warning(self, warnTitle, warnMsg )
+	      break
+	  
+	  self.ui.adresWgt.setDisabled(False)
 
     def setDelim(self, idx):
-        txt = self.ui.delimSelect.itemText(idx)
-        accept = True
-        if txt == 'Puntcomma':
-	        self.delimiter = ';'
-	        self.loadTable()
-        elif txt == 'Comma':
-	        self.delimiter = ','
-	        self.loadTable()
-        elif txt ==  'Tab':
-	        self.delimiter = '\t'
-	        self.loadTable()
-        else:
-	        delimiter, accept = QtGui.QInputDialog.getText(self, 
-	        QtCore.QCoreApplication.translate("batcGeoCodedialog","Andere separator") , 
-	        QtCore.QCoreApplication.translate("batcGeoCodedialog","Stel zelf een separator in: (Maximaal 1 karakter)"))
-	        if accept:
-	            self.delimiter = str( delimiter.strip()[0])
-	            self.ui.delimEdit.setText(self.delimiter)
-	            self.loadTable()
+	txt = self.ui.delimSelect.itemText(idx)
+	accept = True
+	if txt == 'Puntcomma':
+		self.delimiter = ';'
+		self.loadTable()
+	elif txt == 'Comma':
+		self.delimiter = ','
+		self.loadTable()
+	elif txt ==  'Tab':
+		self.delimiter = '\t'
+		self.loadTable()
+	else:
+		delimiter, accept = QtGui.QInputDialog.getText(self, 
+		QtCore.QCoreApplication.translate("batcGeoCodedialog","Andere separator") , 
+		QtCore.QCoreApplication.translate("batcGeoCodedialog","Stel zelf een separator in: (Maximaal 1 karakter)"))
+		if accept:
+		    self.delimiter = str( delimiter.strip()[0])
+		    self.ui.delimEdit.setText(self.delimiter)
+		    self.loadTable()
 
     def validateSelection(self):
-        #check if online before starting
-        if True != self.internet_on():
-	        return
+	#check if online before starting
+	if self.internet_on() != True: return
 	
-        rows = self.getSelectedRows()
+	rows = self.getSelectedRows()
 	
-        self.validateRows(rows)
-        self.ui.addToMapKnop.setEnabled(True)
+	self.validateRows(rows)
+	self.ui.addToMapKnop.setEnabled(True)
 
     def validateAll(self):
-        #check if online before starting
-	if True != self.internet_on():
-	  return
+	#check if online before starting
+	if self.internet_on() != True: return
 	
 	rowCount = self.ui.outPutTbl.rowCount()
 	rows = range(rowCount)
@@ -227,98 +234,146 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.ui.addToMapKnop.setEnabled(True)
 	
     def validateRows(self , rowIds):
-        adresTxt = self.ui.adresColSelect.currentText()
-        huisnrTxt = self.ui.huisnrSelect.currentText()
-        gemeenteTxt = self.ui.gemeenteColSelect.currentText()
+	self.clearGraphicsLayer()
+	adresTxt = self.ui.adresColSelect.currentText()
+	huisnrTxt = self.ui.huisnrSelect.currentText()
+	gemeenteTxt = self.ui.gemeenteColSelect.currentText()
       
-        contoleCol = len( self.headers ) 
-        adresCol = self.headers[adresTxt] 
-        if gemeenteTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
-	        gemeenteCol = self.headers[gemeenteTxt] 
-        if huisnrTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
-	        huisnrCol = self.headers[huisnrTxt] 
+	validAdresCol = self.ui.outPutTbl.columnCount() -1
+	adresCol = self.headers[adresTxt] 
+	if gemeenteTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
+		gemeenteCol = self.headers[gemeenteTxt] 
+	if huisnrTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
+		huisnrCol = self.headers[huisnrTxt] 
 	
-        self.ui.statusProgress.setValue(0)
-        self.ui.statusProgress.setMaximum(len(rowIds))
-        self.ui.statusMsg.setText("vooruitgang: ")
+	self.ui.statusProgress.setValue(0)
+	self.ui.statusProgress.setMaximum(len(rowIds))
+	self.ui.statusMsg.setText("vooruitgang: ")
 	
-        for rowIdx in rowIds:
-	        #status Progress
-	        self.ui.statusProgress.setValue(rowIdx)
+	retry = 1
+	i= 0
+	while i < len( rowIds):
+	      rowIdx = rowIds[i]
+	      #status Progress
+	      self.ui.statusProgress.setValue(i)
 
-	        adres = self.ui.outPutTbl.item(rowIdx, adresCol).text()
+	      adres = self.ui.outPutTbl.item(rowIdx, adresCol).text()
+	
+	      if huisnrTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
+		  adres += " " +  self.ui.outPutTbl.item(rowIdx, huisnrCol).text()
+	      if gemeenteTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"): 
+		  adres = ",".join([adres, self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()])
 	  
-	        if huisnrTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
-	            adres += " " +  self.ui.outPutTbl.item(rowIdx, huisnrCol).text()
-	        if gemeenteTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"): 
-	            adres = ",".join([adres, self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()])
-	    
-	        adres = " ".join( adres.split())  #remove too many spaces
-	        self.ui.statusMsg.setText(adres)
-	        validAdres = self.gp.fetchSuggestion(adres, 5)
-	        if validAdres and validAdres.__class__ is str: 
-                #if validAdres == 'time out':
-                #    pass
-	            self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
-	            return
-	        elif validAdres and validAdres.__class__ is list: 
-	            validCombo = QtGui.QComboBox(self.ui.adresColSelect)
-	            validCombo.addItems(validAdres)
-	            self.ui.outPutTbl.setCellWidget(rowIdx, contoleCol, validCombo)
-	    
-	        if len(validAdres) == 1:
-	            for col in range(len(self.headers)):
-	                self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor(204,255,204))
-	        elif len(validAdres) > 1:
-	            for col in range(len(self.headers)):
-	                self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor(255,255,200))
-	        elif len(validAdres) == 0:
-	            self.ui.outPutTbl.setCellWidget(rowIdx, contoleCol, None)
-	            for col in range(len(self.headers)):
-	                self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor(255,190,190))
+	      adres = " ".join( adres.split())  #remove too many spaces
+	      validAdres = self.gp.fetchSuggestion(adres, 5)
+	      
+	      if validAdres and validAdres.__class__ is str: 
+		  if validAdres == 'time out' & retry: 
+		    retry = 0                        #1 retry
+		    continue
+		  else:
+		    self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
+		    return
+		  
+	      elif validAdres and validAdres.__class__ is list: 
+		  validCombo = QtGui.QComboBox(self.ui.adresColSelect)
+		  validCombo.addItems(validAdres)
+		  self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
 	  
-	    #reset statusbar
-        self.ui.statusMsg.setText("")
-        self.ui.statusProgress.setValue(0)
+	      if len(validAdres) == 1:
+		  for col in range(len(self.headers)):
+		      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#CCFFCC"))
+	      elif len(validAdres) > 1:
+		  for col in range(len(self.headers)):
+		      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#FFFFC8"))
+	      elif len(validAdres) == 0:
+		  self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, None)
+		  for col in range(len(self.headers)):
+		      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#FFBEBE"))
+	      i += 1
+	      retry = True
+	#reset statusbar
+	self.ui.statusMsg.setText("")
+	self.ui.statusProgress.setValue(0)
 
+    def zoomtoSelection(self):
+	self.clearGraphicsLayer()
+	rows = self.getSelectedRows()
+	adresCol = self.ui.outPutTbl.columnCount() -1
+	i = 0
+	pts = []
+	while i < len(rows):
+	  row = rows[i]
+	  adres = None
+	  if self.ui.outPutTbl.cellWidget(row,adresCol):
+	    adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
+	  if adres:
+	    loc = self.gp.fetchLocation(adres,1)
+	    if loc and loc.__class__ is list:
+		xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
+		xyMap = self.batcGeoHelper.prjPtToMapCrs(xylb, 31370)
+		pts.append(xyMap)
+		graphic = self.gh.addPointGraphic(xyMap)
+		self.graphicsLayer.append(graphic)
+	    elif loc.__class__ is str:
+		self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
+		self.clearGraphicsLayer()
+		return
+	  i += 1
+	  
+	bounds = None
+	if len(pts) == 1:
+	  x,y = pts[0]
+	  bounds = self.gh.getBoundsOfPoint(x, y)
+	elif len(pts) > 1:
+	  bounds = self.gh.getBoundsOfPointArray(pts)
+	  
+	self.gh.zoomtoRec2(bounds)
+	
     def openInputCsv(self):
-        fd = QtGui.QFileDialog()
-        filter = "Comma separated value File (.csv) (*.csv);;Text Files (.txt) (*.txt);;Any File (*.*)"
-        fd.setFileMode(QtGui.QFileDialog.AnyFile)
-        #testdata:  /home/kay/projects/geopunt4Qgis/testData/vergunning2.csv
-        fName = fd.getOpenFileName( self, "open file" , None, filter)
-        if fName:
-	        self.ui.inputTxt.setText(fName)
-	        self.loadTable()
+	fd = QtGui.QFileDialog()
+	filter = "Comma separated value File (.csv) (*.csv);;Text Files (.txt) (*.txt);;Any File (*.*)"
+	fd.setFileMode(QtGui.QFileDialog.AnyFile)
+	#testdata:  /home/kay/projects/geopunt4Qgis/testData/vergunning2.csv
+	fName = fd.getOpenFileName( self, "open file" , None, filter)
+	if fName:
+		self.ui.inputTxt.setText(fName)
+		self.loadTable()
 
     def internet_on(self):
-        inet_on = geopunt.internet_on()
-        if True != inet_on:
-	        self.ui.statusMsg.setText(
-	        QtCore.QCoreApplication.translate("batcGeoCodedialog", "<div style='color:red'>Kon geen connectie maken met geopunt</div>"))
-        return inet_on
+	inet_on = geopunt.internet_on()
+	if True != inet_on:
+		self.ui.statusMsg.setText(
+		QtCore.QCoreApplication.translate("batcGeoCodedialog", "<div style='color:red'>Kon geen connectie maken met geopunt</div>"))
+	return inet_on
 
     def getSelectedRows(self):
-        selected = set( [sel.row() for sel in self.ui.outPutTbl.selectedIndexes()] )
-        return selected
-
+	selected = set( [sel.row() for sel in self.ui.outPutTbl.selectedIndexes()] )
+	return list( selected )
+	
+    def clearGraphicsLayer(self):
+	for graphic in  self.graphicsLayer: 
+	  self.iface.mapCanvas().scene().removeItem(graphic)
+	self.graphicsLayer = []
+      
     def clean(self):
-        self.batcGeoHelper.clear()
-        #ui
-        self.ui.inputTxt.setText("")
-        self.ui.delimSelect.setCurrentIndex(0)
-        self.ui.outPutTbl.clearContents()
-        self.ui.outPutTbl.setRowCount(0)
-        self.ui.outPutTbl.setColumnCount(0)
-        self.ui.adresColSelect.clear()
-        self.ui.huisnrSelect.clear()
-        self.ui.gemeenteColSelect.clear()
-        self.ui.adresWgt.setEnabled(False)
-        self.ui.addToMapKnop.setEnabled(False)
-        self.ui.statusProgress.setValue(0)
-        self.ui.statusMsg.setText("")
-        #vars
-        self.csv = None
-        self.delimiter = ';'
-        self.headers = None
-        self.headers = {}
+	self.batcGeoHelper.clear()
+	#ui
+	self.ui.inputTxt.setText("")
+	self.ui.delimSelect.setCurrentIndex(0)
+	self.ui.outPutTbl.clearContents()
+	self.ui.outPutTbl.setRowCount(0)
+	self.ui.outPutTbl.setColumnCount(0)
+	self.ui.adresColSelect.clear()
+	self.ui.huisnrSelect.clear()
+	self.ui.gemeenteColSelect.clear()
+	self.ui.adresWgt.setEnabled(False)
+	self.ui.addToMapKnop.setEnabled(False)
+	self.ui.statusProgress.setValue(0)
+	self.ui.statusMsg.setText("")
+	#vars
+	self.csv = None
+	self.delimiter = ';'
+	self.headers = None
+	self.headers = {}
+	self.clearGraphicsLayer()

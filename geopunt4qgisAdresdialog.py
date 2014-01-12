@@ -30,7 +30,6 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
     def __init__(self, iface):
 	QtGui.QDialog.__init__(self)
 	self.iface = iface
-	self.graphicsLayer = []
 	
 	# initialize locale
 	locale = QtCore.QSettings().value("locale/userLocale")[0:2]
@@ -51,9 +50,12 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	self.s = QtCore.QSettings()
 	self.loadSettings()
 	
-    #setup geopunt and geometryHelper objects
+	#setup geopunt and geometryHelper objects
 	self.gp = geopunt.Adres(self.timeout)
 	self.gh = gh.geometryHelper(self.iface)
+	
+	#create graphicsLayer
+	self.graphicsLayer = []
 
 	#populate gemeenteBox
 	gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),"data/gemeentenVL.json")) )
@@ -121,9 +123,9 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	  self._addToMap(item.text())
 	  
     def _clearGraphicsLayer(self):
-      for graphic in  self.graphicsLayer: 
-	self.iface.mapCanvas().scene().removeItem(graphic)
-      self.graphicsLayer = []
+	for graphic in  self.graphicsLayer: 
+	  self.iface.mapCanvas().scene().removeItem(graphic)
+	self.graphicsLayer = []
 	
     def _zoomLoc(self, txt):
 	self._clearGraphicsLayer()

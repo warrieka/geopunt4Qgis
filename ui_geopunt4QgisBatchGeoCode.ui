@@ -7,7 +7,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>457</width>
+    <width>507</width>
     <height>457</height>
    </rect>
   </property>
@@ -360,7 +360,7 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="standardButtons">
-        <set>QDialogButtonBox::Close</set>
+        <set>QDialogButtonBox::Cancel</set>
        </property>
       </widget>
      </item>
@@ -448,6 +448,15 @@
     <string>Valideer alle Adressen</string>
    </property>
   </action>
+  <action name="actionZoomToSelection">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</iconset>
+   </property>
+   <property name="text">
+    <string>zoom naar selectie</string>
+   </property>
+  </action>
   <zorder>outPutTbl</zorder>
   <zorder>inputWgt</zorder>
   <zorder>delimWgt</zorder>
@@ -473,54 +482,6 @@
     <hint type="destinationlabel">
      <x>270</x>
      <y>224</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionAddValidToMap</sender>
-   <signal>triggered()</signal>
-   <receiver>addToMapKnop</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>265</x>
-     <y>406</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionValidateSelection</sender>
-   <signal>triggered()</signal>
-   <receiver>validateSelBtn</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>236</x>
-     <y>182</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionValidateAll</sender>
-   <signal>triggered()</signal>
-   <receiver>validateBtn</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>373</x>
-     <y>182</y>
     </hint>
    </hints>
   </connection>

@@ -31,7 +31,6 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     def __init__(self, iface):
 	QtGui.QDialog.__init__(self)
 	self.iface = iface
-	self.graphicsLayer = []
 
 	# initialize locale
 	locale = QtCore.QSettings().value("locale/userLocale")[0:2]
@@ -55,6 +54,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         #setup geopunt and geometryHelper objects
         self.poi = geopunt.Poi(self.timeout)
         self.gh = gh.geometryHelper(self.iface)
+        
+	#create the graphicsLayer
+	self.graphicsLayer = []
 	
         #setup a message bar
         self.bar = QgsMessageBar() 
@@ -66,9 +68,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	
         #actions
         self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )
-        #self.ui.actionZoomtoSelection.triggered.connect(self.onZoomSelClicked)
+        self.ui.actionZoomtoSelection.triggered.connect( self.onZoomSelClicked)
         self.ui.resultLijst.addAction( self.ui.actionAddTSeltoMap )
-        #self.ui.actionAddTSeltoMap.triggered.connect(self.onAddSelClicked)
+        self.ui.actionAddTSeltoMap.triggered.connect( self.onAddSelClicked)
 	
         #event handlers 
         self.ui.poiText.returnPressed.connect(self.onZoekActivated)
@@ -119,11 +121,11 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	  
 	elif len(suggesties) == 0:
 	  self.bar.pushMessage(
-	    QCoreApplication.translate( "Geen resultaten gevonden voor"), 
+	    QtCore.QCoreApplication.translate( "Geen resultaten gevonden voor"), 
 	    txt, level=QgsMessageBar.INFO, duration=3)
 	elif suggesties.__class__ == str:
 	  self.bar.pushMessage(
-	    QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"), 
+	    QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"), 
 	    suggesties, level=QgsMessageBar.WARNING)
 	else:
 	  self.bar.pushMessage("Error",
@@ -133,7 +135,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     def onZoomSelClicked(self):
 	selPois = self._getSelectedPois()
 	if len(selPois) <= 0 :
-	  self.bar.pushMessage( QCoreApplication.translate("geopunt4QgisPoidialog", "Merk op"), QCoreApplication.translate("geopunt4QgisPoidialog", "Er niets om naar te zoomen"),
+	  self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Merk op"), QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Er niets om naar te zoomen"),
 			level=QgsMessageBar.INFO, duration=3)
 	elif len(selPois) >= 2:
 	  pts = [n['location']['points'][0]['Point']['coordinates'] for n in selPois ] 
@@ -147,7 +149,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     def onSelectionChanged(self):
 	selPois = self._getSelectedPois()
 	canvas = self.iface.mapCanvas()
-	self._clearGraphicsLayer()
+	self.clearGraphicsLayer()
 	
 	pts = [ self.gh.prjPtToMapCrs( n['location']['points'][0]['Point']['coordinates'], 31370)
 			      for n in selPois ] 
@@ -162,7 +164,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	  m.setPenWidth(10)
 
     def onAddSelClicked(self):
-	self._clearGraphicsLayer()
+	self.clearGraphicsLayer()
 	pts = self._getSelectedPois()
 	self.gh.save_pois_points( pts ,  layername=self.layerName, 
 			  saveToFile=self.saveToFile, sender=self )
@@ -176,7 +178,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	  selPois += [i for i in pois if i["id"] == itemID]
 	return selPois
       
-    def _clearGraphicsLayer(self):
+    def clearGraphicsLayer(self):
       for graphic in  self.graphicsLayer: 
 	self.iface.mapCanvas().scene().removeItem(graphic)
       self.graphicsLayer = []
@@ -186,4 +188,4 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.ui.poiText.setText("")
         self.ui.resultLijst.clearContents()
         self.ui.resultLijst.setRowCount(0)
-        self._clearGraphicsLayer()
+        self.clearGraphicsLayer()
