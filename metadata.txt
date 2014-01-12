@@ -5,7 +5,7 @@
 [general]
 name=geopunt4Qgis
 qgisMinimumVersion=2.0
-description="EN: Plug-in to use geopunt services in QGIS > Geocoding [regular, batch and reverse] based on CRAB (Flanders) and and URBIS (Brussels) > search for POI's - NL: Plugin om geopunt diensten in QGIS te gebruiken > Geocodeer [gewoon, prikken en in batch] op basis van CRAB (Vlaanderen) en URBIS (Brussel). > Zoek naar Intressepunten." 
+description=EN: Plug-in to use geopunt services in QGIS: <ul><li>Geocoding [regular, batch and reverse] based on CRAB (Flanders) and and URBIS (Brussels) </li><li>Search for POI's in geopunt.</li></ul>NL: Plugin om geopunt diensten in QGIS te gebruiken: <ul><li>Zoeken op adres [gewoon, in batch en prikken op kaart] op basis van CRAB (Vlaanderen) en URBIS (Brussel) </li><li>Zoek naar Intressepunten in geopunt.</li></ul>
 version=0.8
 author=Kay Warrie
 email=kaywarrie@gmail.com
@@ -14,10 +14,10 @@ email=kaywarrie@gmail.com
 
 # Optional items:
 # Uncomment the following line and add your changelog entries:
-# changelog=
+changelog=Added Batch Geocoding
 
 # tags are comma separated with spaces allowed
-tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, GIPOD, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS
+tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS
 
 homepage=https://github.com/warrieka/geopunt4Qgis
 tracker=https://github.com/warrieka/geopunt4Qgis/issues

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Sun Jan 12 11:43:06 2014
+# Created: Sun Jan 12 17:56:35 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,7 +34,6 @@ class Ui_batchGeocodeDlg(object):
         batchGeocodeDlg.setWindowOpacity(1.0)
         batchGeocodeDlg.setSizeGripEnabled(False)
         self.verticalLayout = QtGui.QVBoxLayout(batchGeocodeDlg)
-        self.verticalLayout.setContentsMargins(-1, -1, -1, 2)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.inputWgt = QtGui.QWidget(batchGeocodeDlg)
         self.inputWgt.setObjectName(_fromUtf8("inputWgt"))
@@ -175,24 +174,40 @@ class Ui_batchGeocodeDlg(object):
         self.horizontalLayout_5.addWidget(self.validateBtn)
         self.verticalLayout_2.addLayout(self.horizontalLayout_5)
         self.verticalLayout.addWidget(self.adresWgt)
-        self.outPutTbl = QtGui.QTableWidget(batchGeocodeDlg)
+        self.tlFrame = QtGui.QFrame(batchGeocodeDlg)
+        self.tlFrame.setFrameShape(QtGui.QFrame.NoFrame)
+        self.tlFrame.setFrameShadow(QtGui.QFrame.Plain)
+        self.tlFrame.setObjectName(_fromUtf8("tlFrame"))
+        self.gridLayout = QtGui.QGridLayout(self.tlFrame)
+        self.gridLayout.setMargin(0)
+        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        self.zoomToSelBtn = QtGui.QPushButton(self.tlFrame)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.zoomToSelBtn.sizePolicy().hasHeightForWidth())
+        self.zoomToSelBtn.setSizePolicy(sizePolicy)
+        self.zoomToSelBtn.setText(_fromUtf8(""))
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/binocularsSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.zoomToSelBtn.setIcon(icon1)
+        self.zoomToSelBtn.setObjectName(_fromUtf8("zoomToSelBtn"))
+        self.gridLayout.addWidget(self.zoomToSelBtn, 0, 1, 1, 1)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem1, 1, 1, 1, 1)
+        self.outPutTbl = QtGui.QTableWidget(self.tlFrame)
         self.outPutTbl.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.outPutTbl.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.outPutTbl.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.outPutTbl.setObjectName(_fromUtf8("outPutTbl"))
         self.outPutTbl.setColumnCount(0)
         self.outPutTbl.setRowCount(0)
-        self.verticalLayout.addWidget(self.outPutTbl)
-        self.buttonWgt = QtGui.QWidget(batchGeocodeDlg)
-        self.buttonWgt.setObjectName(_fromUtf8("buttonWgt"))
-        self.horizontalLayout_7 = QtGui.QHBoxLayout(self.buttonWgt)
-        self.horizontalLayout_7.setMargin(0)
-        self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
-        self.verticalLayout.addWidget(self.buttonWgt)
+        self.gridLayout.addWidget(self.outPutTbl, 0, 0, 2, 1)
+        self.verticalLayout.addWidget(self.tlFrame)
         self.horizontalLayout_9 = QtGui.QHBoxLayout()
         self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_9.addItem(spacerItem1)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_9.addItem(spacerItem2)
         self.addToMapKnop = QtGui.QPushButton(batchGeocodeDlg)
         self.addToMapKnop.setEnabled(False)
         self.addToMapKnop.setCheckable(False)
@@ -252,8 +267,6 @@ class Ui_batchGeocodeDlg(object):
         self.actionValidateAll = QtGui.QAction(batchGeocodeDlg)
         self.actionValidateAll.setObjectName(_fromUtf8("actionValidateAll"))
         self.actionZoomToSelection = QtGui.QAction(batchGeocodeDlg)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/binocularsSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionZoomToSelection.setIcon(icon1)
         self.actionZoomToSelection.setObjectName(_fromUtf8("actionZoomToSelection"))
         self.label_1.setBuddy(self.delimSelect)
@@ -263,6 +276,7 @@ class Ui_batchGeocodeDlg(object):
 
         self.retranslateUi(batchGeocodeDlg)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), batchGeocodeDlg.reject)
+        QtCore.QObject.connect(self.zoomToSelBtn, QtCore.SIGNAL(_fromUtf8("clicked()")), self.actionZoomToSelection.trigger)
         QtCore.QMetaObject.connectSlotsByName(batchGeocodeDlg)
 
     def retranslateUi(self, batchGeocodeDlg):
@@ -278,11 +292,12 @@ class Ui_batchGeocodeDlg(object):
         self.label.setText(_translate("batchGeocodeDlg", "(Optioneel) Gemeente kolom:", None))
         self.validateSelBtn.setText(_translate("batchGeocodeDlg", "Valideer selectie", None))
         self.validateBtn.setText(_translate("batchGeocodeDlg", "Valideer alle Adressen", None))
+        self.zoomToSelBtn.setToolTip(_translate("batchGeocodeDlg", "Zoom naar selectie", None))
         self.outPutTbl.setSortingEnabled(True)
         self.addToMapKnop.setText(_translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None))
         self.actionAddValidToMap.setText(_translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None))
         self.actionValidateSelection.setText(_translate("batchGeocodeDlg", "Valideer selectie", None))
         self.actionValidateAll.setText(_translate("batchGeocodeDlg", "Valideer alle Adressen", None))
-        self.actionZoomToSelection.setText(_translate("batchGeocodeDlg", "zoom naar selectie", None))
+        self.actionZoomToSelection.setText(_translate("batchGeocodeDlg", "Zoom naar selectie", None))
 
 import resources_rc
