@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Sun Jan 12 18:18:09 2014
+# Created: Sun Jan 12 19:10:47 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,7 +34,6 @@ class Ui_batchGeocodeDlg(object):
         batchGeocodeDlg.setWindowOpacity(1.0)
         batchGeocodeDlg.setSizeGripEnabled(False)
         self.verticalLayout = QtGui.QVBoxLayout(batchGeocodeDlg)
-        self.verticalLayout.setContentsMargins(-1, -1, -1, 2)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.inputWgt = QtGui.QWidget(batchGeocodeDlg)
         self.inputWgt.setObjectName(_fromUtf8("inputWgt"))
