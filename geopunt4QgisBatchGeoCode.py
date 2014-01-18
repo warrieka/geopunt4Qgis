@@ -45,7 +45,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self._initGui()
 	
     def _initGui(self):
-      # Set up the user interface from Designer.
+      	"Set up the user interface"
 	self.ui = Ui_batchGeocodeDlg()
 	self.ui.setupUi(self)
 	
@@ -126,8 +126,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.accept()
 	
     def loadTable(self):
-	  #clear existing
-	  self.ui.outPutTbl.clearContents()
+	  self.ui.outPutTbl.clearContents()   #clear existing stuff
 	  self.ui.outPutTbl.setColumnCount(0)
 	  self.ui.outPutTbl.setRowCount(0)
 	  self.ui.adresColSelect.clear()
@@ -217,7 +216,6 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 		    self.loadTable()
 
     def validateSelection(self):
-	#check if online before starting
 	if self.internet_on() != True: return
 	
 	rows = self.getSelectedRows()
@@ -226,7 +224,6 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.ui.addToMapKnop.setEnabled(True)
 
     def validateAll(self):
-	#check if online before starting
 	if self.internet_on() != True: return
 	
 	rowCount = self.ui.outPutTbl.rowCount()
