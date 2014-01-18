@@ -1,0 +1,22 @@
+[
+  { 
+  "term":   "Onderwijs", 
+  "value":  "Onderwijs"
+  },
+  {
+  "term": "Overheidsgebouw", 
+  "value": "Overheidsgebouwen"
+  },
+  {
+  "term": "BuitenschoolseOpvang", 
+  "value": "Buitenschoolse opvang"
+  },
+  {
+  "term":"HistorischMonument", 
+  "value":"Historische monumenten"
+  },  
+  {
+  "term":"AlgemeenWelzijnswerk", 
+  "value":"Welzijn en gezondheid"
+  }
+]

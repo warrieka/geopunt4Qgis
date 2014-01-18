@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
-    <height>457</height>
+    <width>558</width>
+    <height>456</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -64,6 +64,26 @@
         <property name="flat">
          <bool>false</bool>
         </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="codecBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <item>
+         <property name="text">
+          <string>utf-8</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ansi</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -260,13 +280,6 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="validateSelBtn">
-          <property name="text">
-           <string>Valideer selectie</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="validateBtn">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -299,7 +312,7 @@
       <property name="margin">
        <number>0</number>
       </property>
-      <item row="0" column="1">
+      <item row="1" column="1">
        <widget class="QPushButton" name="zoomToSelBtn">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -319,7 +332,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="3" column="1">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -332,7 +345,21 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="0" rowspan="2">
+      <item row="0" column="1">
+       <widget class="QPushButton" name="validateSelBtn">
+        <property name="toolTip">
+         <string>Valideer selectie</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/select.png</normaloff>:/plugins/geopunt4Qgis/images/select.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" rowspan="4">
        <widget class="QTableWidget" name="outPutTbl">
         <property name="contextMenuPolicy">
          <enum>Qt::ActionsContextMenu</enum>
@@ -490,16 +517,28 @@
    </item>
   </layout>
   <action name="actionAddValidToMap">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/plugins/geopunt4Qgis/images/qgis-icon-16x16.png</normaloff>:/plugins/geopunt4Qgis/images/qgis-icon-16x16.png</iconset>
+   </property>
    <property name="text">
     <string>Voeg alle valide adressen toe aan de kaart</string>
    </property>
   </action>
   <action name="actionValidateSelection">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/plugins/geopunt4Qgis/images/select.png</normaloff>:/plugins/geopunt4Qgis/images/select.png</iconset>
+   </property>
    <property name="text">
     <string>Valideer selectie</string>
    </property>
   </action>
   <action name="actionValidateAll">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/plugins/geopunt4Qgis/images/all.png</normaloff>:/plugins/geopunt4Qgis/images/all.png</iconset>
+   </property>
    <property name="text">
     <string>Valideer alle Adressen</string>
    </property>
@@ -532,8 +571,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>451</x>
-     <y>419</y>
+     <x>552</x>
+     <y>404</y>
     </hint>
     <hint type="destinationlabel">
      <x>270</x>
@@ -548,8 +587,8 @@
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>478</x>
-     <y>289</y>
+     <x>409</x>
+     <y>228</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

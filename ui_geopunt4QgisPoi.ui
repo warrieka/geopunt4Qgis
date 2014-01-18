@@ -61,6 +61,9 @@
      <property name="text">
       <string>Beperk zoekresultaten tot huidige extent</string>
      </property>
+     <property name="tristate">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
@@ -150,6 +153,9 @@
        <widget class="QPushButton" name="zoomSelKnop">
         <property name="text">
          <string>Zoom naar selectie</string>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
         </property>
        </widget>
       </item>

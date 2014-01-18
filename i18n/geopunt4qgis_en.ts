@@ -26,52 +26,52 @@
         <translation>&lt;div style=&apos;color:red&apos;&gt;%s does not exist&lt;/div&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="160"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="162"/>
         <source>gevalideerd adres</source>
         <translation>validated address</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="264"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="266"/>
         <source>&lt;geen&gt;</source>
         <translation>&lt;None&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="209"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="211"/>
         <source>Andere separator</source>
         <translation>Other delimiter</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="209"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="211"/>
         <source>Stel zelf een separator in: (Maximaal 1 karakter)</source>
         <translation>Appoint a delimiter (max 1 character)</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="346"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="348"/>
         <source>&lt;div style=&apos;color:red&apos;&gt;Kon geen connectie maken met geopunt&lt;/div&gt;</source>
         <translation>&lt;div style=&apos;color:red&apos;&gt;Can&apos;t connect to geopunt&lt;/div&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="178"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="180"/>
         <source>%s heeft meer dan %s rijen</source>
         <translation>%s has more then %s rows</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="180"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="182"/>
         <source>Je bestand heeft meer dan %s rijen.&lt;br/&gt;</source>
         <translation>Your file has more then %s rows.&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="182"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="184"/>
         <source>Om de servers van agiv niet te zwaar te belasten is de toepassing beperkt tot %s rijen.&lt;br/&gt;</source>
         <translation>To prevent overburdening AGIV servers, the application is limited to %s rows.&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="184"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="186"/>
         <source>Deelnemers van GDI-vlaanderen kunnen gebruik maken van Crab Match om grote bestanden te valideren en geocoderen: &lt;br/&gt;</source>
         <translation>if you participate in GDI-Flanders, you can use Crab match to validate and geocode large files: &lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="186"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="188"/>
         <source>&lt;a href=&apos;https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand&apos;&gt;Meer info&lt;/a&gt;</source>
         <translation>&lt;a href=&apos;https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand&apos;&gt;More info&lt;/a&gt;</translation>
     </message>
@@ -84,47 +84,47 @@
         <translation type="obsolete">Batch geocode addresses</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="59"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="56"/>
         <source>Open</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="87"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="104"/>
         <source>Separator: </source>
         <translation>Delimiter: </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="107"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="124"/>
         <source>Puntcomma</source>
         <translation>Puntcomma</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="112"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="129"/>
         <source>Comma</source>
         <translation>Comma</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="117"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="134"/>
         <source>Tab</source>
         <translation>Tab</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="122"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="139"/>
         <source>Ander: </source>
         <translation>Other: </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="175"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="192"/>
         <source>Adres (straat &lt;huisnr&gt;, &lt;gemeente&gt;):</source>
         <translation>Address (street &lt;housenr&gt;, &lt;municipality&gt;):</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="202"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="219"/>
         <source>(Optioneel) Huisnummer kolom: </source>
         <translation>(Optional) Housenumber: </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="228"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="245"/>
         <source>(Optioneel) Gemeente kolom:</source>
         <translation>(Optional) Municipality:</translation>
     </message>
@@ -139,17 +139,17 @@
         <translation type="obsolete">Add valid addresses to map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="502"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="534"/>
         <source>Valideer selectie</source>
         <translation>Validate selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="507"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="543"/>
         <source>Valideer alle Adressen</source>
         <translation>Valideer all addresses</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="497"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="525"/>
         <source>Voeg alle valide adressen toe aan de kaart</source>
         <translation>Add al valid addresses to map</translation>
     </message>
@@ -159,14 +159,24 @@
         <translation>geocode CSV-files</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="516"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="552"/>
         <source>Zoom naar selectie</source>
         <translation>Zoom to selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="481"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="505"/>
         <source>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</source>
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Wrong addresses should be reported through LARA(for members of GDI-Flanders)&lt;/a&gt;&lt;/small&gt;</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="79"/>
+        <source>utf-8</source>
+        <translation>utf-8</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="84"/>
+        <source>ansi</source>
+        <translation>ansi</translation>
     </message>
 </context>
 <context>
@@ -177,22 +187,22 @@
         <translation>Search an Address with Geopunt</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgis.ui" line="25"/>
+        <location filename="ui_geopunt4qgis.ui" line="28"/>
         <source>Voer een adres in en selecteer een gemeente</source>
         <translation>Enter an address and select a municipality</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgis.ui" line="31"/>
+        <location filename="ui_geopunt4qgis.ui" line="34"/>
         <source>straat huisnummer</source>
         <translation>street  housenummer</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgis.ui" line="67"/>
+        <location filename="ui_geopunt4qgis.ui" line="70"/>
         <source>Toevoegen aan Kaart</source>
         <translation>Add to Map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgis.ui" line="77"/>
+        <location filename="ui_geopunt4qgis.ui" line="80"/>
         <source>Zoom naar</source>
         <translation>Zoom to</translation>
     </message>
@@ -247,7 +257,7 @@
         <translation>About geopunt4Qgis</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgis.ui" line="94"/>
+        <location filename="ui_geopunt4qgis.ui" line="97"/>
         <source>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</source>
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Wrong addresses should be reported through LARA(for members of GDI-Flanders)&lt;/a&gt;&lt;/small&gt;</translation>
     </message>
@@ -303,37 +313,37 @@
         <translation>Limit search results to current map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="103"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="106"/>
         <source>id</source>
         <translation>id</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="108"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="111"/>
         <source>Categorie</source>
         <translation>Category</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="113"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="116"/>
         <source>Naam</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="118"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="121"/>
         <source>crab adres</source>
         <translation>crab Address</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="174"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="180"/>
         <source>Voeg selectie toe aan kaart</source>
         <translation>Add Selection to map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="152"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="155"/>
         <source>Zoom naar selectie</source>
         <translation>Zoom to selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="169"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="175"/>
         <source>Zoom naar Selectie</source>
         <translation>Zoom to selection</translation>
     </message>

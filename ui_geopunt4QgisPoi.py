@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Sun Jan 12 11:27:34 2014
+# Created: Sat Jan 18 14:19:55 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -52,6 +52,7 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.verticalLayout.addWidget(self.groupBox)
         self.currentBoundsVink = QtGui.QCheckBox(geopunt4QgisPoiDlg)
         self.currentBoundsVink.setEnabled(True)
+        self.currentBoundsVink.setTristate(False)
         self.currentBoundsVink.setObjectName(_fromUtf8("currentBoundsVink"))
         self.verticalLayout.addWidget(self.currentBoundsVink)
         self.resultLijst = QtGui.QTableWidget(geopunt4QgisPoiDlg)
@@ -88,6 +89,7 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
         self.horizontalLayout_2.addWidget(self.addToMapKnop)
         self.zoomSelKnop = QtGui.QPushButton(self.buttonWgt)
+        self.zoomSelKnop.setAutoDefault(False)
         self.zoomSelKnop.setObjectName(_fromUtf8("zoomSelKnop"))
         self.horizontalLayout_2.addWidget(self.zoomSelKnop)
         self.verticalLayout.addWidget(self.buttonWgt)

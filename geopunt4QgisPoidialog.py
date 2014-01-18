@@ -99,7 +99,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	  self.poi.fetchPoi( txt, c=25, srs=31370 , maxModel=True, updateResults=True, bbox=lam72Box )
 	else:
 	  self.poi.fetchPoi( txt, c=25, srs=31370 , maxModel=True, updateResults=True, bbox=None )
-	
+	  
 	suggesties = self.poi.poiSuggestion()
 	
 	if suggesties.__class__ == list and len(suggesties) > 0:

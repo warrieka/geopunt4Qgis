@@ -82,14 +82,16 @@ class Poi:
       self.PoiResult = []
       self.qeury = ""
       self.srs = 31370
+      self.maxModel=True
       
-  def _createPoiUrl(self , q, c=5, srs=31370 , maxModel=False, bbox=None ):
+  def _createPoiUrl(self , q, c=5, srs=31370 , maxModel=False, bbox=None, POItype='' ):
       poiUrl = self._poiUrl
       data = {}
       data["label"] = unicode(q).encode('utf-8')
       data["srsOut"] = srs
       data["srsIn"] = srs    #i am asuming srsIn wil alwaysbe = srsOut
       data["maxcount"] = c
+      data["POItype"]  = POItype
       if maxModel:
 	    data["maxModel"] = "true"
       else:
@@ -109,8 +111,8 @@ class Poi:
       result = poiUrl + values
       return result
     
-  def fetchPoi(self, q,  c=5, srs=31370 , maxModel=True , updateResults=True, bbox=None ):
-      url = self._createPoiUrl( q, c, srs, maxModel, bbox )
+  def fetchPoi(self, q,  c=5, srs=31370, maxModel=True , updateResults=True, bbox=None, POIType='' ):
+      url = self._createPoiUrl( q, c, srs, maxModel, bbox, POItype=POIType)
       try:
 	  response = urllib2.urlopen(url, timeout=self.timeout)
       except urllib2.HTTPError as e:
@@ -121,6 +123,7 @@ class Poi:
 	  return  str( sys.exc_info()[1] )
       else:
 	poi = json.load(response)
+	
 	if updateResults:
 	  self.resultCount =  int( poi["label"]["value"] )
 	  if bbox:
@@ -130,17 +133,21 @@ class Poi:
 	  self.PoiResult = poi["pois"]
 	  self.qeury = q
 	  self.srs = srs
+	  self.maxModel = maxModel
 	return poi["pois"]
   
   def poiSuggestion(self):
-      if self.PoiResult:
-	    sug = self.PoiResult
-      else:
-	    sug = self.fetchPoi( self.qeury, 25, 31370, 1, True, False)
+      if self.PoiResult: 
+	sug = self.PoiResult
+      else: 
+	return
+      i = 0
+      if self.maxModel: 
+	i = 1
       if sug.__class__ == str:
-	    return sug
+	return sug
       else:
-        labels = [(n["id"], n["categories"][0]['value'],n["labels"][0]["value"],
+        labels = [(n["id"], n["categories"][i]['value'],n["labels"][0]["value"],
 		     n['location']['address']["value"]) for n in sug ] 
         labels.sort()
         return labels
@@ -160,7 +167,15 @@ class Poi:
 	    elif y < minY: minY = y
 	
       return [ minX, minY, maxX, maxY]
+
+
+class geopuntError(Exception):
+      def __init__(self, message):
+	  self.message = value
+      def __str__(self):
+	  return repr(self.message)
 	  
+
 def internet_on(timeout=15):
     try:
 	response=urllib2.urlopen('http://loc.api.geopunt.be',timeout=timeout)

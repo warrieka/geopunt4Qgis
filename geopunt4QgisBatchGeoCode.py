@@ -20,11 +20,11 @@ batcGeoCodedialog
 ***************************************************************************/
 """
 #TODO:  zoom to selected
-import os.path
+import os.path, sys
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
-import geopunt, geometryhelper
-import UnicodeCsvReader as csv
+import unicodecsv
+import geopunt, geometryhelper, csv
 from batchGeoHelper import batcGeoHelper
 
 class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
@@ -147,8 +147,10 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 			"<div style='color:red'>%s bestaat niet</div>") % self.csv)
 	    self.ui.adresWgt.setDisabled(True)
 	    return 
-      
-	  csvReader = csv.UnicodeCsvReader(open( self.csv, 'rb'), delimiter=self.delimiter)
+	  if self.ui.codecBox.currentText() == 'utf-8' :
+	    csvReader = unicodecsv.reader(open( self.csv, 'rb'), delimiter=self.delimiter)
+	  else:
+	    csvReader = csv.reader(open( self.csv, 'r'), delimiter=self.delimiter)
 	  header = csvReader.next()
 	  colCount = len(header)
       
@@ -182,7 +184,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	      warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog",
 	      "Om de servers van agiv niet te zwaar te belasten is de toepassing beperkt tot %s rijen.<br/>" ) % self.maxRows 
 	      warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog",
-	      "Deelnemers van GDI-vlaanderen kunnen gebruik maken van Crab Match om grote bestanden te valideren en geocoderen: <br/>"  )
+	      "Deelnemers van GDI-vlaanderen kunnen gebruik maken van Crab Match om grote bestanden te valideren en geocoderen: <br/>" )
 	      warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog", 
 	      "<a href='https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand'>Meer info</a>")
 	      warnMsg += "</div>"

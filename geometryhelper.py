@@ -160,7 +160,7 @@ class geometryHelper:
             pt = QgsPoint( point['location']['points'][0]['Point']['coordinates'][0], 
                            point['location']['points'][0]['Point']['coordinates'][1] )
             poiId = point["id"]
-            if "categories" in  point: category =  point["categories"][0]['value']
+            if "categories" in  point: category =  point["categories"][1]['value']
             else: category = ''
             name = point["labels"][0]["value"]
             adres = point['location']['address']["value"].replace("<br />",", ").replace("<br/>",", ")
