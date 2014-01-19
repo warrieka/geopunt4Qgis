@@ -139,17 +139,17 @@
         <translation type="obsolete">Voeg valide adressen toe aan de kaart</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="537"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="527"/>
         <source>Valideer selectie</source>
         <translation>Valideer selectie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="546"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="536"/>
         <source>Valideer alle Adressen</source>
         <translation>Valideer alle Adressen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="528"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="518"/>
         <source>Voeg alle valide adressen toe aan de kaart</source>
         <translation></translation>
     </message>
@@ -159,12 +159,12 @@
         <translation>CSV-adresbestanden geocoderen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="555"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="545"/>
         <source>Zoom naar selectie</source>
         <translation>Zoom naar selectie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="508"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="498"/>
         <source>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</source>
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</translation>
     </message>
@@ -373,7 +373,7 @@
     <message>
         <location filename="geopunt4QgisPoidialog.py" line="123"/>
         <source>Geen resultaten gevonden voor: </source>
-        <translation type="unfinished"></translation>
+        <translation>Geen resultaten gevonden voor:</translation>
     </message>
 </context>
 <context>

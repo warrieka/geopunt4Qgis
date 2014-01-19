@@ -139,17 +139,17 @@
         <translation type="obsolete">Add valid addresses to map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="537"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="527"/>
         <source>Valideer selectie</source>
         <translation>Validate selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="546"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="536"/>
         <source>Valideer alle Adressen</source>
         <translation>Valideer all addresses</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="528"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="518"/>
         <source>Voeg alle valide adressen toe aan de kaart</source>
         <translation>Add al valid addresses to map</translation>
     </message>
@@ -159,12 +159,12 @@
         <translation>geocode CSV-files</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="555"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="545"/>
         <source>Zoom naar selectie</source>
         <translation>Zoom to selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="508"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="498"/>
         <source>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</source>
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Wrong addresses should be reported through LARA(for members of GDI-Flanders)&lt;/a&gt;&lt;/small&gt;</translation>
     </message>
@@ -378,7 +378,7 @@
     <message>
         <location filename="geopunt4QgisPoidialog.py" line="123"/>
         <source>Geen resultaten gevonden voor: </source>
-        <translation type="unfinished"></translation>
+        <translation>No results for: </translation>
     </message>
 </context>
 <context>
