@@ -62,6 +62,7 @@ class geopunt4Qgis:
         self.aboutDlg = geopunt4QgisAboutdialog()
         
     def initGui(self):
+        'intialize settings'
         #get settings
         self.s = QSettings()
         self.loadSettings()
@@ -109,9 +110,8 @@ class geopunt4Qgis:
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
 
-
     def unload(self):
-        # Remove the plugin menu items and icons
+        ' Remove the plugin menu items and icons'
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.adresAction)
         self.iface.removeToolBarIcon(self.adresAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.poiAction)
@@ -129,7 +129,7 @@ class geopunt4Qgis:
         self.timeout = 15
         
     def runSettingsDlg(self):
-        # show the dialog
+        ' show the dialog'
         self.settingsDlg.show()
         # Run the dialog event loop
         result = self.settingsDlg.exec_()
@@ -140,25 +140,25 @@ class geopunt4Qgis:
 	        self.batchgeoDlg.loadSettings()
         
     def runAdresDlg(self):
-        # show the dialog
+        ' show the dialog'
         self.adresdlg.show()
         # Run the dialog event loop
         result = self.adresdlg.exec_()
         
     def runPoiDlg(self):
-	# show the dialog
+	' show the dialog'
         self.poiDlg.show()
         # Run the dialog event loop
         result = self.poiDlg.exec_()
         
     def runBatch(self):
-        # show the dialog
+        ' show the dialog'
         self.batchgeoDlg.show()
         # Run the dialog event loop
         self.batchgeoDlg.exec_()
 	  
     def runAbout(self):
-	# show the dialog
+	' show the dialog'
         self.aboutDlg.show()
         # Run the dialog event loop
         result = self.aboutDlg.exec_()

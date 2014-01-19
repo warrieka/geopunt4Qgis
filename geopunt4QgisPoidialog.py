@@ -43,7 +43,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	self._initGui()
 	
     def _initGui(self):
-        # Set up the user interface from Designer.
+        'Set up the user interface from Designer.'
         self.ui = Ui_geopunt4QgisPoiDlg()
         self.ui.setupUi(self)	
 	
@@ -73,7 +73,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.ui.actionAddTSeltoMap.triggered.connect( self.onAddSelClicked)
 	
         #event handlers 
-        self.ui.poiText.returnPressed.connect(self.onZoekActivated)
+        #self.ui.poiText.returnPressed.connect(self.onZoekActivated)
         self.ui.zoekKnop.clicked.connect(self.onZoekActivated)
         self.ui.zoomSelKnop.clicked.connect(self.onZoomSelClicked)
         self.ui.resultLijst.itemDoubleClicked.connect(self.onZoomSelClicked )
@@ -121,7 +121,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
 	  
 	elif len(suggesties) == 0:
 	  self.bar.pushMessage(
-	    QtCore.QCoreApplication.translate( "Geen resultaten gevonden voor"), 
+	    QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Geen resultaten gevonden voor: "), 
 	    txt, level=QgsMessageBar.INFO, duration=3)
 	elif suggesties.__class__ == str:
 	  self.bar.pushMessage(

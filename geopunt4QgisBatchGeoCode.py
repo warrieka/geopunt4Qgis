@@ -64,6 +64,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	
 	self.ui.delimEdit.setEnabled(False)
 	self.ui.addToMapKnop.setEnabled(False)
+	self.ui.tlFrame.setEnabled(False)
 	
 	#actions
 	self.ui.outPutTbl.addAction( self.ui.actionValidateSelection)
@@ -89,6 +90,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.saveToFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 0))
 	self.layerName = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
 	self.timeout = 15
+	self.retrys = 3
 	
     def addToMap(self):
 	adresCol = self.ui.outPutTbl.columnCount() -1
@@ -97,28 +99,40 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.ui.statusProgress.setValue(0)
 	self.ui.statusProgress.setMaximum(rowCount)
 	
-	for row in range(rowCount):
-		attributes = {}
-		self.ui.statusProgress.setValue(row)
-		if self.ui.outPutTbl.cellWidget(row,adresCol):
-		    adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
-		else: 
-		    continue
+	retry = self.retrys
+	row= 0
+	while row < rowCount:
+	    attributes = {}
+	    self.ui.statusProgress.setValue(row)
+	    if self.ui.outPutTbl.cellWidget(row,adresCol):
+		adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
+	    else: 
+		continue
 
-		for name, colIdx in self.headers.items():
-		    val= self.ui.outPutTbl.item(row, colIdx).text()
-		    attributes[name] = val
-	  
-		loc = self.gp.fetchLocation(adres,1)
-		if loc and loc.__class__ is list:
-		    xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
-		    xyType = loc[0]["LocationType"]
-		    xymap = self.batcGeoHelper.prjPtToMapCrs(xylb, 31370)
-		    self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, 
-						    layername=self.layerName )
-		elif loc.__class__ is str:
-		    self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
-		    return
+	    for name, colIdx in self.headers.items():
+		val= self.ui.outPutTbl.item(row, colIdx).text()
+		#attributes[name] = val
+      
+	    loc = self.gp.fetchLocation(adres,1)
+	    
+	    if loc and loc.__class__ is list:
+		xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
+		xyType = loc[0]["LocationType"]
+		xymap = self.batcGeoHelper.prjPtToMapCrs(xylb, 31370)
+		self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, 
+						layername=self.layerName )
+	    elif loc.__class__ is str:
+		if (loc == 'time out') & (retry > 0): 
+		  retry -= 1                        #minus 1 retry
+		  continue
+		else:
+		  self.ui.statusMsg.setText("<div style='color:red'>timeout after %s seconds and %s try's</div>" % (self.timeout , retry))
+		  return
+		self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
+		return
+		
+	    retry = self.retrys
+	    row  += 1
 	    
 	if self.saveToFile:
 	      self.batcGeoHelper.saveMem2file(self.layerName)
@@ -193,6 +207,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	      break
 	  
 	  self.ui.adresWgt.setDisabled(False)
+	  self.ui.tlFrame.setDisabled(False)
 
     def setDelim(self, idx):
 	txt = self.ui.delimSelect.itemText(idx)
@@ -249,7 +264,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.ui.statusProgress.setMaximum(len(rowIds))
 	self.ui.statusMsg.setText("vooruitgang: ")
 	
-	retry = 1
+	retry = self.retrys
 	i= 0
 	while i < len( rowIds):
 	      rowIdx = rowIds[i]
@@ -267,12 +282,15 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	      validAdres = self.gp.fetchSuggestion(adres, 5)
 	      
 	      if validAdres and validAdres.__class__ is str: 
-		  if validAdres == 'time out' & retry: 
-		    retry = 0                        #1 retry
+		  if (validAdres == 'time out') & (retry > 0): 
+		    retry -= 1                        #minus 1 retry
+		    print retry 
 		    continue
 		  else:
-		    self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
+		    self.ui.statusMsg.setText("<div style='color:red'>timeout after %s seconds and %s try's</div>" % (self.timeout , retry))
 		    return
+		  self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
+		  return
 		  
 	      elif validAdres and validAdres.__class__ is list: 
 		  validCombo = QtGui.QComboBox(self.ui.adresColSelect)
@@ -290,7 +308,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 		  for col in range(len(self.headers)):
 		      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#FFBEBE"))
 	      i += 1
-	      retry = True
+	      retry = self.retrys
 	#reset statusbar
 	self.ui.statusMsg.setText("")
 	self.ui.statusProgress.setValue(0)

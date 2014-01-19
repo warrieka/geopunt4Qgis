@@ -140,7 +140,7 @@ class Poi:
       if self.PoiResult: 
 	sug = self.PoiResult
       else: 
-	return
+	return []
       i = 0
       if self.maxModel: 
 	i = 1

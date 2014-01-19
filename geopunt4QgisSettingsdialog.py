@@ -38,8 +38,7 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	self._initGui()
 	
     def _initGui(self):
-	
-	# Set up the user interface from Designer.
+	' Set up the user interface from Designer.'
 	self.ui = Ui_settingsDlg()
 	self.ui.setupUi(self)
 	
@@ -52,7 +51,7 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	self.rejected.connect(self.loadSettings)
 	
     def loadSettings(self):
-	#geopunt4QgisAdresDialog settings
+	"geopunt4QgisAdresDialog settings"
 	adresSearchOnEdit = int( self.s.value("geopunt4qgis/adresSearchOnEdit" , 0))
 	self.ui.adresSearchOnEditChk.setChecked(adresSearchOnEdit)
 	
@@ -102,7 +101,7 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	self.ui.poiLayerTxt.setText(poilayerText)
 	
     def saveSettings(self):
-	#geopunt4QgisAdresDialog settings
+	'save geopunt4QgisAdresDialog settings'
 	adresSearchOnEdit = int( self.ui.adresSearchOnEditChk.isChecked())
 	self.s.setValue("geopunt4qgis/adresSearchOnEdit" , adresSearchOnEdit)
 	
