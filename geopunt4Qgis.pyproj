@@ -20,12 +20,19 @@
   <ItemGroup>
     <Content Include="build\geopunt4Qgis.zip" />
     <Content Include="data\gemeentenVL.json" />
+    <Content Include="data\POIthema.json" />
+    <Content Include="data\POIType.json" />
     <Content Include="i18n\geopunt4qgis_en.ts" />
     <Content Include="i18n\geopunt4qgis_nl.ts" />
+    <Content Include="images\all.png" />
     <Content Include="images\geopuntBatchgeocode.png" />
     <Content Include="images\geopuntBatchgeocodeSmall.png" />
     <Content Include="images\geopuntSettings.png" />
     <Content Include="images\geopuntSettingsSmall.png" />
+    <Content Include="images\osm.png" />
+    <Content Include="images\qgis-icon-16x16.png" />
+    <Content Include="images\select.png" />
+    <Content Include="images\validAll.png" />
     <Content Include="LICENSE.txt">
       <Publish>True</Publish>
     </Content>
@@ -75,6 +82,7 @@
     <Compile Include="geopunt4QgisSettingsdialog.py">
       <Publish>True</Publish>
     </Compile>
+    <Compile Include="resources.py" />
     <Compile Include="resources_rc.py">
       <Publish>True</Publish>
     </Compile>
@@ -94,7 +102,7 @@
     <Compile Include="ui_geopunt4QgisSettings.py">
       <Publish>True</Publish>
     </Compile>
-    <Compile Include="UnicodeCsvReader.py" />
+    <Compile Include="unicodecsv.py" />
     <Compile Include="utils\testPlugin.py" />
     <Compile Include="__init__.py">
       <Publish>True</Publish>
@@ -116,8 +124,8 @@
     <Content Include="ui_geopunt4QgisSettings.ui">
       <Publish>True</Publish>
     </Content>
+    <Content Include="utils\compile_html_translations.sh" />
     <Content Include="utils\compile_translations.ps1" />
-    <Content Include="utils\compile_translations.sh" />
     <Compile Include="utils\packPlugin4upload.py" />
     <Compile Include="utils\plugin_upload.py" />
   </ItemGroup>

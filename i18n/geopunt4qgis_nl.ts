@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="nl_BE" sourcelanguage="">
+<!DOCTYPE TS><TS version="1.1" language="nl_BE">
 <context>
     <name>aboutDlg</name>
     <message>
@@ -239,22 +239,22 @@
     <message>
         <location filename="geopunt4qgis.py" line="75"/>
         <source>Zoek een Adres</source>
-        <translation>Zoek een Adres</translation>
+        <translation type="obsolete">Zoek een Adres</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="77"/>
         <source>Prik een Adres op kaart</source>
-        <translation>Prik een Adres op kaart</translation>
+        <translation type="obsolete">Prik een Adres op kaart</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="83"/>
         <source>Zoek een Plaats - interesse punt</source>
-        <translation>Zoek een Plaats - interesse punt</translation>
+        <translation type="obsolete">Zoek een Plaats - interesse punt</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="88"/>
         <source>Over geopunt4Qgis</source>
-        <translation>Over geopunt4Qgis</translation>
+        <translation type="obsolete">Over geopunt4Qgis</translation>
     </message>
     <message>
         <location filename="ui_geopunt4qgis.ui" line="97"/>
@@ -264,12 +264,17 @@
     <message>
         <location filename="geopunt4qgis.py" line="86"/>
         <source>Instellingen</source>
-        <translation>Instellingen</translation>
+        <translation type="obsolete">Instellingen</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="80"/>
         <source>CSV-adresbestanden geocoderen</source>
-        <translation>CSV-adresbestanden geocoderen</translation>
+        <translation type="obsolete">CSV-adresbestanden geocoderen</translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="193"/>
+        <source>Voeg toe</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
