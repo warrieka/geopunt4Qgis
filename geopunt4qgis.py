@@ -176,44 +176,44 @@ class geopunt4Qgis:
         xform = QgsCoordinateTransform(mapCrs, lam72)
         lam72pt = xform.transform(point)
 	
-	#to clear or not clear that is the question
-	self.iface.messageBar().clearWidgets()
+        #to clear or not clear that is the question
+        self.iface.messageBar().clearWidgets()
 
-	#fetch Location from geopunt
-	adres = self.adres.fetchLocation(lam72pt.x().__str__() + "," + lam72pt.y().__str__(), 1)
+        #fetch Location from geopunt
+        adres = self.adres.fetchLocation(lam72pt.x().__str__() + "," + lam72pt.y().__str__(), 1)
 	
-	if len(adres) and adres.__class__ is list:
-	  #only one result in list, was set in request
-	  FormattedAddress = adres[0]["FormattedAddress"]
+        if len(adres) and adres.__class__ is list:
+	        #only one result in list, was set in request
+	        FormattedAddress = adres[0]["FormattedAddress"]
 	  
-	  #add a button to the messageBar widget
-	  widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis" ,"Resultaat: "), FormattedAddress)
-	  button = QPushButton(widget)
-	  button.clicked.connect(lambda: self._addReverse(adres[0]))
-	  button.setText("Voeg toe")
-	  widget.layout().addWidget(button)
-	  self.iface.messageBar().clearWidgets()
-	  self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
+	        #add a button to the messageBar widget
+	        widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis" ,"Resultaat: "), FormattedAddress)
+	        button = QPushButton(widget)
+	        button.clicked.connect(lambda: self._addReverse(adres[0]))
+	        button.setText(QCoreApplication.translate("geopunt4Qgis" ,"Voeg toe"))
+	        widget.layout().addWidget(button)
+	        self.iface.messageBar().clearWidgets()
+	        self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
 	
-	elif len(adres) == 0:
-	  self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
-	    QCoreApplication.translate("geopunt4Qgis","Geen resultaten gevonden"), 
-		        level=QgsMessageBar.INFO, duration=3)
+        elif len(adres) == 0:
+	        self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
+	        QCoreApplication.translate("geopunt4Qgis","Geen resultaten gevonden"), 
+		            level=QgsMessageBar.INFO, duration=3)
 	  
-	elif adres.__class__ is str:
-	  self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
-			adres, level=QgsMessageBar.WARNING)
-	else:
-	  self.iface.messageBar().pushMessage("Error", 
-	    QCoreApplication.translate("geopunt4Qgis","onbekende fout"),
-			level=QgsMessageBar.CRITICAL)
+        elif adres.__class__ is str:
+	        self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
+		        adres, level=QgsMessageBar.WARNING)
+        else:
+	        self.iface.messageBar().pushMessage("Error", 
+	        QCoreApplication.translate("geopunt4Qgis","onbekende fout"),
+		        level=QgsMessageBar.CRITICAL)
 	  
     def _addReverse(self, adres):
-	formattedAddress, locationType = adres["FormattedAddress"] , adres["LocationType"]
-	xlam72, ylam72 = adres["Location"]["X_Lambert72"] , adres["Location"]["Y_Lambert72"]
+	    formattedAddress, locationType = adres["FormattedAddress"] , adres["LocationType"]
+	    xlam72, ylam72 = adres["Location"]["X_Lambert72"] , adres["Location"]["Y_Lambert72"]
 	
-	xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)
-	self.gh.save_adres_point(xy, formattedAddress, locationType, layername=self.layerName_reverse,
-			  saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow())
-	self.iface.messageBar().popWidget()	
+	    xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)
+	    self.gh.save_adres_point(xy, formattedAddress, locationType, layername=self.layerName_reverse,
+			      saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow())
+	    self.iface.messageBar().popWidget()	
         

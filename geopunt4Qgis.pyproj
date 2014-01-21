@@ -124,8 +124,8 @@
     <Content Include="ui_geopunt4QgisSettings.ui">
       <Publish>True</Publish>
     </Content>
+    <Content Include="utils\compile_html_translations.sh" />
     <Content Include="utils\compile_translations.ps1" />
-    <Content Include="utils\compile_translations.sh" />
     <Compile Include="utils\packPlugin4upload.py" />
     <Compile Include="utils\plugin_upload.py" />
   </ItemGroup>
