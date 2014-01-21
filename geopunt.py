@@ -20,6 +20,7 @@
  ***************************************************************************/
 """
 import urllib2, urllib, json, sys
+import xml.etree.ElementTree as ET
 
 class Adres:
   def __init__(self, timeout=15):
@@ -169,13 +170,38 @@ class Poi:
       return [ minX, minY, maxX, maxY]
 
 
+class metadata:
+  def __init__(self, timeout=15):
+      self.timeout = timeout
+      self.count = 0
+      self._metaUrl = "https://metadata.geopunt.be/zoekdienst/srv/dut/q?"
+      
+  def _createMetaUrl(self, q, c=5, fromPage=0, similarity=0.8  ):
+      metaUrl = self._metaUrl
+      data = {}
+      toPage = c + fromPage
+      
+      data["fast"] = "index"
+      data["any"] =  unicode(q).encode('utf-8')
+      data["hitsperpage"] = c
+      data["from"] = fromPage
+      data["to"] = toPage
+      data["similarity"] = similarity
+      
+      values = urllib.urlencode(data)
+      result = metaUrl + values
+      return result
+
+  def fetchMetadata(self, q, c=5, fromPage=0, similarity=0.8  ):
+      url = self._createMetaUrl(q, c, fromPage=fromPage, similarity=similarity )
+
+
 class geopuntError(Exception):
       def __init__(self, message):
 	  self.message = value
       def __str__(self):
 	  return repr(self.message)
 	  
-
 def internet_on(timeout=15):
     try:
 	response=urllib2.urlopen('http://loc.api.geopunt.be',timeout=timeout)
