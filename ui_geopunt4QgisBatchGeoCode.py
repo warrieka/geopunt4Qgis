@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Sun Jan 19 15:56:47 2014
+# Created: Tue Jan 21 18:58:50 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -217,6 +217,13 @@ class Ui_batchGeocodeDlg(object):
         self.outPutTbl.setColumnCount(0)
         self.outPutTbl.setRowCount(0)
         self.gridLayout.addWidget(self.outPutTbl, 0, 0, 6, 1)
+        self.adresFromMapBtn = QtGui.QPushButton(self.tlFrame)
+        self.adresFromMapBtn.setText(_fromUtf8(""))
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntReverse.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.adresFromMapBtn.setIcon(icon4)
+        self.adresFromMapBtn.setObjectName(_fromUtf8("adresFromMapBtn"))
+        self.gridLayout.addWidget(self.adresFromMapBtn, 3, 1, 1, 1)
         self.verticalLayout.addWidget(self.tlFrame)
         self.horizontalLayout_9 = QtGui.QHBoxLayout()
         self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
@@ -281,9 +288,9 @@ class Ui_batchGeocodeDlg(object):
         self.laraLbl.setObjectName(_fromUtf8("laraLbl"))
         self.verticalLayout.addWidget(self.laraLbl)
         self.actionAddValidToMap = QtGui.QAction(batchGeocodeDlg)
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/qgis-icon-16x16.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.actionAddValidToMap.setIcon(icon4)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/qgis-icon-16x16.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionAddValidToMap.setIcon(icon5)
         self.actionAddValidToMap.setObjectName(_fromUtf8("actionAddValidToMap"))
         self.actionValidateSelection = QtGui.QAction(batchGeocodeDlg)
         self.actionValidateSelection.setIcon(icon2)
@@ -294,6 +301,9 @@ class Ui_batchGeocodeDlg(object):
         self.actionZoomToSelection = QtGui.QAction(batchGeocodeDlg)
         self.actionZoomToSelection.setIcon(icon1)
         self.actionZoomToSelection.setObjectName(_fromUtf8("actionZoomToSelection"))
+        self.adresFromMapAction = QtGui.QAction(batchGeocodeDlg)
+        self.adresFromMapAction.setIcon(icon4)
+        self.adresFromMapAction.setObjectName(_fromUtf8("adresFromMapAction"))
         self.label_1.setBuddy(self.delimSelect)
         self.label_2.setBuddy(self.adresColSelect)
         self.label_3.setBuddy(self.huisnrSelect)
@@ -327,5 +337,7 @@ class Ui_batchGeocodeDlg(object):
         self.actionValidateSelection.setText(_translate("batchGeocodeDlg", "Valideer selectie", None))
         self.actionValidateAll.setText(_translate("batchGeocodeDlg", "Valideer alle Adressen", None))
         self.actionZoomToSelection.setText(_translate("batchGeocodeDlg", "Zoom naar selectie", None))
+        self.adresFromMapAction.setText(_translate("batchGeocodeDlg", "Prik adres op Kaart", None))
+        self.adresFromMapAction.setToolTip(_translate("batchGeocodeDlg", "Prik adres op Kaart", None))
 
 import resources_rc

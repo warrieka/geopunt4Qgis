@@ -41,6 +41,7 @@ import time
 
 class geopunt4Qgis:
     def __init__(self, iface):
+        'initialize'
         # Save reference to the QGIS interface
         self.iface = iface
         # initialize plugin directory

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="en">
+<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
 <context>
     <name>aboutDlg</name>
     <message>
@@ -239,22 +239,22 @@
     <message>
         <location filename="geopunt4qgis.py" line="75"/>
         <source>Zoek een Adres</source>
-        <translation type="obsolete">Search an Address</translation>
+        <translation type="unfinished">Search an Address</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="77"/>
         <source>Prik een Adres op kaart</source>
-        <translation type="obsolete">Find an Address on the map</translation>
+        <translation type="unfinished">Find an Address on the map</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="83"/>
         <source>Zoek een Plaats - interesse punt</source>
-        <translation type="obsolete">Search for a place of intrest</translation>
+        <translation type="unfinished">Search for a place of intrest</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="88"/>
         <source>Over geopunt4Qgis</source>
-        <translation type="obsolete">About geopunt4Qgis</translation>
+        <translation type="unfinished">About geopunt4Qgis</translation>
     </message>
     <message>
         <location filename="ui_geopunt4qgis.ui" line="97"/>
@@ -264,7 +264,7 @@
     <message>
         <location filename="geopunt4qgis.py" line="86"/>
         <source>Instellingen</source>
-        <translation type="obsolete">Settings</translation>
+        <translation type="unfinished">Settings</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="91"/>
@@ -274,7 +274,7 @@
     <message>
         <location filename="geopunt4qgis.py" line="80"/>
         <source>CSV-adresbestanden geocoderen</source>
-        <translation type="obsolete">geocode CSV-files</translation>
+        <translation type="unfinished">geocode CSV-files</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="193"/>

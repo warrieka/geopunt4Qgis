@@ -19,13 +19,13 @@ batcGeoCodedialog
 *                                                                         *
 ***************************************************************************/
 """
-#TODO:  zoom to selected
 import os.path, sys
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
 import unicodecsv
 import geopunt, geometryhelper, csv
 from batchGeoHelper import batcGeoHelper
+from reverseAdresMapTool import reverseAdresMapTool
 
 class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
     def __init__(self, iface):
@@ -58,6 +58,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.delimiter = ';'
 	self.headers = None
 	self.graphicsLayer = []
+	self.reverseAdresTool = None
 	self.gp = geopunt.Adres(self.timeout)
 	self.batcGeoHelper = batcGeoHelper(self.iface, self)
 	self.gh = geometryhelper.geometryHelper(self.iface)
@@ -67,14 +68,16 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.ui.tlFrame.setEnabled(False)
 	
 	#actions
+	#self.ui.outPutTbl.addAction( self.ui.actionValidateAll)
+	#self.ui.actionValidateAll.triggered.connect(self.validateAll)
 	self.ui.outPutTbl.addAction( self.ui.actionValidateSelection)
 	self.ui.actionValidateSelection.triggered.connect( self.validateSelection)
-	self.ui.outPutTbl.addAction( self.ui.actionValidateAll)
-	self.ui.actionValidateAll.triggered.connect(self.validateAll)
-	self.ui.outPutTbl.addAction( self.ui.actionAddValidToMap )
-	self.ui.actionAddValidToMap.triggered.connect(self.addToMap)
+	#self.ui.outPutTbl.addAction( self.ui.actionAddValidToMap )
+	#self.ui.actionAddValidToMap.triggered.connect(self.addToMap)
 	self.ui.outPutTbl.addAction( self.ui.actionZoomToSelection )
 	self.ui.actionZoomToSelection.triggered.connect(self.zoomtoSelection)
+	self.ui.outPutTbl.addAction(self.ui.adresFromMapAction)
+	self.ui.adresFromMapAction.triggered.connect(self.adresFromMap)
 	
 	#event handlers 
 	self.ui.inputBtn.clicked.connect(self.openInputCsv)
@@ -83,6 +86,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.ui.validateBtn.clicked.connect(self.validateAll)
 	self.ui.validateSelBtn.clicked.connect(self.validateSelection)
 	self.ui.addToMapKnop.clicked.connect(self.addToMap)
+	self.ui.adresFromMapBtn.clicked.connect(self.adresFromMap)
 	self.finished.connect(self.clean)
 	
     def loadSettings(self): 
@@ -107,16 +111,23 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	    if self.ui.outPutTbl.cellWidget(row,adresCol):
 		adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
 	    else: 
+		row  += 1
 		continue
 
 	    for name, colIdx in self.headers.items():
 		val= self.ui.outPutTbl.item(row, colIdx).text()
-		#attributes[name] = val
-      
-	    loc = self.gp.fetchLocation(adres,1)
+		attributes[name] = val
+		
+	    if adres.split(",")[0].replace('.','').isdigit() and len(adres.split(","))==2:
+		x,y = [float(n) for n in adres.split(",")]
+		fakecrab = {"Location":{"X_Lambert72":x ,"Y_Lambert72":y }}
+		fakecrab["LocationType"] = "manuele aanduiding"
+		loc = [fakecrab]
+	    else:
+		loc = self.gp.fetchLocation(adres,1)
 	    
 	    if loc and loc.__class__ is list:
-		xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
+		xylb =  ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
 		xyType = loc[0]["LocationType"]
 		xymap = self.batcGeoHelper.prjPtToMapCrs(xylb, 31370)
 		self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, 
@@ -130,7 +141,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 		  return
 		self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
 		return
-		
+	      
 	    retry = self.retrys
 	    row  += 1
 	    
@@ -138,7 +149,32 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	      self.batcGeoHelper.saveMem2file(self.layerName)
 	      
 	self.accept()
+
+    def adresFromMap(self):
+	if self.getSelectedRows() == []: return
 	
+	self.reverseAdresTool = reverseAdresMapTool(self.iface, self._reverseAdresCallback) 
+        self.iface.mapCanvas().setMapTool(self.reverseAdresTool)
+        self.showMinimized()
+        
+    def _reverseAdresCallback(self, point):
+	'private callback for reverseAdresMapTool'
+	self.iface.mapCanvas().unsetMapTool(self.reverseAdresTool)
+	self.activateWindow()
+	
+	x,y = self.gh.prjPtFromMapCrs(point, 31370)
+	adres = str(x) +","+ str(y)
+	
+	validAdresCol = self.ui.outPutTbl.columnCount() -1
+	rowIds= self.getSelectedRows()
+	for rowIdx in rowIds:
+	    validCombo = QtGui.QComboBox(self.ui.adresColSelect)
+	    validCombo.addItems([adres])
+	    validCombo.setEnabled(False)
+	    self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
+	    for col in range(validAdresCol):
+		self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#DDFFDD"))
+		
     def loadTable(self):
 	  self.ui.outPutTbl.clearContents()   #clear existing stuff
 	  self.ui.outPutTbl.setColumnCount(0)
@@ -394,3 +430,5 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	self.headers = None
 	self.headers = {}
 	self.clearGraphicsLayer()
+	#unsetMapTool
+	self.iface.mapCanvas().unsetMapTool(self.reverseAdresTool)

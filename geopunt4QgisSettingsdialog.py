@@ -52,10 +52,10 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	
     def loadSettings(self):
 	"geopunt4QgisAdresDialog settings"
-	adresSearchOnEdit = int( self.s.value("geopunt4qgis/adresSearchOnEdit" , 0))
+	adresSearchOnEdit = int( self.s.value("geopunt4qgis/adresSearchOnEdit" , 1))
 	self.ui.adresSearchOnEditChk.setChecked(adresSearchOnEdit)
 	
-	adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 1))
+	adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
 	self.ui.adresSearchOnEnterChk.setChecked(adresSearchOnEnter)
 	
 	adresSavetoFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 1))

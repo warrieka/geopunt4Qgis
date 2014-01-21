@@ -73,9 +73,10 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	if self.adresSearchOnEnter:
 	  self.ui.zoekText.returnPressed.connect(self.onZoekActivated)
 	else:
-	  self.ui.zoekText.textChanged.connect(self.onZoekActivated)
+	  self.ui.zoekText.textEdited.connect(self.onZoekActivated)
 	self.ui.gemeenteBox.currentIndexChanged.connect(self.onZoekActivated)
 	self.ui.resultLijst.itemDoubleClicked.connect(self.onItemActivated)
+	self.ui.resultLijst.itemClicked.connect(self.onItemClick)
 	self.ui.ZoomKnop.clicked.connect(self.onZoomKnopClick)
 	self.ui.Add2mapKnop.clicked.connect(self.onAdd2mapKnopClick)
 	self.finished.connect(self.clean )
@@ -83,7 +84,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 0))
         self.layerName =  self.s.value("geopunt4qgis/adreslayerText", "geopunt_adres")
-        self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 1))
+        self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
         self.timeout = 15
 	
     def onZoekActivated(self):
@@ -108,9 +109,14 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	      QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"),
 		  suggesties, level=QgsMessageBar.WARNING)
 	  
-    def onItemActivated( self , item):
+    def onItemActivated( self, item):
 	txt = item.text()
 	self._zoomLoc(txt)
+	
+    def onItemClick(self, item):
+	txt = item.text()
+	streetNr = txt.split(",")[:-1]
+	self.ui.zoekText.setText( ",".join(streetNr)  )
 	
     def onZoomKnopClick(self):
 	item = self.ui.resultLijst.currentItem()

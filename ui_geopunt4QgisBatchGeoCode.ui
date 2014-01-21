@@ -368,6 +368,17 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="adresFromMapBtn">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</iconset>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -543,6 +554,18 @@
    </property>
    <property name="text">
     <string>Zoom naar selectie</string>
+   </property>
+  </action>
+  <action name="adresFromMapAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</iconset>
+   </property>
+   <property name="text">
+    <string>Prik adres op Kaart</string>
+   </property>
+   <property name="toolTip">
+    <string>Prik adres op Kaart</string>
    </property>
   </action>
   <zorder>inputWgt</zorder>
