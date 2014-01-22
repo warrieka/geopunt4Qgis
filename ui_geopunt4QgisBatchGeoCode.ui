@@ -378,7 +378,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources.qrc">
-          <normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</iconset>
+          <normaloff>:/plugins/geopunt4Qgis/images/prik.png</normaloff>:/plugins/geopunt4Qgis/images/prik.png</iconset>
         </property>
        </widget>
       </item>

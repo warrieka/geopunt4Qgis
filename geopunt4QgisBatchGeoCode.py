@@ -174,6 +174,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	        self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
 	        for col in range(validAdresCol):
 		    self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#DDFFDD"))
+		self.ui.outPutTbl.clearSelection()
 		
     def loadTable(self):
 	  self.ui.outPutTbl.clearContents()   #clear existing stuff
@@ -318,20 +319,21 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	          validAdres = self.gp.fetchSuggestion(adres, 5)
 	      
 	          if validAdres and validAdres.__class__ is str: 
-		      if (validAdres == 'time out') & (retry > 0): 
-		        retry -= 1                        #minus 1 retry
-		        print retry 
-		        continue
-		      else:
-		        self.ui.statusMsg.setText("<div style='color:red'>timeout after %s seconds and %s try's</div>" % (self.timeout , retry))
-		        return
-		      self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
-		      return
+		          if (validAdres == 'time out') & (retry > 0): 
+		            retry -= 1                        #minus 1 retry
+		            print retry 
+		            continue
+		          elif retry == 0:
+		            self.ui.statusMsg.setText("<div style='color:red'>timeout after %s seconds and %s try's</div>" % 
+                                                                                (self.timeout , self.retrys))
+		            return
+		          self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
+		          return
 		  
 	          elif validAdres and validAdres.__class__ is list: 
-		      validCombo = QtGui.QComboBox(self.ui.adresColSelect)
-		      validCombo.addItems(validAdres)
-		      self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
+		          validCombo = QtGui.QComboBox(self.ui.adresColSelect)
+		          validCombo.addItems(validAdres)
+		          self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
 	  
 	          if len(validAdres) == 1:
 		          for col in range(len(self.headers)):
@@ -345,10 +347,12 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 		              self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#FFBEBE"))
 	          i += 1
 	          retry = self.retrys
+
 	    #reset statusbar
 	    self.ui.statusMsg.setText("")
 	    self.ui.statusProgress.setValue(0)
-
+	    self.ui.outPutTbl.clearSelection()
+        
     def zoomtoSelection(self):
 	    self.clearGraphicsLayer()
 	    rows = self.getSelectedRows()
