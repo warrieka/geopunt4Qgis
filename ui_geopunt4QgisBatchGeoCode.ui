@@ -370,6 +370,9 @@
       </item>
       <item row="3" column="1">
        <widget class="QPushButton" name="adresFromMapBtn">
+        <property name="toolTip">
+         <string>Prik locatie op kaart</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -562,10 +565,10 @@
      <normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</iconset>
    </property>
    <property name="text">
-    <string>Prik adres op Kaart</string>
+    <string>Prik locatie op Kaart</string>
    </property>
    <property name="toolTip">
-    <string>Prik adres op Kaart</string>
+    <string>Prik locatie op Kaart</string>
    </property>
   </action>
   <zorder>inputWgt</zorder>

@@ -113,29 +113,29 @@ class Poi:
       return result
     
   def fetchPoi(self, q,  c=5, srs=31370, maxModel=True , updateResults=True, bbox=None, POIType='' ):
-      url = self._createPoiUrl( q, c, srs, maxModel, bbox, POItype=POIType)
-      try:
-	  response = urllib2.urlopen(url, timeout=self.timeout)
-      except urllib2.HTTPError as e:
-	  return json.load(e)["Message"]
-      except urllib2.URLError as e:
-	  return str( e.reason )
-      except:
-	  return  str( sys.exc_info()[1] )
-      else:
-	poi = json.load(response)
+        url = self._createPoiUrl( q, c, srs, maxModel, bbox, POItype=POIType)
+        try:
+	        response = urllib2.urlopen(url, timeout=self.timeout)
+        except urllib2.HTTPError as e:
+	        return json.load(e)["Message"]
+        except urllib2.URLError as e:
+	        return str( e.reason )
+        except:
+	        return  str( sys.exc_info()[1] )
+        else:
+	    poi = json.load(response)
 	
-	if updateResults:
-	  self.resultCount =  int( poi["label"]["value"] )
-	  if bbox:
-	    self.resultBounds = bbox
-	  else:
-	    self.resultBounds = self._getBounds(poi["pois"])
-	  self.PoiResult = poi["pois"]
-	  self.qeury = q
-	  self.srs = srs
-	  self.maxModel = maxModel
-	return poi["pois"]
+	    if updateResults:
+	        self.resultCount =  int( poi["label"]["value"] )
+	        if bbox:
+	            self.resultBounds = bbox
+	        else:
+	            self.resultBounds = self._getBounds(poi["pois"])
+	        self.PoiResult = poi["pois"]
+	        self.qeury = q
+	        self.srs = srs
+	        self.maxModel = maxModel
+	    return poi["pois"]
   
   def poiSuggestion(self):
       if self.PoiResult: 
@@ -194,17 +194,26 @@ class metadata:
 
   def fetchMetadata(self, q, c=5, fromPage=0, similarity=0.8  ):
       url = self._createMetaUrl(q, c, fromPage=fromPage, similarity=similarity )
-
+      try:
+	    response = urllib2.urlopen(url, timeout=self.timeout)
+      except urllib2.HTTPError as e:
+	    raise geopuntError( json.load(e)["Message"] )
+      except urllib2.URLError as e:
+	    raise geopuntError( e.reason ) 
+      except:
+	    raise geopuntError( sys.exc_info()[1] )
+      metaXML = ET.XML( response.read() )
+      return metaXML
 
 class geopuntError(Exception):
-      def __init__(self, message):
+    def __init__(self, message):
 	  self.message = value
-      def __str__(self):
+    def __str__(self):
 	  return repr(self.message)
 	  
 def internet_on(timeout=15):
     try:
-	response=urllib2.urlopen('http://loc.api.geopunt.be',timeout=timeout)
-	return True
+	    response=urllib2.urlopen('http://loc.api.geopunt.be',timeout=timeout)
+	    return True
     except: 
-	return False
+	    return False
