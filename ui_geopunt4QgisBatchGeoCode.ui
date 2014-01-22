@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>558</width>
-    <height>456</height>
+    <width>579</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -562,7 +562,7 @@
   <action name="adresFromMapAction">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntReverse.png</iconset>
+     <normaloff>:/plugins/geopunt4Qgis/images/prik.png</normaloff>:/plugins/geopunt4Qgis/images/prik.png</iconset>
    </property>
    <property name="text">
     <string>Prik locatie op Kaart</string>

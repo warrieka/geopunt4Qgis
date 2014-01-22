@@ -22,8 +22,7 @@ batcGeoCodedialog
 import os.path, sys
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
-import unicodecsv
-import geopunt, geometryhelper, csv
+import geopunt, geometryhelper, csv, unicodecsv
 from batchGeoHelper import batcGeoHelper
 from reverseAdresMapTool import reverseAdresMapTool
 
@@ -161,6 +160,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	    'private callback for reverseAdresMapTool'
 	    self.iface.mapCanvas().unsetMapTool(self.reverseAdresTool)
 	    self.showNormal()
+	    self.activateWindow()
 	
 	    x,y = self.gh.prjPtFromMapCrs(point, 31370)
 	    adres = str(x) +","+ str(y)
@@ -319,22 +319,22 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	          validAdres = self.gp.fetchSuggestion(adres, 5)
 	      
 	          if validAdres and validAdres.__class__ is str: 
-		          if (validAdres == 'time out') & (retry > 0): 
-		            retry -= 1                        #minus 1 retry
-		            print retry 
-		            continue
-		          elif retry == 0:
-		            self.ui.statusMsg.setText("<div style='color:red'>timeout after %s seconds and %s try's</div>" % 
-                                                                                (self.timeout , self.retrys))
-		            return
-		          self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
-		          return
-		  
+		    if (validAdres == 'time out') & (retry > 0): 
+		      retry -= 1                        #minus 1 retry
+		      print retry 
+		      continue
+		    elif retry == 0:
+		      self.ui.statusMsg.setText("<div style='color:red'>timeout after %s seconds and %s try's</div>" % 
+									  (self.timeout , self.retrys))
+		      return
+		    self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
+		    return
+		
 	          elif validAdres and validAdres.__class__ is list: 
-		          validCombo = QtGui.QComboBox(self.ui.adresColSelect)
-		          validCombo.addItems(validAdres)
-		          self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
-	  
+			validCombo = QtGui.QComboBox(self.ui.adresColSelect)
+			validCombo.addItems(validAdres)
+			self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
+	
 	          if len(validAdres) == 1:
 		          for col in range(len(self.headers)):
 		              self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#CCFFCC"))
