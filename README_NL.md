@@ -1,8 +1,8 @@
+
 Geopunt4Qgis
 ============
 
-<img src="images/logogeopunt4Q.png"/> <br/>
- *"Geopunt voor QGIS"*
+![Geopunt voor QGIS](images/logogeopunt4Q.png "Geopunt voor QGIS")
  
 Systeem vereisten
 -----------------
@@ -30,13 +30,23 @@ Het gaat onder andere over:
 
 Het van dit project om deze informatie te ontsluiten naar desktop QGIS-gebruikers, voor gebruik in papieren kaarten en voor het doen van analyse en onderzoek.
 
-**Algemene gebruikers vereisten:**
+Use cases
+----------
 
 - De diensten zijn toegankelijk via een interactieve dialoog, geopend wanneer de gebruiker op een knop of menu-item klikt.
 - De dialogen kunnen worden gebruikt en de gegevens kunnen worden weergegeven op elke ondersteund Spatial Reference System, niet alleen het Belgische Lambert 1972 (EPSG: 31370) of WGS84.
 - De gebruiker kan een "tekst" zoekopdracht in voeren en indien beschikbaar, ook andere zoekopties toevoegen zoals een geografisch gebied.
 - De gebruiker krijgt een lijst met resultaten voor de zoekopdracht en kan zoomen op een ​selectie van deze lijst, om te kunnen beoordelen of de variabele de gewenste data is.
 - De gebruiker kan het juiste zoekresultaat selecteren in het dialoogvenster en toevoegen in kaart.
+
+Functies
+--------
+
+  * <a href="http://warrieka.github.io/index.html#!geopuntAddress.md" ><img src="images/geopuntAddressSmall.png" /> Zoek een Adres</a> 
+  * <a href="http://warrieka.github.io/index.html#!geopuntReverse.md" ><img src="images/geopuntReverseSmall.png" /> Prik een Adres op kaart</a>
+  * <a href="http://warrieka.github.io/index.html#!geopuntBatchgeocode.md" ><img src="images/geopuntBatchgeocodeSmall.png" /> CSV-adresbestanden geocoderen</a>
+  * <a href="http://warrieka.github.io/index.html#!geopuntPoi.md" ><img src="images/geopuntPoiSmall.png" /> Zoek een Plaats - interesse punt</a>
+
 
 Wat is Geopunt ?
 --------------
@@ -47,7 +57,7 @@ Alle componenten (metadatacataloog, downloadapplicatie, e-commerce-applicatie, d
 
 Geopunt is de website van het samenwerkingsverband voor geografische informatie binnen de Vlaamse overheid, GDI-Vlaanderen (GDI = Geografische Data Infrastructuur). In de rol van geografische dienstenintegrator en als uitvoerend orgaan van het samenwerkingsverband GDI-Vlaanderen staat het Agentschap voor Geografische Informatie Vlaanderen (AGIV) in voor de realisatie en het onderhoud van Geopunt. 
 
-Bronnen: 
+**Bronnen:** 
 
 - *[http://www.geopunt.be](http://www.geopunt.be/over-geopunt)* 
 - *[http://gditestbed.agiv.be/](http://gditestbed.agiv.be/)*

@@ -1,8 +1,7 @@
 Geopunt4Qgis
 ============
 
-<img src="images/logogeopunt4Q.png"/><br/>
- *"Geopunt for QGIS"*
+![Geopunt voor QGIS](images/logogeopunt4Q.png "Geopunt voor QGIS")
 
 System requirements
 -------------------
@@ -30,7 +29,8 @@ These include:
 
 The goal of this project is to make these webservices available to QGIS-users, so they can be uses for creating print-maps and for doing research and analyses.
 
-**General use cases:**
+Use cases:
+----
 
 - The services are accessed through a interactive dialog, opened when the user clicks a button or menu entry.
 - The dialogs can be used and the data can be displayed at every supported Spatial Reference System, not just Belgian Lambert 1972 (epsg:31370) or wgs84.
@@ -38,6 +38,14 @@ The goal of this project is to make these webservices available to QGIS-users, s
 - The user gets a list of results for the query and he can select "zoom to selection" on this list, in order to evaluate if the selected variable is the wanted data.
 - The user can select the correct search result from the dialog and add it to map.
 
+Functions
+--------
+
+  * <a href="http://warrieka.github.io/#!geopuntAddress.md" ><img src="images/geopuntAddressSmall.png" /> search an  address</a> 
+  * <a href="http://warrieka.github.io/#!geopuntReverse.md" ><img src="images/geopuntReverseSmall.png" />Click an address on the map</a>
+  * <a href="http://warrieka.github.io/#!geopuntBatchgeocode.md" ><img src="images/geopuntBatchgeocodeSmall.png" />batch geocode CSV-files </a>
+  * <a href="http://warrieka.github.io/#!geopuntPoi.md" ><img src="images/geopuntPoiSmall.png" />search for poi</a>
+  
 What is Geopunt ?
 --------------
 
