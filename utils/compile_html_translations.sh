@@ -1,7 +1,7 @@
 #!/bin/bash
 
-OLD='images\/logogeopunt4Q.png'
-NEW='..\/images\/logogeopunt4Q.png'
+OLD='images\/'
+NEW='..\/images\/'
 
 TEMPNL=$RANDOM
 TEMPEN=$RANDOM

@@ -36,8 +36,7 @@ from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodedialog
 #import from libraries
 import geopunt
 import geometryhelper
-import os.path
-import time
+import os.path, webbrowser
 
 class geopunt4Qgis:
     def __init__(self, iface):
@@ -165,9 +164,19 @@ class geopunt4Qgis:
         result = self.aboutDlg.exec_()
         
     def reverse(self):
-        self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis" ,"Zoek een Adres: "), 
-        QCoreApplication.translate("geopunt4Qgis" ,"Klik op de kaart om het adres op te vragen")
-				        ,level=QgsMessageBar.INFO)
+        #self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis" ,"Zoek een Adres: "), 
+		  #QCoreApplication.translate("geopunt4Qgis" ,'Klik op de kaart om het adres op te vragen'),
+		  #level=QgsMessageBar.INFO)
+	widget = self.iface.messageBar().createMessage(
+		    QCoreApplication.translate("geopunt4Qgis" ,"Zoek een Adres: "), 
+		    QCoreApplication.translate("geopunt4Qgis" ,'Klik op de kaart om het adres op te vragen'))
+		        
+	helpBtn = button = QPushButton("Help", widget)
+	helpBtn.clicked.connect(self.openReverseHelp)
+	widget.layout().addWidget(helpBtn)
+	self.iface.messageBar().clearWidgets()
+	self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
+	
         reverseAdresTool = reverseAdresMapTool(self.iface, self._reverseAdresCallback) 
         self.iface.mapCanvas().setMapTool(reverseAdresTool)
         
@@ -189,16 +198,19 @@ class geopunt4Qgis:
 	  
 	        #add a button to the messageBar widget
 	        widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis" ,"Resultaat: "), FormattedAddress)
+	        
 	        button = QPushButton(widget)
 	        button.clicked.connect(lambda: self._addReverse(adres[0]))
 	        button.setText(QCoreApplication.translate("geopunt4Qgis" ,"Voeg toe"))
+	        
 	        widget.layout().addWidget(button)
+	        
 	        self.iface.messageBar().clearWidgets()
 	        self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
 	
         elif len(adres) == 0:
 	        self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
-	        QCoreApplication.translate("geopunt4Qgis","Geen resultaten gevonden"), 
+	        QCoreApplication.translate("geopunt4Qgis", "Geen resultaten gevonden"), 
 		            level=QgsMessageBar.INFO, duration=3)
 	  
         elif adres.__class__ is str:
@@ -218,3 +230,5 @@ class geopunt4Qgis:
 			      saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow())
 	    self.iface.messageBar().popWidget()	
         
+    def openReverseHelp(self):
+	webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntReverse.md")

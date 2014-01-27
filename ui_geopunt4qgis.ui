@@ -19,9 +19,6 @@
     <normaloff>:/plugins/geopunt4Qgis/images/geopuntAddressSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntAddressSmall.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="bottomMargin">
-    <number>2</number>
-   </property>
    <item>
     <widget class="QGroupBox" name="inputBox">
      <property name="title">
@@ -49,47 +46,74 @@
     <widget class="QListWidget" name="resultLijst"/>
    </item>
    <item>
-    <widget class="QWidget" name="widget" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="Add2mapKnop">
-        <property name="text">
-         <string>Toevoegen aan Kaart</string>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="ZoomKnop">
-        <property name="text">
-         <string>Zoom naar</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Add2mapKnop">
+       <property name="text">
+        <string>Toevoegen aan Kaart</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="ZoomKnop">
+       <property name="text">
+        <string>Zoom naar</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Close</set>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Close|QDialogButtonBox::Help</set>
+       </property>
+       <property name="centerButtons">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QLabel" name="laraLbl">
@@ -108,6 +132,16 @@
     </widget>
    </item>
   </layout>
+  <zorder>inputBox</zorder>
+  <zorder>resultLijst</zorder>
+  <zorder>laraLbl</zorder>
+  <zorder>buttonBox</zorder>
+  <zorder>ZoomKnop</zorder>
+  <zorder>Add2mapKnop</zorder>
+  <zorder>horizontalSpacer</zorder>
+  <zorder></zorder>
+  <zorder>horizontalSpacer_2</zorder>
+  <zorder></zorder>
  </widget>
  <resources>
   <include location="resources.qrc"/>

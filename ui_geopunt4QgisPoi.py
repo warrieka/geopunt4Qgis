@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Sun Jan 19 15:56:47 2014
+# Created: Mon Jan 27 22:31:44 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -94,10 +94,20 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.zoomSelKnop.setObjectName(_fromUtf8("zoomSelKnop"))
         self.horizontalLayout_2.addWidget(self.zoomSelKnop)
         self.verticalLayout.addWidget(self.buttonWgt)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem1)
         self.buttonBox = QtGui.QDialogButtonBox(geopunt4QgisPoiDlg)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.buttonBox.sizePolicy().hasHeightForWidth())
+        self.buttonBox.setSizePolicy(sizePolicy)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close|QtGui.QDialogButtonBox.Help)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.verticalLayout.addWidget(self.buttonBox)
+        self.horizontalLayout_3.addWidget(self.buttonBox)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.actionZoomtoSelection = QtGui.QAction(geopunt4QgisPoiDlg)
         self.actionZoomtoSelection.setObjectName(_fromUtf8("actionZoomtoSelection"))
         self.actionAddTSeltoMap = QtGui.QAction(geopunt4QgisPoiDlg)

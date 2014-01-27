@@ -22,7 +22,7 @@ batcGeoCodedialog
 import os.path, sys
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
-import geopunt, geometryhelper, csv, unicodecsv
+import geopunt, geometryhelper, csv, unicodecsv, webbrowser
 from batchGeoHelper import batcGeoHelper
 from reverseAdresMapTool import reverseAdresMapTool
 
@@ -86,6 +86,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
         self.ui.validateSelBtn.clicked.connect(self.validateSelection)
         self.ui.addToMapKnop.clicked.connect(self.addToMap)
         self.ui.adresFromMapBtn.clicked.connect(self.adresFromMap)
+        self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.finished.connect(self.clean)
 	
     def loadSettings(self): 
@@ -94,6 +95,9 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	    self.layerName = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
 	    self.timeout = 15
 	    self.retrys = 3
+
+    def openHelp(self):
+	webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntBatchgeocode.md")
 	
     def addToMap(self):
 	    adresCol = self.ui.outPutTbl.columnCount() -1

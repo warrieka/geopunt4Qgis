@@ -23,7 +23,7 @@ from PyQt4 import QtCore, QtGui
 from ui_geopunt4qgis import Ui_geopunt4Qgis
 from qgis.core import *
 from qgis.gui import  QgsMessageBar, QgsVertexMarker
-import geopunt, os, json
+import geopunt, os, json, webbrowser
 import geometryhelper as gh
 
 class geopunt4QgisAdresDialog(QtGui.QDialog):
@@ -42,50 +42,56 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	    self._initGui()
 
     def _initGui(self):
-	    """setup the user interface"""
-	    self.ui = Ui_geopunt4Qgis()
-	    self.ui.setupUi(self)
-	
-	    #get settings
-	    self.s = QtCore.QSettings()
-	    self.loadSettings()
-	
-	    #setup geopunt and geometryHelper objects
-	    self.gp = geopunt.Adres(self.timeout)
-	    self.gh = gh.geometryHelper(self.iface)
-	
-	    #create graphicsLayer
-	    self.graphicsLayer = []
+	"""setup the user interface"""
+	self.ui = Ui_geopunt4Qgis()
+	self.ui.setupUi(self)
+    
+	#get settings
+	self.s = QtCore.QSettings()
+	self.loadSettings()
+    
+	#setup geopunt and geometryHelper objects
+	self.gp = geopunt.Adres(self.timeout)
+	self.gh = gh.geometryHelper(self.iface)
+    
+	#create graphicsLayer
+	self.graphicsLayer = []
 
-	    #populate gemeenteBox
-	    gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),"data/gemeentenVL.json")) )
-	    self.ui.gemeenteBox.addItems( [n["Naam"] for n in gemeentes] )
-	    self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","gemeente"))
-	    self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
-	    self.ui.gemeenteBox.setFocus()
-	
-	    #setup a message bar
-	    self.bar = QgsMessageBar() 
-	    self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
-	    self.ui.verticalLayout.addWidget(self.bar)
+	#populate gemeenteBox
+	gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),
+			  "data/gemeentenVL.json")) )
+	self.ui.gemeenteBox.addItems( [n["Naam"] for n in gemeentes] )
+	self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate(
+			  "geopunt4QgisAdresDialog", "gemeente"))
+	self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
+	self.ui.gemeenteBox.setFocus()
+    
+	#setup a message bar
+	self.bar = QgsMessageBar() 
+	self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
+	self.ui.verticalLayout.addWidget(self.bar)
 
-	    #event handlers 
-	    if self.adresSearchOnEnter:
-	      self.ui.zoekText.returnPressed.connect(self.onZoekActivated)
-	    else:
-	      self.ui.zoekText.textEdited.connect(self.onZoekActivated)
-	    self.ui.gemeenteBox.currentIndexChanged.connect(self.onZoekActivated)
-	    self.ui.resultLijst.itemDoubleClicked.connect(self.onItemActivated)
-	    self.ui.resultLijst.itemClicked.connect(self.onItemClick)
-	    self.ui.ZoomKnop.clicked.connect(self.onZoomKnopClick)
-	    self.ui.Add2mapKnop.clicked.connect(self.onAdd2mapKnopClick)
-	    self.finished.connect(self.clean )
+	#event handlers 
+	if self.adresSearchOnEnter:
+	  self.ui.zoekText.returnPressed.connect(self.onZoekActivated)
+	else:
+	  self.ui.zoekText.textEdited.connect(self.onZoekActivated)
+	self.ui.gemeenteBox.currentIndexChanged.connect(self.onZoekActivated)
+	self.ui.resultLijst.itemDoubleClicked.connect(self.onItemActivated)
+	self.ui.resultLijst.itemClicked.connect(self.onItemClick)
+	self.ui.ZoomKnop.clicked.connect(self.onZoomKnopClick)
+	self.ui.Add2mapKnop.clicked.connect(self.onAdd2mapKnopClick)
+	self.ui.buttonBox.helpRequested.connect(self.openHelp)
+	self.finished.connect(self.clean )
 	
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 0))
         self.layerName =  self.s.value("geopunt4qgis/adreslayerText", "geopunt_adres")
         self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
         self.timeout = 15
+        
+    def openHelp(self):
+	webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntAddress.md")
 	
     def onZoekActivated(self):
 	    self._clearGraphicsLayer()
@@ -192,7 +198,8 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.bar.clearWidgets()
         self.ui.resultLijst.clear()
         self.ui.zoekText.setText("")
-        self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","gemeente"))
+        self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate(
+				"geopunt4QgisAdresDialog","gemeente"))
         self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
         self._clearGraphicsLayer()
 	

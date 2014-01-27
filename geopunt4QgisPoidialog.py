@@ -25,7 +25,7 @@ from qgis.core import *
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 from ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
 import geometryhelper as gh
-import geopunt, os
+import geopunt, os, webbrowser
 
 class geopunt4QgisPoidialog(QtGui.QDialog):
     def __init__(self, iface):
@@ -78,12 +78,16 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.ui.resultLijst.itemDoubleClicked.connect(self.onZoomSelClicked )
         self.ui.resultLijst.itemSelectionChanged.connect(self.onSelectionChanged)
         self.ui.addToMapKnop.clicked.connect(self.onAddSelClicked)
+        self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.finished.connect(self.clean )
 	
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 0))
         self.layerName =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
         self.timeout = 15
+	
+    def openHelp(self):
+	webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntPoi.md")
 	
     def onZoekActivated(self):
 	    txt = self.ui.poiText.text()

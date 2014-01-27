@@ -1,8 +1,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"><html><head><meta name="qrichtext" content="1" /><style type="text/css">p, li { white-space: pre-wrap; } </style></head> <body style=" font-size:9pt; font-weight:400; font-style:normal;">
 <h1>Geopunt4Qgis</h1>
 
-<p><img src="../images/logogeopunt4Q.png"/><br/>
- <em>"Geopunt for QGIS"</em></p>
+<p><img src="../images/logogeopunt4Q.png" alt="Geopunt voor QGIS" title="Geopunt voor QGIS" /></p>
+
+<h2>Functions</h2>
+
+<ul>
+<li><a href="http://warrieka.github.io/#!geopuntAddress.md" ><img src="../images/geopuntAddressSmall.png" /> search an  address</a> </li>
+<li><a href="http://warrieka.github.io/#!geopuntReverse.md" ><img src="../images/geopuntReverseSmall.png" />Click an address on the map</a></li>
+<li><a href="http://warrieka.github.io/#!geopuntBatchgeocode.md" ><img src="../images/geopuntBatchgeocodeSmall.png" />batch geocode CSV-files </a></li>
+<li><a href="http://warrieka.github.io/#!geopuntPoi.md" ><img src="../images/geopuntPoiSmall.png" />search for poi</a></li>
+</ul>
 
 <h2>System requirements</h2>
 
@@ -21,18 +29,19 @@
 
 <p>The mapping services are based on the OGC open standard WMS or WMTS and can be added to to QGIS easily. These services can be found through the <a href="https://metadata.geopunt.be/zoekdienst/apps/tabsearch/index.html">metadacenter</a>.</p>
 
-<p>But some services are not standardized because there is no standard. <br/>
-These include:</p>
+<p>But some services are not standardized because there is no widely used open standard. These public webservices are  composed with a REST-full API, this easier to use for programmers then OGC-services. But because they are not standardized, they can't be used directly by desttop software.</p>
+
+<p>These include:</p>
 
 <ul>
 <li><strong>Geocoding</strong> based on the Flemish <a href="http://www.agiv.be/gis/projecten/?catid=34">CRAB</a> address-database</li>
 <li><strong>Location search</strong> based on databases joined to the CRAB database, like the locations of the schools in Flanders.</li>
-<li><strong>Traffic obstruction information</strong> from the <a href="http://www.agiv.be/gis/diensten/?artid=1739">GIPOD</a> public works and manifestation database.</li>
+<li><strong>Traffic obstruction information</strong> from the <a href="http://gipod.api.agiv.be/#!index.md">GIPOD</a> public works and manifestation database.</li>
 </ul>
 
 <p>The goal of this project is to make these webservices available to QGIS-users, so they can be uses for creating print-maps and for doing research and analyses.</p>
 
-<p><strong>General use cases:</strong></p>
+<h2>Use cases:</h2>
 
 <ul>
 <li>The services are accessed through a interactive dialog, opened when the user clicks a button or menu entry.</li>

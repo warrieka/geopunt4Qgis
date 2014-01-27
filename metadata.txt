@@ -19,7 +19,7 @@ changelog=Added Batch Geocoding
 # tags are comma separated with spaces allowed
 tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS
 
-homepage=https://github.com/warrieka/geopunt4Qgis
+homepage=http://warrieka.github.io/index.html#!README_NL.md
 tracker=https://github.com/warrieka/geopunt4Qgis/issues
 repository=https://github.com/warrieka/geopunt4Qgis
 icon=images/geopunt.png

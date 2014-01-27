@@ -2,7 +2,6 @@
   <qresource prefix="/plugins/geopunt4Qgis">
     <file>images/prik.png</file>
     <file>images/validAll.png</file>
-    <file>images/all.png</file>
     <file>images/qgis-icon-16x16.png</file>
     <file>images/osm.png</file>
     <file>images/select.png</file>
