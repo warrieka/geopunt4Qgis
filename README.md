@@ -3,6 +3,14 @@ Geopunt4Qgis
 
 ![Geopunt voor QGIS](images/logogeopunt4Q.png "Geopunt voor QGIS")
 
+Functions
+--------
+
+  * <a href="http://warrieka.github.io/#!geopuntAddress.md" ><img src="images/geopuntAddressSmall.png" /> search an  address</a> 
+  * <a href="http://warrieka.github.io/#!geopuntReverse.md" ><img src="images/geopuntReverseSmall.png" />Click an address on the map</a>
+  * <a href="http://warrieka.github.io/#!geopuntBatchgeocode.md" ><img src="images/geopuntBatchgeocodeSmall.png" />batch geocode CSV-files </a>
+  * <a href="http://warrieka.github.io/#!geopuntPoi.md" ><img src="images/geopuntPoiSmall.png" />search for poi</a>
+
 System requirements
 -------------------
 
@@ -20,12 +28,13 @@ The Flemish government Geographical Portal Geopunt offers several web-services t
 
 The mapping services are based on the OGC open standard WMS or WMTS and can be added to to QGIS easily. These services can be found through the [metadacenter](https://metadata.geopunt.be/zoekdienst/apps/tabsearch/index.html).
 
-But some services are not standardized because there is no standard. <br/>
+But some services are not standardized because there is no widely used open standard. These public webservices are  composed with a REST-full API, this easier to use for programmers then OGC-services. But because they are not standardized, they can't be used directly by desttop software.
+
 These include:
 
 - **Geocoding** based on the Flemish [CRAB](http://www.agiv.be/gis/projecten/?catid=34) address-database
 - **Location search** based on databases joined to the CRAB database, like the locations of the schools in Flanders.
-- **Traffic obstruction information** from the [GIPOD](http://www.agiv.be/gis/diensten/?artid=1739) public works and manifestation database.
+- **Traffic obstruction information** from the [GIPOD](http://gipod.api.agiv.be/#!index.md) public works and manifestation database.
 
 The goal of this project is to make these webservices available to QGIS-users, so they can be uses for creating print-maps and for doing research and analyses.
 
@@ -38,14 +47,6 @@ Use cases:
 - The user gets a list of results for the query and he can select "zoom to selection" on this list, in order to evaluate if the selected variable is the wanted data.
 - The user can select the correct search result from the dialog and add it to map.
 
-Functions
---------
-
-  * <a href="http://warrieka.github.io/#!geopuntAddress.md" ><img src="images/geopuntAddressSmall.png" /> search an  address</a> 
-  * <a href="http://warrieka.github.io/#!geopuntReverse.md" ><img src="images/geopuntReverseSmall.png" />Click an address on the map</a>
-  * <a href="http://warrieka.github.io/#!geopuntBatchgeocode.md" ><img src="images/geopuntBatchgeocodeSmall.png" />batch geocode CSV-files </a>
-  * <a href="http://warrieka.github.io/#!geopuntPoi.md" ><img src="images/geopuntPoiSmall.png" />search for poi</a>
-  
 What is Geopunt ?
 --------------
 

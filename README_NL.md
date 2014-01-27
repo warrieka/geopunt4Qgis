@@ -1,8 +1,15 @@
-
 Geopunt4Qgis
 ============
 
 ![Geopunt voor QGIS](images/logogeopunt4Q.png "Geopunt voor QGIS")
+ 
+Functies
+--------
+
+  * <a href="http://warrieka.github.io/index.html#!geopuntAddress.md" ><img src="images/geopuntAddressSmall.png" /> Zoek een Adres</a> 
+  * <a href="http://warrieka.github.io/index.html#!geopuntReverse.md" ><img src="images/geopuntReverseSmall.png" /> Prik een Adres op kaart</a>
+  * <a href="http://warrieka.github.io/index.html#!geopuntBatchgeocode.md" ><img src="images/geopuntBatchgeocodeSmall.png" /> CSV-adresbestanden geocoderen</a>
+  * <a href="http://warrieka.github.io/index.html#!geopuntPoi.md" ><img src="images/geopuntPoiSmall.png" /> Zoek een Plaats - interesse punt</a>
  
 Systeem vereisten
 -----------------
@@ -21,12 +28,13 @@ Het Vlaamse Geoportaal Geopunt bied een aantal geografische diensten (web-servic
 
 De kaartdiensten zijn gebaseerd op de OGC open standaard WMS of WMTS en kunnen gemakkelijk worden toegevoegd aan desktop GIS. GIS-gebruikers kunnen deze diensten ontdekken via het [metadacenter](https://metadata.geopunt.be/zoekdienst/apps/tabsearch/index.html).
 
-Sommige diensten aangeboden door geopunt zijn niet gebaseerd op een open standaard omdat het gaat om diensten die gen  open standaard hebben. <br/>
+Sommige diensten aangeboden door geopunt zijn niet gebaseerd op een open standaard omdat het gaat om diensten die geen  open standaard hebben. Deze publieke webdiensten zijn opgesteld volgens een REST-volle API, die eenvoudiger in gebruik is voor programmmeurs dan OGC-diensten. Maar omdat ze niet gestandaardiseerd zijn kunnen ze niet zomaar binnen getrokken worden in desktop software.
+
 Het gaat onder andere over:
 
 - **Geocoding** gebaseerd op de officiële [CRAB](http://www.agiv.be/gis/projecten/?catid=34) adressen-databank
-- **Locaties zoeken** door koppeling van adressen aan de crab-databank, bijvoorbeeld de scholendatabank van de Vlaamse overheid.
-- **Innames van openbaar domein** van het Generiek Informatieplatform Openbaar Domein (GIPOD)  [GIPOD](http://www.agiv.be/gis/diensten/?artid=1739), de officiële databank met manifestaties, wegenwerken en andere obstructies op het openbaar domein.
+- **Locaties zoeken** door koppeling van adressen aan de crab-databank, bijvoorbeeld de scholendatabank van de Vlaamse overheid. (documentatie  nog niet beschikbaar)
+- **Innames van openbaar domein** van het Generiek Informatieplatform Openbaar Domein (GIPOD)  [GIPOD](hhttp://gipod.api.agiv.be/#!index.md), de officiële databank met manifestaties, wegenwerken en andere obstructies op het openbaar domein.
 
 Het van dit project om deze informatie te ontsluiten naar desktop QGIS-gebruikers, voor gebruik in papieren kaarten en voor het doen van analyse en onderzoek.
 
@@ -38,15 +46,6 @@ Use cases
 - De gebruiker kan een "tekst" zoekopdracht in voeren en indien beschikbaar, ook andere zoekopties toevoegen zoals een geografisch gebied.
 - De gebruiker krijgt een lijst met resultaten voor de zoekopdracht en kan zoomen op een ​selectie van deze lijst, om te kunnen beoordelen of de variabele de gewenste data is.
 - De gebruiker kan het juiste zoekresultaat selecteren in het dialoogvenster en toevoegen in kaart.
-
-Functies
---------
-
-  * <a href="http://warrieka.github.io/index.html#!geopuntAddress.md" ><img src="images/geopuntAddressSmall.png" /> Zoek een Adres</a> 
-  * <a href="http://warrieka.github.io/index.html#!geopuntReverse.md" ><img src="images/geopuntReverseSmall.png" /> Prik een Adres op kaart</a>
-  * <a href="http://warrieka.github.io/index.html#!geopuntBatchgeocode.md" ><img src="images/geopuntBatchgeocodeSmall.png" /> CSV-adresbestanden geocoderen</a>
-  * <a href="http://warrieka.github.io/index.html#!geopuntPoi.md" ><img src="images/geopuntPoiSmall.png" /> Zoek een Plaats - interesse punt</a>
-
 
 Wat is Geopunt ?
 --------------
