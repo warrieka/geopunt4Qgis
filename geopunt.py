@@ -169,41 +169,10 @@ class Poi:
 	
       return [ minX, minY, maxX, maxY]
 
-
-class metadata:
-  def __init__(self, timeout=15):
-      self.timeout = timeout
-      self.count = 0
-      self._metaUrl = "https://metadata.geopunt.be/zoekdienst/srv/dut/q?"
-      
-  def _createMetaUrl(self, q, c=5, fromPage=0, similarity=0.8  ):
-      metaUrl = self._metaUrl
-      data = {}
-      toPage = c + fromPage
-      
-      data["fast"] = "index"
-      data["any"] =  unicode(q).encode('utf-8')
-      data["hitsperpage"] = c
-      data["from"] = fromPage
-      data["to"] = toPage
-      data["similarity"] = similarity
-      
-      values = urllib.urlencode(data)
-      result = metaUrl + values
-      return result
-
-  def fetchMetadata(self, q, c=5, fromPage=0, similarity=0.8  ):
-      url = self._createMetaUrl(q, c, fromPage=fromPage, similarity=similarity )
-      try:
-	    response = urllib2.urlopen(url, timeout=self.timeout)
-      except urllib2.HTTPError as e:
-	    raise geopuntError( json.load(e)["Message"] )
-      except urllib2.URLError as e:
-	    raise geopuntError( e.reason ) 
-      except:
-	    raise geopuntError( sys.exc_info()[1] )
-      metaXML = ET.XML( response.read() )
-      return metaXML
+class gipod:
+  __init__(self):
+    pass
+  #TODO
 
 class geopuntError(Exception):
     def __init__(self, message):
