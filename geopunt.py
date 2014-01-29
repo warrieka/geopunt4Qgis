@@ -170,9 +170,8 @@ class Poi:
       return [ minX, minY, maxX, maxY]
 
 class gipod:
-  __init__(self):
+  def __init__(self):
     pass
-  #TODO
 
 class geopuntError(Exception):
     def __init__(self, message):
