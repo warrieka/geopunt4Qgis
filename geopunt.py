@@ -19,7 +19,7 @@
  *                                                                         *
  ***************************************************************************/
 """
-import urllib2, urllib, json, sys
+import urllib2, urllib, json, sys, os.path, datetime
 import xml.etree.ElementTree as ET
 
 class Adres:
@@ -34,7 +34,7 @@ class Adres:
       data["q"] = unicode(q).encode('utf-8')
       data["c"] = c
       values = urllib.urlencode(data)
-      result = geopuntUrl + values
+      result = geopuntUrl + values,
       return result
 
   def fetchLocation(self, q, c=1):
@@ -113,7 +113,7 @@ class Poi:
       return result
     
   def fetchPoi(self, q,  c=5, srs=31370, maxModel=True , updateResults=True, bbox=None, POIType='' ):
-        url = self._createPoiUrl( q, c, srs, maxModel, bbox, POItype=POIType)
+        url = self._createPoiUrl( q, c, srs, maxModel, bbox, POIType)
         try:
 	        response = urllib2.urlopen(url, timeout=self.timeout)
         except urllib2.HTTPError as e:
@@ -170,12 +170,118 @@ class Poi:
       return [ minX, minY, maxX, maxY]
 
 class gipod:
-  def __init__(self):
-    pass
+  def __init__(self, timeout=15):
+      self.timeout = timeout
+      self.baseUri = 'http://gipod.api.agiv.be/ws/v1/'
+  
+  def getCity(self, q="" ):
+      query = urllib.quote(q)
+      url = self.baseUri + "referencedata/city/" + query 
+      try:
+	  response = urllib2.urlopen(url, timeout=self.timeout)
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+	  raise geopuntError(str( e.reason ))
+      except:
+	  raise geopuntError( str( sys.exc_info()[1] ))
+      else:
+	  city = json.load(response)
+	  return city
+
+  def getProvince(self, q="" ):
+      query = urllib.quote(q)
+      url = self.baseUri + "referencedata/province/" + query
+      try:
+	  response = urllib2.urlopen(url, timeout=self.timeout)
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+	  raise geopuntError(str( e.reason ))
+      except:
+	  raise geopuntError( str( sys.exc_info()[1] ))
+      else:
+	  province = json.load(response)
+	  return province
+
+  def getEventType(self, q="" ):
+      query = urllib.quote(q)
+      url = self.baseUri + "referencedata/eventtype/" + query
+      try:
+	  response = urllib2.urlopen(url, timeout=self.timeout)
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+	  raise geopuntError( str( e.reason ))
+      except:
+	  raise geopuntError( str( sys.exc_info()[1] ))
+      else:
+	  eventtype = json.load(response)
+	  return eventtype
+
+  def getOwner(self, q=''):
+      query = urllib.quote(q)
+      url = self.baseUri + "referencedata/owner/" + query
+      try:
+	  response = urllib2.urlopen(url, timeout=self.timeout)
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+	  raise geopuntError( str( e.reason ))
+      except:
+	  raise geopuntError( str( sys.exc_info()[1] ))
+      else:
+	  owner = json.load(response)
+	  return owner
+
+  def _createWorkassignmentUrl(self,owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
+      "startdate and enddate are datetime.date\n bbox is [xmin,ymin,xmax,ymax]"
+      endpoint = self.baseUri + 'workassignment?'
+      data = {}
+      data['limit'] = c
+      if offset:
+	data["offset"] = offset
+      if owner:
+	data['owner'] = owner
+      if startdate and startdate.__class__ is datetime.date: 
+	data["startdate"] = startdate.__str__()
+      if enddate and enddate.__class__ is datetime.date: 
+	data["enddate"] = enddate.__str__()
+      if city:
+	data['city'] = city
+      if province:
+	data['province'] = province
+      if srs in [31370,4326,3857]:
+	data['CRS'] = srs
+      if bbox and isinstance(bbox,(list,tuple)) and len(bbox) == 4:
+	xmin,ymin,xmax,ymax = bbox
+	xymin = str(xmin) +','+ str(ymin)
+	xymax = str(xmax) +','+ str(ymax)
+	data["bbox"] = '|'.join(xymin,xymax)
+      values = urllib.urlencode(data)
+      result = endpoint + values
+      return result
+
+  def fetchWorkassignment(self,owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
+      url = self._createWorkassignmentUrl(owner, startdate, enddate, city, province, srs, bbox, c, offset )
+      try:
+	    response = urllib2.urlopen(url, timeout=self.timeout)
+      except  (urllib2.HTTPError, urllib2.URLError) as e:
+	    raise geopuntError( str( e.reason ))
+      except:
+	    raise geopuntError( str( sys.exc_info()[1] ))
+      else:
+	    workassignment = json.load(response)
+	    return workassignment
+	  
+  def allWorkassignments(self, owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[]):
+      counter = 0
+      wAs = self.fetchWorkassignment(owner, startdate, enddate, city, province, srs, bbox, 100, counter )
+      wAlen = len(wAs)
+      while wAlen == 100:
+	  counter += 100
+	  wA = self.fetchWorkassignment(owner, startdate, enddate, city, province, srs, bbox, 100, counter )
+	  wAs += wA
+	  wAlen = len(wA)
+      return wAs
+
+
 
 class geopuntError(Exception):
     def __init__(self, message):
-	  self.message = value
+	  self.message = message
     def __str__(self):
 	  return repr(self.message)
 	  
