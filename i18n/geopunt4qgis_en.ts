@@ -126,7 +126,7 @@
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="248"/>
         <source>(Optioneel) Gemeente kolom:</source>
-        <translation>(Optional) Municipality:</translation>
+        <translation type="obsolete">(Optional) Municipality:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="265"/>
@@ -187,6 +187,11 @@
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="571"/>
         <source>Prik locatie op Kaart</source>
         <translation>Click loaction on the map</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="248"/>
+        <source>(Optioneel) Gemeente of Postcode kolom:</source>
+        <translation>(Optional) Municipality or zip-code:</translation>
     </message>
 </context>
 <context>
