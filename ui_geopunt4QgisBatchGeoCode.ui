@@ -245,7 +245,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>(Optioneel) Gemeente kolom:</string>
+           <string>(Optioneel) Gemeente of Postcode kolom:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -571,13 +571,6 @@
     <string>Prik locatie op Kaart</string>
    </property>
   </action>
-  <zorder>inputWgt</zorder>
-  <zorder>delimWgt</zorder>
-  <zorder>adresWgt</zorder>
-  <zorder>statusBar</zorder>
-  <zorder>line</zorder>
-  <zorder>tlFrame</zorder>
-  <zorder>laraLbl</zorder>
  </widget>
  <resources>
   <include location="resources.qrc"/>

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Mon Jan 27 23:04:49 2014
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Wed Jan 29 14:55:59 2014
+#      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,16 +12,7 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+    _fromUtf8 = lambda s: s
 
 class Ui_batchGeocodeDlg(object):
     def setupUi(self, batchGeocodeDlg):
@@ -258,6 +249,7 @@ class Ui_batchGeocodeDlg(object):
         self.statusBar.setObjectName(_fromUtf8("statusBar"))
         self.horizontalLayout_8 = QtGui.QHBoxLayout(self.statusBar)
         self.horizontalLayout_8.setMargin(0)
+        self.horizontalLayout_8.setMargin(0)
         self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
         self.statusMsg = QtGui.QLabel(self.statusBar)
         self.statusMsg.setFrameShape(QtGui.QFrame.Panel)
@@ -274,7 +266,7 @@ class Ui_batchGeocodeDlg(object):
         self.statusProgress.setSizePolicy(sizePolicy)
         self.statusProgress.setMinimumSize(QtCore.QSize(200, 0))
         self.statusProgress.setMaximum(10)
-        self.statusProgress.setProperty("value", 0)
+        self.statusProgress.setProperty(_fromUtf8("value"), 0)
         self.statusProgress.setTextVisible(True)
         self.statusProgress.setInvertedAppearance(False)
         self.statusProgress.setTextDirection(QtGui.QProgressBar.TopToBottom)
@@ -315,30 +307,30 @@ class Ui_batchGeocodeDlg(object):
         QtCore.QMetaObject.connectSlotsByName(batchGeocodeDlg)
 
     def retranslateUi(self, batchGeocodeDlg):
-        batchGeocodeDlg.setWindowTitle(_translate("batchGeocodeDlg", "CSV-adresbestanden geocoderen", None))
-        self.inputBtn.setText(_translate("batchGeocodeDlg", "Open", None))
-        self.codecBox.setItemText(0, _translate("batchGeocodeDlg", "utf-8", None))
-        self.codecBox.setItemText(1, _translate("batchGeocodeDlg", "ansi", None))
-        self.label_1.setText(_translate("batchGeocodeDlg", "Separator: ", None))
-        self.delimSelect.setItemText(0, _translate("batchGeocodeDlg", "Puntcomma", None))
-        self.delimSelect.setItemText(1, _translate("batchGeocodeDlg", "Comma", None))
-        self.delimSelect.setItemText(2, _translate("batchGeocodeDlg", "Tab", None))
-        self.delimSelect.setItemText(3, _translate("batchGeocodeDlg", "Ander: ", None))
-        self.label_2.setText(_translate("batchGeocodeDlg", "Adres (straat <huisnr>, <gemeente>):", None))
-        self.label_3.setText(_translate("batchGeocodeDlg", "(Optioneel) Huisnummer kolom: ", None))
-        self.label.setText(_translate("batchGeocodeDlg", "(Optioneel) Gemeente kolom:", None))
-        self.zoomToSelBtn.setToolTip(_translate("batchGeocodeDlg", "Zoom naar selectie", None))
-        self.validateSelBtn.setToolTip(_translate("batchGeocodeDlg", "Valideer selectie", None))
-        self.validateBtn.setToolTip(_translate("batchGeocodeDlg", "Valideer alle Adressen", None))
+        batchGeocodeDlg.setWindowTitle(QtGui.QApplication.translate("batchGeocodeDlg", "CSV-adresbestanden geocoderen", None, QtGui.QApplication.UnicodeUTF8))
+        self.inputBtn.setText(QtGui.QApplication.translate("batchGeocodeDlg", "Open", None, QtGui.QApplication.UnicodeUTF8))
+        self.codecBox.setItemText(0, QtGui.QApplication.translate("batchGeocodeDlg", "utf-8", None, QtGui.QApplication.UnicodeUTF8))
+        self.codecBox.setItemText(1, QtGui.QApplication.translate("batchGeocodeDlg", "ansi", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_1.setText(QtGui.QApplication.translate("batchGeocodeDlg", "Separator: ", None, QtGui.QApplication.UnicodeUTF8))
+        self.delimSelect.setItemText(0, QtGui.QApplication.translate("batchGeocodeDlg", "Puntcomma", None, QtGui.QApplication.UnicodeUTF8))
+        self.delimSelect.setItemText(1, QtGui.QApplication.translate("batchGeocodeDlg", "Comma", None, QtGui.QApplication.UnicodeUTF8))
+        self.delimSelect.setItemText(2, QtGui.QApplication.translate("batchGeocodeDlg", "Tab", None, QtGui.QApplication.UnicodeUTF8))
+        self.delimSelect.setItemText(3, QtGui.QApplication.translate("batchGeocodeDlg", "Ander: ", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("batchGeocodeDlg", "Adres (straat <huisnr>, <gemeente>):", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_3.setText(QtGui.QApplication.translate("batchGeocodeDlg", "(Optioneel) Huisnummer kolom: ", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("batchGeocodeDlg", "(Optioneel) Gemeente of Postcode kolom:", None, QtGui.QApplication.UnicodeUTF8))
+        self.zoomToSelBtn.setToolTip(QtGui.QApplication.translate("batchGeocodeDlg", "Zoom naar selectie", None, QtGui.QApplication.UnicodeUTF8))
+        self.validateSelBtn.setToolTip(QtGui.QApplication.translate("batchGeocodeDlg", "Valideer selectie", None, QtGui.QApplication.UnicodeUTF8))
+        self.validateBtn.setToolTip(QtGui.QApplication.translate("batchGeocodeDlg", "Valideer alle Adressen", None, QtGui.QApplication.UnicodeUTF8))
         self.outPutTbl.setSortingEnabled(True)
-        self.adresFromMapBtn.setToolTip(_translate("batchGeocodeDlg", "Prik locatie op kaart", None))
-        self.addToMapKnop.setText(_translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None))
-        self.laraLbl.setText(_translate("batchGeocodeDlg", "<small><a href=\"http://crab.agiv.be/Lara\">Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)</a></small>", None))
-        self.actionAddValidToMap.setText(_translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None))
-        self.actionValidateSelection.setText(_translate("batchGeocodeDlg", "Valideer selectie", None))
-        self.actionValidateAll.setText(_translate("batchGeocodeDlg", "Valideer alle Adressen", None))
-        self.actionZoomToSelection.setText(_translate("batchGeocodeDlg", "Zoom naar selectie", None))
-        self.adresFromMapAction.setText(_translate("batchGeocodeDlg", "Prik locatie op Kaart", None))
-        self.adresFromMapAction.setToolTip(_translate("batchGeocodeDlg", "Prik locatie op Kaart", None))
+        self.adresFromMapBtn.setToolTip(QtGui.QApplication.translate("batchGeocodeDlg", "Prik locatie op kaart", None, QtGui.QApplication.UnicodeUTF8))
+        self.addToMapKnop.setText(QtGui.QApplication.translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None, QtGui.QApplication.UnicodeUTF8))
+        self.laraLbl.setText(QtGui.QApplication.translate("batchGeocodeDlg", "<small><a href=\"http://crab.agiv.be/Lara\">Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)</a></small>", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionAddValidToMap.setText(QtGui.QApplication.translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionValidateSelection.setText(QtGui.QApplication.translate("batchGeocodeDlg", "Valideer selectie", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionValidateAll.setText(QtGui.QApplication.translate("batchGeocodeDlg", "Valideer alle Adressen", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionZoomToSelection.setText(QtGui.QApplication.translate("batchGeocodeDlg", "Zoom naar selectie", None, QtGui.QApplication.UnicodeUTF8))
+        self.adresFromMapAction.setText(QtGui.QApplication.translate("batchGeocodeDlg", "Prik locatie op Kaart", None, QtGui.QApplication.UnicodeUTF8))
+        self.adresFromMapAction.setToolTip(QtGui.QApplication.translate("batchGeocodeDlg", "Prik locatie op Kaart", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
