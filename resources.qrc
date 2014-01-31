@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="/plugins/geopunt4Qgis">
+    <file>images/geopuntGIPOD.png</file>
+    <file>images/geopuntGIPODsmall.png</file>
     <file>images/prik.png</file>
     <file>images/validAll.png</file>
     <file>images/qgis-icon-16x16.png</file>

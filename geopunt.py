@@ -20,7 +20,6 @@
  ***************************************************************************/
 """
 import urllib2, urllib, json, sys, os.path, datetime
-import xml.etree.ElementTree as ET
 
 class Adres:
   def __init__(self, timeout=15):
@@ -34,20 +33,20 @@ class Adres:
       data["q"] = unicode(q).encode('utf-8')
       data["c"] = c
       values = urllib.urlencode(data)
-      result = geopuntUrl + values,
+      result = geopuntUrl + values
       return result
 
   def fetchLocation(self, q, c=1):
       url = self._createLocationUrl(q, c=1)
       try:
-	    response = urllib2.urlopen(url, timeout=self.timeout)
+            response = urllib2.urlopen(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-	    return str( e.reason )
+            return str( e.reason )
       except:
-	    return str( sys.exc_info()[1] )
+            return  str( sys.exc_info()[1] )
       else:
-	    LocationResult = json.load(response)
-	    return LocationResult["LocationResult"]
+            LocationResult = json.load(response)
+            return LocationResult["LocationResult"]
 
   def _createSuggestionUrl(self, q, c=5):
       geopuntUrl = self._sugUrl
@@ -59,6 +58,18 @@ class Adres:
       return result
 
   def fetchSuggestion(self, q, c=5):
+      url = self._createSuggestionUrl(q,c)
+      try:
+            response = urllib2.urlopen(url, timeout=self.timeout)
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+            return str( e.reason )
+      except:
+            return  str( sys.exc_info()[1] )
+      else:
+            suggestion = json.load(response)
+            return suggestion["SuggestionResult"]
+
+
       url = self._createSuggestionUrl(q,c)
       try:
 	    response = urllib2.urlopen(url, timeout=self.timeout)

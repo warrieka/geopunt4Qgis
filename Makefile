@@ -28,13 +28,14 @@ SOURCES         = geopunt4qgis.py \
 		  geopunt4qgisAdresdialog.py \
 		  geopunt4QgisAbout.py \
 		  geopunt4QgisSettingsdialog.py \
-		  geopunt4QgisBatchGeoCode.py
+		  geopunt4QgisBatchGeoCode.py 
 
 FORMS           = ui_geopunt4qgis.ui \
 		  ui_geopunt4QgisPoi.ui \
 		  ui_geopunt4QgisAbout.ui \
 		  ui_geopunt4QgisSettings.ui  \
-		  ui_geopunt4QgisBatchGeoCode.ui
+		  ui_geopunt4QgisBatchGeoCode.ui \
+		  ui_geopunt4QgisGIPOD.ui
 		    
 TRANSLATIONS = i18n/geopunt4qgis_en.ts i18n/geopunt4qgis_nl.ts
 
@@ -45,7 +46,7 @@ PY_FILES =  unicodecsv.py geometryhelper.py geopunt.py geopunt4qgis.py geopunt4Q
 
 EXTRAS = images/binoculars.png images/binocularsSmall.png images/geopunt.png images/geopuntAddress.png  images/geopuntAddressSmall.png images/geopuntIcoTemplate.png images/geopuntPoi.png images/geopuntPoiSmall.png images/geopuntReverse.png images/geopuntSettings.png images/geopuntSettingsSmall.png images/geopuntSmal.png images/logogeopunt.png images/logogeopunt4Q.png images/geopuntBatchgeocode.png images/geopuntBatchgeocodeSmall.png  metadata.txt i18n/about-en.html i18n/about-nl.html
 
-UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py
+UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py ui_geopunt4QgisGIPOD.py
 
 RESOURCE_FILES = resources_rc.py
 
