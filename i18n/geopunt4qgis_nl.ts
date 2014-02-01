@@ -294,7 +294,7 @@
     <message>
         <location filename="geopunt4qgis.py" line="94"/>
         <source>Bevraag GIPOD</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevraag GIPOD</translation>
     </message>
 </context>
 <context>
@@ -313,6 +313,14 @@
         <location filename="geopunt4qgisAdresdialog.py" line="201"/>
         <source>gemeente</source>
         <translation>gemeente</translation>
+    </message>
+</context>
+<context>
+    <name>geopunt4QgisGIPOD</name>
+    <message>
+        <location filename="geopunt4QgisGipod.py" line="61"/>
+        <source>&lt;strong&gt;Waarschuwing: &lt;/strong&gt;kan niet verbinden met internet</source>
+        <translation>&lt;strong&gt;Waarschuwing: &lt;/strong&gt;kan niet verbinden met internet</translation>
     </message>
 </context>
 <context>
@@ -406,72 +414,72 @@
     <message>
         <location filename="ui_geopunt4QgisGIPOD.ui" line="33"/>
         <source>GIPOD</source>
-        <translation type="unfinished"></translation>
+        <translation>GIPOD</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisGIPOD.ui" line="61"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisGIPOD.ui" line="67"/>
         <source>Werkopdracht</source>
-        <translation type="unfinished"></translation>
+        <translation>Werkopdracht</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisGIPOD.ui" line="77"/>
         <source>Manifestatie</source>
-        <translation type="unfinished"></translation>
+        <translation>Manifestatie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="155"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="158"/>
         <source>dd/MM/yyyy</source>
-        <translation type="unfinished"></translation>
+        <translation>dd/MM/yyyy</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="135"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="138"/>
         <source>provincie:</source>
-        <translation type="unfinished"></translation>
+        <translation>provincie:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="165"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="168"/>
         <source>startdatum:</source>
-        <translation type="unfinished"></translation>
+        <translation>startdatum:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="172"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="175"/>
         <source>einddatum:</source>
-        <translation type="unfinished"></translation>
+        <translation>einddatum:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="185"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="188"/>
         <source>eigenaar: </source>
-        <translation type="unfinished"></translation>
+        <translation>eigenaar:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="192"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="195"/>
         <source>stad:</source>
-        <translation type="unfinished"></translation>
+        <translation>stad:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="199"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="202"/>
         <source>Beperk zoekresultaten tot huidige extent</source>
-        <translation type="unfinished">Beperk zoekresultaten tot huidige extent</translation>
+        <translation>Beperk zoekresultaten tot huidige extent</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="241"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="250"/>
         <source>type manifestatie</source>
-        <translation type="unfinished"></translation>
+        <translation>type manifestatie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="261"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="273"/>
         <source>output bestand</source>
-        <translation type="unfinished"></translation>
+        <translation>output bestand</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisGIPOD.ui" line="268"/>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="280"/>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation>Open</translation>
     </message>
 </context>
 <context>

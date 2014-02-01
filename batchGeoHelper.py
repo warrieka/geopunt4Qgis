@@ -33,12 +33,12 @@ class batcGeoHelper:
       self.adreslayerid = ''
       self.adresProvider = None
    
-  def prjPtToMapCrs(self, xy , fromCRS=4326 ):
-      point = QgsPoint( xy[0], xy[1] )
-      fromCrs = QgsCoordinateReferenceSystem(fromCRS)
-      toCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
-      xform = QgsCoordinateTransform( fromCrs, toCrs )
-      return   xform.transform( point )
+  #def prjPtToMapCrs(self, xy , fromCRS=4326 ):
+      #point = QgsPoint( xy[0], xy[1] )
+      #fromCrs = QgsCoordinateReferenceSystem(fromCRS)
+      #toCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+      #xform = QgsCoordinateTransform( fromCrs, toCrs )
+      #return   xform.transform( point )
     
   def _createAttributeTable(self, tableDict, allString=True):
       attributeTable = []
