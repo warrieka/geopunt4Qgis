@@ -205,7 +205,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="stadLbl">
         <property name="text">
-         <string>stad:</string>
+         <string>stad of gemeente:</string>
         </property>
        </widget>
       </item>
@@ -260,7 +260,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>type manifestatie</string>
+         <string>type manifestatie:</string>
         </property>
        </widget>
       </item>

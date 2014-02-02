@@ -469,7 +469,7 @@
     <message>
         <location filename="ui_geopunt4QgisGIPOD.ui" line="208"/>
         <source>stad:</source>
-        <translation>stad:</translation>
+        <translation type="obsolete">stad:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisGIPOD.ui" line="215"/>
@@ -479,7 +479,7 @@
     <message>
         <location filename="ui_geopunt4QgisGIPOD.ui" line="263"/>
         <source>type manifestatie</source>
-        <translation>type manifestatie</translation>
+        <translation type="obsolete">type manifestatie</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisGIPOD.ui" line="273"/>
@@ -495,6 +495,16 @@
         <location filename="ui_geopunt4QgisGIPOD.ui" line="286"/>
         <source>Laagnaam:</source>
         <translation>Laagnaam:</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="208"/>
+        <source>stad of gemeente:</source>
+        <translation>stad of gemeente:</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisGIPOD.ui" line="263"/>
+        <source>type manifestatie:</source>
+        <translation>type manifestatie:</translation>
     </message>
 </context>
 <context>

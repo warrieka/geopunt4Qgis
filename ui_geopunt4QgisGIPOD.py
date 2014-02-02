@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisGIPOD.ui'
 #
-# Created: Sun Feb  2 16:10:53 2014
+# Created: Sun Feb  2 23:02:55 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -201,9 +201,9 @@ class Ui_gipodDlg(object):
         self.startdatumLbl.setText(_translate("gipodDlg", "startdatum:", None))
         self.einddatumLbl.setText(_translate("gipodDlg", "einddatum:", None))
         self.eigenaarLbl.setText(_translate("gipodDlg", "eigenaar: ", None))
-        self.stadLbl.setText(_translate("gipodDlg", "stad:", None))
+        self.stadLbl.setText(_translate("gipodDlg", "stad of gemeente:", None))
         self.extendChk.setText(_translate("gipodDlg", "Beperk zoekresultaten tot huidige extent", None))
-        self.manifestationlbl.setText(_translate("gipodDlg", "type manifestatie", None))
+        self.manifestationlbl.setText(_translate("gipodDlg", "type manifestatie:", None))
         self.laagNaamLbl.setText(_translate("gipodDlg", "Laagnaam:", None))
 
 import resources_rc
