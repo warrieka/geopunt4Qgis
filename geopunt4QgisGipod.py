@@ -55,11 +55,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
 	self.gp = geopunt.gipod(self.timeout)
 	self.gh = geometryhelper.geometryHelper(self.iface)
 	
-	#vars
-	self.outfile = ""
-	self.fType = "ESRI Shapefile"   #default
 	self.data = None
-	
 	
 	#set calenders 
 	now  = date.today()
@@ -81,53 +77,31 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         #eventhandlers
         self.ui.endEdit.dateChanged.connect(self.endEditChanged)
 	self.ui.buttonBox.helpRequested.connect(self.openHelp)
-	self.ui.openFileBtn.clicked.connect(self.openFileClicked)
-	self.ui.outputFile.textChanged.connect(self.updateOutput)
 	self.accepted.connect(self.okClicked )
-	self.finished.connect(self.clean )
+	self.rejected.connect(self.clean )
         
     def loadSettings(self):
       	self.timeout = 15
+      	self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
      
     def endEditChanged(self, senderDate):
 	self.ui.startEdit.setMaximumDate(senderDate)
     
-    def openFileClicked(self):
-	outputFile = self.openOutput()
-	if outputFile:
-	  fName = outputFile
-	  self.ui.outputFile.setText(fName)
-    
-    def updateOutput(self, newText):
-	self.outfile = newText
-    
-    def openOutput(self):
-	fd = QtGui.QFileDialog()
-	filter = "Shape File (*.shp);;geojson (*.geojson);;GML File (*.gml);;Comma separated value File (*.csv)"
-	fName = fd.getSaveFileName( self, "open file" , None, filter)
-	if fName:
-	    return fName
-	else:
-	    return QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", "<tijdeliik bestand>")
-    
     def okClicked(self):
-	outfile = self.outfile
-	
-        #if os.path.exists( os.path.dirname( outfile) ):
-	    #if outfile.upper().endswith('.SHP'):
-		#self.fType = "ESRI Shapefile"
-	    #elif outfile.upper().endswith('.GML'):
-		#self.fType = "GML"  
-	    #elif outfile.upper().endswith('JSON'):
-		#self.fType = "GeoJSON"  
-	    #elif outfile.upper().endswith('.CSV'):
-		#self.fType = "CSV"  
-	#else:
-	  #QMessageBox.warning(self, "Waarschuwing", os.path.dirname( outfile) + " bestaat niet")
-	  #return
+	name= self.ui.lyrName.text()
+	manifestation = self.ui.manifestationRadio.isChecked()
       	self.data = self.fetchGIPOD()
+      	fname, ftype= None , None
+	if self.saveToFile:
+	    fname = gipodHelper.gipodeoHelper.openOutput(self.iface.mainWindow())
+	    if fname:
+	      ftype = gipodHelper.gipodeoHelper.checkFtype(fname)
+	    else:
+	      self.clean()
+	      return
+      	
       	if self.data:
-	   with gipodHelper.gipodWriter( self.iface, "gipod" ,31370 ) as gipodWriter:
+	   with gipodHelper.gipodWriter( self.iface, name , 31370, manifestation, ftype ) as gipodWriter:
 		for row in self.data:
 		    xy = row['coordinate']["coordinates"]
 		    gipodId = int( row["gipodId"] )
@@ -135,10 +109,25 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
 		    description = row["description"]
 		    startDateTime = row["startDateTime"]
 		    endDateTime = row["endDateTime"]
-		    importantHindrance = int(  row["importantHindrance"] )
-		    gipodWriter.writePoint(xy, gipodId, owner, description, startDateTime, endDateTime, importantHindrance )
+		    detail= row["detail"]
+		    importantHindrance = int( row["importantHindrance"] )
+		    cities = row["cities"]
+		    if manifestation:
+		       initiator = row["initiator"]
+		       recurrencePattern = row["recurrencePattern"]
+		    else:
+		       initiator, recurrencePattern = None, None
+		       
+		    gipodWriter.writePoint(xy, gipodId, owner, description, startDateTime, endDateTime,
+			     importantHindrance, detail, cities, initiator, recurrencePattern )
+		if self.saveToFile:
+		    gipodWriter.saveGipod2file(fname,ftype)
       	else:
-	   QMessageBox.warning(self, "Waarschuwing", outfile + " had geen resultaten")
+	   QMessageBox.warning(self,
+		      QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", "Waarschuwing"), 
+		      QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", 
+				  "Deze bevraging had geen resultaten, er werd geen laag aangemaakt"))
+	self.clean()
       	
     def fetchGIPOD(self):
 	 owner= self.ui.ownerCbx.currentText()
@@ -164,4 +153,4 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
 	webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntGIPOD.md")
 	
     def clean(self):
-	self.ui.outputFile.setText("")
+	self.ui.lyrName.setText("GIPOD")

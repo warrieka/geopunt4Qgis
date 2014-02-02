@@ -194,7 +194,7 @@ class geometryHelper:
 	      save = self._saveToFile( sender )
 	      if save:
 		fpath, flType = save
-		error = QgsVectorFileWriter.writeAsVectorFormat(self.poilayer, fpath, "utf-8", None, flType)
+		error = QgsVectorFileWriter.writeAsVectorFormat(self.poilayer, fpath, "utf-8", None, flType, )
 		if error == QgsVectorFileWriter.NoError:
 		    self.poilayer = QgsVectorLayer( fpath , layername, "ogr")
 		    self.poiProvider = self.poilayer.dataProvider()
@@ -219,7 +219,9 @@ class geometryHelper:
         self.canvas.refresh()
 	
     def _saveToFile( self, sender ):
-        filter = "Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Any File (*.*)"
+	'save to file'
+	#filter = "Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
+	filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
         fName = Fdlg.getSaveFileName( sender, "open file" , None, filter)
@@ -227,10 +229,16 @@ class geometryHelper:
 	    ext = os.path.splitext( fName )[1]
 	    if "SHP" in ext.upper():
 		flType = "ESRI Shapefile"
-	    elif "GEOJSON" in ext.upper():
+	    elif "SQLITE" in ext.upper():
+	      flType = "SQLite" 
+	    elif "GEOJSON" in ext.upper():  #no update possible -> hidden
 		flType = "GeoJSON"
 	    elif "GML" in ext.upper():
 		flType = "GML"
+	    elif 'TAB' in ext.upper():
+		flType = 'MapInfo File'
+	    elif 'KML' in ext.upper():
+		flType = 'KML'
 	    else:
 		fName = fName + ".shp"
 		flType = "ESRI Shapefile"

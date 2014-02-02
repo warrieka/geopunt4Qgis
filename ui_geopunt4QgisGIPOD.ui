@@ -281,25 +281,25 @@
     <widget class="QWidget" name="outputWgt" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLineEdit" name="outputFile">
+       <widget class="QLabel" name="laagNaamLbl">
+        <property name="text">
+         <string>Laagnaam:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lyrName">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
-         <string>&lt;tijdeliik bestand&gt;</string>
+         <string notr="true">GIPOD</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
         <property name="placeholderText">
          <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="openFileBtn">
-        <property name="text">
-         <string>Oplaan als</string>
         </property>
        </widget>
       </item>

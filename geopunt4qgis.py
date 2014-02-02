@@ -58,11 +58,11 @@ class geopunt4Qgis:
         # Create the dialogs (after translation) and keep reference
         self.adresdlg = geopunt4QgisAdresDialog(self.iface)
         self.batchgeoDlg = geopunt4QgisBatcGeoCodedialog(self.iface) 
-        self.poiDlg = geopunt4QgisPoidialog(self.iface)
+        self.poiDlg = geopunt4QgisPoidialog(self.iface)        
+        self.gipodDlg = geopunt4QgisGipodDialog(self.iface)
         self.settingsDlg = geopunt4QgisSettingsdialog()
         self.aboutDlg = geopunt4QgisAboutdialog()
-        
-        self.gipodDlg = geopunt4QgisGipodDialog(self.iface)
+
         
     def initGui(self):
         'intialize settings'
@@ -85,42 +85,38 @@ class geopunt4Qgis:
 	        self.iface.mainWindow())
         self.poiAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), 
-	        self.iface.mainWindow())
+	        self.iface.mainWindow())	
+	self.gipodAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntGIPOD.png"),
+                QCoreApplication.translate("geopunt4Qgis" , u"Bevraag GIPOD"), self.iface.mainWindow())
         self.settingsAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntSettings.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())
         self.aboutAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
-	
-	self.gipodAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntGIPOD.png"),
-                QCoreApplication.translate("geopunt4Qgis" , u"Bevraag GIPOD"), self.iface.mainWindow())
 	
         # connect the action to the run method
         self.adresAction.triggered.connect(self.runAdresDlg)
         self.reverseAction.triggered.connect(self.reverse)
         self.batchAction.triggered.connect(self.runBatch)
         self.poiAction.triggered.connect(self.runPoiDlg)
+        self.gipodAction.triggered.connect(self.runGipod)
         self.settingsAction.triggered.connect(self.runSettingsDlg)
         self.aboutAction.triggered.connect(self.runAbout)
         
-        self.gipodAction.triggered.connect(self.runGipod)
-
         # Add to toolbar button
         self.iface.addToolBarIcon(self.adresAction)
         self.iface.addToolBarIcon(self.reverseAction)
         self.iface.addToolBarIcon(self.batchAction)
-        self.iface.addToolBarIcon(self.poiAction)
-        
+        self.iface.addToolBarIcon(self.poiAction)        
         self.iface.addToolBarIcon(self.gipodAction)
         
         # Add to Menu
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.reverseAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.batchAction)
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.poiAction)
+        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.poiAction)        
+        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.gipodAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
-        
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.gipodAction)
 
     def unload(self):
         ' Remove the plugin menu items and icons'
@@ -134,7 +130,6 @@ class geopunt4Qgis:
         self.iface.removeToolBarIcon(self.batchAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.aboutAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.settingsAction)
-        
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.gipodAction)
         self.iface.removeToolBarIcon(self.gipodAction)
 
@@ -150,31 +145,32 @@ class geopunt4Qgis:
         result = self.settingsDlg.exec_()
         if result:
 	        self.loadSettings()
-	        self.adresdlg.loadSettings()
-	        self.poiDlg.loadSettings()
-	        self.batchgeoDlg.loadSettings()
-        
+	        
     def runAdresDlg(self):
         ' show the dialog'
         self.adresdlg.show()
+        self.adresdlg.loadSettings()
         # Run the dialog event loop
         self.adresdlg.exec_()
         
     def runPoiDlg(self):
 	'show the dialog'
         self.poiDlg.show()
+        self.poiDlg.loadSettings()
         # Run the dialog event loop
         self.poiDlg.exec_()
   
     def runGipod(self):
 	'show the dialog'
 	self.gipodDlg.show()
+	self.gipodDlg.loadSettings()
 	# Run the dialog event loop
         self.gipodDlg.exec_()
   
     def runBatch(self):
         'show the dialog'
         self.batchgeoDlg.show()
+        self.batchgeoDlg.loadSettings()
         # Run the dialog event loop
         self.batchgeoDlg.exec_()
 	  

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisGIPOD.ui'
 #
-# Created: Sat Feb  1 14:29:03 2014
+# Created: Sun Feb  2 16:10:53 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -156,15 +156,16 @@ class Ui_gipodDlg(object):
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.outputWgt)
         self.horizontalLayout_2.setMargin(0)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.outputFile = QtGui.QLineEdit(self.outputWgt)
-        self.outputFile.setEnabled(False)
-        self.outputFile.setAlignment(QtCore.Qt.AlignCenter)
-        self.outputFile.setPlaceholderText(_fromUtf8(""))
-        self.outputFile.setObjectName(_fromUtf8("outputFile"))
-        self.horizontalLayout_2.addWidget(self.outputFile)
-        self.openFileBtn = QtGui.QPushButton(self.outputWgt)
-        self.openFileBtn.setObjectName(_fromUtf8("openFileBtn"))
-        self.horizontalLayout_2.addWidget(self.openFileBtn)
+        self.laagNaamLbl = QtGui.QLabel(self.outputWgt)
+        self.laagNaamLbl.setObjectName(_fromUtf8("laagNaamLbl"))
+        self.horizontalLayout_2.addWidget(self.laagNaamLbl)
+        self.lyrName = QtGui.QLineEdit(self.outputWgt)
+        self.lyrName.setEnabled(True)
+        self.lyrName.setText(_fromUtf8("GIPOD"))
+        self.lyrName.setAlignment(QtCore.Qt.AlignCenter)
+        self.lyrName.setPlaceholderText(_fromUtf8(""))
+        self.lyrName.setObjectName(_fromUtf8("lyrName"))
+        self.horizontalLayout_2.addWidget(self.lyrName)
         self.verticalLayout.addWidget(self.outputWgt)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
@@ -203,7 +204,6 @@ class Ui_gipodDlg(object):
         self.stadLbl.setText(_translate("gipodDlg", "stad:", None))
         self.extendChk.setText(_translate("gipodDlg", "Beperk zoekresultaten tot huidige extent", None))
         self.manifestationlbl.setText(_translate("gipodDlg", "type manifestatie", None))
-        self.outputFile.setText(_translate("gipodDlg", "<tijdeliik bestand>", None))
-        self.openFileBtn.setText(_translate("gipodDlg", "Oplaan als", None))
+        self.laagNaamLbl.setText(_translate("gipodDlg", "Laagnaam:", None))
 
 import resources_rc

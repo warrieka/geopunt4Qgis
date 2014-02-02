@@ -87,7 +87,7 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	batchLayerText = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
 	self.ui.batchLayerTxt.setText(batchLayerText)
 	
-	batchMaxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
+	batchMaxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 500 ))
 	self.ui.maxRowsSpinBox.setValue(batchMaxRows)	
 	
 	#geopunt4QgisPoiDialog settings
@@ -99,6 +99,13 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	
 	poilayerText =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
 	self.ui.poiLayerTxt.setText(poilayerText)
+	
+	#gipod settngs
+	gipodSavetoFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
+	self.ui.gipodSavetoFileChk.setChecked(poiSavetoFile)
+	
+	gipodSaveMemory = int( self.s.value("geopunt4qgis/gipodSaveMemory" , 0))
+	self.ui.gipodSaveMemoryChk.setChecked(poiSaveMemory)
 	
     def saveSettings(self):
 	'save geopunt4QgisAdresDialog settings'
@@ -149,3 +156,10 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	
 	poiLayerText =  self.ui.poiLayerTxt.text()
 	self.s.setValue("geopunt4qgis/poiLayerText", poiLayerText)
+	
+	#gipod settings
+	gipodSavetoFile = int( self.ui.gipodSavetoFileChk.isChecked())
+	self.s.setValue("geopunt4qgis/gipodSavetoFile" , gipodSavetoFile)
+	
+	gipodSaveMemory = int( self.ui.gipodSaveMemoryChk.isChecked())
+	self.s.setValue("geopunt4qgis/gipodSaveMemory" , gipodSaveMemory)

@@ -260,7 +260,7 @@ class gipod:
 	xmin,ymin,xmax,ymax = bbox
 	xymin = str(xmin) +','+ str(ymin)
 	xymax = str(xmax) +','+ str(ymax)
-	data["bbox"] = '|'.join(xymin,xymax)
+	data["bbox"] = '|'.join([xymin,xymax])
       values = urllib.urlencode(data)
       result = endpoint + values
       return result
@@ -312,7 +312,7 @@ class gipod:
 	xmin,ymin,xmax,ymax = bbox
 	xymin = str(xmin) +','+ str(ymin)
 	xymax = str(xmax) +','+ str(ymax)
-	data["bbox"] = '|'.join(xymin,xymax)
+	data["bbox"] = '|'.join([xymin,xymax])
       values = urllib.urlencode(data)
       result = endpoint + values
       return result
