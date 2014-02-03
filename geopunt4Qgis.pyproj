@@ -19,12 +19,35 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="build\geopunt4Qgis.zip" />
+    <Content Include="data\binoculars.png" />
+    <Content Include="data\binocularsSmall.png" />
     <Content Include="data\gemeentenVL.json" />
+    <Content Include="data\geopunt.png" />
+    <Content Include="data\geopuntAddress.png" />
+    <Content Include="data\geopuntAddressSmall.png" />
+    <Content Include="data\geopuntBatchgeocode.png" />
+    <Content Include="data\geopuntBatchgeocodeSmall.png" />
+    <Content Include="data\geopuntGIPOD.png" />
+    <Content Include="data\geopuntGIPODsmall.png" />
+    <Content Include="data\geopuntIcoTemplate.png" />
+    <Content Include="data\geopuntPoi.png" />
+    <Content Include="data\geopuntPoiSmall.png" />
+    <Content Include="data\geopuntReverse.png" />
+    <Content Include="data\geopuntReverseSmall.png" />
+    <Content Include="data\geopuntSettings.png" />
+    <Content Include="data\geopuntSettingsSmall.png" />
+    <Content Include="data\geopuntSmal.png" />
+    <Content Include="data\logogeopunt.png" />
+    <Content Include="data\logogeopunt4Q.png" />
+    <Content Include="data\osm.png" />
     <Content Include="data\POIthema.json" />
     <Content Include="data\POIType.json" />
+    <Content Include="data\prik.png" />
+    <Content Include="data\qgis-icon-16x16.png" />
+    <Content Include="data\select.png" />
+    <Content Include="data\validAll.png" />
     <Content Include="i18n\geopunt4qgis_en.ts" />
     <Content Include="i18n\geopunt4qgis_nl.ts" />
-    <Content Include="images\all.png" />
     <Content Include="images\geopuntBatchgeocode.png" />
     <Content Include="images\geopuntBatchgeocodeSmall.png" />
     <Content Include="images\geopuntSettings.png" />
@@ -76,12 +99,14 @@
       <Publish>True</Publish>
     </Compile>
     <Compile Include="geopunt4QgisBatchGeoCode.py" />
+    <Compile Include="geopunt4QgisGipod.py" />
     <Compile Include="geopunt4QgisPoidialog.py">
       <Publish>True</Publish>
     </Compile>
     <Compile Include="geopunt4QgisSettingsdialog.py">
       <Publish>True</Publish>
     </Compile>
+    <Compile Include="gipodHelper.py" />
     <Compile Include="resources.py" />
     <Compile Include="resources_rc.py">
       <Publish>True</Publish>
@@ -96,6 +121,7 @@
       <Publish>True</Publish>
     </Compile>
     <Compile Include="ui_geopunt4QgisBatchGeoCode.py" />
+    <Compile Include="ui_geopunt4QgisGIPOD.py" />
     <Compile Include="ui_geopunt4QgisPoi.py">
       <Publish>True</Publish>
     </Compile>
