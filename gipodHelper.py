@@ -110,11 +110,10 @@ class gipodWriter:
         if fpath and os.path.exists(fpath):          
             error = QgsVectorFileWriter.writeAsVectorFormat(self.gipodlayer , filename, "utf-8", self.gipodlayer.crs(), ftype, layerOptions= layerOptions, datasourceOptions= datasourceOptions )
             if error == QgsVectorFileWriter.NoError:
-                if ftype == "CSV": pass        #TODO figure out whats wrong here
-                    #try:
-                    #    uri = "%s?delimiter=%s&xField=%s&yField=%s" % ( filename, ";", "X", "Y")
-                    #    self.gipodlayer = QgsVectorLayer(uri, self.layername, "delimitedtext")
-                    #except: pass
+                if ftype == "CSV": 
+		    uri =( "file:///%s?delimiter=%s&xField=%s&yField=%s&crs=%s" % ( 
+				    filename, ";", "X", "Y", self.gipodlayer.crs().authid()) ).replace("\\","/")
+		    self.gipodlayer = QgsVectorLayer(uri, self.layername, "delimitedtext")
                 else:
                     self.gipodlayer = QgsVectorLayer( filename, self.layername, "ogr")
                     self.gipodProvider = self.gipodlayer.dataProvider()
