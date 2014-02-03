@@ -82,7 +82,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.finished.connect(self.clean )
 	
     def loadSettings(self):
-        self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 0))
+        self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 1))
         self.layerName =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
         self.timeout = 15
 	

@@ -68,20 +68,20 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	self.ui.adresLayerTxt.setText(adreslayerText)
 	
 	#geopunt4Qgis ReverseAdres Settings
-	reverseSavetoFile = int( self.s.value("geopunt4qgis/reverseSavetoFile", 0))
+	reverseSavetoFile = int( self.s.value("geopunt4qgis/reverseSavetoFile", 1))
 	self.ui.reverseSavetoFileChk.setChecked(reverseSavetoFile)
 	
-	reverseSaveMemory = int( self.s.value("geopunt4qgis/reverseSaveMemory", 1))
+	reverseSaveMemory = int( self.s.value("geopunt4qgis/reverseSaveMemory", 0))
 	self.ui.reverseSaveMemoryChk.setChecked(reverseSaveMemory)
 	
 	reverseLayerText =  self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
 	self.ui.reverseLayerTxt.setText(reverseLayerText)
 	
 	#batchGeoCode
-	batchGeoCodeSavetoFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 0))
+	batchGeoCodeSavetoFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
 	self.ui.batchSavetoFileChk.isChecked()
 	
-	batchGeoCodeSavetoMemory = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoMemory", 1))
+	batchGeoCodeSavetoMemory = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoMemory", 0))
 	self.ui.batchSaveMemoryChk.setChecked(batchGeoCodeSavetoMemory)
 	
 	batchLayerText = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
@@ -91,10 +91,10 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	self.ui.maxRowsSpinBox.setValue(batchMaxRows)	
 	
 	#geopunt4QgisPoiDialog settings
-	poiSavetoFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 0))
+	poiSavetoFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 1))
 	self.ui.poiSavetoFileChk.setChecked(poiSavetoFile)
 	
-	poiSaveMemory = int( self.s.value("geopunt4qgis/poiSaveMemory" , 1))
+	poiSaveMemory = int( self.s.value("geopunt4qgis/poiSaveMemory" , 0))
 	self.ui.poiSaveMemoryChk.setChecked(poiSaveMemory)
 	
 	poilayerText =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")

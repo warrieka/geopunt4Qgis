@@ -28,7 +28,7 @@ class gipodeoHelper:
     @staticmethod
     def openOutput(sender=None):
         fd = QFileDialog()
-        filter = "ESRI Shape File (*.shp);;geojson (*.geojson);;GML File (*.gml);;MapInfo TAB (*.tab);;SpatiaLite (*.sqlite);;KML (google earth) (*.kml);;Comma separated value File (excel) (*.csv)"
+        filter = "Comma separated value File (excel) (*.csv);;ESRI Shape File (*.shp);;geojson (*.geojson);;GML File (*.gml);;MapInfo TAB (*.tab);;SpatiaLite (*.sqlite);;KML (google earth) (*.kml)"
         fName = fd.getSaveFileName( sender, "open file" , None, filter)
         if fName:
             return fName
