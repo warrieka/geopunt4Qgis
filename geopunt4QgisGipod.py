@@ -64,22 +64,26 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
 	self.ui.startEdit.setDate(now)
 	self.ui.startEdit.setMaximumDate( self.ui.endEdit.date() )
 	
-	if geopunt.internet_on() :
+        #eventhandlers
+        self.ui.endEdit.dateChanged.connect(self.endEditChanged)
+	self.ui.buttonBox.helpRequested.connect(self.openHelp)
+	self.accepted.connect(self.okClicked )
+	self.rejected.connect(self.clean )
+    
+    
+    def show(self):
+	#'exend show to load data'
+	#if gipodHelper.internet_on() :
 	    #populate combo's
 	    self.ui.provinceCbx.addItems([""] + self.gp.getProvince())
 	    self.ui.cityCbx.addItems([""] + self.gp.getCity())
 	    self.ui.ownerCbx.addItems([""] + self.gp.getOwner())
 	    self.ui.eventCbx.addItems([""] + self.gp.getEventType())
 	    
-	else:
-	    self.ui.mgsBox.setText( "<div style='color:red'>%s</div>" %  QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", 
-		  "<strong>Waarschuwing: </strong>kan niet verbinden met internet"))
-        #eventhandlers
-        self.ui.endEdit.dateChanged.connect(self.endEditChanged)
-	self.ui.buttonBox.helpRequested.connect(self.openHelp)
-	self.accepted.connect(self.okClicked )
-	self.rejected.connect(self.clean )
-        
+	#else:
+	    #self.ui.mgsBox.setText( "<div style='color:red'>%s</div>" %  QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", 
+		  #"<strong>Waarschuwing: </strong>kan niet verbinden met internet"))
+    
     def loadSettings(self):
       	self.timeout = 15
       	self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))

@@ -132,7 +132,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	        if loc and loc.__class__ is list:
 		        xylb =  ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
 		        xyType = loc[0]["LocationType"]
-		        xymap = self.batcGeoHelper.prjPtToMapCrs(xylb, 31370)
+		        xymap = self.gh.prjPtToMapCrs(xylb, 31370)
 		        self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, 
 						        layername=self.layerName )
 	        elif loc.__class__ is str:
@@ -372,7 +372,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
 	        loc = self.gp.fetchLocation(adres,1)
 	        if loc and loc.__class__ is list:
 		    xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
-		    xyMap = self.batcGeoHelper.prjPtToMapCrs(xylb, 31370)
+		    xyMap = self.gh.prjPtToMapCrs(xylb, 31370)
 		    pts.append(xyMap)
 		    graphic = self.gh.addPointGraphic(xyMap)
 		    self.graphicsLayer.append(graphic)

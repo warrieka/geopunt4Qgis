@@ -348,7 +348,7 @@ class geopuntError(Exception):
 	  
 def internet_on(timeout=15):
     try:
-	    response=urllib2.urlopen('http://loc.api.geopunt.be',timeout=timeout)
+	    response=urllib2.urlopen('http://loc.api.geopunt.be/geolocation/Location?q=qq',timeout=timeout)
 	    return True
     except: 
 	    return False
