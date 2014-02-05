@@ -57,6 +57,8 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
 	
 	self.data = None
 	
+	self.firstShow = True
+	
 	#set calenders 
 	now  = date.today()
 	self.ui.endEdit.setDate(now + timedelta(30) )
@@ -72,17 +74,24 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
     
     
     def show(self):
-	#'exend show to load data'
-	#if gipodHelper.internet_on() :
+      if  self.firstShow:
+	'exend show to load data'
+	internet = gipodHelper.internet_on()
+	if internet:
 	    #populate combo's
+	    self.ui.provinceCbx.clear()
 	    self.ui.provinceCbx.addItems([""] + self.gp.getProvince())
+	    self.ui.cityCbx.clear()
 	    self.ui.cityCbx.addItems([""] + self.gp.getCity())
+	    self.ui.ownerCbx.clear()
 	    self.ui.ownerCbx.addItems([""] + self.gp.getOwner())
+	    self.ui.eventCbx.clear()
 	    self.ui.eventCbx.addItems([""] + self.gp.getEventType())
 	    
-	#else:
-	    #self.ui.mgsBox.setText( "<div style='color:red'>%s</div>" %  QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", 
-		  #"<strong>Waarschuwing: </strong>kan niet verbinden met internet"))
+	    self.firstShow = False
+	elif not internet:
+	    self.ui.mgsBox.setText( "<div style='color:red'>%s</div>" %  QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", 
+		  "<strong>Waarschuwing: </strong>kan niet verbinden met internet"))
     
     def loadSettings(self):
       	self.timeout = 15

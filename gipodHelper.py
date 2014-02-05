@@ -19,7 +19,7 @@ gipodeoHelper
 *                                                                         *
 ***************************************************************************/
 """
-import os.path, datetime
+import os.path, datetime, urllib2
 from PyQt4.QtCore import *
 from PyQt4.QtGui import QFileDialog, QColor
 from qgis.core import *
