@@ -51,7 +51,18 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	self.rejected.connect(self.loadSettings)
 	
     def loadSettings(self):
-	"geopunt4QgisAdresDialog settings"
+        'geopunt4Qgis settings'
+        #General
+        proxyHost = self.s.value("geopunt4qgis/proxyHost" ,"")
+        self.ui.hostTxt.setText(proxyHost)
+        
+        proxyPort = self.s.value("geopunt4qgis/proxyPort" ,"")
+        self.ui.portTxt.setText(proxyPort)
+        
+        timeout = int(  self.s.value("geopunt4qgis/timeout" ,15))
+        self.ui.timeOutBox.setValue(timeout)
+      
+	#geopunt4QgisAdresDialog settings
 	adresSearchOnEdit = int( self.s.value("geopunt4qgis/adresSearchOnEdit" , 1))
 	self.ui.adresSearchOnEditChk.setChecked(adresSearchOnEdit)
 	
@@ -108,7 +119,18 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
 	self.ui.gipodSaveMemoryChk.setChecked(poiSaveMemory)
 	
     def saveSettings(self):
-	'save geopunt4QgisAdresDialog settings'
+        'save all settings to registry'
+        #General
+	proxyHost = self.ui.hostTxt.text()
+	self.s.setValue("geopunt4qgis/proxyHost", proxyHost)
+	
+	proxyPort = self.ui.portTxt.text()
+        self.s.setValue("geopunt4qgis/proxyPort" , proxyPort)
+        
+	timeout =  self.ui.timeOutBox.value()
+	self.s.setValue("geopunt4qgis/timeout" , timeout )
+	
+	#'save geopunt4QgisAdresDialog settings'
 	adresSearchOnEdit = int( self.ui.adresSearchOnEditChk.isChecked())
 	self.s.setValue("geopunt4qgis/adresSearchOnEdit" , adresSearchOnEdit)
 	

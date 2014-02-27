@@ -58,7 +58,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
         self.headers = None
         self.graphicsLayer = []
         self.reverseAdresTool = None
-        self.gp = geopunt.Adres(self.timeout)
+        self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
         self.batcGeoHelper = batcGeoHelper(self.iface, self)
         self.gh = geometryhelper.geometryHelper(self.iface)
 	
@@ -90,11 +90,13 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
         self.finished.connect(self.clean)
 	
     def loadSettings(self): 
-	    self.maxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
-	    self.saveToFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
-	    self.layerName = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
-	    self.timeout = 15
-	    self.retrys = 3
+	self.maxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
+	self.saveToFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
+	self.layerName = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
+	self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
+	self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+	self.retrys = 3
 
     def openHelp(self):
 	webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntBatchgeocode.md")

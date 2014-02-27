@@ -52,7 +52,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
 	self.s = QtCore.QSettings()
 	self.loadSettings()
 	
-	self.gp = geopunt.gipod(self.timeout)
+	self.gp = geopunt.gipod(self.timeout, self.proxy, self.port)
 	self.gh = geometryhelper.geometryHelper(self.iface)
 	
 	self.data = None
@@ -87,6 +87,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
 	    self.ui.ownerCbx.addItems([""] + self.gp.getOwner())
 	    self.ui.eventCbx.clear()
 	    self.ui.eventCbx.addItems([""] + self.gp.getEventType())
+	    self.ui.mgsBox.setText('')
 	    
 	    self.firstShow = False
 	elif not internet:
@@ -94,8 +95,10 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
 		  "<strong>Waarschuwing: </strong>kan niet verbinden met internet"))
     
     def loadSettings(self):
-      	self.timeout = 15
+      	self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
       	self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
+	self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
      
     def endEditChanged(self, senderDate):
 	self.ui.startEdit.setMaximumDate(senderDate)

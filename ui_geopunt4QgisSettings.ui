@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
-    <height>424</height>
+    <width>463</width>
+    <height>466</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -25,17 +25,113 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QToolBox" name="settingsTab">
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
+     <widget class="QWidget" name="generalTab">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>445</width>
+        <height>244</height>
+       </rect>
+      </property>
+      <attribute name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png</iconset>
+      </attribute>
+      <attribute name="label">
+       <string>Algemeen</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout_2">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+       </property>
+       <item row="0" column="0" colspan="2">
+        <widget class="QGroupBox" name="networkSettings">
+         <property name="title">
+          <string>Netwerk -  Proxy</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Host:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="hostTxt">
+            <property name="placeholderText">
+             <string>http://yourProxy</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="portTxt">
+            <property name="placeholderText">
+             <string>bv: 8080</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Poort:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Herstart qgis om deze instellingen te gebruiken.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Timeout: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QSpinBox" name="timeOutBox">
+         <property name="suffix">
+          <string> seconden</string>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>300</number>
+         </property>
+         <property name="value">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="adresTab">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>403</width>
-        <height>230</height>
+        <width>440</width>
+        <height>232</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -131,8 +227,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>403</width>
-        <height>230</height>
+        <width>440</width>
+        <height>232</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -199,8 +295,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>403</width>
-        <height>230</height>
+        <width>440</width>
+        <height>232</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -301,8 +397,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>403</width>
-        <height>230</height>
+        <width>440</width>
+        <height>232</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -369,8 +465,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>403</width>
-        <height>230</height>
+        <width>440</width>
+        <height>232</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -431,19 +527,15 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
      </property>
     </widget>
    </item>

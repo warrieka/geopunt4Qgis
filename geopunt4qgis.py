@@ -71,7 +71,7 @@ class geopunt4Qgis:
         self.loadSettings()
         
         #geopunt adres and geometry object
-        self.adres = geopunt.Adres(self.timeout)
+        self.adres = geopunt.Adres(self.timeout, self.proxy, self.port)
         self.gh = geometryhelper.geometryHelper(self.iface)
 
         # Create actions that will start plugin configuration
@@ -136,7 +136,9 @@ class geopunt4Qgis:
     def loadSettings(self):
         self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
         self.layerName_reverse = self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
-        self.timeout = 15
+        self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
+	self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
         
     def runSettingsDlg(self):
         ' show the dialog'

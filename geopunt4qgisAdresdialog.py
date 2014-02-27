@@ -51,7 +51,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
 	self.loadSettings()
     
 	#setup geopunt and geometryHelper objects
-	self.gp = geopunt.Adres(self.timeout)
+	self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
 	self.gh = gh.geometryHelper(self.iface)
     
 	#create graphicsLayer
@@ -88,7 +88,9 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 1))
         self.layerName =  self.s.value("geopunt4qgis/adreslayerText", "geopunt_adres")
         self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
-        self.timeout = 15
+        self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
+        self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
         
     def openHelp(self):
 	webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntAddress.md")

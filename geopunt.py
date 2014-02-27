@@ -20,12 +20,17 @@
  ***************************************************************************/
 """
 import urllib2, urllib, json, sys, os.path, datetime
-
+##from urlparse import urlparse
 class Adres:
-  def __init__(self, timeout=15):
+  def __init__(self, timeout=15, proxyUrl="", port="" ):
     self.timeout = timeout
     self._locUrl = "http://loc.api.geopunt.be/geolocation/Location?"
     self._sugUrl = "http://loc.api.geopunt.be/geolocation/Suggestion?"
+    if (proxyUrl <> "")  & proxyUrl.startswith("http://"):
+       netLoc = proxyUrl.strip() + ":" + port
+       proxy = urllib2.ProxyHandler({'http': netLoc })
+       opener = urllib2.build_opener(proxy)
+       urllib2.install_opener(opener)
 
   def _createLocationUrl(self, q, c=1):
       geopuntUrl = self._locUrl
@@ -82,10 +87,16 @@ class Adres:
 	    return suggestion["SuggestionResult"]
 
 class Poi:
-  def __init__(self, timeout=15):
+  def __init__(self, timeout=15, proxyUrl="", port=""):
       self.timeout = timeout
       self._poiUrl = "http://poi.api.geopunt.be/core?"
       self.resultCount = 0
+      
+      if (proxyUrl <> "")  & proxyUrl.startswith("http://"):
+	 netLoc = proxyUrl.strip() + ":" + port
+	 proxy = urllib2.ProxyHandler({'http': netLoc })
+	 opener = urllib2.build_opener(proxy)
+	 urllib2.install_opener(opener)
       
       #maxBounds srs 31370: x between 17736 and 297289, y between 23697 and 245375 
       #TODO: What if no Lambert coordinates as input???
@@ -181,9 +192,15 @@ class Poi:
       return [ minX, minY, maxX, maxY]
 
 class gipod:
-  def __init__(self, timeout=15):
+  def __init__(self, timeout=15, proxyUrl="", port="" ):
       self.timeout = timeout
       self.baseUri = 'http://gipod.api.agiv.be/ws/v1/'
+      
+      if (proxyUrl <> "") & proxyUrl.startswith("http://"):
+	 netLoc = proxyUrl.strip() + ":" + port
+	 proxy = urllib2.ProxyHandler({'http': netLoc })
+	 opener = urllib2.build_opener(proxy)
+	 urllib2.install_opener(opener)
   
   def getCity(self, q="" ):
       query = urllib.quote(q)

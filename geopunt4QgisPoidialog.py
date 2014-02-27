@@ -52,7 +52,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.loadSettings()
 
         #setup geopunt and geometryHelper objects
-        self.poi = geopunt.Poi(self.timeout)
+        self.poi = geopunt.Poi(self.timeout, self.proxy, self.port)
         self.gh = gh.geometryHelper(self.iface)
         
         #create the graphicsLayer
@@ -84,7 +84,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 1))
         self.layerName =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
-        self.timeout = 15
+        self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
+	self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
 	
     def openHelp(self):
 	webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntPoi.md")
