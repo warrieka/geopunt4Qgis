@@ -78,11 +78,12 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
 	'exend show to load data'
 	internet = gipodHelper.internet_on()
 	if internet:
+	    gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
 	    #populate combo's
 	    self.ui.provinceCbx.clear()
-	    self.ui.provinceCbx.addItems([""] + self.gp.getProvince())
+	    self.ui.provinceCbx.addItems(["","Antwerpen","Limburg","Oost-Vlaanderen","Vlaams-Brabant","West-Vlaanderen"])
 	    self.ui.cityCbx.clear()
-	    self.ui.cityCbx.addItems([""] + self.gp.getCity())
+	    self.ui.cityCbx.addItems([n["Naam"] for n in gemeentes])
 	    self.ui.ownerCbx.clear()
 	    self.ui.ownerCbx.addItems([""] + self.gp.getOwner())
 	    self.ui.eventCbx.clear()
