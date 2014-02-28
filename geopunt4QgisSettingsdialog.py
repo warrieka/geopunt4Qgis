@@ -53,11 +53,12 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
     def loadSettings(self):
         'geopunt4Qgis settings'
         #General
-        proxyHost = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.ui.hostTxt.setText(proxyHost)
-        
-        proxyPort = self.s.value("geopunt4qgis/proxyPort" ,"")
-        self.ui.portTxt.setText(proxyPort)
+        if self.ui.proxyChk.isChecked():
+	    proxyHost = self.s.value("geopunt4qgis/proxyHost" ,"")
+	    self.ui.hostTxt.setText(proxyHost)
+	    
+	    proxyPort = self.s.value("geopunt4qgis/proxyPort" ,"")
+	    self.ui.portTxt.setText(proxyPort)
         
         timeout = int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.ui.timeOutBox.setValue(timeout)
@@ -121,12 +122,15 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
     def saveSettings(self):
         'save all settings to registry'
         #General
-	proxyHost = self.ui.hostTxt.text()
-	self.s.setValue("geopunt4qgis/proxyHost", proxyHost)
-	
-	proxyPort = self.ui.portTxt.text()
-        self.s.setValue("geopunt4qgis/proxyPort" , proxyPort)
-        
+	if self.ui.proxyChk.isChecked():
+	    proxyHost = self.ui.hostTxt.text()
+	    self.s.setValue("geopunt4qgis/proxyHost", proxyHost)
+	    proxyPort = self.ui.portTxt.text()
+	    self.s.setValue("geopunt4qgis/proxyPort" , proxyPort)
+	else:
+	    self.s.setValue("geopunt4qgis/proxyHost", "")
+	    self.s.setValue("geopunt4qgis/proxyPort" , "")
+	  
 	timeout =  self.ui.timeOutBox.value()
 	self.s.setValue("geopunt4qgis/timeout" , timeout )
 	

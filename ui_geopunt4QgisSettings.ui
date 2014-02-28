@@ -47,7 +47,7 @@
       </property>
       <attribute name="icon">
        <iconset resource="resources.qrc">
-        <normaloff>:/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png</iconset>
+        <normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntSmal.png</iconset>
       </attribute>
       <attribute name="label">
        <string>Algemeen</string>
@@ -61,16 +61,28 @@
          <property name="title">
           <string>Netwerk -  Proxy</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
          <layout class="QFormLayout" name="formLayout">
           <item row="1" column="0">
            <widget class="QLabel" name="label_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
-             <string>Host:</string>
+             <string>Host: </string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="hostTxt">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="placeholderText">
              <string>http://yourProxy</string>
             </property>
@@ -78,6 +90,9 @@
           </item>
           <item row="2" column="1">
            <widget class="QLineEdit" name="portTxt">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="placeholderText">
              <string>bv: 8080</string>
             </property>
@@ -94,6 +109,13 @@
            <widget class="QLabel" name="label_7">
             <property name="text">
              <string>Herstart qgis om deze instellingen te gebruiken.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QCheckBox" name="proxyChk">
+            <property name="text">
+             <string>Netwerk proxy gebruiken</string>
             </property>
            </widget>
           </item>
@@ -130,8 +152,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>440</width>
-        <height>232</height>
+        <width>445</width>
+        <height>244</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -227,8 +249,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>440</width>
-        <height>232</height>
+        <width>445</width>
+        <height>244</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -295,8 +317,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>440</width>
-        <height>232</height>
+        <width>445</width>
+        <height>244</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -397,8 +419,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>440</width>
-        <height>232</height>
+        <width>445</width>
+        <height>244</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -465,8 +487,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>440</width>
-        <height>232</height>
+        <width>445</width>
+        <height>244</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -574,6 +596,38 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>proxyChk</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>hostTxt</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>231</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>250</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>proxyChk</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>portTxt</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>231</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>250</x>
+     <y>141</y>
     </hint>
    </hints>
   </connection>
