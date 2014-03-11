@@ -130,10 +130,16 @@ class geometryHelper:
 	#  set id, add to map, Labels on, refresh
 	self.adreslayerid = self.adreslayer.id()
 	QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
-	label = self.adreslayer.label()
-	labelField = self.adresProvider.fieldNameMap()["adres"]
-	label.setLabelField(QgsLabel.Text, labelField)
-	self.adreslayer.enableLabels(True)
+	
+	#labels
+	palyr = QgsPalLayerSettings() 
+	palyr.readFromLayer( self.adreslayer ) 
+	palyr.enabled = True 
+	palyr.fieldName = 'adres' 
+	palyr.placement= QgsPalLayerSettings.Free 
+	palyr.setDataDefinedProperty(QgsPalLayerSettings.Size,True,True,'8','') 
+	palyr.writeToLayer( self.adreslayer ) 
+	
 	self.canvas.refresh()
         
     def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None, sender=None ):
@@ -206,10 +212,13 @@ class geometryHelper:
 		return 
 
 	# add Labels
-	label = self.poilayer.label()   
-	labelField = self.poiProvider.fieldNameMap()["name"]
-	label.setLabelField(QgsLabel.Text, labelField) 
-	self.poilayer.enableLabels(True) 
+	palyr = QgsPalLayerSettings() 
+	palyr.readFromLayer( self.poilayer ) 
+	palyr.enabled = True 
+	palyr.fieldName = 'name' 
+	palyr.placement= QgsPalLayerSettings.Free 
+	palyr.setDataDefinedProperty(QgsPalLayerSettings.Size,True,True,'8','') 
+	palyr.writeToLayer( self.poilayer ) 
 	
 	# add layer if not already
 	QgsMapLayerRegistry.instance().addMapLayer(self.poilayer)
