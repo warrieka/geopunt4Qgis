@@ -253,7 +253,8 @@ class gipod:
 	  owner = json.load(response)
 	  return owner
 
-  def _createWorkassignmentUrl(self, owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
+  def _createWorkassignmentUrl(self, owner="", startdate=None, enddate=None, city="", 
+			       province="", srs=31370, bbox=[], c=50, offset=0 ):
       "startdate and enddate are datetime.date\n bbox is [xmin,ymin,xmax,ymax]"
       endpoint = self.baseUri + 'workassignment?'
       data = {}
@@ -305,7 +306,8 @@ class gipod:
 	  wAlen = len(wA)
       return wAs
 
-  def _createManifestationUrl(self, owner="", eventtype="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
+  def _createManifestationUrl(self, owner="", eventtype="", startdate=None, enddate=None, 
+			      city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
       endpoint = self.baseUri + "manifestation?"
       data = {}
       data['limit'] = c
