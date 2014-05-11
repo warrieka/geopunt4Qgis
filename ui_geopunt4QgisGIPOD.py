@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisGIPOD.ui'
 #
-# Created: Mon Feb  3 22:24:24 2014
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Mon May  5 20:07:47 2014
+#      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 

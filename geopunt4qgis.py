@@ -86,13 +86,13 @@ class geopunt4Qgis:
         self.poiAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), 
 	        self.iface.mainWindow())	
-	self.gipodAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntGIPOD.png"),
+        self.gipodAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntGIPOD.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Bevraag GIPOD"), self.iface.mainWindow())
         self.settingsAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntSettings.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())
         self.aboutAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
-	
+ 
         # connect the action to the run method
         self.adresAction.triggered.connect(self.runAdresDlg)
         self.reverseAction.triggered.connect(self.reverse)
@@ -137,7 +137,7 @@ class geopunt4Qgis:
         self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
         self.layerName_reverse = self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-	self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+        self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
         
     def runSettingsDlg(self):
@@ -146,8 +146,8 @@ class geopunt4Qgis:
         # Run the dialog event loop
         result = self.settingsDlg.exec_()
         if result:
-	        self.loadSettings()
-	        
+            self.loadSettings()
+            
     def runAdresDlg(self):
         ' show the dialog'
         self.adresdlg.show()
@@ -156,17 +156,17 @@ class geopunt4Qgis:
         self.adresdlg.exec_()
         
     def runPoiDlg(self):
-	'show the dialog'
+        'show the dialog'
         self.poiDlg.show()
         self.poiDlg.loadSettings()
         # Run the dialog event loop
         self.poiDlg.exec_()
   
     def runGipod(self):
-	'show the dialog'
-	self.gipodDlg.show()
-	self.gipodDlg.loadSettings()
-	# Run the dialog event loop
+        'show the dialog'
+        self.gipodDlg.show()
+        self.gipodDlg.loadSettings()
+        # Run the dialog event loop
         self.gipodDlg.exec_()
   
     def runBatch(self):
@@ -183,16 +183,16 @@ class geopunt4Qgis:
         self.aboutDlg.exec_()
         
     def reverse(self):
-	widget = self.iface.messageBar().createMessage(
-		    QCoreApplication.translate("geopunt4Qgis" ,"Zoek een Adres: "), 
-		    QCoreApplication.translate("geopunt4Qgis" ,'Klik op de kaart om het adres op te vragen'))
-		        
-	helpBtn = button = QPushButton("Help", widget)
-	helpBtn.clicked.connect(self.openReverseHelp)
-	widget.layout().addWidget(helpBtn)
-	self.iface.messageBar().clearWidgets()
-	self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
-	
+        widget = self.iface.messageBar().createMessage(
+                QCoreApplication.translate("geopunt4Qgis" ,"Zoek een Adres: "), 
+                QCoreApplication.translate("geopunt4Qgis" ,'Klik op de kaart om het adres op te vragen'))
+                    
+        helpBtn = QPushButton("Help", widget)
+        helpBtn.clicked.connect(self.openReverseHelp)
+        widget.layout().addWidget(helpBtn)
+        self.iface.messageBar().clearWidgets()
+        self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
+
         reverseAdresTool = reverseAdresMapTool(self.iface, self._reverseAdresCallback) 
         self.iface.mapCanvas().setMapTool(reverseAdresTool)
         
@@ -201,50 +201,50 @@ class geopunt4Qgis:
         mapCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
         xform = QgsCoordinateTransform(mapCrs, lam72)
         lam72pt = xform.transform(point)
-	
+    
         #to clear or not clear that is the question
         self.iface.messageBar().clearWidgets()
 
         #fetch Location from geopunt
         adres = self.adres.fetchLocation(lam72pt.x().__str__() + "," + lam72pt.y().__str__(), 1)
-	
+    
         if len(adres) and adres.__class__ is list:
-	        #only one result in list, was set in request
-	        FormattedAddress = adres[0]["FormattedAddress"]
-	  
-	        #add a button to the messageBar widget
-	        widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis" ,"Resultaat: "), FormattedAddress)
-	        
-	        button = QPushButton(widget)
-	        button.clicked.connect(lambda: self._addReverse(adres[0]))
-	        button.setText(QCoreApplication.translate("geopunt4Qgis" ,"Voeg toe"))
-	        
-	        widget.layout().addWidget(button)
-	        
-	        self.iface.messageBar().clearWidgets()
-	        self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
-	
+            #only one result in list, was set in request
+            FormattedAddress = adres[0]["FormattedAddress"]
+      
+            #add a button to the messageBar widget
+            widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis" ,"Resultaat: "), FormattedAddress)
+            
+            button = QPushButton(widget)
+            button.clicked.connect(lambda: self._addReverse(adres[0]))
+            button.setText(QCoreApplication.translate("geopunt4Qgis" ,"Voeg toe"))
+            
+            widget.layout().addWidget(button)
+            
+            self.iface.messageBar().clearWidgets()
+            self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
+    
         elif len(adres) == 0:
-	        self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
-	        QCoreApplication.translate("geopunt4Qgis", "Geen resultaten gevonden"), 
-		            level=QgsMessageBar.INFO, duration=3)
-	  
+            self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
+            QCoreApplication.translate("geopunt4Qgis", "Geen resultaten gevonden"), 
+                    level=QgsMessageBar.INFO, duration=3)
+      
         elif adres.__class__ is str:
-	        self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
-		        adres, level=QgsMessageBar.WARNING)
+            self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
+                adres, level=QgsMessageBar.WARNING)
         else:
-	        self.iface.messageBar().pushMessage("Error", 
-	        QCoreApplication.translate("geopunt4Qgis","onbekende fout"),
-		        level=QgsMessageBar.CRITICAL)
-	  
+            self.iface.messageBar().pushMessage("Error", 
+            QCoreApplication.translate("geopunt4Qgis","onbekende fout"),
+                level=QgsMessageBar.CRITICAL)
+      
     def _addReverse(self, adres):
-	    formattedAddress, locationType = adres["FormattedAddress"] , adres["LocationType"]
-	    xlam72, ylam72 = adres["Location"]["X_Lambert72"] , adres["Location"]["Y_Lambert72"]
-	
-	    xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)
-	    self.gh.save_adres_point(xy, formattedAddress, locationType, layername=self.layerName_reverse,
-			      saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow())
-	    self.iface.messageBar().popWidget()	
+        formattedAddress, locationType = adres["FormattedAddress"] , adres["LocationType"]
+        xlam72, ylam72 = adres["Location"]["X_Lambert72"] , adres["Location"]["Y_Lambert72"]
+    
+        xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)
+        self.gh.save_adres_point(xy, formattedAddress, locationType, layername=self.layerName_reverse,
+                  saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow())
+        self.iface.messageBar().popWidget()	
         
     def openReverseHelp(self):
-	webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntReverse.md")
+        webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntReverse.md")

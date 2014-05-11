@@ -122,7 +122,7 @@ upload: zip
 # [KW]: added custom compile_translations for html
 transup: 
 	pylupdate4 Makefile
-	lrelease i18n/*.ts
+	lrelease-qt4 i18n/*.ts
 	utils/compile_html_translations.sh
 
 # transcompile
