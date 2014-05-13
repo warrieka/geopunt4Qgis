@@ -15,11 +15,11 @@ parse CSW
 	recs = root.findall("metadata")
 	
 	for rec in recs:
-	ll =  "|".join( [ n.text for n in rec.findall("link") ] ) 
-	title = rec.find("title")
-	l=  [n for n in ll.split('|') if ("request=GetCapabilities" in n) & ("service=wms" in n)]
-	for n in l: 
-	print title.text +" "+ n 
+		ll =  "|".join( [ n.text for n in rec.findall("link") ] ) 
+		title = rec.find("title")
+		l=  [n for n in ll.split('|') if ("request=GetCapabilities" in n) & ("service=wms" in n)]
+		for n in l: 
+		print title.text +" "+ n 
 
  
 Loading WMS: 
