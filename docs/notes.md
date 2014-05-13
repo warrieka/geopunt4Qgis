@@ -30,7 +30,7 @@ Loading WMS:
 	rlayer = QgsRasterLayer(urlWithParams, 'some layer name', 'wms')
 	
 	if rlayer.isValid():
-	QgsMapLayerRegistry.instance().addMapLayer(rlayer)
+		QgsMapLayerRegistry.instance().addMapLayer(rlayer)
 
 
 Find layer names in getcapabilties
