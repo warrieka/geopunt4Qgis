@@ -4,35 +4,40 @@ Notities
 parse CSW
 ---------
 
-  import urllib2 , sys
-  import xml.etree.ElementTree as ET
+	import urllib2 , sys
+	import xml.etree.ElementTree as ET
+	
+	url = "https://metadata.geopunt.be/zoekdienst/srv/dut/q?fast=index&from=1&to=100&any=vlaams"
+	
+	response = urllib2.urlopen(url, timeout=50)
+	tree  = ET.ElementTree(file=response )
+	root = tree.getroot()
+	recs = root.findall("metadata")
+	
+	for rec in recs:
+	ll =  "|".join( [ n.text for n in rec.findall("link") ] ) 
+	title = rec.find("title")
+	l=  [n for n in ll.split('|') if ("request=GetCapabilities" in n) & ("service=wms" in n)]
+	for n in l: 
+	print title.text +" "+ n 
 
-  url = "https://metadata.geopunt.be/zoekdienst/srv/dut/q?fast=index&from=1&to=100&any=vlaams"
-
-  response = urllib2.urlopen(url, timeout=50)
-  tree  = ET.ElementTree(file=response )
-  root = tree.getroot()
-  recs = root.findall("metadata")
-
-  for rec in recs:
-    ll =  "|".join( [ n.text for n in rec.findall("link") ] ) 
-    title = rec.find("title")
-    l=  [n for n in ll.split('|') if ("request=GetCapabilities" in n) & ("service=wms" in n)]
-    for n in l: 
-      print title.text +" "+ n 
-     
  
 Loading WMS: 
 -----------
 
-  urlWithParams =  "url=http://geo.agiv.be/inspire/wms/hydrografie&layers=Deelbekken&format=image/png&styles=default&crs=EPSG:31370"
+	urlWithParams =  "url=http://geo.agiv.be/inspire/wms/hydrografie&layers=Deelbekken&format=image/png&styles=default&crs=EPSG:31370"
+	
+	rlayer = QgsRasterLayer(urlWithParams, 'some layer name', 'wms')
+	
+	if rlayer.isValid():
+	QgsMapLayerRegistry.instance().addMapLayer(rlayer)
 
-  rlayer = QgsRasterLayer(urlWithParams, 'some layer name', 'wms')
 
-  if rlayer.isValid():
-    QgsMapLayerRegistry.instance().addMapLayer(rlayer)
-    n qt
+Find layer names in getcapabilties
+----------
 
+	layerNames = [n.text for n in root.findall( ".//{http://www.opengis.net/wms}Layer/{http://www.opengis.net/wms}CRS" )]
+  
   
 create a graph with mathplotlib
 ------------
