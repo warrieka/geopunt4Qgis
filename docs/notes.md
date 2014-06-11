@@ -36,7 +36,7 @@ Loading WMS:
 Find layer names in getcapabilties
 ----------
 
-	layerNames = [n.text for n in root.findall( ".//{http://www.opengis.net/wms}Layer/{http://www.opengis.net/wms}CRS" )]
+	layerNames = [n.text for n in root.findall( ".//{http://www.opengis.net/wms}Layer/{http://www.opengis.net/wms}Name" )]
   
   
 create a graph with mathplotlib
