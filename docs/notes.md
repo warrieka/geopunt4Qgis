@@ -4,6 +4,7 @@ Notities
 parse CSW
 ---------
 
+```python
 	import urllib2 , sys
 	import xml.etree.ElementTree as ET
 	
@@ -20,28 +21,46 @@ parse CSW
 		l=  [n for n in ll.split('|') if ("request=GetCapabilities" in n) & ("service=wms" in n)]
 		for n in l: 
 		print title.text +" "+ n 
-
+```
+  
  
 Loading WMS: 
 -----------
 
+```python
 	urlWithParams =  "url=http://geo.agiv.be/inspire/wms/hydrografie&layers=Deelbekken&format=image/png&styles=default&crs=EPSG:31370"
 	
 	rlayer = QgsRasterLayer(urlWithParams, 'some layer name', 'wms')
 	
 	if rlayer.isValid():
 		QgsMapLayerRegistry.instance().addMapLayer(rlayer)
-
+```
+  
 
 Find layer names in getcapabilties
 ----------
 
+```python
 	layerNames = [n.text for n in root.findall( ".//{http://www.opengis.net/wms}Layer/{http://www.opengis.net/wms}Name" )]
+```
   
+  
+using the elevation service
+--------------------------
+
+```python
+    import urllib2
+    url = 'http://ws.agiv.be/elevation/dhmv1/search'
+    data = json.dumps({"SrsIn":"4326","SrsOut":"4326","LineString":{"coordinates":[[4.287999804111748,51.2705874472921],[4.787877733799225,51.25340043028034],[4.837316210361721,51.098427963862875],[4.529699022861737,51.39071668493124],[4.952672655674216,51.380432223771166]],"type":"LineString"},"Samples":50})
+    req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
+    f = urllib2.urlopen(req)
+    elvJson = json.load( f )
+```
   
 create a graph with mathplotlib
 ------------
 
+```python
 	from PyQt4 import QtGui
 	import numpy as np
 	
@@ -103,4 +122,5 @@ create a graph with mathplotlib
 	main.show()
 	
 	sys.exit(app.exec_())
-
+```
+  

@@ -80,7 +80,7 @@ class Adres:
 class Poi:
   def __init__(self, timeout=15, proxyUrl="", port=""):
       self.timeout = timeout
-      self._poiUrl = "http://poi.api.geopunt.be/core?"
+      self._poiUrl = "http://poi.api.geopunt.be/core"
       self.resultCount = 0
       
       if (proxyUrl <> "")  & proxyUrl.startswith("http://"):
@@ -98,14 +98,67 @@ class Poi:
       self.qeury = ""
       self.srs = 31370
       self.maxModel=True
-      
-  def _createPoiUrl(self , q, c=5, srs=31370 , maxModel=False, bbox=None, POItype='' ):
+     
+  def listPoiThemes(self):
+      url = self._poiUrl + "/themes/"
+      poithemes = None
+      try:
+         if self.opener: response = self.opener.open(url, timeout=self.timeout)
+         else: response = urllib2.urlopen(url, timeout=self.timeout)
+      except urllib2.HTTPError as e:
+         return json.load(e)["Message"]
+      except urllib2.URLError as e:
+         return str( e.reason )
+      except:
+         return  str( sys.exc_info()[1] )
+      else:
+         poithemes = json.load(response)
+      themes = [(  n["value"], n["term"]) for n in poithemes["categories"] ] #only need value and  term
+      return themes
+     
+  def listPoiCategories(self):
+      url = self._poiUrl + "/categories/"
+      poicategories = None
+      try:
+         if self.opener: response = self.opener.open(url, timeout=self.timeout)
+         else: response = urllib2.urlopen(url, timeout=self.timeout)
+      except urllib2.HTTPError as e:
+         return json.load(e)["Message"]
+      except urllib2.URLError as e:
+         return str( e.reason )
+      except:
+         return  str( sys.exc_info()[1] )
+      else:
+         poicategories = json.load(response)
+      categories = [(  n["value"], n["term"]) for n in poicategories["categories"] ]
+      return categories
+    
+  def listPoitypes(self):
+      url = self._poiUrl + "/poitypes/"
+      poitypes = None
+      try:
+         if self.opener: response = self.opener.open(url, timeout=self.timeout)
+         else: response = urllib2.urlopen(url, timeout=self.timeout)
+      except urllib2.HTTPError as e:
+         return json.load(e)["Message"]
+      except urllib2.URLError as e:
+         return str( e.reason )
+      except:
+         return  str( sys.exc_info()[1] )
+      else:
+         poitypes = json.load(response)
+      types = [(  n["value"], n["term"]) for n in poitypes["categories"] ]
+      return types
+    
+  def _createPoiUrl(self , q, c=5, srs=31370, maxModel=False, bbox=None, theme='', category='', POItype='' ):
       poiUrl = self._poiUrl
       data = {}
       data["label"] = unicode(q).encode('utf-8')
       data["srsOut"] = srs
       data["srsIn"] = srs    #i am asuming srsIn wil alwaysbe = srsOut
       data["maxcount"] = c
+      data["theme"]  = theme
+      data["category"]  = category
       data["POItype"]  = POItype
       if maxModel:
         data["maxModel"] = "true"
@@ -113,21 +166,22 @@ class Poi:
         data["maxModel"] = "false"
       if bbox:
         if bbox[0] < self.maxBounds[0]: 
-          bbox[0] = self.maxBounds[0]
+           bbox[0] = self.maxBounds[0]
         if bbox[1] < self.maxBounds[1]:
-          bbox[1] = self.maxBounds[1]
+           bbox[1] = self.maxBounds[1]
         if bbox[2] > self.maxBounds[2]:
-          bbox[2] = self.maxBounds[2]
+           bbox[2] = self.maxBounds[2]
         if bbox[3] > self.maxBounds[3]:
-          bbox[3] = self.maxBounds[3]
+           bbox[3] = self.maxBounds[3]
         data["bbox"] = "|".join([str(b) for b in bbox])
     
       values = urllib.urlencode(data)
-      result = poiUrl + values
+      result = poiUrl + "?" + values
       return result
     
-  def fetchPoi(self, q,  c=5, srs=31370, maxModel=True , updateResults=True, bbox=None, POIType='' ):
-        url = self._createPoiUrl( q, c, srs, maxModel, bbox, POIType)
+  def fetchPoi(self, q,  c=5, srs=31370, maxModel=True , updateResults=True, bbox=None,  theme='', category='', POItype='' ):
+        url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype)
+        poi = None
         try:
           if self.opener: response = self.opener.open(url, timeout=self.timeout)
           else: response = urllib2.urlopen(url, timeout=self.timeout)
@@ -150,6 +204,7 @@ class Poi:
               self.qeury = q
               self.srs = srs
               self.maxModel = maxModel
+              
           return poi["pois"]
   
   def poiSuggestion(self):
@@ -157,15 +212,23 @@ class Poi:
         sug = self.PoiResult
       else: 
         return []
-
-      if self.maxModel: i = 1
-      else:  i = 0
       
       if sug.__class__ == str:
         return sug
       else:
-        labels = [(n["id"], n["categories"][i]['value'],n["labels"][0]["value"],
-            n['location']['address']["value"]) for n in sug ] 
+        labels = []
+        for n in sug:
+          if self.maxModel: 
+            Thema= n["categories"][0]["value"]
+            Categorie = n["categories"][1]["value"]
+            Type = n["categories"][2]["value"]
+            address =  n["location"]["address"]["value"]
+          else:
+            Type = ["categories"][0]["value"]
+            Thema, Categorie, address = "","",""
+
+          labels += [(n["id"],Thema, Categorie, Type ,n["labels"][0]["value"], address )] 
+        
         labels.sort()
         return labels
     
