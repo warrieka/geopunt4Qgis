@@ -351,37 +351,37 @@
         <translation>Beperk zoekresultaten tot huidige extent</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="199"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="201"/>
         <source>id</source>
         <translation>id</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="209"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="211"/>
         <source>Categorie</source>
         <translation type="unfinished">Categorie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="219"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="221"/>
         <source>Naam</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="224"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="226"/>
         <source>crab adres</source>
         <translation>crab adres</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="306"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="308"/>
         <source>Voeg selectie toe aan kaart</source>
         <translation>Voeg selectie toe aan kaart</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="258"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="260"/>
         <source>Zoom naar selectie</source>
         <translation>Zoom naar selectie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="301"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="303"/>
         <source>Zoom naar Selectie</source>
         <translation>Zoom naar Selectie</translation>
     </message>
@@ -391,28 +391,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="121"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="144"/>
         <source>Type:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="148"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="127"/>
         <source>Categorie:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="155"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="107"/>
         <source>Thema:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="214"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="216"/>
         <source>Type</source>
         <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="204"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="206"/>
         <source>Thema</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisPoi.ui" line="90"/>
+        <source>Gemeente:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -424,27 +429,27 @@
         <translation type="obsolete">Geen resultaten gevonden voor</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="162"/>
+        <location filename="geopunt4QgisPoidialog.py" line="172"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="166"/>
+        <location filename="geopunt4QgisPoidialog.py" line="176"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="173"/>
+        <location filename="geopunt4QgisPoidialog.py" line="183"/>
         <source>Merk op</source>
         <translation>Merk op</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="173"/>
+        <location filename="geopunt4QgisPoidialog.py" line="183"/>
         <source>Er niets om naar te zoomen</source>
         <translation>Er niets om naar te zoomen</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="158"/>
+        <location filename="geopunt4QgisPoidialog.py" line="168"/>
         <source>Geen resultaten gevonden voor: </source>
         <translation>Geen resultaten gevonden voor:</translation>
     </message>

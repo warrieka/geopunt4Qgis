@@ -90,10 +90,9 @@ class Poi:
       else:
         self.opener = None
       
-      #maxBounds srs 31370: x between 17736 and 297289, y between 23697 and 245375 
-      #TODO: What if no Lambert coordinates as input???
-      self.maxBounds = [17750,23720,297240,245340]  
-      self.resultBounds = [17736,23697,297289,245375]
+      #TODO: What if no WGS coordinates as input???
+      self.maxBounds = [1.17,49.77,7.29,52.35]  
+      self.resultBounds =  [1.17,49.77,7.29,52.35]  
       self.PoiResult = []
       self.qeury = ""
       self.srs = 31370
@@ -150,16 +149,17 @@ class Poi:
       types = [(  n["value"], n["term"]) for n in poitypes["categories"] ]
       return types
     
-  def _createPoiUrl(self , q, c=5, srs=31370, maxModel=False, bbox=None, theme='', category='', POItype='' ):
+  def _createPoiUrl(self, q, c=30, srs=31370, maxModel=False, bbox=None, theme='', category='', POItype='', region='' ):
       poiUrl = self._poiUrl
       data = {}
-      data["label"] = unicode(q).encode('utf-8')
+      data["keyword"] = unicode(q).encode('utf-8')
       data["srsOut"] = srs
       data["srsIn"] = srs    #i am asuming srsIn wil alwaysbe = srsOut
       data["maxcount"] = c
       data["theme"]  = theme
       data["category"]  = category
       data["POItype"]  = POItype
+      data["region"] = str( region )
       if maxModel:
         data["maxModel"] = "true"
       else:
@@ -179,8 +179,8 @@ class Poi:
       result = poiUrl + "?" + values
       return result
     
-  def fetchPoi(self, q,  c=5, srs=31370, maxModel=True , updateResults=True, bbox=None,  theme='', category='', POItype='' ):
-        url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype)
+  def fetchPoi(self, q,  c=30, srs=31370, maxModel=True , updateResults=True, bbox=None,  theme='', category='', POItype='', region='' ):
+        url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region)
         poi = None
         try:
           if self.opener: response = self.opener.open(url, timeout=self.timeout)
@@ -431,7 +431,7 @@ class geopuntError(Exception):
       
 def internet_on(timeout=15):
     try:
-        response=urllib2.urlopen('http://loc.api.geopunt.be/geolocation/Location?q=qq',timeout=timeout)
+        response=urllib2.urlopen('http://loc.api.geopunt.be/geolocation/Suggestion?q=qq',timeout=timeout)
         return True
     except: 
         return False

@@ -25,7 +25,7 @@ from qgis.core import *
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 from ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
 import geometryhelper as gh
-import geopunt, os, webbrowser
+import geopunt, os, webbrowser, json
 
 class geopunt4QgisPoidialog(QtGui.QDialog):
     def __init__(self, iface):
@@ -73,6 +73,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.ui.filterPoiCategoryCombo.addItems( [""] + self.poiCategories.keys() )
         self.poiTypes = dict( self.poi.listPoitypes() )
         self.ui.filterPoiTypeCombo.addItems( [""] + self.poiTypes.keys() )
+        gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
+        self.NIScodes= { n["Naam"] : n["Niscode"] for n in gemeentes }
+        self.ui.filterPoiNIS.addItems( self.NIScodes.keys() )
     
         #actions
         self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )
@@ -105,27 +108,32 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.ui.resultLijst.setRowCount(0)
         
         #filters:
-        poithemeText = self.ui.filterPoiThemeCombo.currentText()
-        if poithemeText != "": poitheme = self.poiThemes[ poithemeText ]
-        else: poitheme = ""
-        poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
-        if poiCategorieText != "": poiCategorie = self.poiCategories[ poiCategorieText ]
-        else: poiCategorie = ""
-        poiTypeText =  self.ui.filterPoiTypeCombo.currentText() 
-        if poiTypeText!= "": poiType = self.poiTypes[ poiTypeText ]
-        else: poiType = ""
-        
+        if self.ui.filterBox.isChecked():
+          poithemeText = self.ui.filterPoiThemeCombo.currentText()
+          if poithemeText != "": poitheme = self.poiThemes[ poithemeText ]
+          else: poitheme = ""
+          poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
+          if poiCategorieText != "": poiCategorie = self.poiCategories[ poiCategorieText ]
+          else: poiCategorie = ""
+          poiTypeText =  self.ui.filterPoiTypeCombo.currentText() 
+          if poiTypeText!= "": poiType = self.poiTypes[ poiTypeText ]
+          else: poiType = ""
+          NISText= self.ui.filterPoiNIS.currentText()
+          if NISText != "" and not self.ui.currentBoundsVink.isChecked(): Niscode = self.NIScodes[NISText]
+          else: Niscode = ""
+        else: 
+          poitheme, poiCategorie, poiType, Niscode, = "","","",""
         
         if self.ui.currentBoundsVink.isChecked():
             bbox = self.iface.mapCanvas().extent()
-            minX, minY = self.gh.prjPtFromMapCrs([bbox.xMinimum(),bbox.yMinimum()], 31370)
-            maxX, maxY = self.gh.prjPtFromMapCrs([bbox.xMaximum(),bbox.yMaximum()], 31370)
-            lam72Box = [minX, minY, maxX, maxY]
-            self.poi.fetchPoi( txt, c=25, srs=31370 , maxModel=True, updateResults=True, bbox=lam72Box, 
-                              theme=poitheme , category=poiCategorie, POItype=poiType )
+            minX, minY = self.gh.prjPtFromMapCrs([bbox.xMinimum(),bbox.yMinimum()], 4326)
+            maxX, maxY = self.gh.prjPtFromMapCrs([bbox.xMaximum(),bbox.yMaximum()], 4326)
+            xyBox = [minX, minY, maxX, maxY]
+            self.poi.fetchPoi( txt, c=30, srs=4326 , maxModel=True, updateResults=True, bbox=xyBox, 
+                               theme=poitheme , category=poiCategorie, POItype=poiType )
         else:
-            self.poi.fetchPoi( txt, c=25, srs=31370 , maxModel=True, updateResults=True, bbox=None, 
-                              theme=poitheme , category=poiCategorie, POItype=poiType )
+            self.poi.fetchPoi( txt, c=30, srs=4326 , maxModel=True, updateResults=True, bbox=None, 
+                               theme=poitheme , category=poiCategorie, POItype=poiType, region=Niscode )
       
         suggesties = self.poi.poiSuggestion()
     
@@ -172,18 +180,18 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         elif len(selPois) >= 2:
             pts = [n['location']['points'][0]['Point']['coordinates'] for n in selPois ] 
             bounds = self.gh.getBoundsOfPointArray(pts)
-            self.gh.zoomtoRec(bounds[:2], bounds[2:4], 31370)
+            self.gh.zoomtoRec(bounds[:2], bounds[2:4], 4326)
         elif len(selPois) == 1:
             x,  y = selPois[0]['location']['points'][0]['Point']['coordinates']
             bounds = self.gh.getBoundsOfPoint(x,y)
-            self.gh.zoomtoRec(bounds[:2], bounds[2:4], 31370)
+            self.gh.zoomtoRec(bounds[:2], bounds[2:4], 4326)
     
     def onSelectionChanged(self):
         selPois = self._getSelectedPois()
         canvas = self.iface.mapCanvas()
         self.clearGraphicsLayer()
     
-        pts = [ self.gh.prjPtToMapCrs( n['location']['points'][0]['Point']['coordinates'], 31370)
+        pts = [ self.gh.prjPtToMapCrs( n['location']['points'][0]['Point']['coordinates'], 4326)
                       for n in selPois ] 
         for pt in pts:
             x,y = pt
