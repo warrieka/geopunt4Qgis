@@ -316,8 +316,7 @@ class gipod:
         owner = json.load(response)
         return owner
 
-  def _createWorkassignmentUrl(self, owner="", startdate=None, enddate=None, city="", 
-                  province="", srs=31370, bbox=[], c=50, offset=0 ):
+  def _createWorkassignmentUrl(self, owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
       "startdate and enddate are datetime.date\n bbox is [xmin,ymin,xmax,ymax]"
       endpoint = self.baseUri + 'workassignment?'
       data = {}
@@ -369,8 +368,7 @@ class gipod:
         wAlen = len(wA)
       return wAs
 
-  def _createManifestationUrl(self, owner="", eventtype="", startdate=None, enddate=None, 
-                  city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
+  def _createManifestationUrl(self, owner="", eventtype="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
       endpoint = self.baseUri + "manifestation?"
       data = {}
       data['limit'] = c
@@ -423,15 +421,60 @@ class gipod:
           mAlen = len(mA)
       return mAs
   
+class elevation:
+  def __init__(self, timeout=15, proxyUrl="", port="" ):
+      self.timeout = timeout
+      self.baseUri = 'http://ws.agiv.be/elevation/dhmv1/search'
+      
+      if (proxyUrl <> "") & proxyUrl.startswith("http://"):
+        netLoc = proxyUrl.strip() + ":" + port
+        proxy = urllib2.ProxyHandler({'http': netLoc })
+        self.opener = urllib2.build_opener(proxy)
+      else:
+        self.opener = None
+      
+  def _createElevationRequest(self, LineString, srs=31370, samples=50 ):
+      geojson = {}
+      geojson["SrsIn"] = srs
+      geojson["SrsOut"] = srs 
+      geojson["LineString"] = {"coordinates": LineString , "type":"LineString" }
+      geojson["Samples"] = samples
+      data =  json.dumps(geojson)
+      req = urllib2.Request(self.baseUri , data, {'Content-Type': 'application/json'})
+      return req
+  
+  def fetchElevaton(self, LineString, srs=31370, samples=50 ):
+      "LineString= a serie of points in form [[4.2,51.27],[4.7,51.2],...], srs=ESPGcode, samples=nummer to return"
+      req = self._createElevationRequest( LineString, srs, samples )
+      try:
+        if self.opener: response = self.opener.open(req, timeout= self.timeout)
+        else: response = urllib2.urlopen(req, timeout= self.timeout)
+      except  (urllib2.HTTPError, urllib2.URLError) as e:
+        raise geopuntError( str( e.reason ))
+      except:
+        raise geopuntError( str( sys.exc_info()[1] ))
+      else:
+        elevationJson = json.load(response)
+        return elevationJson
+
 class geopuntError(Exception):
     def __init__(self, message):
       self.message = message
     def __str__(self):
       return repr(self.message)
       
-def internet_on(timeout=15):
+def internet_on(timeout=15, proxyUrl="", port="" ):
+    if (proxyUrl <> "") & proxyUrl.startswith("http://"):
+      netLoc = proxyUrl.strip() + ":" + port
+      proxy = urllib2.ProxyHandler({'http': netLoc })
+      opener = urllib2.build_opener(proxy)
+    else:
+      opener = None
     try:
-        response=urllib2.urlopen('http://loc.api.geopunt.be/geolocation/Suggestion?q=qq',timeout=timeout)
-        return True
+      if opener:
+          opener.open( 'http://loc.api.geopunt.be', timeout=timeout ) 
+      else:
+          urllib2.urlopen('http://loc.api.geopunt.be',timeout=timeout)
+      return True
     except: 
         return False

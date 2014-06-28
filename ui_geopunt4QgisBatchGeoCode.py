@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Mon Jun 16 19:30:04 2014
+# Created: Sat Jun 28 20:37:35 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -317,8 +317,8 @@ class Ui_batchGeocodeDlg(object):
     def retranslateUi(self, batchGeocodeDlg):
         batchGeocodeDlg.setWindowTitle(_translate("batchGeocodeDlg", "CSV-adresbestanden geocoderen", None))
         self.inputBtn.setText(_translate("batchGeocodeDlg", "Open", None))
-        self.codecBox.setItemText(0, _translate("batchGeocodeDlg", "utf-8", None))
-        self.codecBox.setItemText(1, _translate("batchGeocodeDlg", "ansi", None))
+        self.codecBox.setItemText(0, _translate("batchGeocodeDlg", "ansi", None))
+        self.codecBox.setItemText(1, _translate("batchGeocodeDlg", "utf-8", None))
         self.label_1.setText(_translate("batchGeocodeDlg", "Separator: ", None))
         self.delimSelect.setItemText(0, _translate("batchGeocodeDlg", "Puntcomma", None))
         self.delimSelect.setItemText(1, _translate("batchGeocodeDlg", "Comma", None))

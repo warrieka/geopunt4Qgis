@@ -79,12 +79,12 @@
         </property>
         <item>
          <property name="text">
-          <string>utf-8</string>
+          <string>ansi</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>ansi</string>
+          <string>utf-8</string>
          </property>
         </item>
        </widget>
