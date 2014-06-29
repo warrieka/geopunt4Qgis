@@ -20,7 +20,7 @@ geopunt
 ***************************************************************************/
 """
 import urllib2, urllib, json, sys, os.path, datetime
-##from urlparse import urlparse
+
 class Adres:
   def __init__(self, timeout=15, proxyUrl="", port="" ):
     self.timeout = timeout

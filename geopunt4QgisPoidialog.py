@@ -68,14 +68,22 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         
         #filters
         self.poiThemes = dict( self.poi.listPoiThemes() )
-        self.ui.filterPoiThemeCombo.addItems( [""] + self.poiThemes.keys() )
+        poiThemes = [""] + self.poiThemes.keys()
+        poiThemes.sort()
+        self.ui.filterPoiThemeCombo.addItems( poiThemes )
         self.poiCategories = dict( self.poi.listPoiCategories() )
-        self.ui.filterPoiCategoryCombo.addItems( [""] + self.poiCategories.keys() )
+        poiCategories = [""] + self.poiCategories.keys()
+        poiCategories.sort()
+        self.ui.filterPoiCategoryCombo.addItems( poiCategories )
         self.poiTypes = dict( self.poi.listPoitypes() )
-        self.ui.filterPoiTypeCombo.addItems( [""] + self.poiTypes.keys() )
+        poiTypes = [""] + self.poiTypes.keys()
+        poiTypes.sort()
+        self.ui.filterPoiTypeCombo.addItems(  poiTypes )
         gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
         self.NIScodes= { n["Naam"] : n["Niscode"] for n in gemeentes }
-        self.ui.filterPoiNIS.addItems( self.NIScodes.keys() )
+        gemeenteNamen = [n["Naam"] for n in gemeentes]
+        gemeenteNamen.sort()
+        self.ui.filterPoiNIS.addItems( gemeenteNamen )
     
         #actions
         self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )

@@ -18,13 +18,13 @@ def makeList( src ):
 def zipdir(path, zipf):
   files = makeList(path)
   for zfile in files: 
-    sbase = os.path.dirname(path)
-    arcName = zfile.replace( sbase ,"")
-    zipf.write( zfile , arcName)
+     sbase = os.path.dirname(path)
+     arcName = zfile.replace( sbase ,"")
+     zipf.write( zfile , arcName)
 
 def main(src, target):
     if os.path.exists( target ):
-      os.remove(target)
+       os.remove(target)
     zipf = zipfile.ZipFile( target , 'w')
     zipdir( src , zipf)
     print "zipped all deploy files in %s to %s" % ( src, target)

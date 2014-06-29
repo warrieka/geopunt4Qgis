@@ -91,8 +91,7 @@ class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
     
     def loadSettings(self): 
         self.maxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
-        self.saveToFile = int( 
-        self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
+        self.saveToFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
         self.layerName = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")

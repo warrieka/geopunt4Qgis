@@ -45,7 +45,7 @@ PLUGINNAME = geopunt4Qgis
 
 PY_FILES =  unicodecsv.py geometryhelper.py geopunt.py geopunt4qgis.py geopunt4QgisAbout.py geopunt4qgisAdresdialog.py geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py geopunt4QgisBatchGeoCode.py reverseAdresMapTool.py geopunt4QgisGipod.py __init__.py
 
-EXTRAS = images/binoculars.png images/binocularsSmall.png images/geopunt.png images/geopuntAddress.png  images/geopuntAddressSmall.png images/geopuntIcoTemplate.png images/geopuntPoi.png images/geopuntPoiSmall.png images/geopuntReverse.png images/geopuntSettings.png images/geopuntSettingsSmall.png images/geopuntSmal.png images/logogeopunt.png images/logogeopunt4Q.png images/geopuntBatchgeocode.png images/geopuntBatchgeocodeSmall.png images/geopuntGipod.png images/geopuntGipodsmall.png metadata.txt i18n/about-en.html i18n/about-nl.html
+EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html
 
 UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py ui_geopunt4QgisGIPOD.py
 
@@ -79,7 +79,7 @@ deploy: compile transup
 	cp -vf $(PY_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(UI_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(RESOURCE_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-	cp -vf $(EXTRAS) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+	cp -vfr $(EXTRAS) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vfr i18n $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 # [KW]: not using this
 # 	cp -vfr $(HELP) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/help
