@@ -205,6 +205,19 @@
     </message>
 </context>
 <context>
+    <name>elevationDlg</name>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="14"/>
+        <source>testPrf</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="37"/>
+        <source>teken een lijn</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>geopunt4Qgis</name>
     <message>
         <location filename="ui_geopunt4qgis.ui" line="15"/>
@@ -232,52 +245,52 @@
         <translation>Zoom naar</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="187"/>
+        <location filename="geopunt4qgis.py" line="203"/>
         <source>Zoek een Adres: </source>
         <translation>Zoek een Adres:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="187"/>
+        <location filename="geopunt4qgis.py" line="203"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Klik op de kaart om het adres op te vragen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="217"/>
+        <location filename="geopunt4qgis.py" line="233"/>
         <source>Resultaat: </source>
         <translation>Resultaat:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="234"/>
+        <location filename="geopunt4qgis.py" line="250"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="229"/>
+        <location filename="geopunt4qgis.py" line="245"/>
         <source>Geen resultaten gevonden</source>
         <translation>Geen resultaten gevonden</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="237"/>
+        <location filename="geopunt4qgis.py" line="253"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="79"/>
+        <location filename="geopunt4qgis.py" line="80"/>
         <source>Zoek een Adres</source>
         <translation>Zoek een Adres</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="81"/>
+        <location filename="geopunt4qgis.py" line="82"/>
         <source>Prik een Adres op kaart</source>
         <translation>Prik een Adres op kaart</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="87"/>
+        <location filename="geopunt4qgis.py" line="88"/>
         <source>Zoek een Plaats - interesse punt</source>
         <translation>Zoek een Plaats - interesse punt</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="94"/>
+        <location filename="geopunt4qgis.py" line="97"/>
         <source>Over geopunt4Qgis</source>
         <translation>Over geopunt4Qgis</translation>
     </message>
@@ -287,24 +300,29 @@
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="92"/>
+        <location filename="geopunt4qgis.py" line="93"/>
         <source>Instellingen</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="84"/>
+        <location filename="geopunt4qgis.py" line="85"/>
         <source>CSV-adresbestanden geocoderen</source>
         <translation>CSV-adresbestanden geocoderen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="221"/>
+        <location filename="geopunt4qgis.py" line="237"/>
         <source>Voeg toe</source>
         <translation>Voeg toe</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="90"/>
+        <location filename="geopunt4qgis.py" line="91"/>
         <source>Bevraag GIPOD</source>
         <translation>Bevraag GIPOD</translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="95"/>
+        <source>Hoogteprofiel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -560,64 +578,64 @@
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="170"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="209"/>
         <source>Zoeken naar adressen</source>
         <translation>Zoeken naar adressen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="176"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="215"/>
         <source>Zoeken bij elke verandering in de zoektekst</source>
         <translation>Zoeken bij elke verandering in de zoektekst</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="183"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="222"/>
         <source>Zoeken enkel als ENTER wordt ingedrukt</source>
         <translation>Zoeken enkel als ENTER wordt ingedrukt</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="505"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="544"/>
         <source>Toevoegen punten aan de kaart</source>
         <translation>Toevoegen punten aan de kaart</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="514"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="553"/>
         <source>Opslaan naar bestand </source>
         <translation>Opslaan naar bestand </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="524"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="563"/>
         <source>Opslaan naar tijdelijke laag</source>
         <translation>Opslaan naar tijdelijke laag</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="460"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="499"/>
         <source>Naam  van de laag met adrespunten:</source>
         <translation>Naam  van de laag met adrespunten:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="261"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="300"/>
         <source>Prikken van een adres</source>
         <translation>Prikken van een adres</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="431"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="470"/>
         <source>Zoeken naar plaatsen</source>
         <translation>Zoeken naar plaatsen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="329"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="368"/>
         <source>CSV-adresbestanden geocoderen</source>
         <translation>CSV-adresbestanden geocoderen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="376"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="415"/>
         <source>Maximaal aantal rijen dat inlezen mag worden: &lt;br/&gt;
 (Grote bestanden kunnen de servers van AGIV belasten)</source>
         <translation>Maximaal aantal rijen dat inlezen mag worden: &lt;br/&gt;
 (Grote bestanden kunnen de servers van AGIV belasten)</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="499"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="538"/>
         <source>GIPOD</source>
         <translation>GIPOD</translation>
     </message>
@@ -627,7 +645,7 @@
         <translation>Algemeen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="62"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="59"/>
         <source>Netwerk -  Proxy</source>
         <translation>Netwerk -  Proxy</translation>
     </message>
@@ -637,42 +655,42 @@
         <translation type="obsolete">Host:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="87"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="84"/>
         <source>http://yourProxy</source>
         <translation>http://yourProxy</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="97"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="94"/>
         <source>bv: 8080</source>
         <translation>bv: 8080</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="104"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="101"/>
         <source>Poort:</source>
         <translation>Poort:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="111"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="108"/>
         <source>Herstart qgis om deze instellingen te gebruiken.</source>
         <translation>Herstart qgis om deze instellingen te gebruiken.</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="128"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="133"/>
         <source>Timeout: </source>
         <translation>Timeout:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="135"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="146"/>
         <source> seconden</source>
         <translation> seconden</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="77"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="74"/>
         <source>Host: </source>
         <translation>Host: </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="118"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="115"/>
         <source>Netwerk proxy gebruiken</source>
         <translation>Netwerk proxy gebruiken</translation>
     </message>

@@ -26,7 +26,7 @@ import geopunt, geometryhelper, csv, unicodecsv, webbrowser
 from batchGeoHelper import batcGeoHelper
 from reverseAdresMapTool import reverseAdresMapTool
 
-class geopunt4QgisBatcGeoCodedialog(QtGui.QDialog):
+class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self)
         self.iface = iface

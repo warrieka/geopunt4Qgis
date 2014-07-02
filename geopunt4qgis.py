@@ -32,8 +32,9 @@ from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from reverseAdresMapTool import reverseAdresMapTool
 from geopunt4QgisAbout import geopunt4QgisAboutdialog
 from geopunt4QgisSettingsdialog import geopunt4QgisSettingsdialog
-from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodedialog
+from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
 from geopunt4QgisGipod import geopunt4QgisGipodDialog
+from geopunt4QgisElevation import geopunt4QgisElevationDialog
 #import from libraries
 import geopunt
 import geometryhelper
@@ -57,12 +58,12 @@ class geopunt4Qgis:
 
         # Create the dialogs (after translation) and keep reference
         self.adresdlg = geopunt4QgisAdresDialog(self.iface)
-        self.batchgeoDlg = geopunt4QgisBatcGeoCodedialog(self.iface) 
+        self.batchgeoDlg = geopunt4QgisBatcGeoCodeDialog(self.iface) 
         self.poiDlg = geopunt4QgisPoidialog(self.iface)        
         self.gipodDlg = geopunt4QgisGipodDialog(self.iface)
         self.settingsDlg = geopunt4QgisSettingsdialog()
+        self.elevationDlg = geopunt4QgisElevationDialog(self.iface)
         self.aboutDlg = geopunt4QgisAboutdialog()
-
         
     def initGui(self):
         'intialize settings'
@@ -89,7 +90,9 @@ class geopunt4Qgis:
         self.gipodAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntGIPOD.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Bevraag GIPOD"), self.iface.mainWindow())
         self.settingsAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntSettings.png"),
-                QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())
+                QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())  
+        self.elevationAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntElevation.png"),
+                QCoreApplication.translate("geopunt4Qgis" , u"Hoogteprofiel"), self.iface.mainWindow())
         self.aboutAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
  
@@ -99,6 +102,7 @@ class geopunt4Qgis:
         self.batchAction.triggered.connect(self.runBatch)
         self.poiAction.triggered.connect(self.runPoiDlg)
         self.gipodAction.triggered.connect(self.runGipod)
+        self.elevationAction.triggered.connect(self.runElevation)
         self.settingsAction.triggered.connect(self.runSettingsDlg)
         self.aboutAction.triggered.connect(self.runAbout)
         
@@ -108,6 +112,7 @@ class geopunt4Qgis:
         self.iface.addToolBarIcon(self.batchAction)
         self.iface.addToolBarIcon(self.poiAction)        
         self.iface.addToolBarIcon(self.gipodAction)
+        self.iface.addToolBarIcon(self.elevationAction)
         
         # Add to Menu
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
@@ -115,8 +120,10 @@ class geopunt4Qgis:
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.batchAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.poiAction)        
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.gipodAction)
+        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.elevationAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
+        
 
     def unload(self):
         ' Remove the plugin menu items and icons'
@@ -132,6 +139,8 @@ class geopunt4Qgis:
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.gipodAction)
         self.iface.removeToolBarIcon(self.gipodAction)
+        self.iface.removePluginMenu(u"&geopunt4Qgis", self.elevationAction)
+        self.iface.removeToolBarIcon(self.elevationAction)
 
     def loadSettings(self):
         self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
@@ -175,9 +184,16 @@ class geopunt4Qgis:
         self.batchgeoDlg.loadSettings()
         # Run the dialog event loop
         self.batchgeoDlg.exec_()
-	  
+
+    def runElevation(self):
+        'show the dialog'
+        self.elevationDlg.show()
+        self.elevationDlg.loadSettings()
+        # Run the dialog event loop
+        self.elevationDlg.exec_()
+
     def runAbout(self):
-	'show the dialog'
+        'show the dialog'
         self.aboutDlg.show()
         # Run the dialog event loop
         self.aboutDlg.exec_()

@@ -135,12 +135,7 @@
   <zorder>inputBox</zorder>
   <zorder>resultLijst</zorder>
   <zorder>laraLbl</zorder>
-  <zorder>buttonBox</zorder>
-  <zorder>ZoomKnop</zorder>
-  <zorder>Add2mapKnop</zorder>
-  <zorder>horizontalSpacer</zorder>
   <zorder></zorder>
-  <zorder>horizontalSpacer_2</zorder>
   <zorder></zorder>
  </widget>
  <resources>
