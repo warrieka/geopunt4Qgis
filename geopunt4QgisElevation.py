@@ -29,6 +29,7 @@ from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as Naviga
 import matplotlib.pyplot as plt
 import numpy as np
 #other libs
+from geometryhelper import geometryHelper
 from elevationProfileMapTool import lineTool
 import geopunt, os, json, webbrowser, random
 
@@ -58,6 +59,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
         #vars
         self.elevation = geopunt.elevation(self.timeout, self.proxy, self.port )
+        self.gh = geometryHelper( self.iface )
         
         ##graph global vars
         self.Rubberline =  None
@@ -87,8 +89,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
        
     def plot(self):
-        
-        wgsLine = self._prjLine2wgs( self.Rubberline.asGeometry() )
+        wgsLine = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() )
         lineString = [ list(n) for n in wgsLine.asPolyline()]
         self.profile = self.elevation.fetchElevaton( lineString, 4326, 50  )
 
@@ -118,18 +119,24 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
         if event.xdata != None and event.ydata != None:
           if self.ano: 
-            self.ano.remove()
-            self.ano = None
+             self.ano.remove()
+             self.ano = None
           if self.anoLbl: 
-            self.anoLbl.remove()
-            self.anoLbl = None
+             self.anoLbl.remove()
+             self.anoLbl = None
             
-          zx= np.interp( event.xdata, self.xdata,  self.ydata )
-          self.ano = self.ax.arrow( event.xdata, 0, 0,  zx, fc="k", ec="k" )
-          self.anoLbl = self.ax.annotate( str( round(zx, 2)) ,  xy= (event.xdata, zx ) , xytext= (event.xdata, zx ) )
-          self.setMapPt( event.xdata )
-          event.canvas.draw()
-       
+          zx = np.interp( event.xdata, self.xdata,  self.ydata )
+          xmax = np.max( self.xdata ) 
+          xmin = np.min( self.xdata )
+          
+          if event.xdata <= xmax and event.xdata >= xmin  :
+              self.ano = self.ax.arrow( event.xdata , 0, 0,  zx, fc="k", ec="k" )
+              box_props = dict(boxstyle="Round,pad=0.3", fc="cyan", ec="b", lw=2)
+              self.anoLbl = self.ax.annotate( str( round(zx, 2)) + " m" ,  xy= (event.xdata , zx ) , 
+                                            xytext= (event.xdata , zx ), bbox=box_props )
+              self.setMapPt( event.xdata )
+              event.canvas.draw()
+        
     def callBack(self, geom):
         self.iface.mapCanvas().unsetMapTool(self.tool)
         self.Rubberline = geom
@@ -142,7 +149,11 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         if self.pt:
            self.iface.mapCanvas().scene().removeItem(self.pt)
       
-        pt = self.Rubberline.asGeometry().interpolate(dist).asPoint()
+       # dist is measured in lambert 72 in meters
+        lb72Line = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() , 31370 )
+        lb72pt = lb72Line.interpolate(dist).asPoint()
+        pt = self.gh.prjPtToMapCrs(lb72pt, 31370)
+        
         self.pt = QgsVertexMarker(self.iface.mapCanvas())
         self.pt.setCenter( pt )
         self.pt.setColor(QtGui.QColor(0,255,250))
@@ -176,9 +187,3 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
           
         self.canvas.draw()
         
-    def _prjLine2wgs(self, lineString, toSrsID=4326 ):
-        fromCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
-        toCrs = QgsCoordinateReferenceSystem(toSrsID)
-        xform = QgsCoordinateTransform(fromCrs, toCrs)
-        wgsLine = [ xform.transform( xy ) for xy in  lineString.asPolyline()]
-        return QgsGeometry.fromPolyline( wgsLine )
