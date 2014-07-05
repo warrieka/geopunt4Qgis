@@ -207,13 +207,28 @@
 <context>
     <name>elevationDlg</name>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="14"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="20"/>
         <source>testPrf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="37"/>
-        <source>teken een lijn</source>
+        <location filename="ui_geopunt4QgisElevation.ui" line="43"/>
+        <source>Teken een lijn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="50"/>
+        <source>Aantal samples:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="89"/>
+        <source>Profiellijn opslaan </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="96"/>
+        <source>Samples opslaan</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -462,29 +477,39 @@
         <translation type="obsolete">No results for</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="180"/>
+        <location filename="geopunt4QgisPoidialog.py" line="196"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="184"/>
+        <location filename="geopunt4QgisPoidialog.py" line="200"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="191"/>
+        <location filename="geopunt4QgisPoidialog.py" line="207"/>
         <source>Merk op</source>
         <translation>Remark</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="191"/>
+        <location filename="geopunt4QgisPoidialog.py" line="207"/>
         <source>Er niets om naar te zoomen</source>
         <translation>Nothing to zoom to</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="176"/>
+        <location filename="geopunt4QgisPoidialog.py" line="192"/>
         <source>Geen resultaten gevonden voor: </source>
         <translation>No results for: </translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisPoidialog.py" line="122"/>
+        <source>Waarschuwing </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisPoidialog.py" line="122"/>
+        <source>Kan geen verbing maken met het internet.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

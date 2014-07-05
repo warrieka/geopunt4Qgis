@@ -93,7 +93,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
         
     def openHelp(self):
-        webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntAddress.md")
+        webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntAddress.md")
     
     def onZoekActivated(self):
         self._clearGraphicsLayer()

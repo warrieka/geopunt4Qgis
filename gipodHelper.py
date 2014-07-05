@@ -182,9 +182,3 @@ class gipodError(Exception):
     def __str__(self):
       return repr(self.message)
     
-def internet_on(timeout=15):
-    try:
-	    response=urllib2.urlopen('http://gipod.api.agiv.be/ws/v1/referencedata/province/',timeout=timeout)
-	    return True
-    except: 
-	    return False

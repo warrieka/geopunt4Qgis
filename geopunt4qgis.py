@@ -263,4 +263,4 @@ class geopunt4Qgis:
         self.iface.messageBar().popWidget()	
         
     def openReverseHelp(self):
-        webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntReverse.md")
+        webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntReverse.md")

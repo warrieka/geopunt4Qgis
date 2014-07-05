@@ -143,8 +143,7 @@ class geometryHelper:
             del self.adreslayer, self.adresProvider 
             return
           
-        #  set id, add to map, Labels on, refresh
-        self.adreslayerid = self.adreslayer.id()
+        #  add to map
         QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
         
         #labels
@@ -155,11 +154,13 @@ class geometryHelper:
         palyr.placement= QgsPalLayerSettings.Free 
         palyr.setDataDefinedProperty(QgsPalLayerSettings.Size,True,True,'8','') 
         palyr.writeToLayer( self.adreslayer ) 
-        
+       
+        # store layer id and refresh      
+        self.adreslayerid = self.adreslayer.id()
         self.canvas.refresh()
         
     def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None, sender=None):
-        mapcrs = self.canvas.mapRenderer().destinationCrs()
+        
         attributes = [  QgsField("id", QVariant.Int),
             QgsField("thema", QVariant.String),
             QgsField("category", QVariant.String),

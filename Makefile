@@ -45,9 +45,12 @@ TRANSLATIONS = i18n/geopunt4qgis_en.ts i18n/geopunt4qgis_nl.ts
 # plugin
 PLUGINNAME = geopunt4Qgis
 
-PY_FILES =  unicodecsv.py geometryhelper.py geopunt.py geopunt4qgis.py geopunt4QgisAbout.py \
-geopunt4qgisAdresdialog.py geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py  \
-geopunt4QgisBatchGeoCode.py reverseAdresMapTool.py geopunt4QgisGipod.py __init__.py
+PY_FILES =  __init__.py unicodecsv.py geometryhelper.py geopunt.py \
+geopunt4qgis.py geopunt4QgisAbout.py geopunt4qgisAdresdialog.py \
+geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py  \
+geopunt4QgisBatchGeoCode.py batchGeoHelper.py reverseAdresMapTool.py \
+geopunt4QgisGipod.py gipodHelper.py \
+geopunt4QgisElevation.py elevtionHelper.py elevationProfileMapTool.py
 
 EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html
 

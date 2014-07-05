@@ -65,25 +65,12 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     
         #table ui
         self.ui.resultLijst.hideColumn(0)
-        
-        #filters
-        self.poiThemes = dict( self.poi.listPoiThemes() )
-        poiThemes = [""] + self.poiThemes.keys()
-        poiThemes.sort()
-        self.ui.filterPoiThemeCombo.addItems( poiThemes )
-        self.poiCategories = dict( self.poi.listPoiCategories() )
-        poiCategories = [""] + self.poiCategories.keys()
-        poiCategories.sort()
-        self.ui.filterPoiCategoryCombo.addItems( poiCategories )
-        self.poiTypes = dict( self.poi.listPoitypes() )
-        poiTypes = [""] + self.poiTypes.keys()
-        poiTypes.sort()
-        self.ui.filterPoiTypeCombo.addItems(  poiTypes )
-        gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
-        self.NIScodes= { n["Naam"] : n["Niscode"] for n in gemeentes }
-        gemeenteNamen = [n["Naam"] for n in gemeentes]
-        gemeenteNamen.sort()
-        self.ui.filterPoiNIS.addItems( gemeenteNamen )
+       
+        # filters
+        self.firstShow = True
+        self.poiTypes = {}
+        self.poiCategories = {}
+        self.poiThemes = {}
     
         #actions
         self.ui.resultLijst.addAction( self.ui.actionZoomtoSelection )
@@ -107,8 +94,37 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
     
+    def show(self):
+        if self.firstShow:
+             inet = geopunt.internet_on( proxyUrl=self.proxy, port=self.port, timeout=self.timeout )
+             #filters
+             if inet:
+                self.poiThemes = dict( self.poi.listPoiThemes() )
+                poiThemes = [""] + self.poiThemes.keys()
+                poiThemes.sort()
+                self.ui.filterPoiThemeCombo.addItems( poiThemes )
+                self.poiCategories = dict( self.poi.listPoiCategories() )
+                poiCategories = [""] + self.poiCategories.keys()
+                poiCategories.sort()
+                self.ui.filterPoiCategoryCombo.addItems( poiCategories )
+                self.poiTypes = dict( self.poi.listPoitypes() )
+                poiTypes = [""] + self.poiTypes.keys()
+                poiTypes.sort()
+                self.ui.filterPoiTypeCombo.addItems(  poiTypes )
+                gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
+                self.NIScodes= { n["Naam"] : n["Niscode"] for n in gemeentes }
+                gemeenteNamen = [n["Naam"] for n in gemeentes]
+                gemeenteNamen.sort()
+                self.ui.filterPoiNIS.addItems( gemeenteNamen )            
+                self.firstShow = False      
+             else:
+                self.bar.pushMessage(
+                  QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "), 
+                  QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Kan geen verbing maken met het internet."), 
+                  level=QgsMessageBar.WARNING, duration=3)
+      
     def openHelp(self):
-        webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntPoi.md")
+        webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntPoi.md")
     
     def onZoekActivated(self):
         txt = self.ui.poiText.text()

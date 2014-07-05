@@ -76,7 +76,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
     def show(self):
       if  self.firstShow:
         'exend show to load data'
-        internet = gipodHelper.internet_on()
+        internet = geopunt.internet_on( proxyUrl=self.proxy, port=self.port, timeout=self.timeout )
         if internet:
             gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
             #populate combo's
@@ -166,7 +166,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
             return self.gp.allManifestations(owner, eventtype, startdate, enddate, city, province, srs, bbox)
         
     def openHelp(self):
-        webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntGIPOD.md")
+        webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntGIPOD.md")
     
     def clean(self):
         self.ui.lyrName.setText("GIPOD")

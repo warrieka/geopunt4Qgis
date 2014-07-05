@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisElevation.ui'
 #
-# Created: Wed Jul  2 17:28:37 2014
+# Created: Sat Jul  5 11:51:10 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,6 +27,7 @@ class Ui_elevationDlg(object):
     def setupUi(self, elevationDlg):
         elevationDlg.setObjectName(_fromUtf8("elevationDlg"))
         elevationDlg.resize(400, 300)
+        elevationDlg.setMinimumSize(QtCore.QSize(300, 200))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntElevationSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         elevationDlg.setWindowIcon(icon)
@@ -48,16 +49,52 @@ class Ui_elevationDlg(object):
         self.drawBtn = QtGui.QPushButton(elevationDlg)
         self.drawBtn.setObjectName(_fromUtf8("drawBtn"))
         self.horizontalLayout.addWidget(self.drawBtn)
+        self.nrOfsampleLbl = QtGui.QLabel(elevationDlg)
+        self.nrOfsampleLbl.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.nrOfsampleLbl.setObjectName(_fromUtf8("nrOfsampleLbl"))
+        self.horizontalLayout.addWidget(self.nrOfsampleLbl)
+        self.nrOfSampleSpin = QtGui.QSpinBox(elevationDlg)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.nrOfSampleSpin.sizePolicy().hasHeightForWidth())
+        self.nrOfSampleSpin.setSizePolicy(sizePolicy)
+        self.nrOfSampleSpin.setSuffix(_fromUtf8(""))
+        self.nrOfSampleSpin.setMinimum(10)
+        self.nrOfSampleSpin.setMaximum(500)
+        self.nrOfSampleSpin.setSingleStep(10)
+        self.nrOfSampleSpin.setProperty("value", 50)
+        self.nrOfSampleSpin.setObjectName(_fromUtf8("nrOfSampleSpin"))
+        self.horizontalLayout.addWidget(self.nrOfSampleSpin)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.horizontalLayout_2 = QtGui.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.saveLineBtn = QtGui.QPushButton(elevationDlg)
+        self.saveLineBtn.setObjectName(_fromUtf8("saveLineBtn"))
+        self.horizontalLayout_2.addWidget(self.saveLineBtn)
+        self.savePntBtn = QtGui.QPushButton(elevationDlg)
+        self.savePntBtn.setObjectName(_fromUtf8("savePntBtn"))
+        self.horizontalLayout_2.addWidget(self.savePntBtn)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.mgsLbl = QtGui.QLabel(elevationDlg)
         self.mgsLbl.setText(_fromUtf8(""))
         self.mgsLbl.setObjectName(_fromUtf8("mgsLbl"))
-        self.horizontalLayout.addWidget(self.mgsLbl)
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.horizontalLayout_3.addWidget(self.mgsLbl)
+        spacerItem = QtGui.QSpacerItem(389, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem)
         self.buttonBox = QtGui.QDialogButtonBox(elevationDlg)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.buttonBox.sizePolicy().hasHeightForWidth())
+        self.buttonBox.setSizePolicy(sizePolicy)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close|QtGui.QDialogButtonBox.Help)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.verticalLayout.addWidget(self.buttonBox)
+        self.horizontalLayout_3.addWidget(self.buttonBox)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
 
         self.retranslateUi(elevationDlg)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), elevationDlg.accept)
@@ -66,6 +103,9 @@ class Ui_elevationDlg(object):
 
     def retranslateUi(self, elevationDlg):
         elevationDlg.setWindowTitle(_translate("elevationDlg", "testPrf", None))
-        self.drawBtn.setText(_translate("elevationDlg", "teken een lijn", None))
+        self.drawBtn.setText(_translate("elevationDlg", "Teken een lijn", None))
+        self.nrOfsampleLbl.setText(_translate("elevationDlg", "Aantal samples:", None))
+        self.saveLineBtn.setText(_translate("elevationDlg", "Profiellijn opslaan ", None))
+        self.savePntBtn.setText(_translate("elevationDlg", "Samples opslaan", None))
 
 import resources_rc
