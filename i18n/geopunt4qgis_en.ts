@@ -207,11 +207,6 @@
 <context>
     <name>elevationDlg</name>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="20"/>
-        <source>testPrf</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="43"/>
         <source>Teken een lijn</source>
         <translation type="unfinished"></translation>
@@ -229,6 +224,11 @@
     <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="96"/>
         <source>Samples opslaan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="20"/>
+        <source>Hoogteprofiel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -361,6 +361,11 @@
         <location filename="geopunt4qgisAdresdialog.py" line="204"/>
         <source>gemeente</source>
         <translation>municipality</translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisElevation.py" line="171"/>
+        <source>Er werd geen data gevonden</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -623,49 +628,49 @@
         <translation>Search only when RETURN is pressed</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="544"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="556"/>
         <source>Toevoegen punten aan de kaart</source>
         <translation>Adding points to map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="553"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="673"/>
         <source>Opslaan naar bestand </source>
         <translation>Save to File</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="563"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="660"/>
         <source>Opslaan naar tijdelijke laag</source>
         <translation>Save to temporary layer</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="499"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="511"/>
         <source>Naam  van de laag met adrespunten:</source>
         <translation>Name of the layer with address points:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="300"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="303"/>
         <source>Prikken van een adres</source>
         <translation>Click an address on the map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="470"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="479"/>
         <source>Zoeken naar plaatsen</source>
         <translation>Search for places of interest</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="368"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="374"/>
         <source>CSV-adresbestanden geocoderen</source>
         <translation>geocode CSV-files</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="415"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="424"/>
         <source>Maximaal aantal rijen dat inlezen mag worden: &lt;br/&gt;
 (Grote bestanden kunnen de servers van AGIV belasten)</source>
         <translation>Maximum number of rows that wil be read: &lt;br/&gt;
 (Large files can be prohibiting for AGIV-servers )</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="538"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="550"/>
         <source>GIPOD</source>
         <translation>GIPOD</translation>
     </message>
@@ -723,6 +728,26 @@
         <location filename="ui_geopunt4QgisSettings.ui" line="115"/>
         <source>Netwerk proxy gebruiken</source>
         <translation>Use netwerk proxy</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisSettings.ui" line="606"/>
+        <source>Hoogteprofiel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisSettings.ui" line="654"/>
+        <source>Toevoegen van sample punten aan de kaart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisSettings.ui" line="641"/>
+        <source>Naam  van de laag met samplepunten:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisSettings.ui" line="683"/>
+        <source>Naam  van de laag met de profiellijn:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisElevation.ui'
 #
-# Created: Sat Jul  5 11:51:10 2014
+# Created: Sun Jul  6 10:23:53 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_elevationDlg(object):
     def setupUi(self, elevationDlg):
         elevationDlg.setObjectName(_fromUtf8("elevationDlg"))
-        elevationDlg.resize(400, 300)
+        elevationDlg.resize(581, 419)
         elevationDlg.setMinimumSize(QtCore.QSize(300, 200))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntElevationSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -102,7 +102,7 @@ class Ui_elevationDlg(object):
         QtCore.QMetaObject.connectSlotsByName(elevationDlg)
 
     def retranslateUi(self, elevationDlg):
-        elevationDlg.setWindowTitle(_translate("elevationDlg", "testPrf", None))
+        elevationDlg.setWindowTitle(_translate("elevationDlg", "Hoogteprofiel", None))
         self.drawBtn.setText(_translate("elevationDlg", "Teken een lijn", None))
         self.nrOfsampleLbl.setText(_translate("elevationDlg", "Aantal samples:", None))
         self.saveLineBtn.setText(_translate("elevationDlg", "Profiellijn opslaan ", None))

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>581</width>
+    <height>419</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>testPrf</string>
+   <string>Hoogteprofiel</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">

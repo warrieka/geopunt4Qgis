@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>463</width>
-    <height>466</height>
+    <width>500</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -41,8 +41,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>244</height>
+        <width>482</width>
+        <height>300</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -191,8 +191,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>244</height>
+        <width>482</width>
+        <height>300</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -243,6 +243,9 @@
             <property name="text">
              <string>Opslaan naar bestand </string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -251,7 +254,7 @@
              <string>Opslaan naar tijdelijke laag</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -288,8 +291,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>244</height>
+        <width>482</width>
+        <height>300</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -311,6 +314,9 @@
             <property name="text">
              <string>Opslaan naar bestand </string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -319,7 +325,7 @@
              <string>Opslaan naar tijdelijke laag</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -356,8 +362,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>244</height>
+        <width>482</width>
+        <height>300</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -382,6 +388,9 @@
             <property name="text">
              <string>Opslaan naar bestand </string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -390,7 +399,7 @@
              <string>Opslaan naar tijdelijke laag</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -458,8 +467,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>244</height>
+        <width>482</width>
+        <height>300</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -481,6 +490,9 @@
             <property name="text">
              <string>Opslaan naar bestand </string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -489,7 +501,7 @@
              <string>Opslaan naar tijdelijke laag</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -526,8 +538,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>244</height>
+        <width>482</width>
+        <height>300</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -572,6 +584,114 @@
        </item>
        <item>
         <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="elevationTab">
+      <attribute name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/plugins/geopunt4Qgis/images/geopuntElevationSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntElevationSmall.png</iconset>
+      </attribute>
+      <attribute name="label">
+       <string>Hoogteprofiel</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_16">
+       <item>
+        <widget class="QGroupBox" name="add2mapBox_6">
+         <property name="title">
+          <string>Toevoegen van sample punten aan de kaart</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <item>
+           <widget class="QRadioButton" name="samplesSaveMemoryChk">
+            <property name="text">
+             <string>Opslaan naar tijdelijke laag</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="samplesSavetoFileChk">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>Opslaan naar bestand </string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Naam  van de laag met samplepunten:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="sampleLayerTxt"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="add2mapBox_7">
+         <property name="title">
+          <string>Toevoegen van sample punten aan de kaart</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_15">
+          <item>
+           <widget class="QRadioButton" name="profileLineSaveMemoryChk">
+            <property name="text">
+             <string>Opslaan naar tijdelijke laag</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="profileLineSavetoFileChk">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>Opslaan naar bestand </string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Naam  van de laag met de profiellijn:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="profileLineLayerTxt"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_6">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>

@@ -69,7 +69,7 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
             timeout = int(  self.s.value("geopunt4qgis/timeout" ,15))
             self.ui.timeOutBox.setValue(timeout)
         
-        #geopunt4QgisAdresDialog settings
+        #geopunt4Qgis AdresDialog settings
         adresSearchOnEdit = int( self.s.value("geopunt4qgis/adresSearchOnEdit" , 1))
         self.ui.adresSearchOnEditChk.setChecked(adresSearchOnEdit)
         
@@ -95,9 +95,9 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         reverseLayerText =  self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
         self.ui.reverseLayerTxt.setText(reverseLayerText)
         
-        #batchGeoCode
+        #geopunt4Qgis batchGeoCode settings
         batchGeoCodeSavetoFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
-        self.ui.batchSavetoFileChk.isChecked()
+        self.ui.batchSavetoFileChk.setChecked(batchGeoCodeSavetoFile)
         
         batchGeoCodeSavetoMemory = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoMemory", 0))
         self.ui.batchSaveMemoryChk.setChecked(batchGeoCodeSavetoMemory)
@@ -108,7 +108,7 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         batchMaxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 500 ))
         self.ui.maxRowsSpinBox.setValue(batchMaxRows)	
         
-        #geopunt4QgisPoiDialog settings
+        #PoiDialog settings
         poiSavetoFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 1))
         self.ui.poiSavetoFileChk.setChecked(poiSavetoFile)
         
@@ -118,13 +118,32 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         poilayerText =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
         self.ui.poiLayerTxt.setText(poilayerText)
         
-        #gipod settngs
+        #geopunt4Qgis gipod settngs
         gipodSavetoFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
         self.ui.gipodSavetoFileChk.setChecked(poiSavetoFile)
         
         gipodSaveMemory = int( self.s.value("geopunt4qgis/gipodSaveMemory" , 0))
         self.ui.gipodSaveMemoryChk.setChecked(poiSaveMemory)
-      
+        
+        #geopunt4Qgis Elevation settings
+        samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
+        self.ui.samplesSavetoFileChk.setChecked(samplesSavetoFile)
+        
+        samplesSaveMemory = int( self.s.value("geopunt4qgis/samplesSaveMemory", 0))
+        self.ui.samplesSaveMemoryChk.setChecked(samplesSaveMemory)
+        
+        sampleLayerTxt = self.s.value("geopunt4qgis/sampleLayerTxt", "Elevation_samplepoints")
+        self.ui.sampleLayerTxt.setText(sampleLayerTxt)
+        
+        profileLineSavetoFile = int( self.s.value("geopunt4qgis/profileLineSavetoFile" , 1))
+        self.ui.profileLineSavetoFileChk.setChecked(profileLineSavetoFile)
+        
+        profileLineSaveMemory = int( self.s.value("geopunt4qgis/profileLineSaveMemory", 0))
+        self.ui.profileLineSaveMemoryChk.setChecked(profileLineSaveMemory)
+        
+        profileLineLayerTxt = self.s.value("geopunt4qgis/profileLineLayerTxt", "Elevation_profiles")
+        self.ui.profileLineLayerTxt.setText(profileLineLayerTxt)
+        
     def saveSettings(self):
         'save all settings to registry'
         #General
@@ -197,3 +216,23 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         
         gipodSaveMemory = int( self.ui.gipodSaveMemoryChk.isChecked())
         self.s.setValue("geopunt4qgis/gipodSaveMemory" , gipodSaveMemory)
+        
+        #geopunt4Qgis Elevation settings
+        samplesSavetoFile = int( self.ui.samplesSavetoFileChk.isChecked() )
+        self.s.setValue("geopunt4qgis/samplesSavetoFile", samplesSavetoFile)
+        
+        samplesSaveMemory = int( self.ui.samplesSaveMemoryChk.isChecked() )
+        self.s.value("geopunt4qgis/samplesSaveMemory", samplesSaveMemory)
+        
+        sampleLayerTxt = self.ui.sampleLayerTxt.text()
+        self.s.setValue("geopunt4qgis/sampleLayerTxt", sampleLayerTxt)
+        
+        profileLineSavetoFile = int( self.ui.profileLineSavetoFileChk.isChecked() )
+        self.s.setValue("geopunt4qgis/profileLineSavetoFile" , profileLineSavetoFile )
+        
+        profileLineSaveMemory = int( self.ui.profileLineSaveMemoryChk.isChecked() )
+        self.s.setValue("geopunt4qgis/profileLineSaveMemory", profileLineSaveMemory )
+        
+        profileLineLayerTxt = self.ui.profileLineLayerTxt.text()
+        self.s.setValue("geopunt4qgis/profileLineLayerTxt",  profileLineLayerTxt)
+        

@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 #other libs
 from geometryhelper import geometryHelper
-from elevtionHelper import elevationHelper
+from elevationHelper import elevationHelper
 from elevationProfileMapTool import lineTool
 import geopunt, os, json, webbrowser, random
 
@@ -77,6 +77,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.ax = None
         self.ano = None
         self.anoLbl = None
+        self.counter = 0
         
         # a figure instance to plot on
         self.figure = plt.figure()
@@ -89,8 +90,8 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.ui.graphWgt.layout().addWidget(self.toolbar)
         
         #events
-        self.ui.drawBtn.clicked.connect(self.draw)
-        self.figure.canvas.mpl_connect('motion_notify_event', self.showGraphPt)
+        self.ui.drawBtn.clicked.connect(self.drawBtnClicked)
+        self.figure.canvas.mpl_connect('motion_notify_event', self.showGraphMotion)
         self.ui.saveLineBtn.clicked.connect(self.saveLineClicked)
         self.ui.savePntBtn.clicked.connect(self.savePntClicked)
         self.rejected.connect(self.clean )
@@ -98,10 +99,21 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
     def loadSettings(self):
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")       
-       
+        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")  
+        self.samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
+        self.sampleLayerTxt = self.s.value("geopunt4qgis/sampleLayerTxt", "Elevation_samplepoints")
+        self.profileLineSavetoFile = int( self.s.value("geopunt4qgis/profileLineSavetoFile" , 1))
+        self.profileLineLayerTxt = self.s.value("geopunt4qgis/profileLineLayerTxt", "Elevation_profiles")
+        
     #eventhandlers
-    def showGraphPt(self, event):
+    def drawBtnClicked(self):
+        self.clean()
+        self.tool = lineTool(self.iface, self.callBack )  
+        self.iface.mapCanvas().setMapTool(self.tool)
+        self.showMinimized()
+        self.counter += 1
+             
+    def showGraphMotion(self, event):
         if self.ax == None: return
         
         if event.xdata != None and event.ydata != None:
@@ -131,20 +143,36 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
     def saveLineClicked(self):
         if self.profile != None and self.Rubberline != None:
-           self.eh.save_profile( self.Rubberline.asGeometry(), self.profile, "elevation_profile", False, sender=self )
+           title = self.ax.get_title()
+           self.eh.save_profile( self.Rubberline.asGeometry(), self.profile, title,
+                              self.profileLineLayerTxt, self.profileLineSavetoFile, sender=self )
         
     def savePntClicked(self):
         if self.profile != None:
-           self.eh.save_sample_points( self.profile, "elevation_samples", True, sender=self )
+           title = self.ax.get_title()
+           self.eh.save_sample_points( self.profile, title, 
+                                   self.sampleLayerTxt, self.samplesSavetoFile, sender=self )
         
     def plot(self):
         wgsLine = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() )
         lineString = [ list(n) for n in wgsLine.asPolyline()]
         nrSamples = self.ui.nrOfSampleSpin.value()
-        self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
+        try:
+            self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
+        except geopunt.geopuntError as ge: 
+            self.bar.pushMessage("Error", ge.message, level=QgsMessageBar.CRITICAL, duration=10)
+            return 
         
         xdata = [n[0] for n in self.profile if n[3] > -9999 ]
         ydata = [n[3] for n in self.profile if n[3] > -9999 ]
+        
+        if len(xdata) == 0 or len(ydata) == 0:
+           self.bar.pushMessage("Error", 
+                QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Er werd geen data gevonden"),
+                level=QgsMessageBar.WARNING, duration=10)
+           self.profile = None
+           return 
+        
         # create an axis
         self.ax = self.figure.add_subplot(111)
 
@@ -155,6 +183,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.ax.plot( xdata, ydata,'r*-')
         plt.ylabel("hoogte (m)")
         plt.xlabel("afstand (m)")
+        self.ax.set_title("Hoogteprofiel " + str( self.counter) )
 
         # refresh canvas
         self.canvas.draw()
@@ -162,6 +191,8 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
     def callBack(self, geom):
         self.iface.mapCanvas().unsetMapTool(self.tool)
         self.Rubberline = geom
+        self.showNormal()
+        self.activateWindow()
         self.plot()
 
     def setMapPt(self, dist=None ):
@@ -185,12 +216,6 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
 
         self.ui.mgsLbl.setText("lengte= %s" % dist )    
         
-    def draw(self):
-        self.clean()
-        
-        self.tool = lineTool(self.iface, self.callBack )  
-        self.iface.mapCanvas().setMapTool(self.tool)
-             
     def clean(self):
         if self.pt:
            self.iface.mapCanvas().scene().removeItem(self.pt)
@@ -209,3 +234,5 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
           
         self.canvas.draw()
         
+        self.profile = None
+        self.ui.mgsLbl.setText("")
