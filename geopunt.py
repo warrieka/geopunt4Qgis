@@ -424,7 +424,7 @@ class gipod:
 class elevation:
   def __init__(self, timeout=15, proxyUrl="", port="" ):
       self.timeout = timeout
-      self.baseUri = 'http://ws.agiv.be/elevation/DHMVMIXED/search'
+      self.baseUri = 'http://ws.agiv.be/elevation/dhmv1/search'
       
       if (proxyUrl <> "") & proxyUrl.startswith("http://"):
         netLoc = proxyUrl.strip() + ":" + port

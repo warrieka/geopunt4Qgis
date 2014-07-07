@@ -159,8 +159,7 @@ class geometryHelper:
         self.adreslayerid = self.adreslayer.id()
         self.canvas.refresh()
         
-    def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None, sender=None):
-        
+    def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None, sender=None):       
         attributes = [  QgsField("id", QVariant.Int),
             QgsField("thema", QVariant.String),
             QgsField("category", QVariant.String),
@@ -242,6 +241,8 @@ class geometryHelper:
         palyr.placement= QgsPalLayerSettings.Free 
         palyr.setDataDefinedProperty(QgsPalLayerSettings.Size,True,True,'8','') 
         palyr.writeToLayer( self.poilayer ) 
+        
+        self.poilayer.setEditType( 6, QgsVectorLayer.WebView) 
         
         # add layer if not already
         QgsMapLayerRegistry.instance().addMapLayer(self.poilayer)

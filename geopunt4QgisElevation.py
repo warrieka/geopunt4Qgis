@@ -129,12 +129,14 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
           zx = np.interp( event.xdata, xdata, ydata )
           xmax = np.max( xdata ) 
           xmin = np.min( xdata )
+          zmax = np.max( ydata )
           
           if event.xdata <= xmax and event.xdata >= xmin  :
-              self.ano = self.ax.arrow( event.xdata , 0, 0,  zx, fc="k", ec="k" )
+              self.ano = self.ax.arrow( event.xdata , -9999, 0, zx + 9999, fc="k", ec="k" )
+              
               box_props = dict(boxstyle="Round,pad=0.3", fc="cyan", ec="b", lw=2)
-              self.anoLbl = self.ax.annotate( str( round(zx, 2)) + " m" ,  xy= (event.xdata , zx ) , 
-                                            xytext= (event.xdata , zx ), bbox=box_props )
+              self.anoLbl = self.ax.annotate( str( round(zx, 2)) + " m",  xy= (event.xdata , zx ) , 
+                                         xytext= (event.xdata , zx + (0.03 * zmax ) ), bbox=box_props )
               self.setMapPt( event.xdata )
           else:
               self.setMapPt()

@@ -358,7 +358,7 @@
         <translation>gemeente</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="171"/>
+        <location filename="geopunt4QgisElevation.py" line="173"/>
         <source>Er werd geen data gevonden</source>
         <translation>Er werd geen data gevonden</translation>
     </message>

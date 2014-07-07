@@ -363,7 +363,7 @@
         <translation>municipality</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="171"/>
+        <location filename="geopunt4QgisElevation.py" line="173"/>
         <source>Er werd geen data gevonden</source>
         <translation>No  data was found</translation>
     </message>

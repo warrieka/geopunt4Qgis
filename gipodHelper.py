@@ -158,6 +158,7 @@ class gipodWriter:
         ' add layer to map and clean up'
         render= gipodRender(self.gipodlayer, 'hinder' ).render
         self.gipodlayer.setRendererV2(render)
+        #self.gipodlayer.setEditType( 8, QgsVectorLayer.WebView) 
         QgsMapLayerRegistry.instance().addMapLayer(self.gipodlayer)
     
         # refresh and update extends

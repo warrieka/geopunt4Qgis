@@ -153,10 +153,10 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             minX, minY = self.gh.prjPtFromMapCrs([bbox.xMinimum(),bbox.yMinimum()], 4326)
             maxX, maxY = self.gh.prjPtFromMapCrs([bbox.xMaximum(),bbox.yMaximum()], 4326)
             xyBox = [minX, minY, maxX, maxY]
-            self.poi.fetchPoi( txt, c=30, srs=4326 , maxModel=True, updateResults=True, bbox=xyBox, 
+            self.poi.fetchPoi( txt, c=32, srs=4326 , maxModel=True, updateResults=True, bbox=xyBox, 
                                theme=poitheme , category=poiCategorie, POItype=poiType )
         else:
-            self.poi.fetchPoi( txt, c=30, srs=4326 , maxModel=True, updateResults=True, bbox=None, 
+            self.poi.fetchPoi( txt, c=32, srs=4326 , maxModel=True, updateResults=True, bbox=None, 
                                theme=poitheme , category=poiCategorie, POItype=poiType, region=Niscode )
       
         suggesties = self.poi.poiSuggestion()
