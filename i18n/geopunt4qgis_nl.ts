@@ -58,7 +58,7 @@
     <message>
         <location filename="geopunt4QgisBatchGeoCode.py" line="259"/>
         <source>&lt;a href=&apos;https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand&apos;&gt;Meer info&lt;/a&gt;</source>
-        <translation type="unfinished">&lt;a href=&apos;https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand&apos;&gt;Meer info&lt;/a&gt;</translation>
+        <translation>&lt;a href=&apos;https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand&apos;&gt;Meer info&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="geopunt4QgisBatchGeoCode.py" line="283"/>
@@ -78,12 +78,12 @@
     <message>
         <location filename="geopunt4QgisBatchGeoCode.py" line="213"/>
         <source>Deze file kon niet correct worden ingelezen, probeer eens in te laden als &lt;strong&gt;ANSI-file&lt;/strong&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze file kon niet correct worden ingelezen, probeer eens in te laden als &lt;strong&gt;ANSI-file&lt;/strong&gt;</translation>
     </message>
     <message>
         <location filename="geopunt4QgisBatchGeoCode.py" line="221"/>
         <source>Deze file kon niet correct worden ingelezen, probeer  eens in te laden als &lt;strong&gt;UTF-8-file&lt;/strong&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze file kon niet correct worden ingelezen, probeer  eens in te laden als &lt;strong&gt;UTF-8-file&lt;/strong&gt;</translation>
     </message>
 </context>
 <context>
@@ -209,27 +209,27 @@
     <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="43"/>
         <source>Teken een lijn</source>
-        <translation type="unfinished"></translation>
+        <translation>Teken een lijn</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="50"/>
         <source>Aantal samples:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aantal samples:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="89"/>
         <source>Profiellijn opslaan </source>
-        <translation type="unfinished"></translation>
+        <translation>Profiellijn opslaan </translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="96"/>
         <source>Samples opslaan</source>
-        <translation type="unfinished"></translation>
+        <translation>Samples opslaan</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="20"/>
         <source>Hoogteprofiel</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoogteprofiel</translation>
     </message>
 </context>
 <context>
@@ -337,7 +337,7 @@
     <message>
         <location filename="geopunt4qgis.py" line="95"/>
         <source>Hoogteprofiel</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoogteprofiel</translation>
     </message>
 </context>
 <context>
@@ -360,7 +360,7 @@
     <message>
         <location filename="geopunt4QgisElevation.py" line="171"/>
         <source>Er werd geen data gevonden</source>
-        <translation type="unfinished"></translation>
+        <translation>Er werd geen data gevonden</translation>
     </message>
 </context>
 <context>
@@ -406,7 +406,7 @@
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="211"/>
         <source>Categorie</source>
-        <translation type="unfinished">Categorie</translation>
+        <translation>Categorie</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="221"/>
@@ -436,37 +436,37 @@
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="75"/>
         <source>Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Filters</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="144"/>
         <source>Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Type:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="127"/>
         <source>Categorie:</source>
-        <translation type="unfinished"></translation>
+        <translation>Categorie:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="107"/>
         <source>Thema:</source>
-        <translation type="unfinished"></translation>
+        <translation>Thema:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="216"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="206"/>
         <source>Thema</source>
-        <translation type="unfinished"></translation>
+        <translation>Thema</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="90"/>
         <source>Gemeente:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemeente:</translation>
     </message>
 </context>
 <context>
@@ -504,12 +504,12 @@
     <message>
         <location filename="geopunt4QgisPoidialog.py" line="122"/>
         <source>Waarschuwing </source>
-        <translation type="unfinished"></translation>
+        <translation>Waarschuwing</translation>
     </message>
     <message>
         <location filename="geopunt4QgisPoidialog.py" line="122"/>
         <source>Kan geen verbing maken met het internet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen verbing maken met het internet.</translation>
     </message>
 </context>
 <context>
@@ -727,22 +727,22 @@
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="606"/>
         <source>Hoogteprofiel</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoogteprofiel</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="654"/>
         <source>Toevoegen van sample punten aan de kaart</source>
-        <translation type="unfinished"></translation>
+        <translation>Toevoegen van sample punten aan de kaart</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="641"/>
         <source>Naam  van de laag met samplepunten:</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam  van de laag met samplepunten:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="683"/>
         <source>Naam  van de laag met de profiellijn:</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam  van de laag met de profiellijn:</translation>
     </message>
 </context>
 </TS>

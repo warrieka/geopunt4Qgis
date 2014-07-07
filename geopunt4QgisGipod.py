@@ -28,7 +28,7 @@ from  datetime import date, timedelta
 
 class geopunt4QgisGipodDialog(QtGui.QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self)
+        QtGui.QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
         self.iface = iface
         
         # initialize locale

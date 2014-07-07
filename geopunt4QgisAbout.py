@@ -25,7 +25,7 @@ from ui_geopunt4QgisAbout import Ui_aboutDlg
 
 class geopunt4QgisAboutdialog(QtGui.QDialog):
     def __init__(self):
-	QtGui.QDialog.__init__(self)
+	QtGui.QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
 
 	# initialize locale
         locale = QtCore.QSettings().value("locale/userLocale")[0:2]
