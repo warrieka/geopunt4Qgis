@@ -86,14 +86,17 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.canvas = FigureCanvas(self.figure)
         self.toolbar = NavigationToolbar(self.canvas, self)
         self.toolbar.findChildren(QtGui.QLabel)[0].setParent(None) #disable position label 
+        self.ui.toolbar.layout().insertWidget(0, self.toolbar)
         self.ui.graphWgt.layout().addWidget(self.canvas)
-        self.ui.graphWgt.layout().addWidget(self.toolbar)
+        #self.ui.graphWgt.layout().addWidget(self.toolbar)
         
         #events
         self.ui.drawBtn.clicked.connect(self.drawBtnClicked)
         self.figure.canvas.mpl_connect('motion_notify_event', self.showGraphMotion)
         self.ui.saveLineBtn.clicked.connect(self.saveLineClicked)
         self.ui.savePntBtn.clicked.connect(self.savePntClicked)
+        self.ui.addDHMbtn.clicked.connect(self.addDHMasWMS) 
+        self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.rejected.connect(self.clean )
 
     def loadSettings(self):
@@ -106,6 +109,9 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.profileLineLayerTxt = self.s.value("geopunt4qgis/profileLineLayerTxt", "Elevation_profiles")
         
     #eventhandlers
+    def openHelp(self):
+        webbrowser.open_new_tab("http://warrieka.github.io/#!geopuntElevation.md")
+    
     def drawBtnClicked(self):
         self.clean()
         self.tool = lineTool(self.iface, self.callBack )  
@@ -154,7 +160,15 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
            title = self.ax.get_title()
            self.eh.save_sample_points( self.profile, title, 
                                    self.sampleLayerTxt, self.samplesSavetoFile, sender=self )
-        
+       
+    def addDHMasWMS(self):
+        crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
+        dhmUrl =  "url=http://geo.agiv.be/inspire/wms/Hoogte&layers=DHM&format=image/png&styles=default&crs="+ crs
+        rlayer = QgsRasterLayer(dhmUrl, 'Hoogtemodel', 'wms') 
+        rlayer.renderer().setOpacity(0.8)
+        if rlayer.isValid():
+           QgsMapLayerRegistry.instance().addMapLayer(rlayer)
+       
     def plot(self):
         wgsLine = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() )
         lineString = [ list(n) for n in wgsLine.asPolyline()]

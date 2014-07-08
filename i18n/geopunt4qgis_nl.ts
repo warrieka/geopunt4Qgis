@@ -207,22 +207,22 @@
 <context>
     <name>elevationDlg</name>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="43"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="56"/>
         <source>Teken een lijn</source>
-        <translation>Teken een lijn</translation>
+        <translation type="obsolete">Teken een lijn</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="50"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="89"/>
         <source>Aantal samples:</source>
         <translation>Aantal samples:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="89"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="128"/>
         <source>Profiellijn opslaan </source>
         <translation>Profiellijn opslaan </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="96"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="135"/>
         <source>Samples opslaan</source>
         <translation>Samples opslaan</translation>
     </message>
@@ -230,6 +230,16 @@
         <location filename="ui_geopunt4QgisElevation.ui" line="20"/>
         <source>Hoogteprofiel</source>
         <translation>Hoogteprofiel</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="67"/>
+        <source>Voeg Hoogtemodel toe</source>
+        <translation>Voeg Hoogtemodel toe</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="82"/>
+        <source>Teken de profiellijn</source>
+        <translation>Teken de profiellijn</translation>
     </message>
 </context>
 <context>
@@ -358,7 +368,7 @@
         <translation>gemeente</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="173"/>
+        <location filename="geopunt4QgisElevation.py" line="187"/>
         <source>Er werd geen data gevonden</source>
         <translation>Er werd geen data gevonden</translation>
     </message>
@@ -477,37 +487,37 @@
         <translation type="obsolete">Geen resultaten gevonden voor</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="196"/>
+        <location filename="geopunt4QgisPoidialog.py" line="198"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="200"/>
+        <location filename="geopunt4QgisPoidialog.py" line="202"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="207"/>
+        <location filename="geopunt4QgisPoidialog.py" line="209"/>
         <source>Merk op</source>
         <translation>Merk op</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="207"/>
+        <location filename="geopunt4QgisPoidialog.py" line="209"/>
         <source>Er niets om naar te zoomen</source>
         <translation>Er niets om naar te zoomen</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="192"/>
+        <location filename="geopunt4QgisPoidialog.py" line="194"/>
         <source>Geen resultaten gevonden voor: </source>
         <translation>Geen resultaten gevonden voor:</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="122"/>
+        <location filename="geopunt4QgisPoidialog.py" line="124"/>
         <source>Waarschuwing </source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="122"/>
+        <location filename="geopunt4QgisPoidialog.py" line="124"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation>Kan geen verbing maken met het internet.</translation>
     </message>

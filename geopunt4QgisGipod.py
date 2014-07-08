@@ -74,6 +74,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
       
     
     def show(self):
+      QtGui.QDialog.show(self)
       if  self.firstShow:
         'exend show to load data'
         internet = geopunt.internet_on( proxyUrl=self.proxy, port=self.port, timeout=self.timeout )

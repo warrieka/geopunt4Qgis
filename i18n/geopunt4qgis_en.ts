@@ -207,22 +207,22 @@
 <context>
     <name>elevationDlg</name>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="43"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="56"/>
         <source>Teken een lijn</source>
-        <translation>Draw a line</translation>
+        <translation type="obsolete">Draw a line</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="50"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="89"/>
         <source>Aantal samples:</source>
         <translation>Number of samples:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="89"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="128"/>
         <source>Profiellijn opslaan </source>
         <translation>Save profileline</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="96"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="135"/>
         <source>Samples opslaan</source>
         <translation>Save samplepoints</translation>
     </message>
@@ -230,6 +230,16 @@
         <location filename="ui_geopunt4QgisElevation.ui" line="20"/>
         <source>Hoogteprofiel</source>
         <translation>Elevation profile</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="67"/>
+        <source>Voeg Hoogtemodel toe</source>
+        <translation>Add DHM WMS</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="82"/>
+        <source>Teken de profiellijn</source>
+        <translation>Draw Profileline</translation>
     </message>
 </context>
 <context>
@@ -363,7 +373,7 @@
         <translation>municipality</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="173"/>
+        <location filename="geopunt4QgisElevation.py" line="187"/>
         <source>Er werd geen data gevonden</source>
         <translation>No  data was found</translation>
     </message>
@@ -482,37 +492,37 @@
         <translation type="obsolete">No results for</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="196"/>
+        <location filename="geopunt4QgisPoidialog.py" line="198"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="200"/>
+        <location filename="geopunt4QgisPoidialog.py" line="202"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="207"/>
+        <location filename="geopunt4QgisPoidialog.py" line="209"/>
         <source>Merk op</source>
         <translation>Remark</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="207"/>
+        <location filename="geopunt4QgisPoidialog.py" line="209"/>
         <source>Er niets om naar te zoomen</source>
         <translation>Nothing to zoom to</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="192"/>
+        <location filename="geopunt4QgisPoidialog.py" line="194"/>
         <source>Geen resultaten gevonden voor: </source>
         <translation>No results for: </translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="122"/>
+        <location filename="geopunt4QgisPoidialog.py" line="124"/>
         <source>Waarschuwing </source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="122"/>
+        <location filename="geopunt4QgisPoidialog.py" line="124"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation>Could not connect to the internet.</translation>
     </message>

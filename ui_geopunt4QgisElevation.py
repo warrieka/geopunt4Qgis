@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisElevation.ui'
 #
-# Created: Sun Jul  6 10:23:53 2014
+# Created: Tue Jul  8 22:31:01 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_elevationDlg(object):
     def setupUi(self, elevationDlg):
         elevationDlg.setObjectName(_fromUtf8("elevationDlg"))
-        elevationDlg.resize(581, 419)
+        elevationDlg.resize(574, 419)
         elevationDlg.setMinimumSize(QtCore.QSize(300, 200))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntElevationSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -43,6 +43,27 @@ class Ui_elevationDlg(object):
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.graphWgt)
         self.verticalLayout_3.setMargin(0)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
+        self.toolbar = QtGui.QWidget(self.graphWgt)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.toolbar.sizePolicy().hasHeightForWidth())
+        self.toolbar.setSizePolicy(sizePolicy)
+        self.toolbar.setObjectName(_fromUtf8("toolbar"))
+        self.horizontalLayout_4 = QtGui.QHBoxLayout(self.toolbar)
+        self.horizontalLayout_4.setMargin(0)
+        self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem)
+        self.addDHMbtn = QtGui.QPushButton(self.toolbar)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.addDHMbtn.sizePolicy().hasHeightForWidth())
+        self.addDHMbtn.setSizePolicy(sizePolicy)
+        self.addDHMbtn.setObjectName(_fromUtf8("addDHMbtn"))
+        self.horizontalLayout_4.addWidget(self.addDHMbtn)
+        self.verticalLayout_3.addWidget(self.toolbar)
         self.verticalLayout.addWidget(self.graphWgt)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
@@ -82,8 +103,8 @@ class Ui_elevationDlg(object):
         self.mgsLbl.setText(_fromUtf8(""))
         self.mgsLbl.setObjectName(_fromUtf8("mgsLbl"))
         self.horizontalLayout_3.addWidget(self.mgsLbl)
-        spacerItem = QtGui.QSpacerItem(389, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem)
+        spacerItem1 = QtGui.QSpacerItem(389, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem1)
         self.buttonBox = QtGui.QDialogButtonBox(elevationDlg)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -103,7 +124,8 @@ class Ui_elevationDlg(object):
 
     def retranslateUi(self, elevationDlg):
         elevationDlg.setWindowTitle(_translate("elevationDlg", "Hoogteprofiel", None))
-        self.drawBtn.setText(_translate("elevationDlg", "Teken een lijn", None))
+        self.addDHMbtn.setText(_translate("elevationDlg", "Voeg Hoogtemodel toe", None))
+        self.drawBtn.setText(_translate("elevationDlg", "Teken de profiellijn", None))
         self.nrOfsampleLbl.setText(_translate("elevationDlg", "Aantal samples:", None))
         self.saveLineBtn.setText(_translate("elevationDlg", "Profiellijn opslaan ", None))
         self.savePntBtn.setText(_translate("elevationDlg", "Samples opslaan", None))

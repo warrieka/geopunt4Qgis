@@ -95,6 +95,8 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
     
     def show(self):
+        QtGui.QDialog.show(self)
+        self.setWindowModality(0)
         if self.firstShow:
              inet = geopunt.internet_on( proxyUrl=self.proxy, port=self.port, timeout=self.timeout )
              #filters
