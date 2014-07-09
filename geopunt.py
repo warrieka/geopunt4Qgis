@@ -45,8 +45,8 @@ class Adres:
   def fetchLocation(self, q, c=1):
       url = self._createLocationUrl(q, c=1)
       try:
-        if self.opener: response = self.opener.open(url, timeout=self.timeout)
-        else: response = urllib2.urlopen(url, timeout=self.timeout)
+          if self.opener: response = self.opener.open(url, timeout=self.timeout)
+          else: response = urllib2.urlopen(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
             return str( e.reason )
       except:

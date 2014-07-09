@@ -88,7 +88,6 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.toolbar.findChildren(QtGui.QLabel)[0].setParent(None) #disable position label 
         self.ui.toolbar.layout().insertWidget(0, self.toolbar)
         self.ui.graphWgt.layout().addWidget(self.canvas)
-        #self.ui.graphWgt.layout().addWidget(self.toolbar)
         
         #events
         self.ui.drawBtn.clicked.connect(self.drawBtnClicked)

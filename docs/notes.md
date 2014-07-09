@@ -1,14 +1,16 @@
 Notities
 -------
  
-parse CSW
+parse metadata
 ---------
 
+docs: http://geonetwork-opensource.org/manuals/2.8.0/eng/developer/xml_services/metadata_xml_search_retrieve.html
+
 ```python
-	import urllib2 , sys
+	import urllib2, sys
 	import xml.etree.ElementTree as ET
 	
-	url = "https://metadata.geopunt.be/zoekdienst/srv/dut/q?fast=index&from=1&to=100&any=vlaams"
+	url = "https://metadata.geopunt.be/zoekdienst/srv/dut/q?fast=index&from=1&to=20&orgName=%22databank%20ondergrond%20vlaanderen%22&inspiretheme=Bodem&hitsperpage=20"
 	
 	response = urllib2.urlopen(url, timeout=50)
 	tree  = ET.ElementTree(file=response )
@@ -22,7 +24,19 @@ parse CSW
 		for n in l: 
 		print title.text +" "+ n 
 ```
+
+metadata keywords:
   
+ **GDI-Vlaanderen-trefwoorden:** https://metadata.geopunt.be/zoekdienst/srv/dut/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pKeyword=*&pThesauri=external.theme.GDI-Vlaanderen-trefwoorden
+  
+ **inspire-thema's:** https://metadata.geopunt.be/zoekdienst/srv/dut/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pKeyword=*&pThesauri=external.theme.inspire-theme
+ 
+ **orgnisaties:** https://metadata.geopunt.be/zoekdienst/srv/dut/main.search.suggest?field=orgName
+ 
+ **bronnen:** https://metadata.geopunt.be/zoekdienst/srv/dut/xml.info?type=sources
+ 
+ **autocomplete:** https://metadata.geopunt.be/zoekdienst/srv/dut/main.search.suggest?field=any&q=<...>
+ 
  
 Loading WMS: 
 -----------
@@ -37,7 +51,7 @@ Loading WMS:
 ```
   
 
-Find layer names in getcapabilties
+Find layer names in WMS getcapabilties
 ----------
 
 ```python
@@ -116,11 +130,11 @@ create a graph with mathplotlib
 		  self.canvas.draw()
 	
 	if __name__ == '__main__':
-	app = QtGui.QApplication(sys.argv)
-	
-	main = Window()
-	main.show()
-	
-	sys.exit(app.exec_())
+        app = QtGui.QApplication(sys.argv)
+        
+        main = Window()
+        main.show()
+        
+        sys.exit(app.exec_())
 ```
   

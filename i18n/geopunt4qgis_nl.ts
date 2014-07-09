@@ -376,17 +376,17 @@
 <context>
     <name>geopunt4QgisGIPOD</name>
     <message>
-        <location filename="geopunt4QgisGipod.py" line="95"/>
+        <location filename="geopunt4QgisGipod.py" line="96"/>
         <source>&lt;strong&gt;Waarschuwing: &lt;/strong&gt;kan niet verbinden met internet</source>
         <translation>&lt;strong&gt;Waarschuwing: &lt;/strong&gt;kan niet verbinden met internet</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisGipod.py" line="143"/>
+        <location filename="geopunt4QgisGipod.py" line="144"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisGipod.py" line="143"/>
+        <location filename="geopunt4QgisGipod.py" line="144"/>
         <source>Deze bevraging had geen resultaten, er werd geen laag aangemaakt</source>
         <translation>Deze bevraging had geen resultaten, er werd geen laag aangemaakt</translation>
     </message>
