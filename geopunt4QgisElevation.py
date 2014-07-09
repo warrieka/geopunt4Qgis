@@ -26,7 +26,7 @@ from qgis.gui import  QgsMessageBar, QgsVertexMarker
 #mathplotlib
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
-import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 import numpy as np
 #other libs
 from geometryhelper import geometryHelper
@@ -80,7 +80,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.counter = 0
         
         # a figure instance to plot on
-        self.figure = plt.figure()
+        self.figure = Figure()
 
         #create the Canvas widget and toolbar and set graphWgt as parent
         self.canvas = FigureCanvas(self.figure)
@@ -196,8 +196,8 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
 
         # plot data
         self.ax.plot( xdata, ydata,'r*-')
-        plt.ylabel("hoogte (m)")
-        plt.xlabel("afstand (m)")
+        self.ax.set_ylabel("hoogte (m)")
+        self.ax.set_xlabel("afstand (m)")
         self.ax.set_title("Hoogteprofiel " + str( self.counter) )
 
         # refresh canvas
