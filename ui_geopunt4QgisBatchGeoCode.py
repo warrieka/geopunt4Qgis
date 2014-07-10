@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Wed Jul  9 20:49:21 2014
+# Created: Thu Jul 10 18:50:30 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -227,8 +227,6 @@ class Ui_batchGeocodeDlg(object):
         self.verticalLayout.addWidget(self.tlFrame)
         self.horizontalLayout_9 = QtGui.QHBoxLayout()
         self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_9.addItem(spacerItem1)
         self.addToMapKnop = QtGui.QPushButton(batchGeocodeDlg)
         self.addToMapKnop.setEnabled(False)
         self.addToMapKnop.setCheckable(False)
@@ -237,6 +235,8 @@ class Ui_batchGeocodeDlg(object):
         self.addToMapKnop.setFlat(False)
         self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
         self.horizontalLayout_9.addWidget(self.addToMapKnop)
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_9.addItem(spacerItem1)
         self.buttonBox = QtGui.QDialogButtonBox(batchGeocodeDlg)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -326,10 +326,10 @@ class Ui_batchGeocodeDlg(object):
         self.delimSelect.setItemText(3, _translate("batchGeocodeDlg", "Ander: ", None))
         self.label_2.setText(_translate("batchGeocodeDlg", "Adres (straat <huisnr>, <gemeente>):", None))
         self.label_3.setText(_translate("batchGeocodeDlg", "(Optioneel) Huisnummer kolom: ", None))
-        self.label.setText(_translate("batchGeocodeDlg", "(Optioneel) Gemeente of Postcode kolom:", None))
+        self.label.setText(_translate("batchGeocodeDlg", "(Optioneel) Gemeente of postcode kolom:", None))
         self.zoomToSelBtn.setToolTip(_translate("batchGeocodeDlg", "Zoom naar selectie", None))
         self.validateSelBtn.setToolTip(_translate("batchGeocodeDlg", "Valideer selectie", None))
-        self.validateBtn.setToolTip(_translate("batchGeocodeDlg", "Valideer alle Adressen", None))
+        self.validateBtn.setToolTip(_translate("batchGeocodeDlg", "Valideer alle adressen", None))
         self.outPutTbl.setSortingEnabled(True)
         self.adresFromMapBtn.setToolTip(_translate("batchGeocodeDlg", "Prik locatie op kaart", None))
         self.addToMapKnop.setText(_translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None))

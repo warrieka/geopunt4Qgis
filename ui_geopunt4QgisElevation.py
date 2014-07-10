@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisElevation.ui'
 #
-# Created: Tue Jul  8 22:31:01 2014
+# Created: Thu Jul 10 18:50:30 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -124,7 +124,7 @@ class Ui_elevationDlg(object):
 
     def retranslateUi(self, elevationDlg):
         elevationDlg.setWindowTitle(_translate("elevationDlg", "Hoogteprofiel", None))
-        self.addDHMbtn.setText(_translate("elevationDlg", "Voeg Hoogtemodel toe", None))
+        self.addDHMbtn.setText(_translate("elevationDlg", "Voeg hoogtemodel toe", None))
         self.drawBtn.setText(_translate("elevationDlg", "Teken de profiellijn", None))
         self.nrOfsampleLbl.setText(_translate("elevationDlg", "Aantal samples:", None))
         self.saveLineBtn.setText(_translate("elevationDlg", "Profiellijn opslaan ", None))

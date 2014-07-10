@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>359</height>
+    <width>473</width>
+    <height>352</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,20 +22,20 @@
    <item>
     <widget class="QGroupBox" name="inputBox">
      <property name="title">
-      <string>Voer een adres in en selecteer een gemeente</string>
+      <string>Selecteer een gemeente  en voer een adres in</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLineEdit" name="zoekText">
-        <property name="placeholderText">
-         <string>straat huisnummer</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QComboBox" name="gemeenteBox">
         <property name="editable">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="zoekText">
+        <property name="placeholderText">
+         <string>straat huisnummer</string>
         </property>
        </widget>
       </item>
@@ -63,7 +63,7 @@
      <item>
       <widget class="QPushButton" name="Add2mapKnop">
        <property name="text">
-        <string>Toevoegen aan Kaart</string>
+        <string>Toevoegen aan kaart</string>
        </property>
        <property name="autoDefault">
         <bool>false</bool>

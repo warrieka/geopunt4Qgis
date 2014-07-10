@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Wed Jul  2 14:40:18 2014
+# Created: Thu Jul 10 18:50:30 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_geopunt4Qgis(object):
     def setupUi(self, geopunt4Qgis):
         geopunt4Qgis.setObjectName(_fromUtf8("geopunt4Qgis"))
-        geopunt4Qgis.resize(480, 359)
+        geopunt4Qgis.resize(473, 352)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntAddressSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         geopunt4Qgis.setWindowIcon(icon)
@@ -36,13 +36,13 @@ class Ui_geopunt4Qgis(object):
         self.inputBox.setObjectName(_fromUtf8("inputBox"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.inputBox)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.zoekText = QtGui.QLineEdit(self.inputBox)
-        self.zoekText.setObjectName(_fromUtf8("zoekText"))
-        self.horizontalLayout.addWidget(self.zoekText)
         self.gemeenteBox = QtGui.QComboBox(self.inputBox)
         self.gemeenteBox.setEditable(True)
         self.gemeenteBox.setObjectName(_fromUtf8("gemeenteBox"))
         self.horizontalLayout.addWidget(self.gemeenteBox)
+        self.zoekText = QtGui.QLineEdit(self.inputBox)
+        self.zoekText.setObjectName(_fromUtf8("zoekText"))
+        self.horizontalLayout.addWidget(self.zoekText)
         self.verticalLayout.addWidget(self.inputBox)
         self.resultLijst = QtGui.QListWidget(geopunt4Qgis)
         self.resultLijst.setObjectName(_fromUtf8("resultLijst"))
@@ -89,9 +89,9 @@ class Ui_geopunt4Qgis(object):
 
     def retranslateUi(self, geopunt4Qgis):
         geopunt4Qgis.setWindowTitle(_translate("geopunt4Qgis", "Zoek een adres via Geopunt ", None))
-        self.inputBox.setTitle(_translate("geopunt4Qgis", "Voer een adres in en selecteer een gemeente", None))
+        self.inputBox.setTitle(_translate("geopunt4Qgis", "Selecteer een gemeente  en voer een adres in", None))
         self.zoekText.setPlaceholderText(_translate("geopunt4Qgis", "straat huisnummer", None))
-        self.Add2mapKnop.setText(_translate("geopunt4Qgis", "Toevoegen aan Kaart", None))
+        self.Add2mapKnop.setText(_translate("geopunt4Qgis", "Toevoegen aan kaart", None))
         self.ZoomKnop.setText(_translate("geopunt4Qgis", "Zoom naar", None))
         self.laraLbl.setText(_translate("geopunt4Qgis", "<small><a href=\"http://crab.agiv.be/Lara\">Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)</a></small>", None))
 

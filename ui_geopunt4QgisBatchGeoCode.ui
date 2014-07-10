@@ -245,7 +245,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>(Optioneel) Gemeente of Postcode kolom:</string>
+           <string>(Optioneel) Gemeente of postcode kolom:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -338,7 +338,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Valideer alle Adressen</string>
+         <string>Valideer alle adressen</string>
         </property>
         <property name="text">
          <string/>
@@ -388,19 +388,6 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_9">
      <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
       <widget class="QPushButton" name="addToMapKnop">
        <property name="enabled">
         <bool>false</bool>
@@ -421,6 +408,19 @@
         <bool>false</bool>
        </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">

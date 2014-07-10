@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="/plugins/geopunt4Qgis">
+    <file>images/magnifyingGlass.png</file>
+    <file>images/magnifyingGlassSmall.png</file>
     <file>images/geopuntElevation.png</file>
     <file>images/geopuntElevationSmall.png</file>
     <file>images/geopuntGIPOD.png</file>

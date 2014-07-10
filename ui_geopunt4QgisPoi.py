@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Wed Jul  9 20:49:21 2014
+# Created: Thu Jul 10 18:50:30 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_geopunt4QgisPoiDlg(object):
     def setupUi(self, geopunt4QgisPoiDlg):
         geopunt4QgisPoiDlg.setObjectName(_fromUtf8("geopunt4QgisPoiDlg"))
-        geopunt4QgisPoiDlg.resize(600, 482)
+        geopunt4QgisPoiDlg.resize(528, 530)
         geopunt4QgisPoiDlg.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntPoiSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -41,15 +41,6 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.poiText = QtGui.QLineEdit(self.groupBox)
         self.poiText.setObjectName(_fromUtf8("poiText"))
         self.horizontalLayout.addWidget(self.poiText)
-        self.zoekKnop = QtGui.QPushButton(self.groupBox)
-        self.zoekKnop.setText(_fromUtf8(""))
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/binocularsSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.zoekKnop.setIcon(icon1)
-        self.zoekKnop.setAutoDefault(False)
-        self.zoekKnop.setDefault(True)
-        self.zoekKnop.setObjectName(_fromUtf8("zoekKnop"))
-        self.horizontalLayout.addWidget(self.zoekKnop)
         self.verticalLayout.addWidget(self.groupBox)
         self.currentBoundsVink = QtGui.QCheckBox(geopunt4QgisPoiDlg)
         self.currentBoundsVink.setEnabled(True)
@@ -145,6 +136,14 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.buttonWgt)
         self.horizontalLayout_2.setMargin(0)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.zoekKnop = QtGui.QPushButton(self.buttonWgt)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/magnifyingGlass.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.zoekKnop.setIcon(icon1)
+        self.zoekKnop.setAutoDefault(False)
+        self.zoekKnop.setDefault(True)
+        self.zoekKnop.setObjectName(_fromUtf8("zoekKnop"))
+        self.horizontalLayout_2.addWidget(self.zoekKnop)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.addToMapKnop = QtGui.QPushButton(self.buttonWgt)
@@ -183,7 +182,7 @@ class Ui_geopunt4QgisPoiDlg(object):
         QtCore.QMetaObject.connectSlotsByName(geopunt4QgisPoiDlg)
 
     def retranslateUi(self, geopunt4QgisPoiDlg):
-        geopunt4QgisPoiDlg.setWindowTitle(_translate("geopunt4QgisPoiDlg", "Zoek een Locatie via geopunt", None))
+        geopunt4QgisPoiDlg.setWindowTitle(_translate("geopunt4QgisPoiDlg", "Zoek een locatie via geopunt", None))
         self.groupBox.setTitle(_translate("geopunt4QgisPoiDlg", "Zoek naar een plaats op naam:", None))
         self.currentBoundsVink.setText(_translate("geopunt4QgisPoiDlg", "Beperk zoekresultaten tot huidige extent", None))
         self.filterBox.setTitle(_translate("geopunt4QgisPoiDlg", "Filters", None))
@@ -204,6 +203,7 @@ class Ui_geopunt4QgisPoiDlg(object):
         item.setText(_translate("geopunt4QgisPoiDlg", "Naam", None))
         item = self.resultLijst.horizontalHeaderItem(5)
         item.setText(_translate("geopunt4QgisPoiDlg", "crab adres", None))
+        self.zoekKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoek", None))
         self.addToMapKnop.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
         self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))
         self.actionZoomtoSelection.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar Selectie", None))

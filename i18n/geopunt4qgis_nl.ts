@@ -201,7 +201,17 @@
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="248"/>
         <source>(Optioneel) Gemeente of Postcode kolom:</source>
-        <translation>(Optioneel) Gemeente of Postcode kolom:</translation>
+        <translation type="obsolete">(Optioneel) Gemeente of Postcode kolom:</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="248"/>
+        <source>(Optioneel) Gemeente of postcode kolom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="341"/>
+        <source>Valideer alle adressen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -234,12 +244,17 @@
     <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="67"/>
         <source>Voeg Hoogtemodel toe</source>
-        <translation>Voeg Hoogtemodel toe</translation>
+        <translation type="obsolete">Voeg Hoogtemodel toe</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="82"/>
         <source>Teken de profiellijn</source>
         <translation>Teken de profiellijn</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="67"/>
+        <source>Voeg hoogtemodel toe</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -252,17 +267,17 @@
     <message>
         <location filename="ui_geopunt4qgis.ui" line="25"/>
         <source>Voer een adres in en selecteer een gemeente</source>
-        <translation>Voer een adres in en selecteer een gemeente</translation>
+        <translation type="obsolete">Voer een adres in en selecteer een gemeente</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgis.ui" line="31"/>
+        <location filename="ui_geopunt4qgis.ui" line="38"/>
         <source>straat huisnummer</source>
         <translation>straat huisnummer</translation>
     </message>
     <message>
         <location filename="ui_geopunt4qgis.ui" line="66"/>
         <source>Toevoegen aan Kaart</source>
-        <translation>Toevoegen aan Kaart</translation>
+        <translation type="obsolete">Toevoegen aan Kaart</translation>
     </message>
     <message>
         <location filename="ui_geopunt4qgis.ui" line="76"/>
@@ -270,52 +285,52 @@
         <translation>Zoom naar</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="203"/>
+        <location filename="geopunt4qgis.py" line="205"/>
         <source>Zoek een Adres: </source>
         <translation>Zoek een Adres:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="203"/>
+        <location filename="geopunt4qgis.py" line="205"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Klik op de kaart om het adres op te vragen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="233"/>
+        <location filename="geopunt4qgis.py" line="237"/>
         <source>Resultaat: </source>
         <translation>Resultaat:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="250"/>
+        <location filename="geopunt4qgis.py" line="254"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="245"/>
+        <location filename="geopunt4qgis.py" line="249"/>
         <source>Geen resultaten gevonden</source>
         <translation>Geen resultaten gevonden</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="253"/>
+        <location filename="geopunt4qgis.py" line="257"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="80"/>
+        <location filename="geopunt4qgis.py" line="82"/>
         <source>Zoek een Adres</source>
         <translation>Zoek een Adres</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="82"/>
+        <location filename="geopunt4qgis.py" line="84"/>
         <source>Prik een Adres op kaart</source>
         <translation>Prik een Adres op kaart</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="88"/>
+        <location filename="geopunt4qgis.py" line="90"/>
         <source>Zoek een Plaats - interesse punt</source>
         <translation>Zoek een Plaats - interesse punt</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="97"/>
+        <location filename="geopunt4qgis.py" line="99"/>
         <source>Over geopunt4Qgis</source>
         <translation>Over geopunt4Qgis</translation>
     </message>
@@ -325,29 +340,39 @@
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="93"/>
+        <location filename="geopunt4qgis.py" line="95"/>
         <source>Instellingen</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="85"/>
+        <location filename="geopunt4qgis.py" line="87"/>
         <source>CSV-adresbestanden geocoderen</source>
         <translation>CSV-adresbestanden geocoderen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="237"/>
+        <location filename="geopunt4qgis.py" line="241"/>
         <source>Voeg toe</source>
         <translation>Voeg toe</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="91"/>
+        <location filename="geopunt4qgis.py" line="93"/>
         <source>Bevraag GIPOD</source>
         <translation>Bevraag GIPOD</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="95"/>
+        <location filename="geopunt4qgis.py" line="97"/>
         <source>Hoogteprofiel</source>
         <translation>Hoogteprofiel</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4qgis.ui" line="25"/>
+        <source>Selecteer een gemeente  en voer een adres in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4qgis.ui" line="66"/>
+        <source>Toevoegen aan kaart</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -396,7 +421,7 @@
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="18"/>
         <source>Zoek een Locatie via geopunt</source>
-        <translation>Zoek een Locatie via geopunt</translation>
+        <translation type="obsolete">Zoek een Locatie via geopunt</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="31"/>
@@ -404,79 +429,89 @@
         <translation>Zoek naar een plaats op naam:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="65"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="46"/>
         <source>Beperk zoekresultaten tot huidige extent</source>
         <translation>Beperk zoekresultaten tot huidige extent</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="201"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="182"/>
         <source>id</source>
         <translation>id</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="211"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="192"/>
         <source>Categorie</source>
         <translation>Categorie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="221"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="202"/>
         <source>Naam</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="226"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="207"/>
         <source>crab adres</source>
         <translation>crab adres</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="308"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="306"/>
         <source>Voeg selectie toe aan kaart</source>
         <translation>Voeg selectie toe aan kaart</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="260"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="258"/>
         <source>Zoom naar selectie</source>
         <translation>Zoom naar selectie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="303"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="301"/>
         <source>Zoom naar Selectie</source>
         <translation>Zoom naar Selectie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="75"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="56"/>
         <source>Filters</source>
         <translation>Filters</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="144"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="125"/>
         <source>Type:</source>
         <translation>Type:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="127"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="108"/>
         <source>Categorie:</source>
         <translation>Categorie:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="107"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="88"/>
         <source>Thema:</source>
         <translation>Thema:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="216"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="197"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="206"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="187"/>
         <source>Thema</source>
         <translation>Thema</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="90"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="71"/>
         <source>Gemeente:</source>
         <translation>Gemeente:</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisPoi.ui" line="18"/>
+        <source>Zoek een locatie via geopunt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisPoi.ui" line="218"/>
+        <source>Zoek</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

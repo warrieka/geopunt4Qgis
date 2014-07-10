@@ -23,7 +23,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
-from qgis.gui import  QgsMessageBar
+from qgis.gui import  QgsMessageBar, QgsVertexMarker
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialogs
@@ -39,6 +39,7 @@ from geopunt4QgisElevation import geopunt4QgisElevationDialog
 import geopunt
 import geometryhelper
 import os.path, webbrowser
+from threading import Timer
 
 class geopunt4Qgis:
     def __init__(self, iface):
@@ -74,6 +75,7 @@ class geopunt4Qgis:
         #geopunt adres and geometry object
         self.adres = geopunt.Adres(self.timeout, self.proxy, self.port)
         self.gh = geometryhelper.geometryHelper(self.iface)
+        self.graphicsLayer = []
 
         # Create actions that will start plugin configuration
         self.adresAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntAddress.png"),
@@ -141,7 +143,7 @@ class geopunt4Qgis:
         self.iface.removeToolBarIcon(self.gipodAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.elevationAction)
         self.iface.removeToolBarIcon(self.elevationAction)
-
+        
     def loadSettings(self):
         self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
         self.layerName_reverse = self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
@@ -213,23 +215,25 @@ class geopunt4Qgis:
         self.iface.mapCanvas().setMapTool(reverseAdresTool)
         
     def _reverseAdresCallback(self, point):
+        self._addMarker( point )
         lam72 = QgsCoordinateReferenceSystem(31370)
         mapCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
         xform = QgsCoordinateTransform(mapCrs, lam72)
         lam72pt = xform.transform(point)
-    
+        
         #to clear or not clear that is the question
         self.iface.messageBar().clearWidgets()
-
+        
         #fetch Location from geopunt
         adres = self.adres.fetchLocation(lam72pt.x().__str__() + "," + lam72pt.y().__str__(), 1)
+        Timer( 5, self._clearGraphicLayer, ()).start()
     
         if len(adres) and adres.__class__ is list:
             #only one result in list, was set in request
             FormattedAddress = adres[0]["FormattedAddress"]
       
             #add a button to the messageBar widget
-            widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis" ,"Resultaat: "), FormattedAddress)
+            widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis", "Resultaat: "), FormattedAddress)
             
             button = QPushButton(widget)
             button.clicked.connect(lambda: self._addReverse(adres[0]))
@@ -264,3 +268,18 @@ class geopunt4Qgis:
         
     def openReverseHelp(self):
         webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntReverse.md")
+                
+    def _addMarker(self, pnt):
+        m = QgsVertexMarker(self.iface.mapCanvas())
+        m.setCenter( pnt )
+        m.setColor(QColor(255,255,0))
+        m.setIconSize(1)
+        m.setIconType(QgsVertexMarker.ICON_BOX) 
+        m.setPenWidth(9)
+        self.graphicsLayer.append(m)
+        return m
+      
+    def _clearGraphicLayer(self):
+      for graphic in  self.graphicsLayer: 
+        self.iface.mapCanvas().scene().removeItem(graphic)
+      self.graphicsLayer = []

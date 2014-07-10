@@ -7,15 +7,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>482</height>
+    <width>528</width>
+    <height>530</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
    <enum>Qt::DefaultContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>Zoek een Locatie via geopunt</string>
+   <string>Zoek een locatie via geopunt</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
@@ -34,26 +34,7 @@
       <item>
        <widget class="QLineEdit" name="poiText"/>
       </item>
-      <item>
-       <widget class="QPushButton" name="zoekKnop">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</iconset>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
      </layout>
-     <zorder>zoekKnop</zorder>
-     <zorder>poiText</zorder>
     </widget>
    </item>
    <item>
@@ -231,6 +212,23 @@
    <item>
     <widget class="QWidget" name="buttonWgt" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="zoekKnop">
+        <property name="text">
+         <string>Zoek</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/magnifyingGlass.png</normaloff>:/plugins/geopunt4Qgis/images/magnifyingGlass.png</iconset>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
