@@ -36,8 +36,7 @@ from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
 from geopunt4QgisGipod import geopunt4QgisGipodDialog
 from geopunt4QgisElevation import geopunt4QgisElevationDialog
 #import from libraries
-import geopunt
-import geometryhelper
+import geopunt, geometryhelper
 import os.path, webbrowser
 from threading import Timer
 
@@ -126,7 +125,6 @@ class geopunt4Qgis:
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
         
-
     def unload(self):
         ' Remove the plugin menu items and icons'
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.adresAction)
@@ -235,6 +233,10 @@ class geopunt4Qgis:
             #add a button to the messageBar widget
             widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis", "Resultaat: "), FormattedAddress)
             
+            xlam72, ylam72 = adres[0]["Location"]["X_Lambert72"], adres[0]["Location"]["Y_Lambert72"]    
+            xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)            
+            self._addMarker( xy, QColor(0,255,200))
+            
             button = QPushButton(widget)
             button.clicked.connect(lambda: self._addReverse(adres[0]))
             button.setText(QCoreApplication.translate("geopunt4Qgis" ,"Voeg toe"))
@@ -269,10 +271,10 @@ class geopunt4Qgis:
     def openReverseHelp(self):
         webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntReverse.md")
                 
-    def _addMarker(self, pnt):
+    def _addMarker(self, pnt, clr=QColor(255,255,0)):
         m = QgsVertexMarker(self.iface.mapCanvas())
         m.setCenter( pnt )
-        m.setColor(QColor(255,255,0))
+        m.setColor(clr)
         m.setIconSize(1)
         m.setIconType(QgsVertexMarker.ICON_BOX) 
         m.setPenWidth(9)

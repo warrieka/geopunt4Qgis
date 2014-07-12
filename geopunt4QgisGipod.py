@@ -69,6 +69,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
          #eventhandlers
         self.ui.endEdit.dateChanged.connect(self.endEditChanged)
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
+        self.ui.provinceCbx.currentIndexChanged.connect(self.provinceChanged)
         self.accepted.connect(self.okClicked )
         self.rejected.connect(self.clean )
       
@@ -79,12 +80,12 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         'exend show to load data'
         internet = geopunt.internet_on( proxyUrl=self.proxy, port=self.port, timeout=self.timeout )
         if internet:
-            gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
+            self.gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
             #populate combo's
             self.ui.provinceCbx.clear()
             self.ui.provinceCbx.addItems(["","Antwerpen","Limburg","Oost-Vlaanderen","Vlaams-Brabant","West-Vlaanderen"])
             self.ui.cityCbx.clear()
-            self.ui.cityCbx.addItems([n["Naam"] for n in gemeentes])
+            self.ui.cityCbx.addItems([n["Naam"] for n in self.gemeentes])
             self.ui.ownerCbx.clear()
             self.ui.ownerCbx.addItems([""] + self.gp.getOwner())
             self.ui.eventCbx.clear()
@@ -165,7 +166,38 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
             return  self.gp.allWorkassignments(owner, startdate, enddate, city, province, srs, bbox)
         elif self.ui.manifestationRadio.isChecked():
             return self.gp.allManifestations(owner, eventtype, startdate, enddate, city, province, srs, bbox)
-        
+   
+    def provinceChanged(self):
+        provText = self.ui.provinceCbx.currentText()
+        if provText == "Antwerpen":
+            self.ui.cityCbx.clear()
+            self.ui.cityCbx.addItems( [""]  + 
+                         [ n["Naam"] for n in self.gemeentes if n["Niscode"].startswith("1") ])
+            return 
+        if provText == "Limburg":
+            self.ui.cityCbx.clear()
+            self.ui.cityCbx.addItems( [""]  + 
+                         [ n["Naam"] for n in self.gemeentes if n["Niscode"].startswith("7") ])
+            return 
+        if provText == "Oost-Vlaanderen":
+            self.ui.cityCbx.clear()
+            self.ui.cityCbx.addItems( [""]  + 
+                         [ n["Naam"] for n in self.gemeentes if n["Niscode"].startswith("4") ])
+            return 
+        if provText == "Vlaams-Brabant":
+            self.ui.cityCbx.clear()
+            self.ui.cityCbx.addItems( [""] + 
+                         [ n["Naam"] for n in self.gemeentes if n["Niscode"].startswith("2") ])
+            return 
+        if provText == "West-Vlaanderen":
+            self.ui.cityCbx.clear()
+            self.ui.cityCbx.addItems( [""] + 
+                         [ n["Naam"] for n in self.gemeentes if n["Niscode"].startswith("3") ])
+            return
+        else:
+            self.ui.cityCbx.clear()
+            self.ui.cityCbx.addItems([ n["Naam"] for n in self.gemeentes ])
+   
     def openHelp(self):
         webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntGIPOD.md")
     

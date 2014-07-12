@@ -183,11 +183,16 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
               self.ui.resultLijst.setItem(row, 5, adres)
               row += 1
           self.ui.resultLijst.setSortingEnabled(True)
+          
+          if self.poi.resultCount > 32:
+             self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
+            "Verfijn je zoekfilter: slechts 32 records kunnen worden opgehaald."), 
+            level=QgsMessageBar.INFO, duration=5)
       
         elif len(suggesties) == 0:
           self.bar.pushMessage(
             QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Geen resultaten gevonden voor: "), 
-            txt, level=QgsMessageBar.INFO, duration=3)
+            txt, level=QgsMessageBar.INFO, duration=5)
         elif suggesties.__class__ == str:
           self.bar.pushMessage(
             QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"), 

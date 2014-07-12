@@ -32,7 +32,7 @@ import numpy as np
 from geometryhelper import geometryHelper
 from elevationHelper import elevationHelper
 from elevationProfileMapTool import lineTool
-import geopunt, os, json, webbrowser, random
+import geopunt, os, json, webbrowser, random, sys
 
 class geopunt4QgisElevationDialog(QtGui.QDialog):
     def __init__(self, iface):
@@ -163,11 +163,19 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
     def addDHMasWMS(self):
         crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
         dhmUrl =  "url=http://geo.agiv.be/inspire/wms/Hoogte&layers=DHM&format=image/png&styles=default&crs="+ crs
-        rlayer = QgsRasterLayer(dhmUrl, 'Hoogtemodel', 'wms') 
-        rlayer.renderer().setOpacity(0.8)
-        if rlayer.isValid():
-           QgsMapLayerRegistry.instance().addMapLayer(rlayer)
-       
+        
+        try:
+            rlayer = QgsRasterLayer(dhmUrl, 'Hoogtemodel', 'wms') 
+            if rlayer.isValid():
+               rlayer.renderer().setOpacity(0.8)
+               QgsMapLayerRegistry.instance().addMapLayer(rlayer)
+            else: self.bar.pushMessage("Error", 
+                QtCore.QCoreApplication.translate("geopunt4QgisElevationDialog", "Kan WMS niet laden"), 
+                level=QgsMessageBar.CRITICAL, duration=10) 
+        except: 
+            self.bar.pushMessage("Error", str( sys.exc_info()[1] ), level=QgsMessageBar.CRITICAL, duration=10)
+            return 
+        
     def plot(self):
         wgsLine = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() )
         lineString = [ list(n) for n in wgsLine.asPolyline()]
@@ -183,7 +191,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
         if len(xdata) == 0 or len(ydata) == 0:
            self.bar.pushMessage("Error", 
-                QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Er werd geen data gevonden"),
+                QtCore.QCoreApplication.translate("geopunt4QgisElevationDialog","Er werd geen data gevonden"),
                 level=QgsMessageBar.WARNING, duration=10)
            self.profile = None
            return 
@@ -229,7 +237,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.pt.setIconType(QgsVertexMarker.ICON_BOX ) # or ICON_CROSS, ICON_X
         self.pt.setPenWidth(7)
 
-        self.ui.mgsLbl.setText("lengte= %s" % dist )    
+        self.ui.mgsLbl.setText("lengte= %s meter" % dist )    
         
     def clean(self):
         if self.pt:

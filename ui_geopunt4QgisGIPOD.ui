@@ -118,11 +118,11 @@
          </size>
         </property>
         <property name="editable">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
+      <item row="6" column="1">
        <widget class="QDateEdit" name="startEdit">
         <property name="minimumSize">
          <size>
@@ -145,14 +145,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="provncieLbl">
-        <property name="text">
-         <string>provincie:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
+      <item row="7" column="1">
        <widget class="QDateEdit" name="endEdit">
         <property name="minimumSize">
          <size>
@@ -175,14 +168,14 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
+      <item row="6" column="0">
        <widget class="QLabel" name="startdatumLbl">
         <property name="text">
          <string>startdatum:</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
+      <item row="7" column="0">
        <widget class="QLabel" name="einddatumLbl">
         <property name="text">
          <string>einddatum:</string>
@@ -202,21 +195,21 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="stadLbl">
         <property name="text">
          <string>stad of gemeente:</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="0" colspan="2">
+      <item row="8" column="0" colspan="2">
        <widget class="QCheckBox" name="extendChk">
         <property name="text">
          <string>Beperk zoekresultaten tot huidige extent</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="2" column="1">
        <widget class="QComboBox" name="cityCbx">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -231,11 +224,31 @@
          </size>
         </property>
         <property name="editable">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="5" column="0">
+       <widget class="QLabel" name="manifestationlbl">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>type manifestatie:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QComboBox" name="eventCbx">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
        <widget class="QComboBox" name="provinceCbx">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -250,27 +263,14 @@
          </size>
         </property>
         <property name="editable">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="manifestationlbl">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
+      <item row="1" column="0">
+       <widget class="QLabel" name="provncieLbl">
         <property name="text">
-         <string>type manifestatie:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QComboBox" name="eventCbx">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="editable">
-         <bool>true</bool>
+         <string>provincie:</string>
         </property>
        </widget>
       </item>

@@ -153,6 +153,7 @@ class geometryHelper:
         palyr.fieldName = 'adres' 
         palyr.placement= QgsPalLayerSettings.Free 
         palyr.setDataDefinedProperty(QgsPalLayerSettings.Size,True,True,'8','') 
+        palyr.dist = 1
         palyr.writeToLayer( self.adreslayer ) 
        
         # store layer id and refresh      
@@ -239,6 +240,7 @@ class geometryHelper:
         palyr.enabled = True 
         palyr.fieldName = 'name' 
         palyr.placement= QgsPalLayerSettings.Free 
+        palyr.dist = 1
         palyr.setDataDefinedProperty(QgsPalLayerSettings.Size,True,True,'8','') 
         palyr.writeToLayer( self.poilayer ) 
         
