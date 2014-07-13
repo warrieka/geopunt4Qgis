@@ -222,3 +222,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+doc/*.pdf
+doc/*.docx
+doc/*.xlsx
