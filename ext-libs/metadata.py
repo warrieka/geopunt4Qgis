@@ -10,34 +10,63 @@ class metaError(Exception):
 
 class MDdata:
     def __init__(self, metadataXML): 
-        self.start = metadataXML.attrib["from"]
-        self.to = metadataXML.attrib["to"]
-        self.count = metadataXML[0].attrib["count"]
+        self.start = int( metadataXML.attrib["from"] )
+        self.to =    int( metadataXML.attrib["to"] )
+        self.count = int( metadataXML[0].attrib["count"] )
         self.records = []
         
         mds = metadataXML.findall("metadata")
         for md in mds:
            record = {}
-           record['title'] = md.find('title').text
-           record['abstract'] = md.find('abstract').text
-           
-           if md.find('geoBox') != None: 
-             record['bounds'] = [float(i) for i in md.find('geoBox').text.split('|') ]
-           else: record['bounds'] = None
-           
-           record['wms'] = self.findWMS( md )
-           if len( record['wms'] ) > 0: record['hasWMS'] = True
-           else: record['hasWMS'] = False
-           
+                      
            geonet =  md.find('{http://www.fao.org/geonetwork}info')
-           record['uuid'] = geonet.find('uuid').text
+           if geonet.find('uuid').text != None: 
+              record['uuid'] = geonet.find('uuid').text
+           else: 
+              record['uuid'] = None
+              
+           if (md.find('title') != None) and (md.find('title').text != None):
+              record['title'] = md.find('title').text
+           else: 
+              record['title'] = ''
+             
+           if (md.find('abstract') != None) and (md.find('abstract').text != None):
+              record['abstract'] = md.find('abstract').text
+           else: 
+              record['abstract'] = ''
+           
+           if (md.find('geoBox') != None) and (md.find('geoBox').text != None): 
+              record['geoBox'] = [float(i) for i in md.find('geoBox').text.split('|') ]
+           else: 
+              record['geoBox'] = None
+           
+           record['wms'] = self._findWMS( md )
+           if record['wms']: 
+              record['hasWMS'] = True
+           else:
+              record['hasWMS'] = False
+           
+           record['download'] = self._findDownload( md )
+           if record['download']: 
+              record['hasDL'] = True
+           else:
+              record['hasDL'] = False
            
            self.records.append(record)
            
-    def findWMS(self , node ):
-        links =  "|".join( [ n.text for n in node.findall("link") ] ) 
-        GetCapabilities=  [n for n in links.split('|') if ("request=GetCapabilities" in n) & ("service=wms" in n)]
-        return GetCapabilities
+    def _findWMS(self , node ):
+        links =  "|".join( [ n.text for n in node.findall("link") ] )
+        links = links.split('|') 
+        for n in range(len( links )):
+            if ("request=GetCapabilities" in links[n]) and ("service=wms" in links[n]): return links[n]
+        return None
+
+    def _findDownload(self , node):
+        links =  "|".join( [ n.text for n in node.findall("link") ] )
+        links = links.split('|') 
+        for n in range( len( links )):
+            if "WWW:DOWNLOAD-1.0" in links[n]: return links[n - 1] 
+        return None
 
 
 class MDReader:
@@ -55,16 +84,15 @@ class MDReader:
         else:
             self.opener = None
 
-    def _createFindUrl(self, q="", c=20, start=1, to=20, themekey='',orgName='',inspiretheme='',inspireannex='', serviceType=''):
+    def _createFindUrl(self, q="", start=1, to=20, themekey='', orgName='', inspiretheme='', inspireannex='',  serviceType=''):
         geopuntUrl = self.geoNetworkUrl + "/q?fast=index&"
         data = {}
         data["any"] = "*" + unicode(q).encode('utf-8') + "*"
-        data["hitsperpage"] = c
         data["from"] = start
         data["to"] = to
 
         if themekey: 
-            if " " in themekey:
+            if " " in themekey and not " or " in themekey.lower():
                 data["themekey"] = '"' +  themekey.lower()  + '"'
             else: 
                 data["themekey"] = themekey.lower()
@@ -101,8 +129,22 @@ class MDReader:
             result = ET.parse(response)
             r= result.getroot()
             return [ n.find("value").text for n in  r[0].findall('keyword') ]
-
-    def list_keywords(self, q=''):
+          
+    def list_inspire_theme(self, q=''):
+        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.inspire-theme&pKeyword=*" + unicode(q).encode('utf-8') +"*"
+        try:
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except  (urllib2.HTTPError, urllib2.URLError) as e:
+            raise metaError( str( e.reason ))
+        except:
+            raise metaError( str( sys.exc_info()[1] ))
+        else:
+            result = ET.parse(response)
+            r= result.getroot()
+            return [ n.find("value").text for n in  r[0].findall('keyword') ]
+    
+    def suggestionKeyword(self, q=''):
         url = self.geoNetworkUrl + "/main.search.suggest?field=any" 
         if q:
             url= url + "&q=" + unicode(q).encode('utf-8') 
@@ -118,20 +160,6 @@ class MDReader:
             result = json.load(response)
             return result[1]
 
-    def list_inspire_theme(self, q=''):
-        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.inspire-theme&pKeyword=*" + unicode(q).encode('utf-8') +"*"
-        try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
-        except  (urllib2.HTTPError, urllib2.URLError) as e:
-            raise metaError( str( e.reason ))
-        except:
-            raise metaError( str( sys.exc_info()[1] ))
-        else:
-            result = ET.parse(response)
-            r= result.getroot()
-            return [ n.find("value").text for n in  r[0].findall('keyword') ]
-    
     def list_orgnisations(self, q=''):
         url = self.geoNetworkUrl + "/main.search.suggest?field=orgName" 
         if q:
@@ -147,8 +175,8 @@ class MDReader:
             result = json.load(response)
             return result[1]
 
-    def search(self, q="", c=20, start=1, to=20, themekey='', orgName='', inspiretheme='', inspireannex='', serviceType='' ):
-        url = self._createFindUrl( q, c, start, to, themekey, orgName, inspiretheme, inspireannex, serviceType )
+    def search(self, q="", start=1, to=20, themekey='', orgName='', inspiretheme='', inspireannex='', serviceType='' ):
+        url = self._createFindUrl( q, start, to, themekey, orgName, inspiretheme, inspireannex, serviceType )
         try:
             if self.opener: response = self.opener.open(url, timeout=self.timeout)
             else: response = urllib2.urlopen(url, timeout=self.timeout)
