@@ -2,16 +2,18 @@
 import os, glob
 import zipfile
 
-#TODO: import  setting form makefile instead
+
 PROJECT = "geopunt4Qgis"
 INCLUDEFILE = ["*.py", "*.txt", "*.qrc", "*.md", "*.gif", "*.jpg", "*.png", "*.html", "*.qm", "*.json", "*.xml" ] 
-INCLUDEDIR = ["images","i18n","data"]
+INCLUDEDIR = ["images","i18n","data","ext-libs"]
 
 def makeList( src ):
-  fileList = []
+  fileList = []    
+  for idir in INCLUDEDIR:
+    fileList = fileList + glob.glob( os.path.join(  src , idir , "*" ))
+    fileList = fileList + glob.glob( os.path.join(  src , idir , "*","*" ))
+    fileList = fileList + glob.glob( os.path.join(  src , idir , "*","*","*" ))
   for incl in INCLUDEFILE: 
-    for idir in INCLUDEDIR:
-      fileList = fileList + glob.glob( os.path.join(  src , idir , incl ))
     fileList = fileList + glob.glob(os.path.join( src , incl )) 
   return fileList
 

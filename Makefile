@@ -50,17 +50,16 @@ geopunt4qgis.py geopunt4QgisAbout.py geopunt4qgisAdresdialog.py \
 geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py  \
 geopunt4QgisBatchGeoCode.py batchGeoHelper.py reverseAdresMapTool.py \
 geopunt4QgisGipod.py gipodHelper.py \
-geopunt4QgisElevation.py elevtionHelper.py elevationProfileMapTool.py
+geopunt4QgisElevation.py elevtionHelper.py elevationProfileMapTool.py \
+metadata.py
 
-EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html
+EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html ext-libs
 
 UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py \
 ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py ui_geopunt4QgisGIPOD.py \
 ui_geopunt4QgisElevation.py
 
 RESOURCE_FILES = resources_rc.py
-
-# HELP = 
 
 default: compile
 
@@ -90,8 +89,6 @@ deploy: compile transup
 	cp -vf $(RESOURCE_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vfr $(EXTRAS) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vfr i18n $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-# [KW]: not using this
-# 	cp -vfr $(HELP) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/help
 
 # The dclean target removes compiled python files from plugin directory
 # also delets any .svn entry
@@ -134,11 +131,6 @@ transup:
 	lrelease-qt4 i18n/*.ts
 	utils/compile_html_translations.sh
 
-# transcompile
-# compile translation files into .qm binary format
-# [KW] : transup also compiles now
-# transcompile: $(TRANSLATIONS:.ts=.qm)
-
 # transclean
 # deletes all .qm (form .ts) and html (from .mk) files
 transclean:
@@ -148,7 +140,3 @@ transclean:
 clean:
 	rm $(UI_FILES) $(RESOURCE_FILES)
 
-# build documentation with sphinx
-# [KW]:I wont't be using this
-# doc: 
-# 	cd help; make html
