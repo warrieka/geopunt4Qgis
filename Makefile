@@ -30,7 +30,8 @@ SOURCES         = geopunt4qgis.py \
 		  geopunt4QgisSettingsdialog.py \
 		  geopunt4QgisBatchGeoCode.py \
 		  geopunt4QgisGipod.py \
-		  geopunt4QgisElevation.py
+		  geopunt4QgisElevation.py \
+		  geopunt4QgisDataCatalog.py
 
 FORMS           = ui_geopunt4qgis.ui \
 		  ui_geopunt4QgisPoi.ui \
@@ -38,26 +39,27 @@ FORMS           = ui_geopunt4qgis.ui \
 		  ui_geopunt4QgisSettings.ui  \
 		  ui_geopunt4QgisBatchGeoCode.ui \
 		  ui_geopunt4QgisGIPOD.ui \
-		  ui_geopunt4QgisElevation.ui
+		  ui_geopunt4QgisElevation.ui \
+		  ui_geopunt4QgisDataCatalog.ui
 		    
 TRANSLATIONS = i18n/geopunt4qgis_en.ts i18n/geopunt4qgis_nl.ts
 
 # plugin
 PLUGINNAME = geopunt4Qgis
 
-PY_FILES =  __init__.py unicodecsv.py geometryhelper.py geopunt.py \
+PY_FILES =  __init__.py geometryhelper.py geopunt.py \
 geopunt4qgis.py geopunt4QgisAbout.py geopunt4qgisAdresdialog.py \
 geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py  \
 geopunt4QgisBatchGeoCode.py batchGeoHelper.py reverseAdresMapTool.py \
 geopunt4QgisGipod.py gipodHelper.py \
-geopunt4QgisElevation.py elevtionHelper.py elevationProfileMapTool.py \
-metadata.py
+geopunt4QgisElevation.py elevationHelper.py elevationProfileMapTool.py \
+metadata.py geopunt4QgisDataCatalog.py
 
 EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html ext-libs
 
 UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py \
 ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py ui_geopunt4QgisGIPOD.py \
-ui_geopunt4QgisElevation.py
+ui_geopunt4QgisElevation.py ui_geopunt4QgisDataCatalog.py
 
 RESOURCE_FILES = resources_rc.py
 

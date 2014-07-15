@@ -162,6 +162,8 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
        
     def addDHMasWMS(self):
         crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
+        if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
+           crs = 'EPSG:31370' 
         dhmUrl =  "url=http://geo.agiv.be/inspire/wms/Hoogte&layers=DHM&format=image/png&styles=default&crs="+ crs
         
         try:
@@ -246,14 +248,14 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
            self.iface.mapCanvas().scene().removeItem(self.Rubberline)
            
         if self.ano: 
-          self.ano.remove()
-          self.ano = None
+           self.ano.remove()
+           self.ano = None
         if self.anoLbl: 
-          self.anoLbl.remove()
-          self.anoLbl = None 
+           self.anoLbl.remove()
+           self.anoLbl = None 
         if self.ax:  
-          self.ax.hold(False)
-          self.ax = None
+           self.ax.hold(False)
+           self.ax = None
           
         self.canvas.draw()
         

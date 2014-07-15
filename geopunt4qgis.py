@@ -35,6 +35,7 @@ from geopunt4QgisSettingsdialog import geopunt4QgisSettingsdialog
 from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
 from geopunt4QgisGipod import geopunt4QgisGipodDialog
 from geopunt4QgisElevation import geopunt4QgisElevationDialog
+from geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
 #import from libraries
 import geopunt, geometryhelper
 import os.path, webbrowser
@@ -63,6 +64,7 @@ class geopunt4Qgis:
         self.gipodDlg = geopunt4QgisGipodDialog(self.iface)
         self.settingsDlg = geopunt4QgisSettingsdialog()
         self.elevationDlg = geopunt4QgisElevationDialog(self.iface)
+        self.datacatalogusDlg = geopunt4QgisDataCatalog(self.iface)
         self.aboutDlg = geopunt4QgisAboutdialog()
         
     def initGui(self):
@@ -94,6 +96,8 @@ class geopunt4Qgis:
                 QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())  
         self.elevationAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntElevation.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Hoogteprofiel"), self.iface.mainWindow())
+        self.datacatalogusAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntDataCatalogus.png"),
+                QCoreApplication.translate("geopunt4Qgis" , u"Datacatalogus"), self.iface.mainWindow())
         self.aboutAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
  
@@ -104,6 +108,7 @@ class geopunt4Qgis:
         self.poiAction.triggered.connect(self.runPoiDlg)
         self.gipodAction.triggered.connect(self.runGipod)
         self.elevationAction.triggered.connect(self.runElevation)
+        self.datacatalogusAction.triggered.connect(self.rundatacatalog)
         self.settingsAction.triggered.connect(self.runSettingsDlg)
         self.aboutAction.triggered.connect(self.runAbout)
         
@@ -114,6 +119,7 @@ class geopunt4Qgis:
         self.iface.addToolBarIcon(self.poiAction)        
         self.iface.addToolBarIcon(self.gipodAction)
         self.iface.addToolBarIcon(self.elevationAction)
+        self.iface.addToolBarIcon(self.datacatalogusAction)
         
         # Add to Menu
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
@@ -122,6 +128,7 @@ class geopunt4Qgis:
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.poiAction)        
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.gipodAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.elevationAction)
+        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.datacatalogusAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
         
@@ -141,6 +148,8 @@ class geopunt4Qgis:
         self.iface.removeToolBarIcon(self.gipodAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.elevationAction)
         self.iface.removeToolBarIcon(self.elevationAction)
+        self.iface.removePluginMenu(u"&geopunt4Qgis", self.datacatalogusAction)
+        self.iface.removeToolBarIcon(self.datacatalogusAction)
         
     def loadSettings(self):
         self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
@@ -191,6 +200,12 @@ class geopunt4Qgis:
         self.elevationDlg.loadSettings()
         # Run the dialog event loop
         self.elevationDlg.exec_()
+
+    def rundatacatalog(self):
+        'show the dialog'
+        self.datacatalogusDlg.show()
+        # Run the dialog event loop
+        self.datacatalogusDlg.exec_()
 
     def runAbout(self):
         'show the dialog'

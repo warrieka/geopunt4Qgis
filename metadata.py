@@ -23,7 +23,7 @@ class MDdata:
            if geonet.find('uuid').text != None: 
               record['uuid'] = geonet.find('uuid').text
            else: 
-              record['uuid'] = None
+              continue  #records with no id are just wrong
               
            if (md.find('title') != None) and (md.find('title').text != None):
               record['title'] = md.find('title').text
@@ -36,21 +36,13 @@ class MDdata:
               record['abstract'] = ''
            
            if (md.find('geoBox') != None) and (md.find('geoBox').text != None): 
-              record['geoBox'] = [float(i) for i in md.find('geoBox').text.split('|') ]
+              record['geoBox'] = md.find('geoBox').text  #[float(i) for i in md.find('geoBox').text.split('|') ]
            else: 
               record['geoBox'] = None
            
            record['wms'] = self._findWMS( md )
-           if record['wms']: 
-              record['hasWMS'] = True
-           else:
-              record['hasWMS'] = False
            
            record['download'] = self._findDownload( md )
-           if record['download']: 
-              record['hasDL'] = True
-           else:
-              record['hasDL'] = False
            
            self.records.append(record)
            
@@ -58,14 +50,16 @@ class MDdata:
         links =  "|".join( [ n.text for n in node.findall("link") ] )
         links = links.split('|') 
         for n in range(len( links )):
-            if ("request=GetCapabilities" in links[n]) and ("service=wms" in links[n]): return links[n]
+            if "OGC:WMS" in links[n].upper(): 
+              return links[n - 1]
         return None
 
     def _findDownload(self , node):
         links =  "|".join( [ n.text for n in node.findall("link") ] )
         links = links.split('|') 
         for n in range( len( links )):
-            if "WWW:DOWNLOAD-1.0" in links[n]: return links[n - 1] 
+            if "WWW:DOWNLOAD" in links[n].upper(): 
+              return links[n - 1] 
         return None
 
 
@@ -85,7 +79,7 @@ class MDReader:
             self.opener = None
 
     def _createFindUrl(self, q="", start=1, to=20, themekey='', orgName='', inspiretheme='', inspireannex='',  serviceType=''):
-        geopuntUrl = self.geoNetworkUrl + "/q?fast=index&"
+        geopuntUrl = self.geoNetworkUrl + "/q?fast=index&sortBy=changeDate&"
         data = {}
         data["any"] = "*" + unicode(q).encode('utf-8') + "*"
         data["from"] = start
@@ -190,8 +184,23 @@ class MDReader:
             return  MDdata( resultXML )
 
         
-def getWmsLayerNames( capability):
-      responseWMS = urllib2.urlopen(capability, timeout=self.timeout)
+def getWmsLayerNames( url):
+      if (not "request=GetCapabilities" in url.lower()) or (not "service=wms" in url.lower()):
+          capability = url.split("?")[0] + "?request=GetCapabilities&version=1.3.0&service=wms"
+      else: 
+          capability = url
+      responseWMS =  urllib2.urlopen(capability)
       result = ET.parse(responseWMS)
-      layerNames = [n.text for n in result.findall( ".//{http://www.opengis.net/wms}Layer/{http://www.opengis.net/wms}Name" )]
+      layers =  result.findall( ".//{http://www.opengis.net/wms}Layer" )
+      layerNames=[]
+
+      for lyr in layers:
+          name= lyr.find("{http://www.opengis.net/wms}Name")
+          title = lyr.find("{http://www.opengis.net/wms}Title")
+          style = lyr.find("{http://www.opengis.net/wms}Style/{http://www.opengis.net/wms}Name")
+          if ( name != None) and ( title != None ) and ( style != None ):
+             layerNames.append(( name.text, title.text, style.text))
+
+      return layerNames
+    
         

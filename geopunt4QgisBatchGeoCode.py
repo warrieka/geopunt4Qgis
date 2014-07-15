@@ -67,12 +67,8 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.ui.tlFrame.setEnabled(False)
     
         #actions
-        #self.ui.outPutTbl.addAction( self.ui.actionValidateAll)
-        #self.ui.actionValidateAll.triggered.connect(self.validateAll)
         self.ui.outPutTbl.addAction( self.ui.actionValidateSelection)      
         self.ui.actionValidateSelection.triggered.connect(self.validateSelection)
-        #self.ui.outPutTbl.addAction( self.ui.actionAddValidToMap )
-        #self.ui.actionAddValidToMap.triggered.connect(self.addToMap)
         self.ui.outPutTbl.addAction( self.ui.actionZoomToSelection )
         self.ui.actionZoomToSelection.triggered.connect(self.zoomtoSelection)
         self.ui.outPutTbl.addAction(self.ui.adresFromMapAction)

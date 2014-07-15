@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisElevation.ui'
 #
-# Created: Sun Jul 13 19:28:56 2014
+# Created: Tue Jul 15 13:01:29 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -61,6 +61,8 @@ class Ui_elevationDlg(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.addDHMbtn.sizePolicy().hasHeightForWidth())
         self.addDHMbtn.setSizePolicy(sizePolicy)
+        self.addDHMbtn.setAutoDefault(False)
+        self.addDHMbtn.setDefault(False)
         self.addDHMbtn.setObjectName(_fromUtf8("addDHMbtn"))
         self.horizontalLayout_4.addWidget(self.addDHMbtn)
         self.verticalLayout_3.addWidget(self.toolbar)
@@ -68,6 +70,7 @@ class Ui_elevationDlg(object):
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.drawBtn = QtGui.QPushButton(elevationDlg)
+        self.drawBtn.setAutoDefault(False)
         self.drawBtn.setObjectName(_fromUtf8("drawBtn"))
         self.horizontalLayout.addWidget(self.drawBtn)
         self.nrOfsampleLbl = QtGui.QLabel(elevationDlg)
@@ -91,9 +94,11 @@ class Ui_elevationDlg(object):
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.saveLineBtn = QtGui.QPushButton(elevationDlg)
+        self.saveLineBtn.setAutoDefault(False)
         self.saveLineBtn.setObjectName(_fromUtf8("saveLineBtn"))
         self.horizontalLayout_2.addWidget(self.saveLineBtn)
         self.savePntBtn = QtGui.QPushButton(elevationDlg)
+        self.savePntBtn.setAutoDefault(False)
         self.savePntBtn.setObjectName(_fromUtf8("savePntBtn"))
         self.horizontalLayout_2.addWidget(self.savePntBtn)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
