@@ -42,7 +42,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>300</height>
+        <height>325</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -598,6 +598,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="elevationTab">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>482</width>
+        <height>300</height>
+       </rect>
+      </property>
       <attribute name="icon">
        <iconset resource="resources.qrc">
         <normaloff>:/plugins/geopunt4Qgis/images/geopuntElevationSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntElevationSmall.png</iconset>
@@ -713,7 +721,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+      <set>QDialogButtonBox::NoButton</set>
      </property>
      <property name="centerButtons">
       <bool>false</bool>

@@ -204,7 +204,7 @@
      </column>
      <column>
       <property name="text">
-       <string>crab adres</string>
+       <string>CRAB adres</string>
       </property>
      </column>
     </widget>
@@ -288,8 +288,14 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
        <property name="standardButtons">
-        <set>QDialogButtonBox::Close|QDialogButtonBox::Help</set>
+        <set>QDialogButtonBox::Help</set>
+       </property>
+       <property name="centerButtons">
+        <bool>false</bool>
        </property>
       </widget>
      </item>

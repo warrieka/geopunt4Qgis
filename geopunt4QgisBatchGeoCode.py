@@ -28,7 +28,9 @@ from reverseAdresMapTool import reverseAdresMapTool
 
 class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
+        QtGui.QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+        self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.iface = iface
         
         # initialize locale
@@ -65,6 +67,8 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.ui.delimEdit.setEnabled(False)
         self.ui.addToMapKnop.setEnabled(False)
         self.ui.tlFrame.setEnabled(False)
+        
+        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
     
         #actions
         self.ui.outPutTbl.addAction( self.ui.actionValidateSelection)      

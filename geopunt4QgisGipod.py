@@ -28,7 +28,9 @@ from  datetime import date, timedelta
 
 class geopunt4QgisGipodDialog(QtGui.QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
+        QtGui.QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+        self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.iface = iface
         
         # initialize locale
@@ -56,6 +58,9 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         self.gh = geometryhelper.geometryHelper(self.iface)
         
         self.data = None
+        
+        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
+        self.ui.buttonBox.addButton( QtGui.QPushButton("Voeg toe aan kaart"), QtGui.QDialogButtonBox.AcceptRole )
         
         self.firstShow = True
         

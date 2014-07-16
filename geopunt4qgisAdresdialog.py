@@ -28,7 +28,9 @@ import geometryhelper as gh
 
 class geopunt4QgisAdresDialog(QtGui.QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
+        QtGui.QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+        self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.iface = iface
     
         # initialize locale
@@ -70,6 +72,8 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.bar = QgsMessageBar() 
         self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
         self.ui.verticalLayout.addWidget(self.bar)
+        
+        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
 
         #event handlers 
         if self.adresSearchOnEnter:

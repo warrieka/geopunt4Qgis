@@ -25,8 +25,10 @@ import os.path
 
 class geopunt4QgisSettingsdialog(QtGui.QDialog):
     def __init__(self):
-      QtGui.QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
-
+      QtGui.QDialog.__init__(self, None)
+      self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+      self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+        
       # initialize locale
       locale = QtCore.QSettings().value("locale/userLocale")[0:2]
       localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
@@ -45,6 +47,9 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         #get and load settings
         self.s = QtCore.QSettings()
         self.loadSettings()
+        
+        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole  )
+        self.ui.buttonBox.addButton( QtGui.QPushButton("Opslaan"), QtGui.QDialogButtonBox.AcceptRole  )
             
         #event handlers, on accept:  save, on reject: return to previous 
         self.accepted.connect(self.saveSettings)	

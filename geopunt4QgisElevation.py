@@ -36,7 +36,10 @@ import geopunt, os, json, webbrowser, random, sys
 
 class geopunt4QgisElevationDialog(QtGui.QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
+        QtGui.QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+        self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+        
         self.iface = iface
     
         # initialize locale
@@ -60,7 +63,6 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
         self.firstShow = True 
         
-        #vars
         self.elevation = geopunt.elevation(self.timeout, self.proxy, self.port )
         self.gh = geometryHelper( self.iface )
         self.eh = elevationHelper( self.iface )
@@ -70,6 +72,8 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
         self.ui.verticalLayout.addWidget(self.bar)
         
+        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
+        
         ##graph global vars
         self.Rubberline =  None
         self.profile = None
@@ -78,6 +82,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.ano = None
         self.anoLbl = None
         self.counter = 0
+        self.xscaleUnit = (1, "m")
         
         # a figure instance to plot on
         self.figure = Figure()
@@ -106,8 +111,19 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.sampleLayerTxt = self.s.value("geopunt4qgis/sampleLayerTxt", "Elevation_samplepoints")
         self.profileLineSavetoFile = int( self.s.value("geopunt4qgis/profileLineSavetoFile" , 1))
         self.profileLineLayerTxt = self.s.value("geopunt4qgis/profileLineLayerTxt", "Elevation_profiles")
-        
+
+    def resizeEvent(self, event):
+        QtGui.QDialog.resizeEvent(self, event)
+        if self.ax: 
+            try:
+                self.figure.tight_layout()
+            except: 
+                print str( sys.exc_info()[1] )
+
     #eventhandlers
+    def onResize(self, event):
+        self.figure.tight_layout()
+    
     def openHelp(self):
         webbrowser.open_new_tab("http://warrieka.github.io/#!geopuntElevation.md")
     
@@ -129,8 +145,8 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
              self.anoLbl.remove()
              self.anoLbl = None
             
-          xdata = [n[0] for n in self.profile if n[3] > -9999 ]
-          ydata = [n[3] for n in self.profile if n[3] > -9999 ]
+          xdata = np.array( [n[0] for n in self.profile ] ) * self.xscaleUnit[0]
+          ydata = np.array( [n[3] for n in self.profile ] )# if n[3] > -9999 ]
           zx = np.interp( event.xdata, xdata, ydata )
           xmax = np.max( xdata ) 
           xmin = np.min( xdata )
@@ -142,7 +158,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
               box_props = dict(boxstyle="Round,pad=0.3", fc="cyan", ec="b", lw=2)
               self.anoLbl = self.ax.annotate( str( round(zx, 2)) + " m",  xy= (event.xdata , zx ) , 
                                          xytext= (event.xdata , zx + (0.03 * zmax ) ), bbox=box_props )
-              self.setMapPt( event.xdata )
+              self.setMapPt( event.xdata / self.xscaleUnit[0] )
           else:
               self.setMapPt()
               
@@ -188,29 +204,38 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
             self.bar.pushMessage("Error", ge.message, level=QgsMessageBar.CRITICAL, duration=10)
             return 
         
-        xdata = [n[0] for n in self.profile if n[3] > -9999 ]
-        ydata = [n[3] for n in self.profile if n[3] > -9999 ]
+        if np.max( [n[0] for n in self.profile ] ) > 5000: self.xscaleUnit = (0.001 , "km" )
+        else: self.xscaleUnit = (1 , "m" )
+        
+        xdata = np.array( [n[0] for n in self.profile ] ) * self.xscaleUnit[0]
+        ydata = np.array( [n[3] for n in self.profile ] )
+        ymin = np.min( [n[3] for n in self.profile if n[3] > -9999 ] )
+        ymax = np.max( [n[3] for n in self.profile if n[3] > -9999 ] )
         
         if len(xdata) == 0 or len(ydata) == 0:
            self.bar.pushMessage("Error", 
-                QtCore.QCoreApplication.translate("geopunt4QgisElevationDialog","Er werd geen data gevonden"),
+                QtCore.QCoreApplication.translate(
+                  "geopunt4QgisElevationDialog", "Er werd geen data gevonden"),
                 level=QgsMessageBar.WARNING, duration=10)
            self.profile = None
            return 
         
         # create an axis
         self.ax = self.figure.add_subplot(111)
-
+        
         # discards the old graph
         self.ax.hold(False)
 
         # plot data
-        self.ax.plot( xdata, ydata,'r*-')
+        self.ax.plot( xdata, ydata,'r*')
+        self.ax.fill_between(xdata, ydata, -9999, color='#F8E6E0' )
+        self.ax.set_ylim([ ymin , ymax])
         self.ax.set_ylabel("hoogte (m)")
-        self.ax.set_xlabel("afstand (m)")
+        self.ax.set_xlabel("afstand (%s)" % self.xscaleUnit[1] )
         self.ax.set_title("Hoogteprofiel " + str( self.counter) )
 
         # refresh canvas
+        self.figure.tight_layout()
         self.canvas.draw()
 
     def callBack(self, geom):
@@ -239,7 +264,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.pt.setIconType(QgsVertexMarker.ICON_BOX ) # or ICON_CROSS, ICON_X
         self.pt.setPenWidth(7)
 
-        self.ui.mgsLbl.setText("lengte= %s meter" % dist )    
+        self.ui.mgsLbl.setText("lengte= %s %s" % ( round( dist * self.xscaleUnit[0], 1) , self.xscaleUnit[1]) )    
         
     def clean(self):
         if self.pt:
@@ -258,6 +283,5 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
            self.ax = None
           
         self.canvas.draw()
-        
         self.profile = None
         self.ui.mgsLbl.setText("")

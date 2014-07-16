@@ -14,7 +14,7 @@ class lineTool(QgsMapTool):
         self.rubberBand = QgsRubberBand(self.canvas, False)
         self.points  = []
         self.rubberBand.setColor(Qt.red)
-        self.rubberBand.setWidth(1)
+        self.rubberBand.setWidth(1.6)
 
     def canvasReleaseEvent(self,event):
         if event.button() == Qt.RightButton:

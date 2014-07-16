@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Mon Jul 14 23:00:13 2014
+# Created: Wed Jul 16 23:18:52 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_geopunt4Qgis(object):
     def setupUi(self, geopunt4Qgis):
         geopunt4Qgis.setObjectName(_fromUtf8("geopunt4Qgis"))
-        geopunt4Qgis.resize(473, 352)
+        geopunt4Qgis.resize(472, 352)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntAddressSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         geopunt4Qgis.setWindowIcon(icon)
@@ -70,7 +70,7 @@ class Ui_geopunt4Qgis(object):
         sizePolicy.setHeightForWidth(self.buttonBox.sizePolicy().hasHeightForWidth())
         self.buttonBox.setSizePolicy(sizePolicy)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close|QtGui.QDialogButtonBox.Help)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Help)
         self.buttonBox.setCenterButtons(False)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.horizontalLayout_3.addWidget(self.buttonBox)

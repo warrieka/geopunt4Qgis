@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisSettings.ui'
 #
-# Created: Sun Jul 13 19:28:55 2014
+# Created: Wed Jul 16 23:18:52 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,7 +42,7 @@ class Ui_settingsDlg(object):
         self.settingsTab.setFrameShape(QtGui.QFrame.NoFrame)
         self.settingsTab.setObjectName(_fromUtf8("settingsTab"))
         self.generalTab = QtGui.QWidget()
-        self.generalTab.setGeometry(QtCore.QRect(0, 0, 482, 300))
+        self.generalTab.setGeometry(QtCore.QRect(0, 0, 482, 325))
         self.generalTab.setObjectName(_fromUtf8("generalTab"))
         self.verticalLayout_13 = QtGui.QVBoxLayout(self.generalTab)
         self.verticalLayout_13.setObjectName(_fromUtf8("verticalLayout_13"))
@@ -275,6 +275,7 @@ class Ui_settingsDlg(object):
         icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntGIPODsmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.settingsTab.addItem(self.gipodTab, icon6, _fromUtf8(""))
         self.elevationTab = QtGui.QWidget()
+        self.elevationTab.setGeometry(QtCore.QRect(0, 0, 482, 300))
         self.elevationTab.setObjectName(_fromUtf8("elevationTab"))
         self.verticalLayout_16 = QtGui.QVBoxLayout(self.elevationTab)
         self.verticalLayout_16.setObjectName(_fromUtf8("verticalLayout_16"))
@@ -326,7 +327,7 @@ class Ui_settingsDlg(object):
         self.verticalLayout.addWidget(self.settingsTab)
         self.buttonBox = QtGui.QDialogButtonBox(settingsDlg)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Save)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.NoButton)
         self.buttonBox.setCenterButtons(False)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.verticalLayout.addWidget(self.buttonBox)

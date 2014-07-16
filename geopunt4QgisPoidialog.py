@@ -29,7 +29,9 @@ import geopunt, os, webbrowser, json
 
 class geopunt4QgisPoidialog(QtGui.QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
+        QtGui.QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+        self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.iface = iface
 
         # initialize locale
@@ -62,6 +64,8 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.bar = QgsMessageBar() 
         self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
         self.ui.verticalLayout.addWidget(self.bar)
+    
+        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole  )
     
         #table ui
         self.ui.resultLijst.hideColumn(0)

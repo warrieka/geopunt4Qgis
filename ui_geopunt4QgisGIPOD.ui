@@ -171,14 +171,14 @@
       <item row="6" column="0">
        <widget class="QLabel" name="startdatumLbl">
         <property name="text">
-         <string>startdatum:</string>
+         <string>Startdatum:</string>
         </property>
        </widget>
       </item>
       <item row="7" column="0">
        <widget class="QLabel" name="einddatumLbl">
         <property name="text">
-         <string>einddatum:</string>
+         <string>Einddatum:</string>
         </property>
        </widget>
       </item>
@@ -191,21 +191,21 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>eigenaar: </string>
+         <string>Eigenaar: </string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="stadLbl">
         <property name="text">
-         <string>stad of gemeente:</string>
+         <string>Stad of gemeente:</string>
         </property>
        </widget>
       </item>
       <item row="8" column="0" colspan="2">
        <widget class="QCheckBox" name="extendChk">
         <property name="text">
-         <string>Beperk zoekresultaten tot huidige extent</string>
+         <string>Beperk zoekresultaten tot huidig zoomniveau</string>
         </property>
        </widget>
       </item>
@@ -234,7 +234,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>type manifestatie:</string>
+         <string>Type manifestatie:</string>
         </property>
        </widget>
       </item>
@@ -270,7 +270,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="provncieLbl">
         <property name="text">
-         <string>provincie:</string>
+         <string>Provincie:</string>
         </property>
        </widget>
       </item>
@@ -333,7 +333,7 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Save</set>
+        <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>

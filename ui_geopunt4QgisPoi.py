@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Sun Jul 13 19:28:55 2014
+# Created: Wed Jul 16 23:18:52 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -165,7 +165,9 @@ class Ui_geopunt4QgisPoiDlg(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonBox.sizePolicy().hasHeightForWidth())
         self.buttonBox.setSizePolicy(sizePolicy)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Close|QtGui.QDialogButtonBox.Help)
+        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Help)
+        self.buttonBox.setCenterButtons(False)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.buttonBoxLayout.addWidget(self.buttonBox)
         self.verticalLayout.addLayout(self.buttonBoxLayout)
@@ -202,7 +204,7 @@ class Ui_geopunt4QgisPoiDlg(object):
         item = self.resultLijst.horizontalHeaderItem(4)
         item.setText(_translate("geopunt4QgisPoiDlg", "Naam", None))
         item = self.resultLijst.horizontalHeaderItem(5)
-        item.setText(_translate("geopunt4QgisPoiDlg", "crab adres", None))
+        item.setText(_translate("geopunt4QgisPoiDlg", "CRAB adres", None))
         self.zoekKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoek", None))
         self.addToMapKnop.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
         self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))

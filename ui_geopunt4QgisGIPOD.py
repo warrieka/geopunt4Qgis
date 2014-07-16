@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisGIPOD.ui'
 #
-# Created: Sun Jul 13 19:28:56 2014
+# Created: Wed Jul 16 23:31:23 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -178,7 +178,7 @@ class Ui_gipodDlg(object):
         sizePolicy.setHeightForWidth(self.buttonBox.sizePolicy().hasHeightForWidth())
         self.buttonBox.setSizePolicy(sizePolicy)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Help|QtGui.QDialogButtonBox.Save)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Help)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.horizontalLayout_3.addWidget(self.buttonBox)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
@@ -197,13 +197,13 @@ class Ui_gipodDlg(object):
         self.manifestationRadio.setText(_translate("gipodDlg", "Manifestatie", None))
         self.startEdit.setDisplayFormat(_translate("gipodDlg", "dd/MM/yyyy", None))
         self.endEdit.setDisplayFormat(_translate("gipodDlg", "dd/MM/yyyy", None))
-        self.startdatumLbl.setText(_translate("gipodDlg", "startdatum:", None))
-        self.einddatumLbl.setText(_translate("gipodDlg", "einddatum:", None))
-        self.eigenaarLbl.setText(_translate("gipodDlg", "eigenaar: ", None))
-        self.stadLbl.setText(_translate("gipodDlg", "stad of gemeente:", None))
-        self.extendChk.setText(_translate("gipodDlg", "Beperk zoekresultaten tot huidige extent", None))
-        self.manifestationlbl.setText(_translate("gipodDlg", "type manifestatie:", None))
-        self.provncieLbl.setText(_translate("gipodDlg", "provincie:", None))
+        self.startdatumLbl.setText(_translate("gipodDlg", "Startdatum:", None))
+        self.einddatumLbl.setText(_translate("gipodDlg", "Einddatum:", None))
+        self.eigenaarLbl.setText(_translate("gipodDlg", "Eigenaar: ", None))
+        self.stadLbl.setText(_translate("gipodDlg", "Stad of gemeente:", None))
+        self.extendChk.setText(_translate("gipodDlg", "Beperk zoekresultaten tot huidig zoomniveau", None))
+        self.manifestationlbl.setText(_translate("gipodDlg", "Type manifestatie:", None))
+        self.provncieLbl.setText(_translate("gipodDlg", "Provincie:", None))
         self.laagNaamLbl.setText(_translate("gipodDlg", "Laagnaam:", None))
 
 import resources_rc
