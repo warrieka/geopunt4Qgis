@@ -61,6 +61,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.start = 1
         self.count = 0
         self.step = 30
+        self.zoek = ''
         
         self.model = QtGui.QStandardItemModel( self )
        
@@ -70,10 +71,13 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.ui.zoekBtn.clicked.connect(self.onZoekClicked)
         self.ui.addWMSbtn.clicked.connect(self.addWMS)
         self.ui.DLbtn.clicked.connect(lambda: self.openUrl(self.dl))
+        self.ui.pageNextBtn.clicked.connect(self.nextPage)
+        self.ui.pagePrvBtn.clicked.connect(self.previousPage)
         self.ui.resultView.clicked.connect(self.resultViewClicked)
-               
+        self.finished.connect(self.clean)
+      
     def _setModel(self, records):   
-        self.model.removeRows(0, self.model.rowCount())
+        self.model.clear()
          
         for rec in records:
             title = QtGui.QStandardItem( rec['title'] )         #0
@@ -83,6 +87,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
             abstract  = QtGui.QStandardItem( rec['abstract'] )  #4           
             self.model.appendRow([title,wms,downloadLink,id,abstract])
 
+    #eventhandlers
     def resultViewClicked(self):
         if self.ui.resultView.selectedIndexes(): 
            row = self.ui.resultView.selectedIndexes()[0].row()  
@@ -105,24 +110,44 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
            else: self.ui.DLbtn.setEnabled(0)
                
     def onZoekClicked(self):
-        zoekString = self.ui.zoekTxt.text()
-        self.start = 1
-        self.to = self.step
+        self.zoek = self.ui.zoekTxt.text()
+        start = 1
+        to = self.step
         
-        searchResult = self.md.search( zoekString, self.start, self.to )  
-        
-        self.count, self.start, self.to = ( searchResult.count, searchResult.start, searchResult.to )
-        self.ui.pageLbl.setText( "pagina: %s/%s" % ( self.to / self.step, (self.count /self.step) +1 ) )
-        self._setModel(searchResult.records)
+        self.search( start, to )  
        
     def previousPage(self):
-        self.start -=  self.step
-        self.to -= self.step
+        start = self.start - self.step
+        if start <= 0: return
         
+        if self.count == self.to: 
+          to =  self.count - ( self.count % self.step )
+        else:  
+          to =  self.to  - self.step
+       
+        self.search( start, to) 
+      
     def nextPage(self):
-        self.start +=  self.step
-        self.to += self.step
+        if ( self.start + self.step ) > self.count: return
+      
+        start = self.start + self.step
         
+        if self.count == self.to: 
+          to = self.count
+        else:  
+          to =  self.to  + self.step
+
+        self.search( start, to) 
+           
+    def search(self, start, to):
+        searchResult = self.md.search( self.zoek , start, to )  
+
+        self.count, self.start, self.to = ( searchResult.count, searchResult.start, searchResult.to )
+        pages = ((( self.to -1 ) / self.step ) +1 , (self.count /self.step) +1 )
+        self.ui.pageLbl.setText( " %s/%s" % pages )
+        self.ui.msgLbl.setText("Aantal resultaten: %s" % self.count )
+        self._setModel(searchResult.records)
+
     def openUrl(self, url):
         if url: webbrowser.open_new_tab( url.encode("utf-8") )
 
@@ -132,9 +157,17 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
            crs = 'EPSG:31370' 
            
         lyrs =  metadata.getWmsLayerNames( self.wms ) 
-        layerTitle, accept = QtGui.QInputDialog.getItem(self, "WMS toevoegen", 
-                                          "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0) 
-        if not accept: return
+        if len(lyrs) == 0:
+            self.bar.pushMessage("WMS", 
+            QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog", "Kan geen lagen vinden in: %s" % self.wms ), 
+                                level=QgsMessageBar.WARNING, duration=10)
+            return 
+        elif len(lyrs) == 1:
+            layerTitle = lyrs[0][1]
+        else:
+            layerTitle, accept = QtGui.QInputDialog.getItem(self, "WMS toevoegen", 
+                                              "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0) 
+            if not accept: return
         
         layerName = [n[0] for n in lyrs if n[1] == layerTitle ][0]
         style = [n[2] for n in lyrs if n[1] == layerTitle ][0]
@@ -156,5 +189,10 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         except: 
             self.bar.pushMessage("Error", str( sys.exc_info()[1] ), level=QgsMessageBar.CRITICAL, duration=10)
             return 
-            
-  
+           
+    def clean(self):
+        self.model.clear()
+        self.ui.zoekTxt.setText("")
+        self.ui.descriptionText.setText('')
+        self.ui.pageLbl.setText( "0/0" )
+        self.ui.msgLbl.setText("" )

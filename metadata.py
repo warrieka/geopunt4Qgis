@@ -50,16 +50,18 @@ class MDdata:
         links =  "|".join( [ n.text for n in node.findall("link") ] )
         links = links.split('|') 
         for n in range(len( links )):
-            if "OGC:WMS" in links[n].upper(): 
-              return links[n - 1]
+            if "OGC:WMS" in links[n].upper()  and n > 0: 
+              if "http" in  links[n - 1]: #some wms are store with relative path's
+                  return links[n - 1]
         return None
 
     def _findDownload(self , node):
         links =  "|".join( [ n.text for n in node.findall("link") ] )
         links = links.split('|') 
         for n in range( len( links )):
-            if "WWW:DOWNLOAD" in links[n].upper(): 
-              return links[n - 1] 
+            if "WWW:DOWNLOAD" in links[n].upper() and n > 0: 
+               if "http" in  links[n - 1]: #some wms are store with relative path's
+                  return links[n - 1]
         return None
 
 
@@ -198,8 +200,9 @@ def getWmsLayerNames( url):
           name= lyr.find("{http://www.opengis.net/wms}Name")
           title = lyr.find("{http://www.opengis.net/wms}Title")
           style = lyr.find("{http://www.opengis.net/wms}Style/{http://www.opengis.net/wms}Name")
-          if ( name != None) and ( title != None ) and ( style != None ):
-             layerNames.append(( name.text, title.text, style.text))
+          if ( name != None) and ( title != None ):
+             if style == None: layerNames.append(( name.text, title.text, ''))
+             else: layerNames.append(( name.text, title.text, style.text))
 
       return layerNames
     

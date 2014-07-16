@@ -411,7 +411,7 @@
 <context>
     <name>geopunt4QgisDataCatalog</name>
     <message>
-        <location filename="geopunt4QgisDataCatalog.py" line="154"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="188"/>
         <source>Kan WMS niet laden</source>
         <translation type="unfinished">Cannot load WMS</translation>
     </message>
@@ -444,23 +444,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="231"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="254"/>
         <source>WMS toevoegen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="241"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="264"/>
         <source>WFS toevoegen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="236"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="259"/>
         <source>Downloadpagina openen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisDataCatalog.ui" line="199"/>
         <source>Downloaden</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="133"/>
+        <source>0/0</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
