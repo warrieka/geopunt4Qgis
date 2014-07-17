@@ -60,6 +60,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         
         #vars
         self.wms = None
+        self.wfs = None
         self.dl = None
         self.to = 0
         self.start = 1
@@ -74,6 +75,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         #eventhandlers 
         self.ui.zoekBtn.clicked.connect(self.onZoekClicked)
         self.ui.addWMSbtn.clicked.connect(self.addWMS)
+        self.ui.addWFSbtn.clicked.connect(self.addWFS)
         self.ui.DLbtn.clicked.connect(lambda: self.openUrl(self.dl))
         self.ui.pageNextBtn.clicked.connect(self.nextPage)
         self.ui.pagePrvBtn.clicked.connect(self.previousPage)
@@ -88,8 +90,9 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
             wms = QtGui.QStandardItem( rec['wms'] )             #1
             downloadLink = QtGui.QStandardItem(rec['download']) #2
             id = QtGui.QStandardItem( rec['uuid'] )             #3
-            abstract  = QtGui.QStandardItem( rec['abstract'] )  #4           
-            self.model.appendRow([title,wms,downloadLink,id,abstract])
+            abstract  = QtGui.QStandardItem( rec['abstract'] )  #4
+            wfs =     QtGui.QStandardItem( rec['wfs'] )         #5
+            self.model.appendRow([title,wms,downloadLink,id,abstract,wfs])
 
     #eventhandlers
     def resultViewClicked(self):
@@ -99,17 +102,21 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
            title  = self.model.data( self.model.index( row, 0) )
            self.wms = self.model.data( self.model.index( row, 1) )
            self.dl = self.model.data( self.model.index( row, 2) )
+           self.wfs = self.model.data( self.model.index( row, 5) )
            uuid  = self.model.data( self.model.index( row, 3) )
            abstract = self.model.data( self.model.index( row, 4) )
            
            self.ui.descriptionText.setText(
-             """<h3>%s</h3><div>%s</div><br/>
-             <a href='https://metadata.geopunt.be/zoekdienst/apps/tabsearch/index.html?uuid=%s'>Ga naar fiche</a>""" % 
-              (title , abstract, uuid ))
+             """<h3>%s</h3><div>%s</div><br/><br/>
+             <a href='https://metadata.geopunt.be/zoekdienst/apps/tabsearch/index.html?uuid=%s'>
+             Ga naar fiche</a>""" %  (title , abstract, uuid ))
            
            if self.wms: self.ui.addWMSbtn.setEnabled(1)
            else: self.ui.addWMSbtn.setEnabled(0)
-             
+           
+           if self.wfs: self.ui.addWFSbtn.setEnabled(1)
+           else: self.ui.addWFSbtn.setEnabled(0)
+           
            if self.dl: self.ui.DLbtn.setEnabled(1)
            else: self.ui.DLbtn.setEnabled(0)
                
@@ -156,6 +163,8 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         if url: webbrowser.open_new_tab( url.encode("utf-8") )
 
     def addWMS(self):
+        if self.wms == None: return
+      
         crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
         if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
            crs = 'EPSG:31370' 
@@ -163,8 +172,8 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         lyrs =  metadata.getWmsLayerNames( self.wms ) 
         if len(lyrs) == 0:
             self.bar.pushMessage("WMS", 
-            QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog", "Kan geen lagen vinden in: %s" % self.wms ), 
-                                level=QgsMessageBar.WARNING, duration=10)
+            QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog", 
+                      "Kan geen lagen vinden in: %s" % self.wms ), level=QgsMessageBar.WARNING, duration=10)
             return 
         elif len(lyrs) == 1:
             layerTitle = lyrs[0][1]
@@ -193,10 +202,45 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         except: 
             self.bar.pushMessage("Error", str( sys.exc_info()[1] ), level=QgsMessageBar.CRITICAL, duration=10)
             return 
-           
+      
+    def addWFS(self):    
+        if self.wfs == None: return
+        lyrs =  metadata.getWFSLayerNames( self.wfs )
+        
+        if len(lyrs) == 0:
+            self.bar.pushMessage("WFS", 
+            QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog", 
+                      "Kan geen lagen vinden in: %s" % self.wfs ), level=QgsMessageBar.WARNING, duration=10)
+            return
+        elif len(lyrs) == 1:
+            layerTitle = lyrs[0][1]
+        else:
+            layerTitle, accept = QtGui.QInputDialog.getItem(self, "WFS toevoegen", 
+                                "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0) 
+            if not accept: return
+          
+        layerName = [n[0] for n in lyrs if n[1] == layerTitle ][0]
+        crs = [n[2] for n in lyrs if n[1] == layerTitle ][0]
+        url =  self.wfs.split('?')[0]
+        wfsUri = metadata.makeWFSuri( url, layerName, crs )
+        
+        try:
+
+            vlayer = QgsVectorLayer( wfsUri, layerTitle , "WFS")
+            QgsMapLayerRegistry.instance().addMapLayer(vlayer)
+        except: 
+            self.bar.pushMessage("Error", str( sys.exc_info()[1] ), level=QgsMessageBar.CRITICAL, duration=10)
+            return 
+          
     def clean(self):
         self.model.clear()
+        self.wms = None
+        self.wfs = None
+        self.dl = None
         self.ui.zoekTxt.setText("")
         self.ui.descriptionText.setText('')
         self.ui.pageLbl.setText( "0/0" )
         self.ui.msgLbl.setText("" )
+        self.ui.DLbtn.setEnabled(0)
+        self.ui.addWFSbtn.setEnabled(0)
+        self.ui.addWMSbtn.setEnabled(0)

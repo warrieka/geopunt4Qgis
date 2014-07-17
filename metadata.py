@@ -1,13 +1,6 @@
 import urllib2, urllib, json, sys, os.path, datetime
 import xml.etree.ElementTree as ET
 
-class metaError(Exception):
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
-
-
 class MDdata:
     def __init__(self, metadataXML): 
         self.start = int( metadataXML.attrib["from"] )
@@ -41,25 +34,34 @@ class MDdata:
               record['geoBox'] = None
            
            record['wms'] = self._findWMS( md )
-           
+           record['wfs'] = self._findWFS( md )
            record['download'] = self._findDownload( md )
            
            self.records.append(record)
            
+    def _findWFS(self , node ):
+        links =  "|".join( [ n.text for n in node.findall("link") ] )
+        links = links.split('|') 
+        for n in range(1, len( links )):
+            if "OGC:WFS" in links[n].upper(): 
+              if "http" in  links[n - 1]: #some wfs are store with relative path's, ignore those
+                  return links[n - 1]
+        return None
+      
     def _findWMS(self , node ):
         links =  "|".join( [ n.text for n in node.findall("link") ] )
         links = links.split('|') 
-        for n in range(len( links )):
-            if "OGC:WMS" in links[n].upper()  and n > 0: 
-              if "http" in  links[n - 1]: #some wms are store with relative path's
+        for n in range(1, len( links )):
+            if "OGC:WMS" in links[n].upper(): 
+              if "http" in  links[n - 1]: #some wms are store with relative path's, ignore those
                   return links[n - 1]
         return None
 
     def _findDownload(self , node):
         links =  "|".join( [ n.text for n in node.findall("link") ] )
         links = links.split('|') 
-        for n in range( len( links )):
-            if "WWW:DOWNLOAD" in links[n].upper() and n > 0: 
+        for n in range(1, len( links )):
+            if "WWW:DOWNLOAD" in links[n].upper(): 
                if "http" in  links[n - 1]: #some wms are store with relative path's
                   return links[n - 1]
         return None
@@ -185,7 +187,14 @@ class MDReader:
             resultXML = result.getroot()
             return  MDdata( resultXML )
 
-        
+
+class metaError(Exception):
+    def __init__(self, message):
+        self.message = message
+    def __str__(self):
+        return repr(self.message)
+
+      
 def getWmsLayerNames( url):
       if (not "request=GetCapabilities" in url.lower()) or (not "service=wms" in url.lower()):
           capability = url.split("?")[0] + "?request=GetCapabilities&version=1.3.0&service=wms"
@@ -205,5 +214,33 @@ def getWmsLayerNames( url):
              else: layerNames.append(( name.text, title.text, style.text))
 
       return layerNames
+
+def getWFSLayerNames( url):
+      if (not "request=GetCapabilities" in url.lower()) or (not "service=wfs" in url.lower()):
+          capability = url.split("?")[0] + "?request=GetCapabilities&version=1.0.0&service=wfs"
+      else: 
+          capability = url
+      responseWMS =  urllib2.urlopen(capability)
+      result = ET.parse(responseWMS)
+      layers =  result.findall( ".//{http://www.opengis.net/wfs}FeatureType" )
+      layerNames=[]
+
+      for lyr in layers:
+          name= lyr.find("{http://www.opengis.net/wfs}Name")
+          title = lyr.find("{http://www.opengis.net/wfs}Title")
+          srs = lyr.find("{http://www.opengis.net/wfs}SRS")
+          if ( name != None) and ( title != None ):
+              if srs == None: layerNames.append(( name.text, title.text, 'EPSG:31370'))
+              else: layerNames.append(( name.text, title.text, srs.text))
+
+      return layerNames
+
+def makeWFSuri( url, name='', srsname="EPSG:31370", version='1.0.0' ):
+    params = {  'SERVICE': 'WFS',
+                'VERSION':version ,
+                'REQUEST': 'GetFeature',
+                'TYPENAME': name,
+                'SRSNAME': srsname }
     
-        
+    uri = url.split("?")[0] + '?' + urllib.unquote( urllib.urlencode(params) )
+    return uri

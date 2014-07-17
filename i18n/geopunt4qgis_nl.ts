@@ -421,7 +421,7 @@
 <context>
     <name>geopunt4QgisDataCatalog</name>
     <message>
-        <location filename="geopunt4QgisDataCatalog.py" line="192"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="201"/>
         <source>Kan WMS niet laden</source>
         <translation type="unfinished">Kan WMS niet laden</translation>
     </message>
