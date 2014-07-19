@@ -421,7 +421,7 @@
 <context>
     <name>geopunt4QgisDataCatalog</name>
     <message>
-        <location filename="geopunt4QgisDataCatalog.py" line="201"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="302"/>
         <source>Kan WMS niet laden</source>
         <translation type="unfinished">Kan WMS niet laden</translation>
     </message>
@@ -434,7 +434,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="39"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="45"/>
         <source>Zoek</source>
         <translation type="unfinished">Zoek</translation>
     </message>
@@ -444,38 +444,103 @@
         <translation type="obsolete">Naam</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="120"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="403"/>
         <source>&lt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="143"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="426"/>
         <source>&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="254"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="589"/>
         <source>WMS toevoegen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="264"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="599"/>
         <source>WFS toevoegen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="259"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="594"/>
         <source>Downloadpagina openen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="199"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="534"/>
         <source>Downloaden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="133"/>
-        <source>0/0</source>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="70"/>
+        <source>Filters</source>
+        <translation type="unfinished">Filters</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="178"/>
+        <source>Organisatie:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="239"/>
+        <source>INSPIRE annex:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="226"/>
+        <source>INSPIRE thema:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="191"/>
+        <source>GDI-thema: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="99"/>
+        <source>Bron catalogus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="461"/>
+        <source>WMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="466"/>
+        <source>WFS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="471"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="456"/>
+        <source>Alle lagen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="448"/>
+        <source>Toon lagen met:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="274"/>
+        <source>INSPIRE-servicetype:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="331"/>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="416"/>
+        <source>0-0/0</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -646,12 +711,12 @@
         <translation>Geen resultaten gevonden voor:</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="128"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="257"/>
         <source>Waarschuwing </source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="128"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="137"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation>Kan geen verbing maken met het internet.</translation>
     </message>
@@ -659,6 +724,16 @@
         <location filename="geopunt4QgisPoidialog.py" line="198"/>
         <source>Verfijn je zoekfilter: slechts 32 records kunnen worden opgehaald.</source>
         <translation>Verfijn je zoekfilter: slechts 32 records kunnen worden opgehaald.</translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisDataCatalog.py" line="257"/>
+        <source>Er werden geen resultaten gevonde voor deze zoekopdracht</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisDataCatalog.py" line="222"/>
+        <source>Let op</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

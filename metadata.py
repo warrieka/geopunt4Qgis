@@ -31,7 +31,7 @@ class MDdata:
            if (md.find('geoBox') != None) and (md.find('geoBox').text != None): 
               record['geoBox'] = md.find('geoBox').text  #[float(i) for i in md.find('geoBox').text.split('|') ]
            else: 
-              record['geoBox'] = None
+              record['geoBox'] = ""
            
            record['wms'] = self._findWMS( md )
            record['wfs'] = self._findWFS( md )
@@ -46,7 +46,7 @@ class MDdata:
             if "OGC:WFS" in links[n].upper(): 
               if "http" in  links[n - 1]: #some wfs are store with relative path's, ignore those
                   return links[n - 1]
-        return None
+        return ""
       
     def _findWMS(self , node ):
         links =  "|".join( [ n.text for n in node.findall("link") ] )
@@ -55,7 +55,7 @@ class MDdata:
             if "OGC:WMS" in links[n].upper(): 
               if "http" in  links[n - 1]: #some wms are store with relative path's, ignore those
                   return links[n - 1]
-        return None
+        return ""
 
     def _findDownload(self , node):
         links =  "|".join( [ n.text for n in node.findall("link") ] )
@@ -64,7 +64,7 @@ class MDdata:
             if "WWW:DOWNLOAD" in links[n].upper(): 
                if "http" in  links[n - 1]: #some wms are store with relative path's
                   return links[n - 1]
-        return None
+        return ""
 
 
 class MDReader:
@@ -72,7 +72,9 @@ class MDReader:
         self.timeout = timeout
         self.geoNetworkUrl = "https://metadata.geopunt.be/zoekdienst/srv/dut"
 
-        self.inspireServiceTypes =  ["other","invoke","discovery","transformation","view"]
+        self.dataTypes = [["Dataset", "dataset"],["Datasetserie","series"],
+                          ["Objectencatalogus","model"],["Service","service"]]
+        self.inspireServiceTypes =  ["Discovery","Transformation","View","Other","Invoke"]
         self.inspireannex =  ["i","ii","iii"]
 
         if (proxyUrl <> "")  & proxyUrl.startswith("http://"):
@@ -82,7 +84,7 @@ class MDReader:
         else:
             self.opener = None
 
-    def _createFindUrl(self, q="", start=1, to=20, themekey='', orgName='', inspiretheme='', inspireannex='',  serviceType=''):
+    def _createFindUrl(self, q="", start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType=''):
         geopuntUrl = self.geoNetworkUrl + "/q?fast=index&sortBy=changeDate&"
         data = {}
         data["any"] = "*" + unicode(q).encode('utf-8') + "*"
@@ -94,21 +96,24 @@ class MDReader:
                 data["themekey"] = '"' +  themekey.lower()  + '"'
             else: 
                 data["themekey"] = themekey.lower()
-        if orgName: 
+        if orgName  and not " or " in orgName.lower():
             if " " in orgName:
                 data["orgName"] = '"' +  orgName.lower() + '"' 
             else: 
                 data["orgName"] = orgName.lower()
+                
+        if dataType: data['type']= dataType
+        if siteId: data['siteId']= siteId                
+                
         if inspiretheme: 
-            if " " in orgName:
+            if " " in inspiretheme and not " or " in inspiretheme.lower():
                 data["inspiretheme"] = '"' +  inspiretheme + '"' 
             else: 
-                data["inspiretheme"] = inspiretheme
-                
+                data["inspiretheme"] = inspiretheme            
         if inspireannex and (inspireannex.lower() in self.inspireannex ) : 
             data["inspireannex"] = inspireannex.lower()
-        if serviceType and (serviceType.lower()in self.inspireServiceTypes): 
-            data["serviceType"] = serviceType.lower() 
+        if inspireServiceType : 
+            data["serviceType"] = inspireServiceType.lower() 
 
         values = urllib.urlencode(data)
         result = geopuntUrl + values
@@ -142,7 +147,7 @@ class MDReader:
             r= result.getroot()
             return [ n.find("value").text for n in  r[0].findall('keyword') ]
     
-    def suggestionKeyword(self, q=''):
+    def list_suggestionKeyword(self, q=''):
         url = self.geoNetworkUrl + "/main.search.suggest?field=any" 
         if q:
             url= url + "&q=" + unicode(q).encode('utf-8') 
@@ -158,7 +163,7 @@ class MDReader:
             result = json.load(response)
             return result[1]
 
-    def list_orgnisations(self, q=''):
+    def list_organisations(self, q=''):
         url = self.geoNetworkUrl + "/main.search.suggest?field=orgName" 
         if q:
             url= url + "&q=" + unicode(q).encode('utf-8') 
@@ -173,8 +178,23 @@ class MDReader:
             result = json.load(response)
             return result[1]
 
-    def search(self, q="", start=1, to=20, themekey='', orgName='', inspiretheme='', inspireannex='', serviceType='' ):
-        url = self._createFindUrl( q, start, to, themekey, orgName, inspiretheme, inspireannex, serviceType )
+    def list_bronnen(self):
+        url = self.geoNetworkUrl + "/xml.info?type=sources"
+        try:
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except  (urllib2.HTTPError, urllib2.URLError) as e:
+            raise metaError( str( e.reason ))
+        except:
+            raise metaError( str( sys.exc_info()[1] ))
+        else:
+            result = ET.parse(response)
+            r= result.getroot()
+            return  [ ( n.find("uuid").text, n.find("name").text ) 
+                     for n in  r[0].findall('source') ]
+
+    def search(self, q="", start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType='' ):
+        url = self._createFindUrl( q, start, to, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
         try:
             if self.opener: response = self.opener.open(url, timeout=self.timeout)
             else: response = urllib2.urlopen(url, timeout=self.timeout)
