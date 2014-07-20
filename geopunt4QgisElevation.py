@@ -100,6 +100,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.ui.saveLineBtn.clicked.connect(self.saveLineClicked)
         self.ui.savePntBtn.clicked.connect(self.savePntClicked)
         self.ui.addDHMbtn.clicked.connect(self.addDHMasWMS) 
+        self.ui.refreshBtn.clicked.connect( self.plot )
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.rejected.connect(self.clean )
 
@@ -195,6 +196,8 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
             return 
         
     def plot(self):
+        if self.Rubberline == None: return
+      
         wgsLine = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() )
         lineString = [ list(n) for n in wgsLine.asPolyline()]
         nrSamples = self.ui.nrOfSampleSpin.value()
@@ -284,4 +287,5 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
           
         self.canvas.draw()
         self.profile = None
+        self.Rubberline = None
         self.ui.mgsLbl.setText("")

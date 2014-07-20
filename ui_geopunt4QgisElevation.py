@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisElevation.ui'
 #
-# Created: Wed Jul 16 23:18:53 2014
+# Created: Sun Jul 20 18:34:12 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -92,6 +92,20 @@ class Ui_elevationDlg(object):
         self.nrOfSampleSpin.setProperty("value", 50)
         self.nrOfSampleSpin.setObjectName(_fromUtf8("nrOfSampleSpin"))
         self.horizontalLayout_4.addWidget(self.nrOfSampleSpin)
+        self.refreshBtn = QtGui.QPushButton(self.toolbar)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.refreshBtn.sizePolicy().hasHeightForWidth())
+        self.refreshBtn.setSizePolicy(sizePolicy)
+        self.refreshBtn.setSizeIncrement(QtCore.QSize(0, 2))
+        self.refreshBtn.setText(_fromUtf8(""))
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/Refresh.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.refreshBtn.setIcon(icon1)
+        self.refreshBtn.setAutoDefault(False)
+        self.refreshBtn.setObjectName(_fromUtf8("refreshBtn"))
+        self.horizontalLayout_4.addWidget(self.refreshBtn)
         self.verticalLayout.addWidget(self.toolbar)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
@@ -146,6 +160,8 @@ class Ui_elevationDlg(object):
         self.drawBtn.setText(_translate("elevationDlg", "Teken de profiellijn", None))
         self.addDHMbtn.setText(_translate("elevationDlg", "Voeg hoogtemodel toe als laag", None))
         self.nrOfsampleLbl.setText(_translate("elevationDlg", "Aantal profielpunten", None))
+        self.refreshBtn.setToolTip(_translate("elevationDlg", "Herteken profiel", None))
+        self.refreshBtn.setStatusTip(_translate("elevationDlg", "Herteken profiel", None))
         self.saveLineBtn.setText(_translate("elevationDlg", "Profiellijn opslaan ", None))
         self.savePntBtn.setText(_translate("elevationDlg", "Profielpunten opslaan", None))
 

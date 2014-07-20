@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Wed Jul 16 23:18:52 2014
+# Created: Sun Jul 20 18:34:12 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,8 +26,9 @@ except AttributeError:
 class Ui_geopunt4QgisPoiDlg(object):
     def setupUi(self, geopunt4QgisPoiDlg):
         geopunt4QgisPoiDlg.setObjectName(_fromUtf8("geopunt4QgisPoiDlg"))
-        geopunt4QgisPoiDlg.resize(528, 530)
+        geopunt4QgisPoiDlg.resize(562, 567)
         geopunt4QgisPoiDlg.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        geopunt4QgisPoiDlg.setAcceptDrops(False)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntPoiSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         geopunt4QgisPoiDlg.setWindowIcon(icon)
@@ -105,6 +106,19 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.filterPoiTypeCombo)
         self.gridLayout.addWidget(self.filterWgt, 0, 0, 1, 1)
         self.verticalLayout.addWidget(self.filterBox)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem)
+        self.zoekKnop = QtGui.QPushButton(geopunt4QgisPoiDlg)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/magnifyingGlass.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.zoekKnop.setIcon(icon1)
+        self.zoekKnop.setAutoDefault(True)
+        self.zoekKnop.setDefault(True)
+        self.zoekKnop.setObjectName(_fromUtf8("zoekKnop"))
+        self.horizontalLayout_3.addWidget(self.zoekKnop)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.resultLijst = QtGui.QTableWidget(geopunt4QgisPoiDlg)
         self.resultLijst.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.resultLijst.setFrameShape(QtGui.QFrame.StyledPanel)
@@ -136,16 +150,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.buttonWgt)
         self.horizontalLayout_2.setMargin(0)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.zoekKnop = QtGui.QPushButton(self.buttonWgt)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/magnifyingGlass.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.zoekKnop.setIcon(icon1)
-        self.zoekKnop.setAutoDefault(False)
-        self.zoekKnop.setDefault(True)
-        self.zoekKnop.setObjectName(_fromUtf8("zoekKnop"))
-        self.horizontalLayout_2.addWidget(self.zoekKnop)
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem)
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
         self.addToMapKnop = QtGui.QPushButton(self.buttonWgt)
         self.addToMapKnop.setAutoDefault(False)
         self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
@@ -157,8 +163,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.verticalLayout.addWidget(self.buttonWgt)
         self.buttonBoxLayout = QtGui.QHBoxLayout()
         self.buttonBoxLayout.setObjectName(_fromUtf8("buttonBoxLayout"))
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.buttonBoxLayout.addItem(spacerItem1)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.buttonBoxLayout.addItem(spacerItem2)
         self.buttonBox = QtGui.QDialogButtonBox(geopunt4QgisPoiDlg)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -184,14 +190,15 @@ class Ui_geopunt4QgisPoiDlg(object):
         QtCore.QMetaObject.connectSlotsByName(geopunt4QgisPoiDlg)
 
     def retranslateUi(self, geopunt4QgisPoiDlg):
-        geopunt4QgisPoiDlg.setWindowTitle(_translate("geopunt4QgisPoiDlg", "Zoek een locatie via geopunt", None))
-        self.groupBox.setTitle(_translate("geopunt4QgisPoiDlg", "Zoek naar een plaats op naam:", None))
-        self.currentBoundsVink.setText(_translate("geopunt4QgisPoiDlg", "Beperk zoekresultaten tot huidige extent", None))
+        geopunt4QgisPoiDlg.setWindowTitle(_translate("geopunt4QgisPoiDlg", "Zoek een interessante plaats via Geopunt", None))
+        self.groupBox.setTitle(_translate("geopunt4QgisPoiDlg", "Zoek naar een interessante plaats op naam sleutelwoord:", None))
+        self.currentBoundsVink.setText(_translate("geopunt4QgisPoiDlg", "Beperk zoekresultaten tot huidige zoomniveau", None))
         self.filterBox.setTitle(_translate("geopunt4QgisPoiDlg", "Filters", None))
         self.filterLbl0.setText(_translate("geopunt4QgisPoiDlg", "Gemeente:", None))
         self.filterLbl1.setText(_translate("geopunt4QgisPoiDlg", "Thema:", None))
         self.filterLbl2.setText(_translate("geopunt4QgisPoiDlg", "Categorie:", None))
         self.filterLbl3.setText(_translate("geopunt4QgisPoiDlg", "Type:", None))
+        self.zoekKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoek", None))
         self.resultLijst.setSortingEnabled(True)
         item = self.resultLijst.horizontalHeaderItem(0)
         item.setText(_translate("geopunt4QgisPoiDlg", "id", None))
@@ -205,7 +212,6 @@ class Ui_geopunt4QgisPoiDlg(object):
         item.setText(_translate("geopunt4QgisPoiDlg", "Naam", None))
         item = self.resultLijst.horizontalHeaderItem(5)
         item.setText(_translate("geopunt4QgisPoiDlg", "CRAB adres", None))
-        self.zoekKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoek", None))
         self.addToMapKnop.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
         self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))
         self.actionZoomtoSelection.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar Selectie", None))

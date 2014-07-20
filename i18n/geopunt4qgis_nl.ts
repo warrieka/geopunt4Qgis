@@ -227,7 +227,7 @@
         <translation type="obsolete">Aantal samples:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="158"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="190"/>
         <source>Profiellijn opslaan </source>
         <translation>Profiellijn opslaan </translation>
     </message>
@@ -267,8 +267,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="174"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="206"/>
         <source>Profielpunten opslaan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="162"/>
+        <source>Herteken profiel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -444,32 +449,22 @@
         <translation type="obsolete">Naam</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="403"/>
-        <source>&lt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="426"/>
-        <source>&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="589"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="621"/>
         <source>WMS toevoegen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="599"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="631"/>
         <source>WFS toevoegen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="594"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="626"/>
         <source>Downloadpagina openen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="534"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="562"/>
         <source>Downloaden</source>
         <translation type="unfinished"></translation>
     </message>
@@ -504,27 +499,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="461"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="481"/>
         <source>WMS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="466"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="486"/>
         <source>WFS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="471"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="491"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="456"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="476"/>
         <source>Alle lagen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="448"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="468"/>
         <source>Toon lagen met:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -539,7 +534,7 @@
         <translation type="unfinished">Type:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="416"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="426"/>
         <source>0-0/0</source>
         <translation type="unfinished"></translation>
     </message>
@@ -547,12 +542,12 @@
 <context>
     <name>geopunt4QgisElevationDialog</name>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="191"/>
+        <location filename="geopunt4QgisElevation.py" line="192"/>
         <source>Kan WMS niet laden</source>
         <translation>Kan WMS niet laden</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="217"/>
+        <location filename="geopunt4QgisElevation.py" line="220"/>
         <source>Er werd geen data gevonden</source>
         <translation>Er werd geen data gevonden</translation>
     </message>
@@ -585,25 +580,25 @@
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="31"/>
         <source>Zoek naar een plaats op naam:</source>
-        <translation>Zoek naar een plaats op naam:</translation>
+        <translation type="obsolete">Zoek naar een plaats op naam:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="46"/>
         <source>Beperk zoekresultaten tot huidige extent</source>
-        <translation>Beperk zoekresultaten tot huidige extent</translation>
+        <translation type="obsolete">Beperk zoekresultaten tot huidige extent</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="182"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="219"/>
         <source>id</source>
         <translation>id</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="192"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="229"/>
         <source>Categorie</source>
         <translation>Categorie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="202"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="239"/>
         <source>Naam</source>
         <translation>Naam</translation>
     </message>
@@ -613,68 +608,83 @@
         <translation type="obsolete">crab adres</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="312"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="332"/>
         <source>Voeg selectie toe aan kaart</source>
         <translation>Voeg selectie toe aan kaart</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="258"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="278"/>
         <source>Zoom naar selectie</source>
         <translation>Zoom naar selectie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="307"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="327"/>
         <source>Zoom naar Selectie</source>
         <translation>Zoom naar Selectie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="56"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="59"/>
         <source>Filters</source>
         <translation>Filters</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="125"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="128"/>
         <source>Type:</source>
         <translation>Type:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="108"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="111"/>
         <source>Categorie:</source>
         <translation>Categorie:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="88"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="91"/>
         <source>Thema:</source>
         <translation>Thema:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="197"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="234"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="187"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="224"/>
         <source>Thema</source>
         <translation>Thema</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="71"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="74"/>
         <source>Gemeente:</source>
         <translation>Gemeente:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="18"/>
         <source>Zoek een locatie via geopunt</source>
-        <translation>Zoek een locatie via geopunt</translation>
+        <translation type="obsolete">Zoek een locatie via geopunt</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="218"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="166"/>
         <source>Zoek</source>
         <translation>Zoek</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="207"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="244"/>
         <source>CRAB adres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisPoi.ui" line="21"/>
+        <source>Zoek een interessante plaats via Geopunt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisPoi.ui" line="34"/>
+        <source>Zoek naar een interessante plaats op naam sleutelwoord:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisPoi.ui" line="49"/>
+        <source>Beperk zoekresultaten tot huidige zoomniveau</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -887,12 +897,12 @@
         <translation>Toevoegen punten aan de kaart</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="681"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="671"/>
         <source>Opslaan naar bestand </source>
         <translation>Opslaan naar bestand </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="668"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="681"/>
         <source>Opslaan naar tijdelijke laag</source>
         <translation>Opslaan naar tijdelijke laag</translation>
     </message>

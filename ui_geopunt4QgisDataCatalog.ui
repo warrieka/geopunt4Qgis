@@ -400,7 +400,17 @@
           <item>
            <widget class="QPushButton" name="pagePrvBtn">
             <property name="text">
-             <string>&lt;</string>
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/plugins/geopunt4Qgis/images/previous.png</normaloff>:/plugins/geopunt4Qgis/images/previous.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>12</width>
+              <height>12</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -423,7 +433,17 @@
           <item>
            <widget class="QPushButton" name="pageNextBtn">
             <property name="text">
-             <string>&gt;</string>
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/plugins/geopunt4Qgis/images/Next.png</normaloff>:/plugins/geopunt4Qgis/images/Next.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>12</width>
+              <height>12</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -507,6 +527,10 @@
        <property name="text">
         <string>WMS toevoegen</string>
        </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/plugins/geopunt4Qgis/images/Wms.png</normaloff>:/plugins/geopunt4Qgis/images/Wms.png</iconset>
+       </property>
        <property name="autoDefault">
         <bool>false</bool>
        </property>
@@ -520,6 +544,10 @@
        <property name="text">
         <string>WFS toevoegen</string>
        </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/plugins/geopunt4Qgis/images/Wfs.png</normaloff>:/plugins/geopunt4Qgis/images/Wfs.png</iconset>
+       </property>
        <property name="autoDefault">
         <bool>false</bool>
        </property>
@@ -532,6 +560,10 @@
        </property>
        <property name="text">
         <string>Downloaden</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/plugins/geopunt4Qgis/images/zip.png</normaloff>:/plugins/geopunt4Qgis/images/zip.png</iconset>
        </property>
       </widget>
      </item>

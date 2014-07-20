@@ -192,7 +192,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>300</height>
+        <height>325</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -292,7 +292,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>300</height>
+        <height>325</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -363,7 +363,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>300</height>
+        <height>325</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -468,7 +468,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>300</height>
+        <height>325</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -539,7 +539,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>300</height>
+        <height>325</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -603,7 +603,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>300</height>
+        <height>325</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -621,16 +621,6 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_14">
           <item>
-           <widget class="QRadioButton" name="samplesSaveMemoryChk">
-            <property name="text">
-             <string>Opslaan naar tijdelijke laag</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QRadioButton" name="samplesSavetoFileChk">
             <property name="enabled">
              <bool>true</bool>
@@ -640,6 +630,16 @@
             </property>
             <property name="checked">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="samplesSaveMemoryChk">
+            <property name="text">
+             <string>Opslaan naar tijdelijke laag</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -663,16 +663,6 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_15">
           <item>
-           <widget class="QRadioButton" name="profileLineSaveMemoryChk">
-            <property name="text">
-             <string>Opslaan naar tijdelijke laag</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QRadioButton" name="profileLineSavetoFileChk">
             <property name="enabled">
              <bool>true</bool>
@@ -682,6 +672,16 @@
             </property>
             <property name="checked">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="profileLineSaveMemoryChk">
+            <property name="text">
+             <string>Opslaan naar tijdelijke laag</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
             </property>
            </widget>
           </item>

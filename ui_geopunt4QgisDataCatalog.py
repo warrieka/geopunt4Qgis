@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisDataCatalog.ui'
 #
-# Created: Sat Jul 19 18:39:10 2014
+# Created: Sun Jul 20 17:27:44 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -238,6 +238,11 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.horizontalLayout_3.setMargin(0)
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.pagePrvBtn = QtGui.QPushButton(self.pagingWgt)
+        self.pagePrvBtn.setText(_fromUtf8(""))
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/previous.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pagePrvBtn.setIcon(icon2)
+        self.pagePrvBtn.setIconSize(QtCore.QSize(12, 12))
         self.pagePrvBtn.setObjectName(_fromUtf8("pagePrvBtn"))
         self.horizontalLayout_3.addWidget(self.pagePrvBtn)
         self.pageLbl = QtGui.QLabel(self.pagingWgt)
@@ -250,6 +255,11 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.pageLbl.setObjectName(_fromUtf8("pageLbl"))
         self.horizontalLayout_3.addWidget(self.pageLbl)
         self.pageNextBtn = QtGui.QPushButton(self.pagingWgt)
+        self.pageNextBtn.setText(_fromUtf8(""))
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/Next.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pageNextBtn.setIcon(icon3)
+        self.pageNextBtn.setIconSize(QtCore.QSize(12, 12))
         self.pageNextBtn.setObjectName(_fromUtf8("pageNextBtn"))
         self.horizontalLayout_3.addWidget(self.pageNextBtn)
         self.verticalLayout_2.addWidget(self.pagingWgt)
@@ -282,16 +292,25 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.addWMSbtn = QtGui.QPushButton(geopunt4QgisDataCatalogDlg)
         self.addWMSbtn.setEnabled(False)
         self.addWMSbtn.setMinimumSize(QtCore.QSize(0, 0))
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/Wms.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.addWMSbtn.setIcon(icon4)
         self.addWMSbtn.setAutoDefault(False)
         self.addWMSbtn.setObjectName(_fromUtf8("addWMSbtn"))
         self.horizontalLayout_2.addWidget(self.addWMSbtn)
         self.addWFSbtn = QtGui.QPushButton(geopunt4QgisDataCatalogDlg)
         self.addWFSbtn.setEnabled(False)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/Wfs.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.addWFSbtn.setIcon(icon5)
         self.addWFSbtn.setAutoDefault(False)
         self.addWFSbtn.setObjectName(_fromUtf8("addWFSbtn"))
         self.horizontalLayout_2.addWidget(self.addWFSbtn)
         self.DLbtn = QtGui.QPushButton(geopunt4QgisDataCatalogDlg)
         self.DLbtn.setEnabled(False)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/zip.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.DLbtn.setIcon(icon6)
         self.DLbtn.setObjectName(_fromUtf8("DLbtn"))
         self.horizontalLayout_2.addWidget(self.DLbtn)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -343,9 +362,7 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.INSPIREannexLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "INSPIRE annex:", None))
         self.INSPIREserviceLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "INSPIRE-servicetype:", None))
         self.typeLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "Type:", None))
-        self.pagePrvBtn.setText(_translate("geopunt4QgisDataCatalogDlg", "<", None))
         self.pageLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "0-0/0", None))
-        self.pageNextBtn.setText(_translate("geopunt4QgisDataCatalogDlg", ">", None))
         self.label.setText(_translate("geopunt4QgisDataCatalogDlg", "Toon lagen met:", None))
         self.modelFilterCbx.setItemText(0, _translate("geopunt4QgisDataCatalogDlg", "Alle lagen", None))
         self.modelFilterCbx.setItemText(1, _translate("geopunt4QgisDataCatalogDlg", "WMS", None))

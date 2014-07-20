@@ -141,6 +141,38 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="refreshBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Herteken profiel</string>
+        </property>
+        <property name="statusTip">
+         <string>Herteken profiel</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/Refresh.png</normaloff>:/plugins/geopunt4Qgis/images/Refresh.png</iconset>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
