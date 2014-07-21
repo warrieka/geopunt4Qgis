@@ -60,7 +60,9 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         self.data = None
         
         self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
-        self.ui.buttonBox.addButton( QtGui.QPushButton("Voeg toe aan kaart"), QtGui.QDialogButtonBox.AcceptRole )
+        self.ui.buttonBox.addButton( QtGui.QPushButton(
+                                QtGui.QIcon(":/plugins/geopunt4Qgis/images/addPointLayer.png" ),
+                                "Voeg toe aan kaart"),  QtGui.QDialogButtonBox.AcceptRole ) 
         
         self.firstShow = True
         

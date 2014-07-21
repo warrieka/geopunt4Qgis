@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Mon Jul 21 10:26:35 2014
+# Created: Mon Jul 21 10:47:56 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -101,6 +101,7 @@ class Ui_batchGeocodeDlg(object):
         sizePolicy.setHeightForWidth(self.delimEdit.sizePolicy().hasHeightForWidth())
         self.delimEdit.setSizePolicy(sizePolicy)
         self.delimEdit.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.delimEdit.setText(_fromUtf8(""))
         self.delimEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.delimEdit.setObjectName(_fromUtf8("delimEdit"))
         self.horizontalLayout_2.addWidget(self.delimEdit)
@@ -344,11 +345,10 @@ class Ui_batchGeocodeDlg(object):
         self.delimSelect.setItemText(1, _translate("batchGeocodeDlg", "Comma", None))
         self.delimSelect.setItemText(2, _translate("batchGeocodeDlg", "Tab", None))
         self.delimSelect.setItemText(3, _translate("batchGeocodeDlg", "Ander: ", None))
-        self.delimEdit.setText(_translate("batchGeocodeDlg", ",", None))
         self.multipleColChk.setText(_translate("batchGeocodeDlg", "Adres in meerdere kolommen", None))
         self.singleLineChk.setText(_translate("batchGeocodeDlg", "Volledig adres in 1 kolom", None))
         self.adresColLbl.setText(_translate("batchGeocodeDlg", "Straatnaam kolom:", None))
-        self.huisnrLbl.setText(_translate("batchGeocodeDlg", "Huisnummer kolom: ", None))
+        self.huisnrLbl.setText(_translate("batchGeocodeDlg", "(Optioneel) Huisnummer kolom: ", None))
         self.gemeenteColLbl.setText(_translate("batchGeocodeDlg", "Gemeente of postcode kolom:", None))
         self.zoomToSelBtn.setToolTip(_translate("batchGeocodeDlg", "Zoom naar selectie", None))
         self.validateSelBtn.setToolTip(_translate("batchGeocodeDlg", "Valideer selectie", None))

@@ -93,7 +93,9 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
     def loadSettings(self): 
         self.maxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
         self.saveToFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
-        self.layerName = self.s.value("geopunt4qgis/batchLayerText", "adressen_csv")
+        layerName =  self.s.value("geopunt4qgis/batchLayerText", "")
+        if layerName != "":
+           self.layerName= layerName
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
@@ -103,7 +105,9 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
     def openHelp(self):
         webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntBatchgeocode.md")
       
-    def addToMap(self):
+    def addToMap(self): 
+        if not self.layernameValid(): return
+
         adresCol = self.ui.outPutTbl.columnCount() -1
         rowCount = self.ui.outPutTbl.rowCount()
     
@@ -158,6 +162,17 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
           
         self.accept()
 
+    def layernameValid(self):   
+        if not hasattr(self, 'layerName'):
+          layerName, accept = QtGui.QInputDialog.getText(None,
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+          if accept == False: 
+            return False
+          else: 
+            self.layerName = layerName
+        return True
+        
     def adresFromMap(self):
         if self.getSelectedRows() == []: return
     

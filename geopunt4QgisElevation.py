@@ -100,7 +100,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.ui.saveLineBtn.clicked.connect(self.saveLineClicked)
         self.ui.savePntBtn.clicked.connect(self.savePntClicked)
         self.ui.addDHMbtn.clicked.connect(self.addDHMasWMS) 
-        self.ui.refreshBtn.clicked.connect( self.plot )
+        self.ui.refreshBtn.clicked.connect( self.onRefresh )
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.rejected.connect(self.clean )
 
@@ -109,9 +109,13 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")  
         self.samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
-        self.sampleLayerTxt = self.s.value("geopunt4qgis/sampleLayerTxt", "Elevation_samplepoints")
+        sampleLayer = self.s.value("geopunt4qgis/sampleLayerTxt", "")
+        if sampleLayer != "":
+           self.sampleLayerTxt = sampleLayer
         self.profileLineSavetoFile = int( self.s.value("geopunt4qgis/profileLineSavetoFile" , 1))
-        self.profileLineLayerTxt = self.s.value("geopunt4qgis/profileLineLayerTxt", "Elevation_profiles")
+        profileLineLayer= self.s.value("geopunt4qgis/profileLineLayerTxt", "")
+        if profileLineLayer != "":
+           self.profileLineLayerTxt = profileLineLayer
 
     def resizeEvent(self, event):
         QtGui.QDialog.resizeEvent(self, event)
@@ -122,6 +126,15 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
                 print str( sys.exc_info()[1] )
 
     #eventhandlers
+    def onRefresh(self):
+        if self.ano: 
+            self.ano.remove()
+            self.ano = None
+        if self.anoLbl: 
+            self.anoLbl.remove()
+            self.anoLbl = None
+        self.plot()
+    
     def onResize(self, event):
         self.figure.tight_layout()
     
@@ -139,10 +152,10 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         if self.ax == None: return
         
         if event.xdata != None and event.ydata != None:
-          if self.ano: 
+          if self.ano != None: 
              self.ano.remove()
              self.ano = None
-          if self.anoLbl: 
+          if self.anoLbl != None: 
              self.anoLbl.remove()
              self.anoLbl = None
             
@@ -152,13 +165,14 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
           xmax = np.max( xdata ) 
           xmin = np.min( xdata )
           zmax = np.max( ydata )
-          
+           
           if event.xdata <= xmax and event.xdata >= xmin  :
               self.ano = self.ax.arrow( event.xdata , -9999, 0, zx + 9999, fc="k", ec="k" )
               
               box_props = dict(boxstyle="Round,pad=0.3", fc="cyan", ec="b", lw=2)
-              self.anoLbl = self.ax.annotate( str( round(zx, 2)) + " m",  xy= (event.xdata , zx ) , 
-                                         xytext= (event.xdata , zx + (0.03 * zmax ) ), bbox=box_props )
+              self.anoLbl = self.ax.annotate( str( round(zx, 2)) + " m",  xy= (event.xdata, zx ) , 
+                          xytext= (event.xdata , zx + (0.05 * xmax *  self.xscaleUnit[0]) ),
+                          bbox=box_props )
               self.setMapPt( event.xdata / self.xscaleUnit[0] )
           else:
               self.setMapPt()
@@ -166,12 +180,30 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
           event.canvas.draw()
         
     def saveLineClicked(self):
+        if not hasattr(self, 'profileLineLayerTxt'):
+           layerName, accept = QtGui.QInputDialog.getText(None,
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+           if accept == False: 
+              return
+           else:  
+              self.profileLineLayerTxt = layerName
+           
         if self.profile != None and self.Rubberline != None:
            title = self.ax.get_title()
            self.eh.save_profile( self.Rubberline.asGeometry(), self.profile, title,
                               self.profileLineLayerTxt, self.profileLineSavetoFile, sender=self )
         
     def savePntClicked(self):
+        if not hasattr(self, 'sampleLayerTxt'):
+           layerName, accept = QtGui.QInputDialog.getText(None,
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+           if accept == False: 
+              return
+           else:  
+              self.sampleLayerTxt = layerName
+      
         if self.profile != None:
            title = self.ax.get_title()
            self.eh.save_sample_points( self.profile, title, 
@@ -247,6 +279,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.showNormal()
         self.activateWindow()
         self.plot()
+        self.ui.saveWgt.setEnabled(True)
 
     def setMapPt(self, dist=None ):
         if self.pt: self.iface.mapCanvas().scene().removeItem(self.pt)
@@ -286,6 +319,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
            self.ax = None
           
         self.canvas.draw()
+        self.ui.saveWgt.setEnabled(False)
         self.profile = None
         self.Rubberline = None
         self.ui.mgsLbl.setText("")

@@ -93,7 +93,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 1))
-        self.layerName =  self.s.value("geopunt4qgis/poilayerText", "geopunt_poi")
+        layerName =  self.s.value("geopunt4qgis/adreslayerText", "")
+        if layerName != "":
+           self.layerName= layerName
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
@@ -239,6 +241,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             m.setPenWidth(10)
 
     def onAddSelClicked(self):
+        self.layernameValid()
         self.clearGraphicsLayer()
         pts = self._getSelectedPois()
         self.gh.save_pois_points( pts ,  layername=self.layerName, 
@@ -257,6 +260,17 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
       for graphic in  self.graphicsLayer: 
           self.iface.mapCanvas().scene().removeItem(graphic)
       self.graphicsLayer = []
+
+    def layernameValid(self):   
+        if not hasattr(self, 'layerName'):
+          layerName, accept = QtGui.QInputDialog.getText(None,
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+          if accept == False: 
+             return False
+          else: 
+             self.layerName = layerName
+        return True
       
     def clean(self):
         self.bar.clearWidgets()

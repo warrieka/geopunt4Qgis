@@ -7,7 +7,7 @@ name=geopunt4Qgis
 qgisMinimumVersion=2.0
 description= NL: Plugin om geopunt diensten in QGIS te gebruiken: - Zoeken op adres [gewoon, in batch en prikken op kaart] op basis van CRAB (Vlaanderen) en URBIS (Brussel) - Zoeken naar Intressepunten in geopunt - zoeken naar wegenwerken en manifestaties in GIPOD 
   EN: Plug-in to use geopunt services in QGIS: - Geocoding [regular, batch and reverse] based on CRAB (Flanders) and and URBIS (Brussels) - Search for POI's in geopunt - Search for trafic obstructions in GIPOD
-version=1.2.1
+version=1.3.0
 author=Kay Warrie
 email=kay@kgis.be
 
@@ -15,12 +15,12 @@ email=kay@kgis.be
 
 # Optional items:
 # Uncomment the following line and add your changelog entries:
-changelog=Created the elevation profile, 1.2.1 fixed tkinter problem (i think)
+changelog=Created the datacatalog, large number of bug en uix fixes
 
 # tags are comma separated with spaces allowed
 tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS, GIPOD
 
-homepage=http://warrieka.github.io/index.html#!README_NL.md
+homepage=http://kgis.be/index.html#!README_NL.md
 tracker=https://github.com/warrieka/geopunt4Qgis/issues
 repository=https://github.com/warrieka/geopunt4Qgis
 icon=images/geopunt.png

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Sun Jul 20 18:34:12 2014
+# Created: Mon Jul 21 13:06:57 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -153,10 +153,16 @@ class Ui_geopunt4QgisPoiDlg(object):
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
         self.addToMapKnop = QtGui.QPushButton(self.buttonWgt)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/addPointLayer.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.addToMapKnop.setIcon(icon2)
         self.addToMapKnop.setAutoDefault(False)
         self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))
         self.horizontalLayout_2.addWidget(self.addToMapKnop)
         self.zoomSelKnop = QtGui.QPushButton(self.buttonWgt)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/binocularsSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.zoomSelKnop.setIcon(icon3)
         self.zoomSelKnop.setAutoDefault(False)
         self.zoomSelKnop.setObjectName(_fromUtf8("zoomSelKnop"))
         self.horizontalLayout_2.addWidget(self.zoomSelKnop)

@@ -90,7 +90,9 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 1))
-        self.layerName =  self.s.value("geopunt4qgis/adreslayerText", "geopunt_adres")
+        layerName =  self.s.value("geopunt4qgis/adreslayerText", "")
+        if layerName != "":
+           self.layerName= layerName
         self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
@@ -179,6 +181,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
                 level=QgsMessageBar.CRITICAL, duration=3)
         
     def _addToMap(self, txt):
+        if not self.layernameValid(): return
         locations = self.gp.fetchLocation(txt)
         if locations.__class__ == list and len(locations):
             loc = locations[0]
@@ -199,6 +202,17 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
           self.bar.pushMessage("Error", 
             QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","onbekende fout"),
                 level=QgsMessageBar.CRITICAL)
+      
+    def layernameValid(self):   
+        if not hasattr(self, 'layerName'):
+          layerName, accept = QtGui.QInputDialog.getText(None,
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+          if accept == False: 
+             return False
+          else: 
+             self.layerName = layerName
+        return True
       
     def clean(self):
         self.bar.clearWidgets()

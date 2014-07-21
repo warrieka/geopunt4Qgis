@@ -153,7 +153,9 @@ class geopunt4Qgis:
         
     def loadSettings(self):
         self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
-        self.layerName_reverse = self.s.value("geopunt4qgis/reverseLayerText", "geopunt_reverse_adres")
+        layerName_reverse = self.s.value("geopunt4qgis/reverseLayerText", "")
+        if layerName_reverse != "":
+           self.layerName_reverse= layerName_reverse
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
@@ -238,7 +240,7 @@ class geopunt4Qgis:
         self.iface.messageBar().clearWidgets()
         
         #fetch Location from geopunt
-        adres = self.adres.fetchLocation(lam72pt.x().__str__() + "," + lam72pt.y().__str__(), 1)
+        adres = self.adres.fetchLocation( str( lam72pt.x() ) + "," + str( lam72pt.y() ), 1)
         Timer( 5, self._clearGraphicLayer, ()).start()
     
         if len(adres) and adres.__class__ is list:
@@ -278,10 +280,18 @@ class geopunt4Qgis:
         formattedAddress, locationType = adres["FormattedAddress"] , adres["LocationType"]
         xlam72, ylam72 = adres["Location"]["X_Lambert72"] , adres["Location"]["Y_Lambert72"]
     
+        if not hasattr(self, 'layerName_reverse'):
+           layerName, accept = QInputDialog.getText(None,
+             QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+             QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+           if accept == False: return
+           else:  self.layerName_reverse = layerName
+           
         xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)
         self.gh.save_adres_point(xy, formattedAddress, locationType, layername=self.layerName_reverse,
                   saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow())
         self.iface.messageBar().popWidget()	
+        self._clearGraphicLayer()
         
     def openReverseHelp(self):
         webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntReverse.md")
