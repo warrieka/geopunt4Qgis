@@ -435,12 +435,12 @@
         <translation>Datacatalog</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="200"/>
+        <location filename="geopunt4QgisElevation.py" line="201"/>
         <source>Laag toevoegen</source>
         <translation>Add layer</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="200"/>
+        <location filename="geopunt4QgisElevation.py" line="201"/>
         <source>Geef een naam voor de laag op:</source>
         <translation>Enter a layername:</translation>
     </message>
@@ -587,12 +587,12 @@
 <context>
     <name>geopunt4QgisElevationDialog</name>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="224"/>
+        <location filename="geopunt4QgisElevation.py" line="225"/>
         <source>Kan WMS niet laden</source>
         <translation>Cannot load WMS</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="252"/>
+        <location filename="geopunt4QgisElevation.py" line="253"/>
         <source>Er werd geen data gevonden</source>
         <translation>No  data was found</translation>
     </message>

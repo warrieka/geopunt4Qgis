@@ -38,7 +38,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self, None)
         self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-        self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+        #self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         
         self.iface = iface
     
@@ -165,13 +165,14 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
           xmax = np.max( xdata ) 
           xmin = np.min( xdata )
           zmax = np.max( ydata )
+          zmin = np.max( [n[3] for n in self.profile if n[3] > -9999 ] )
            
           if event.xdata <= xmax and event.xdata >= xmin  :
               self.ano = self.ax.arrow( event.xdata , -9999, 0, zx + 9999, fc="k", ec="k" )
               
               box_props = dict(boxstyle="Round,pad=0.3", fc="cyan", ec="b", lw=2)
               self.anoLbl = self.ax.annotate( str( round(zx, 2)) + " m",  xy= (event.xdata, zx ) , 
-                          xytext= (event.xdata , zx + (0.05 * xmax *  self.xscaleUnit[0]) ),
+                          xytext= (event.xdata , zx + (0.2 * ( zmax - zmin )) ),
                           bbox=box_props )
               self.setMapPt( event.xdata / self.xscaleUnit[0] )
           else:

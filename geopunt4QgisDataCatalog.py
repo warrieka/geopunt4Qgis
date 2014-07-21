@@ -31,7 +31,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self, None)
         self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-        self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+        #self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.iface = iface
     
         # initialize locale
