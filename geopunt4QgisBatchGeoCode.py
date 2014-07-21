@@ -86,6 +86,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.ui.validateSelBtn.clicked.connect(self.validateSelection)
         self.ui.addToMapKnop.clicked.connect(self.addToMap)
         self.ui.adresFromMapBtn.clicked.connect(self.adresFromMap)
+        self.ui.singleLineChk.toggled.connect(self.on_singleLineToggled)
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.finished.connect(self.clean)
     
@@ -98,6 +99,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
         self.retrys = 3
 
+    #eventHandlers
     def openHelp(self):
         webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntBatchgeocode.md")
       
@@ -162,7 +164,13 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.reverseAdresTool = reverseAdresMapTool(self.iface, self._reverseAdresCallback) 
         self.iface.mapCanvas().setMapTool(self.reverseAdresTool)
         self.showMinimized()
-        
+
+    def on_singleLineToggled(self, toggled):
+       if toggled:
+         self.ui.adresColLbl.setText(QtCore.QCoreApplication.translate("batcGeoCodedialog", "Adres kolom:"))
+       else:
+         self.ui.adresColLbl.setText(QtCore.QCoreApplication.translate("batcGeoCodedialog", "Straatnaam kolom:"))
+      
     def _reverseAdresCallback(self, point):
         'private callback for reverseAdresMapTool'
         self.iface.mapCanvas().unsetMapTool(self.reverseAdresTool)
