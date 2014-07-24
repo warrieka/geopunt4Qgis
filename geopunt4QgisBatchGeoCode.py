@@ -328,6 +328,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.ui.addToMapKnop.setEnabled(True)
     
     def validateRows(self , rowIds):
+        if len(rowIds) == 0: return
         self.clearGraphicsLayer()
         adresTxt = self.ui.adresColSelect.currentText()
         huisnrTxt = self.ui.huisnrSelect.currentText()

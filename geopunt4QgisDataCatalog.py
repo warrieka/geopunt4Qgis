@@ -53,7 +53,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.s = QtCore.QSettings()
         self.loadSettings()
 
-        self.md = metadata.MDReader()
+        self.md = metadata.MDReader( self.timeout, self.proxy, self.port  )
         self.gh = gh.geometryHelper( self.iface )
         
         #setup a message bar
@@ -78,8 +78,12 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.model = QtGui.QStandardItemModel( self )
         self.proxyModel = QtGui.QSortFilterProxyModel(self)
         self.proxyModel.setSourceModel(self.model)
-       
         self.ui.resultView.setModel( self.proxyModel )
+        
+        self.completer = QtGui.QCompleter( self )
+        self.completerModel = QtGui.QStringListModel( self)
+        self.ui.zoekTxt.setCompleter( self.completer )
+        self.completer.setModel( self.completerModel )
         
         #eventhandlers 
         self.ui.zoekBtn.clicked.connect(self.onZoekClicked)
@@ -92,8 +96,6 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.ui.modelFilterCbx.currentIndexChanged.connect(self.modelFilterCbxIndexChanged)
         self.ui.filterWgt.setHidden(1)
         
-        #self.ui.showWMSchk.clicked.connect(self.showWMSchecked)
-        #self.ui.showDLchk.clicked.connect(self.showDLchecked)
         self.finished.connect(self.clean)
 
     def loadSettings(self):
@@ -122,7 +124,8 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
              if inet:
                 self.ui.GDIThemaCbx.addItems( ['']+ self.md.list_GDI_theme() )
                 self.ui.organisatiesCbx.addItems( ['']+ self.md.list_organisations() )
-                self.ui.zoekTxt.addItems( ['']+ self.md.list_suggestionKeyword() )
+                keywords = sorted( self.md.list_suggestionKeyword() ) 
+                self.completerModel.setStringList( keywords )
                 self.bronnen = self.md.list_bronnen()
                 self.ui.bronCbx.addItems( ['']+ [ n[1] for n in self.bronnen] )
                 self.ui.typeCbx.addItems(['']+  [ n[0] for n in self.md.dataTypes])                
@@ -162,7 +165,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
            
            if self.dl: self.ui.DLbtn.setEnabled(1)
            else: self.ui.DLbtn.setEnabled(0)
-               
+        
     def onZoekClicked(self):
         self.zoek = self.ui.zoekTxt.currentText()
         start = 1
@@ -220,7 +223,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
            self.bar.pushMessage(
               QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Let op"), 
               QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
-              "Resultaten is gefilterd op %s, niet alle waarden worden getoond" % self.ui.modelFilterCbx.currentText() ),  
+              "Resultaten zijn gefilterd op %s, niet alle waarden worden getoond" % self.ui.modelFilterCbx.currentText() ),  
                 level=QgsMessageBar.WARNING, duration=10)
         else:
            self.resultViewClicked()
@@ -324,7 +327,6 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         wfsUri = metadata.makeWFSuri( url, layerName, crs )
         
         try:
-
             vlayer = QgsVectorLayer( wfsUri, layerTitle , "WFS")
             QgsMapLayerRegistry.instance().addMapLayer(vlayer)
         except: 

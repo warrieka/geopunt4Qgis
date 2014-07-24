@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisDataCatalog.ui'
 #
-# Created: Sun Jul 20 17:27:44 2014
+# Created: Wed Jul 23 15:32:10 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -61,8 +61,7 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.filterBox.setObjectName(_fromUtf8("filterBox"))
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.filterBox)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
-        self.verticalLayout.addWidget(self.filterBox)
-        self.filterWgt = QtGui.QWidget(geopunt4QgisDataCatalogDlg)
+        self.filterWgt = QtGui.QWidget(self.filterBox)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -205,7 +204,8 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.typeLbl.setSizePolicy(sizePolicy)
         self.typeLbl.setObjectName(_fromUtf8("typeLbl"))
         self.gridLayout.addWidget(self.typeLbl, 8, 0, 1, 1)
-        self.verticalLayout.addWidget(self.filterWgt)
+        self.verticalLayout_3.addWidget(self.filterWgt)
+        self.verticalLayout.addWidget(self.filterBox)
         self.splitter = QtGui.QSplitter(geopunt4QgisDataCatalogDlg)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)

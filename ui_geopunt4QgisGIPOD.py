@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisGIPOD.ui'
 #
-# Created: Wed Jul 16 23:31:23 2014
+# Created: Wed Jul 23 23:02:56 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -162,7 +162,7 @@ class Ui_gipodDlg(object):
         self.lyrName = QtGui.QLineEdit(self.outputWgt)
         self.lyrName.setEnabled(True)
         self.lyrName.setText(_fromUtf8("GIPOD"))
-        self.lyrName.setAlignment(QtCore.Qt.AlignCenter)
+        self.lyrName.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.lyrName.setPlaceholderText(_fromUtf8(""))
         self.lyrName.setObjectName(_fromUtf8("lyrName"))
         self.horizontalLayout_2.addWidget(self.lyrName)

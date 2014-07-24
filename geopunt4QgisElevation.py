@@ -61,8 +61,6 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.s = QtCore.QSettings()
         self.loadSettings()
         
-        self.firstShow = True 
-        
         self.elevation = geopunt.elevation(self.timeout, self.proxy, self.port )
         self.gh = geometryHelper( self.iface )
         self.eh = elevationHelper( self.iface )
@@ -104,6 +102,12 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.rejected.connect(self.clean )
 
+    def reSetFigure(self):
+        # a figure instance to plot on
+        self.figure = Figure()
+        
+        self.figure.canvas.mpl_connect('motion_notify_event', self.showGraphMotion)
+
     def loadSettings(self):
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
@@ -134,6 +138,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
             self.anoLbl.remove()
             self.anoLbl = None
         self.plot()
+        #self.ui.saveWgt.setenabled(True)
     
     def onResize(self, event):
         self.figure.tight_layout()
@@ -143,6 +148,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
     
     def drawBtnClicked(self):
         self.clean()
+        #self.reSetFigure()
         self.tool = lineTool(self.iface, self.callBack )  
         self.iface.mapCanvas().setMapTool(self.tool)
         self.showMinimized()
@@ -245,17 +251,19 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
         xdata = np.array( [n[0] for n in self.profile ] ) * self.xscaleUnit[0]
         ydata = np.array( [n[3] for n in self.profile ] )
-        ymin = np.min( [n[3] for n in self.profile if n[3] > -9999 ] )
-        ymax = np.max( [n[3] for n in self.profile if n[3] > -9999 ] )
         
-        if len(xdata) == 0 or len(ydata) == 0:
+        #need at least 3 values
+        if len(xdata) <= 2 or len([n for n in self.profile if n[3] > -9999 ]) <= 2:
            self.bar.pushMessage("Error", 
                 QtCore.QCoreApplication.translate(
-                  "geopunt4QgisElevationDialog", "Er werd geen data gevonden"),
-                level=QgsMessageBar.WARNING, duration=10)
+                  "geopunt4QgisElevationDialog", "Er werd geen of onvoldoende data gevonden"),
+                level=QgsMessageBar.WARNING, duration=5)
            self.profile = None
            return 
         
+        ymin = np.min( [n[3] for n in self.profile if n[3] > -9999 ] )
+        ymax = np.max( ydata )
+     
         # create an axis
         self.ax = self.figure.add_subplot(111)
         
@@ -265,7 +273,8 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         # plot data
         self.ax.plot( xdata, ydata,'r*')
         self.ax.fill_between(xdata, ydata, -9999, color='#F8E6E0' )
-        self.ax.set_ylim([ ymin , ymax])
+        self.ax.set_ylim([ymin , ymax])
+        self.ax.set_xlim([0 , None ])
         self.ax.set_ylabel("hoogte (m)")
         self.ax.set_xlabel("afstand (%s)" % self.xscaleUnit[1] )
         self.ax.set_title("Hoogteprofiel " + str( self.counter) )
@@ -317,8 +326,11 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
            self.anoLbl = None 
         if self.ax:  
            self.ax.hold(False)
+           self.ax.clear()
            self.ax = None
-          
+        
+        self.figure.clf()
+              
         self.canvas.draw()
         self.ui.saveWgt.setEnabled(False)
         self.profile = None
