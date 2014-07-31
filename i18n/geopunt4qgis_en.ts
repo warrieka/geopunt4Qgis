@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="en">
+<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
 <context>
     <name>aboutDlg</name>
     <message>
@@ -449,17 +448,17 @@
 <context>
     <name>geopunt4QgisAdresDialog</name>
     <message>
-        <location filename="geopunt4qgisAdresdialog.py" line="199"/>
+        <location filename="geopunt4qgisAdresdialog.py" line="207"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisAdresdialog.py" line="203"/>
+        <location filename="geopunt4qgisAdresdialog.py" line="211"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisAdresdialog.py" line="222"/>
+        <location filename="geopunt4qgisAdresdialog.py" line="230"/>
         <source>gemeente</source>
         <translation>municipality</translation>
     </message>
@@ -527,12 +526,12 @@
     <message>
         <location filename="ui_geopunt4QgisDataCatalog.ui" line="237"/>
         <source>INSPIRE annex:</source>
-        <translation>INSPIRE annex:</translation>
+        <translation type="obsolete">INSPIRE annex:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisDataCatalog.ui" line="224"/>
         <source>INSPIRE thema:</source>
-        <translation>INSPIRE thema:</translation>
+        <translation type="obsolete">INSPIRE thema:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisDataCatalog.ui" line="189"/>
@@ -583,6 +582,16 @@
         <location filename="ui_geopunt4QgisDataCatalog.ui" line="427"/>
         <source>0-0/0</source>
         <translation>0-0/0</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="224"/>
+        <source>INSPIRE-thema:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="237"/>
+        <source>INSPIRE-annex:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

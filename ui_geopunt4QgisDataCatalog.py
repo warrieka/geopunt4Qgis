@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisDataCatalog.ui'
 #
-# Created: Wed Jul 23 15:32:10 2014
+# Created: Thu Jul 31 18:25:36 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -358,8 +358,8 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.bronLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "Bron catalogus:", None))
         self.organisatiesLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "Organisatie:", None))
         self.GDIthemalbl.setText(_translate("geopunt4QgisDataCatalogDlg", "GDI-thema: ", None))
-        self.INSPIREthemaLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "INSPIRE thema:", None))
-        self.INSPIREannexLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "INSPIRE annex:", None))
+        self.INSPIREthemaLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "INSPIRE-thema:", None))
+        self.INSPIREannexLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "INSPIRE-annex:", None))
         self.INSPIREserviceLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "INSPIRE-servicetype:", None))
         self.typeLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "Type:", None))
         self.pageLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "0-0/0", None))

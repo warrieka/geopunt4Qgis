@@ -411,7 +411,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Voeg alle valide adressen toe aan de kaart</string>
+        <string>Voeg alle gevalideerde adressen toe aan de kaart</string>
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">

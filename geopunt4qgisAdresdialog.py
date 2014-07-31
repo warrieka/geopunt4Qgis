@@ -62,11 +62,19 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         #populate gemeenteBox
         gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),
                   "data/gemeentenVL.json")) )
-        self.ui.gemeenteBox.addItems( [n["Naam"] for n in gemeentes] )
+        gemeenteNamen =  [str( n["Naam"]) for n in gemeentes]
+        self.ui.gemeenteBox.addItems( gemeenteNamen )
         self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate(
                   "geopunt4QgisAdresDialog", "gemeente"))
         self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
         self.ui.gemeenteBox.setFocus()
+        
+        self.completer = QtGui.QCompleter( self )
+        self.completerModel = QtGui.QStringListModel( self )
+        self.ui.gemeenteBox.setCompleter( self.completer )
+        self.completer.setModel( self.completerModel )
+        self.completer.setCaseSensitivity(False)
+        self.completerModel.setStringList( gemeenteNamen )
         
         #setup a message bar
         self.bar = QgsMessageBar() 

@@ -221,7 +221,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>INSPIRE thema:</string>
+            <string>INSPIRE-thema:</string>
            </property>
           </widget>
          </item>
@@ -234,7 +234,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>INSPIRE annex:</string>
+            <string>INSPIRE-annex:</string>
            </property>
           </widget>
          </item>
