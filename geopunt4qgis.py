@@ -36,6 +36,8 @@ from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
 from geopunt4QgisGipod import geopunt4QgisGipodDialog
 from geopunt4QgisElevation import geopunt4QgisElevationDialog
 from geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
+#import selfmade libs
+from versionChecker import versionChecker
 #import from libraries
 import geopunt, geometryhelper
 import os.path, webbrowser
@@ -56,6 +58,17 @@ class geopunt4Qgis:
             self.translator = QTranslator()
             self.translator.load(localePath)
             if qVersion() > '4.3.3': QCoreApplication.installTranslator(self.translator)
+
+        #version check
+        if locale == 'nl':  
+           vc = versionChecker()
+           if not vc.isUptoDate():
+              QMessageBox.warning(None, QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
+                  QCoreApplication.translate("geopunt4Qgis", 
+                  "Je versie van <a href='http://plugins.qgis.org/>plugins/geopunt4Qgis' >geopunt4qgis</a> is niet meer "+ 
+                  "up to date. <br/>Je kunt deze upgraden via het menu:<br/> "+
+                  "<strong>Plugins > Beheer en installeer Plugins > Op te waarderen.</strong>"+
+                  "<br/>Klik daarna op <strong>Plugin opwaarderen</strong>"))           
 
         # Create the dialogs (after translation) and keep reference
         self.adresdlg = geopunt4QgisAdresDialog(self.iface)

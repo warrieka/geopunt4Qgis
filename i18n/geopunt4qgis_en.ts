@@ -246,7 +246,7 @@
     <message>
         <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="414"/>
         <source>Voeg alle gevalideerde adressen toe aan de kaart</source>
-        <translation type="unfinished"></translation>
+        <translation>Add all valid addresses</translation>
     </message>
 </context>
 <context>
@@ -314,7 +314,7 @@
     <message>
         <location filename="ui_geopunt4QgisElevation.ui" line="158"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
 </context>
 <context>
@@ -345,52 +345,52 @@
         <translation>Zoom to</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="221"/>
+        <location filename="geopunt4qgis.py" line="234"/>
         <source>Zoek een Adres: </source>
         <translation>Search an Address:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="221"/>
+        <location filename="geopunt4qgis.py" line="234"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Click on the map to request the address</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="253"/>
+        <location filename="geopunt4qgis.py" line="266"/>
         <source>Resultaat: </source>
         <translation>Result:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="274"/>
+        <location filename="geopunt4qgis.py" line="287"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="269"/>
+        <location filename="geopunt4qgis.py" line="282"/>
         <source>Geen resultaten gevonden</source>
         <translation>No results found</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="277"/>
+        <location filename="geopunt4qgis.py" line="290"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="83"/>
+        <location filename="geopunt4qgis.py" line="96"/>
         <source>Zoek een Adres</source>
         <translation>Search an Address</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="85"/>
+        <location filename="geopunt4qgis.py" line="98"/>
         <source>Prik een Adres op kaart</source>
         <translation>Find an Address on the map</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="91"/>
+        <location filename="geopunt4qgis.py" line="104"/>
         <source>Zoek een Plaats - interesse punt</source>
         <translation>Search for a place of intrest</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="102"/>
+        <location filename="geopunt4qgis.py" line="115"/>
         <source>Over geopunt4Qgis</source>
         <translation>About geopunt4Qgis</translation>
     </message>
@@ -400,7 +400,7 @@
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Wrong addresses should be reported through LARA(for members of GDI-Flanders)&lt;/a&gt;&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="96"/>
+        <location filename="geopunt4qgis.py" line="109"/>
         <source>Instellingen</source>
         <translation>Settings</translation>
     </message>
@@ -410,22 +410,22 @@
         <translation type="obsolete">batchGeoCode</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="88"/>
+        <location filename="geopunt4qgis.py" line="101"/>
         <source>CSV-adresbestanden geocoderen</source>
         <translation>geocode CSV-files</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="261"/>
+        <location filename="geopunt4qgis.py" line="274"/>
         <source>Voeg toe</source>
         <translation>add </translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="94"/>
+        <location filename="geopunt4qgis.py" line="107"/>
         <source>Bevraag GIPOD</source>
         <translation>Query GIPOD</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="98"/>
+        <location filename="geopunt4qgis.py" line="111"/>
         <source>Hoogteprofiel</source>
         <translation>Elevation profile</translation>
     </message>
@@ -440,7 +440,7 @@
         <translation>Add to map</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="100"/>
+        <location filename="geopunt4qgis.py" line="113"/>
         <source>Datacatalogus</source>
         <translation>Datacatalog</translation>
     </message>
@@ -453,6 +453,11 @@
         <location filename="geopunt4QgisElevation.py" line="254"/>
         <source>Geef een naam voor de laag op:</source>
         <translation>Enter a layername:</translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="66"/>
+        <source>Je versie van &lt;a href=&apos;http://plugins.qgis.org/&gt;plugins/geopunt4Qgis&apos; &gt;geopunt4qgis&lt;/a&gt; is niet meer up to date. &lt;br/&gt;Je kunt deze upgraden via het menu:&lt;br/&gt; &lt;strong&gt;Plugins &gt; Beheer en installeer Plugins &gt; Op te waarderen.&lt;/strong&gt;&lt;br/&gt;Klik daarna op &lt;strong&gt;Plugin opwaarderen&lt;/strong&gt;</source>
+        <translation>Your version &lt;a href=&apos;http://plugins.qgis.org/&gt;plugins/geopunt4Qgis&apos; &gt;geopunt4qgis&lt;/a&gt; is no longer up to date</translation>
     </message>
 </context>
 <context>
@@ -596,12 +601,12 @@
     <message>
         <location filename="ui_geopunt4QgisDataCatalog.ui" line="224"/>
         <source>INSPIRE-thema:</source>
-        <translation type="unfinished"></translation>
+        <translation>INSPIRE-thema:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisDataCatalog.ui" line="237"/>
         <source>INSPIRE-annex:</source>
-        <translation type="unfinished"></translation>
+        <translation>INSPIRE-annex:</translation>
     </message>
 </context>
 <context>
@@ -624,42 +629,42 @@
     <message>
         <location filename="geopunt4QgisElevation.py" line="271"/>
         <source>Kies de vulkleur</source>
-        <translation type="unfinished"></translation>
+        <translation>Pick a fill color</translation>
     </message>
     <message>
         <location filename="geopunt4QgisElevation.py" line="150"/>
         <source>Vorm grafiek aanpassen</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit curves line and axes parameters</translation>
     </message>
     <message>
         <location filename="geopunt4QgisElevation.py" line="126"/>
         <source>Keer terug naar overzicht</source>
-        <translation type="unfinished"></translation>
+        <translation>Back to original view</translation>
     </message>
     <message>
         <location filename="geopunt4QgisElevation.py" line="130"/>
         <source>Vorige</source>
-        <translation type="unfinished"></translation>
+        <translation>Back</translation>
     </message>
     <message>
         <location filename="geopunt4QgisElevation.py" line="134"/>
         <source>Volgende</source>
-        <translation type="unfinished"></translation>
+        <translation>Next</translation>
     </message>
     <message>
         <location filename="geopunt4QgisElevation.py" line="138"/>
         <source>Pannen</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan</translation>
     </message>
     <message>
         <location filename="geopunt4QgisElevation.py" line="142"/>
         <source>Zoom naar rechthoek</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom to rectangle</translation>
     </message>
     <message>
         <location filename="geopunt4QgisElevation.py" line="146"/>
         <source>Opslaan als afbeelding</source>
-        <translation type="unfinished"></translation>
+        <translation>Save as picture</translation>
     </message>
 </context>
 <context>
@@ -800,7 +805,7 @@
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="34"/>
         <source>Zoek op naam en keywords:</source>
-        <translation type="unfinished"></translation>
+        <translation>Search for a place:</translation>
     </message>
 </context>
 <context>
@@ -1131,37 +1136,37 @@
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="133"/>
         <source>Timeout:      </source>
-        <translation type="unfinished"></translation>
+        <translation>Timeout: </translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="179"/>
         <source>Startfolder:</source>
-        <translation type="unfinished"></translation>
+        <translation>Startfolder:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="189"/>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation>Open</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="606"/>
         <source>Naam  van de laag met GIPOD-activiteiten:</source>
-        <translation type="unfinished"></translation>
+        <translation>Name of GIPOD layer:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="651"/>
         <source>Toevoegen van profielpunten aan de kaart</source>
-        <translation type="unfinished"></translation>
+        <translation>Add sample points to map</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="680"/>
         <source>Naam  van de laag met profielpunten:</source>
-        <translation type="unfinished"></translation>
+        <translation>Name of layer with samplepoints:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="693"/>
         <source>Toevoegen van profiellijnen aan de kaart</source>
-        <translation type="unfinished"></translation>
+        <translation>Add profile to map</translation>
     </message>
 </context>
 </TS>

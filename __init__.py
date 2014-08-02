@@ -26,7 +26,7 @@ import site, os
 site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
 
 def classFactory(iface):
-    # load geopunt4Qgis class from file geopunt4Qgis
+    ' load geopunt4Qgis class from file geopunt4Qgis'
     from geopunt4qgis import geopunt4Qgis
     return geopunt4Qgis(iface)
 
