@@ -29,3 +29,4 @@ def classFactory(iface):
     # load geopunt4Qgis class from file geopunt4Qgis
     from geopunt4qgis import geopunt4Qgis
     return geopunt4Qgis(iface)
+

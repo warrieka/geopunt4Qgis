@@ -100,7 +100,7 @@ class geometryHelper:
         # Refresh the map
         self.iface.mapCanvas().refresh()
 
-    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres", saveToFile=False, sender=None):
+    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres", saveToFile=False, sender=None, startFolder=None ):
         attributes = [QgsField("adres", QVariant.String), QgsField("type", QVariant.String)]
         mapcrs = self.canvas.mapRenderer().destinationCrs()
         
@@ -129,7 +129,7 @@ class geometryHelper:
         self.adreslayer.updateExtents()
             
         if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid): 
-          save = self._saveToFile( sender )
+          save = self._saveToFile( sender, startFolder )
           if save:
             fpath, flType = save                
             error = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fpath, "utf-8", None, flType)
@@ -162,7 +162,7 @@ class geometryHelper:
         self.adreslayerid = self.adreslayer.id()
         self.canvas.refresh()
         
-    def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None, sender=None):       
+    def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None, sender=None, startFolder=None ):       
         attributes = [  QgsField("id", QVariant.Int),
             QgsField("thema", QVariant.String),
             QgsField("category", QVariant.String),
@@ -222,7 +222,7 @@ class geometryHelper:
             self.poilayer.updateExtents()
     
         if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid):
-            save = self._saveToFile( sender )
+            save = self._saveToFile( sender, startFolder )
             if save:
               fpath, flType = save
               error = QgsVectorFileWriter.writeAsVectorFormat(self.poilayer, fpath, "utf-8", None, flType, )
@@ -257,13 +257,13 @@ class geometryHelper:
         self.poilayerid = self.poilayer.id()
         self.canvas.refresh()
     
-    def _saveToFile( self, sender ):
+    def _saveToFile( self, sender, startFolder=None ):
         'save to file'
         #"Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
         filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName = Fdlg.getSaveFileName( sender, "open file" , None, filter)
+        fName = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
           if "SHP" in ext.upper():

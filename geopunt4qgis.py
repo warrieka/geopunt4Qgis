@@ -159,6 +159,7 @@ class geopunt4Qgis:
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
         
     def runSettingsDlg(self):
         ' show the dialog'
@@ -241,7 +242,7 @@ class geopunt4Qgis:
         
         #fetch Location from geopunt
         adres = self.adres.fetchLocation( str( lam72pt.x() ) + "," + str( lam72pt.y() ), 1)
-        Timer( 5, self._clearGraphicLayer, ()).start()
+        Timer( 3, self._clearGraphicLayer, ()).start()
     
         if len(adres) and adres.__class__ is list:
             #only one result in list, was set in request
@@ -273,8 +274,7 @@ class geopunt4Qgis:
                 adres, level=QgsMessageBar.WARNING)
         else:
             self.iface.messageBar().pushMessage("Error", 
-            QCoreApplication.translate("geopunt4Qgis","onbekende fout"),
-                level=QgsMessageBar.CRITICAL)
+            QCoreApplication.translate("geopunt4Qgis","onbekende fout"), level=QgsMessageBar.CRITICAL)
       
     def _addReverse(self, adres):
         formattedAddress, locationType = adres["FormattedAddress"] , adres["LocationType"]
@@ -288,8 +288,9 @@ class geopunt4Qgis:
            else:  self.layerName_reverse = layerName
            
         xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)
-        self.gh.save_adres_point(xy, formattedAddress, locationType, layername=self.layerName_reverse,
-                  saveToFile=self.saveToFile_reverse , sender=self.iface.mainWindow())
+        self.gh.save_adres_point(xy, formattedAddress, locationType, layername=self.layerName_reverse, 
+          startFolder=os.path.join( self.startDir, self.layerName_reverse), saveToFile=self.saveToFile_reverse ,
+          sender=self.iface.mainWindow())
         self.iface.messageBar().popWidget()	
         self._clearGraphicLayer()
         

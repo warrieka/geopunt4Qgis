@@ -107,6 +107,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
     
     def endEditChanged(self, senderDate):
         self.ui.startEdit.setMaximumDate(senderDate)
@@ -117,7 +118,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         self.data = self.fetchGIPOD()
         fname, ftype= None , None
         if self.saveToFile:
-            fname = gipodHelper.gipodeoHelper.openOutput(self.iface.mainWindow())
+            fname = gipodHelper.gipodeoHelper.openOutput(self.iface.mainWindow(), os.path.join( self.startDir, name))
             if fname:
               ftype = gipodHelper.gipodeoHelper.checkFtype(fname)
             else:

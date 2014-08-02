@@ -25,23 +25,25 @@ from PyQt4.QtGui import QFileDialog
 from qgis.core import *
 
 class batcGeoHelper:
-  def __init__(self,iface, parent):
+  def __init__(self,iface, parent, startFolder="" ):
       self.iface = iface
       self.parent = parent
       self.canvas = iface.mapCanvas()
       self.adreslayer = None
       self.adreslayerid = ''
       self.adresProvider = None
+      self.startFolder = startFolder
     
   def _createAttributeTable(self, tableDict, allString=True):
       attributeTable = []
       for name, var in tableDict.items():
-	typeVar = QVariant.String
-	if not allString and var.lstrip("-").isdigit():
-	  typeVar = QVariant.Int 
-	elif not allString and var.lstrip("-").replace(".","",1).isdigit():
-	  typeVar = QVariant.Double
-	attributeTable.append(QgsField(name, typeVar))
+        typeVar = QVariant.String
+        if not allString and var.lstrip("-").isdigit():
+           typeVar = QVariant.Int 
+        elif not allString and var.lstrip("-").replace(".","",1).isdigit():
+             typeVar = QVariant.Double
+       
+      attributeTable.append(QgsField(name, typeVar))
       return attributeTable
     
   def save_adres_point(self, point, address, typeAddress='', attritableDict={}, layername="Geopunt_adressen" ):
@@ -84,37 +86,34 @@ class batcGeoHelper:
     
     
   def saveMem2file(self, layername ):
-      if self.adresProvider is None or not self.adresProvider.name() == u'memory':
-	return
+      if self.adresProvider is None or not self.adresProvider.name() == u'memory': return
       
-      save = self._saveToFile( self.parent )
+      save = self._saveToFile( self.parent, os.path.join( self.startFolder, layername ))
       if save:
-	fpath, flType = save                
-	error = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fpath, "utf-8", None, flType )
-	if error == QgsVectorFileWriter.NoError:
-	  QgsMapLayerRegistry.instance().removeMapLayer(self.adreslayerid)
-	  self.adreslayer = QgsVectorLayer( fpath, layername, "ogr")
-	  self.adresProvider = self.adreslayer.dataProvider()
-	  self.adreslayerid = self.adreslayer.id()
-	  QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
-	  self.canvas.refresh()
-	else: 
-	  return
-      else: 
-	return
+        fpath, flType = save    
+        error = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fpath, "utf-8", None, flType )
+        if error == QgsVectorFileWriter.NoError:
+          QgsMapLayerRegistry.instance().removeMapLayer(self.adreslayerid)
+          self.adreslayer = QgsVectorLayer( fpath, layername, "ogr")
+          self.adresProvider = self.adreslayer.dataProvider()
+          self.adreslayerid = self.adreslayer.id()
+          QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
+          self.canvas.refresh()
+        else: return
+      else: return
   
   def clear(self):
       self.adreslayer = None
       self.adreslayerid = ''
       self.adresProvider = None
   
-  def _saveToFile( self, sender ):
+  def _saveToFile( self, sender , startFolder=None):
       'save to file'
       #filter = "Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
       filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
       Fdlg = QFileDialog()
       Fdlg.setFileMode(QFileDialog.AnyFile)
-      fName = Fdlg.getSaveFileName( sender, "open file" , None, filter)
+      fName = Fdlg.getSaveFileName( sender, "open file" , filter=filter, directory=startFolder)
       if fName:
 	  ext = os.path.splitext( fName )[1]
 	  if "SHP" in ext.upper():

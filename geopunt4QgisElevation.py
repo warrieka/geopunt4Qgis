@@ -63,7 +63,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
         self.elevation = geopunt.elevation(self.timeout, self.proxy, self.port )
         self.gh = geometryHelper( self.iface )
-        self.eh = elevationHelper( self.iface )
+        self.eh = elevationHelper( self.iface, self.startDir)
         
         #setup a message bar
         self.bar = QgsMessageBar() 
@@ -167,6 +167,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         profileLineLayer= self.s.value("geopunt4qgis/profileLineLayerTxt", "")
         if profileLineLayer != "":
            self.profileLineLayerTxt = profileLineLayer
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
 
     def resizeEvent(self, event):
         QtGui.QDialog.resizeEvent(self, event)

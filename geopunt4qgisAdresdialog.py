@@ -105,6 +105,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
         
     def openHelp(self):
         webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntAddress.md")
@@ -200,7 +201,8 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
             pt = self.gh.prjPtToMapCrs(QgsPoint( x, y), 31370)
         
             self.gh.save_adres_point( pt, adres, typeAddress=LocationType, 
-                layername=self.layerName, saveToFile=self.saveToFile, sender=self )
+              layername=self.layerName, saveToFile=self.saveToFile, sender=self, 
+              startFolder= os.path.join(self.startDir, self.layerName))
         
         elif locations.__class__ == str:
           self.bar.pushMessage(

@@ -61,7 +61,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.graphicsLayer = []
         self.reverseAdresTool = None
         self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
-        self.batcGeoHelper = batcGeoHelper(self.iface, self)
+        self.batcGeoHelper = batcGeoHelper(self.iface, self, startFolder=self.startDir )
         self.gh = geometryhelper.geometryHelper(self.iface)
     
         self.ui.delimEdit.setEnabled(False)
@@ -100,6 +100,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
         self.retrys = 3
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
 
     #eventHandlers
     def openHelp(self):

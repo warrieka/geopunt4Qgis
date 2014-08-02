@@ -26,10 +26,10 @@ from qgis.core import *
 
 class gipodeoHelper:
     @staticmethod
-    def openOutput(sender=None):
+    def openOutput(sender=None, startFolder=None):
         fd = QFileDialog()
         filter = "ESRI Shape File (*.shp);;Comma separated value File (excel) (*.csv);;geojson (*.geojson);;GML File (*.gml);;MapInfo TAB (*.tab);;SpatiaLite (*.sqlite);;KML (google earth) (*.kml)"
-        fName = fd.getSaveFileName( sender, "open file" , None, filter)
+        fName = fd.getSaveFileName( sender, "open file", filter=filter, directory=startFolder)
         if fName:
             return fName
         else:

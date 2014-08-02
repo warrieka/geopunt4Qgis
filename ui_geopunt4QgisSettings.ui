@@ -130,7 +130,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Timeout: </string>
+            <string>Timeout:      </string>
            </property>
           </widget>
          </item>
@@ -168,6 +168,27 @@
             </size>
            </property>
           </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Startfolder:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="startDirTxt"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="dirSelBtn">
+           <property name="text">
+            <string>Open</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -579,6 +600,16 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Naam  van de laag met GIPOD-activiteiten:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="gipodLayerTxt"/>
+          </item>
          </layout>
         </widget>
        </item>
@@ -617,7 +648,7 @@
        <item>
         <widget class="QGroupBox" name="add2mapBox_6">
          <property name="title">
-          <string>Toevoegen van sample punten aan de kaart</string>
+          <string>Toevoegen van profielpunten aan de kaart</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_14">
           <item>
@@ -646,7 +677,7 @@
           <item>
            <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>Naam  van de laag met samplepunten:</string>
+             <string>Naam  van de laag met profielpunten:</string>
             </property>
            </widget>
           </item>
@@ -659,7 +690,7 @@
        <item>
         <widget class="QGroupBox" name="add2mapBox_7">
          <property name="title">
-          <string>Toevoegen van sample punten aan de kaart</string>
+          <string>Toevoegen van profiellijnen aan de kaart</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_15">
           <item>

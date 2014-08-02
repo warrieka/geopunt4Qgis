@@ -27,10 +27,11 @@ import numpy as np
 from geometryhelper import geometryHelper
 
 class elevationHelper:
-    def __init__(self , iface ):
+    def __init__(self , iface, startFolder=None ):
         self.iface= iface
         self.sampleslayerid = ''
         self.profilelayerId = ''
+        self.startFolder= startFolder
 
     def save_sample_points(self, pointData, profileName="", layername="elevation_samples", saveToFile=None, sender=None):
         ''
@@ -66,7 +67,7 @@ class elevationHelper:
             self.sampleslayer.updateExtents()
     
         if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.sampleslayerid):
-            save = self._saveToFile( sender )
+            save = self._saveToFile( sender, os.path.join( self.startFolder, layername))
             if save:
               fpath, flType = save
               error = QgsVectorFileWriter.writeAsVectorFormat(self.sampleslayer, fpath, "utf-8", None, flType, )
@@ -119,7 +120,7 @@ class elevationHelper:
         self.profilelayer.updateExtents()
     
         if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.profilelayerId):
-            save = self._saveToFile( sender )
+            save = self._saveToFile( sender, os.path.join( self.startFolder, layername ))
             if save:
               fpath, flType = save
               error = QgsVectorFileWriter.writeAsVectorFormat(self.profilelayer, fpath, "utf-8", None, flType, )
@@ -140,13 +141,13 @@ class elevationHelper:
         self.profilelayerId = self.profilelayer.id()
         self.iface.mapCanvas().refresh()
 
-    def _saveToFile( self, sender ):
+    def _saveToFile( self, sender, startFolder=None ):
         'save to file'
         #"Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
         filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName = Fdlg.getSaveFileName( sender, "open file" , None, filter)
+        fName = Fdlg.getSaveFileName( sender, "open file" , filter= filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
           if "SHP" in ext.upper():

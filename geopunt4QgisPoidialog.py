@@ -99,6 +99,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
     
     def show(self):
         QtGui.QDialog.show(self)
@@ -244,7 +245,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.layernameValid()
         self.clearGraphicsLayer()
         pts = self._getSelectedPois()
-        self.gh.save_pois_points( pts ,  layername=self.layerName, 
+        self.gh.save_pois_points( pts ,  layername=self.layerName, startFolder= os.path.join(self.startDir, self.layerName),
                   saveToFile=self.saveToFile, sender=self )
 
     def _getSelectedPois(self):
