@@ -271,7 +271,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
            crs = 'EPSG:31370' 
            
-        lyrs =  metadata.getWmsLayerNames( self.wms ) 
+        lyrs =  metadata.getWmsLayerNames( self.wms , self.proxy, self.port) 
         if len(lyrs) == 0:
             self.bar.pushMessage("WMS", 
             QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog", 
@@ -307,7 +307,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
       
     def addWFS(self):    
         if self.wfs == None: return
-        lyrs =  metadata.getWFSLayerNames( self.wfs )
+        lyrs =  metadata.getWFSLayerNames( self.wfs, self.proxy, self.port)
         
         if len(lyrs) == 0:
             self.bar.pushMessage("WFS", 

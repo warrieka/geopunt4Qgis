@@ -79,7 +79,7 @@ class MDReader:
 
         if (proxyUrl <> "")  & proxyUrl.startswith("http://"):
             netLoc = proxyUrl.strip() + ":" + port
-            proxy = urllib2.ProxyHandler({'http': netLoc })
+            proxy = urllib2.ProxyHandler({'http': netLoc ,'https': netLoc })
             self.opener = urllib2.build_opener(proxy)
         else:
             self.opener = None
@@ -215,12 +215,20 @@ class metaError(Exception):
         return repr(self.message)
 
       
-def getWmsLayerNames( url):
+def getWmsLayerNames( url, proxyUrl='', port=''):
       if (not "request=GetCapabilities" in url.lower()) or (not "service=wms" in url.lower()):
           capability = url.split("?")[0] + "?request=GetCapabilities&version=1.3.0&service=wms"
       else: 
           capability = url
-      responseWMS =  urllib2.urlopen(capability)
+          
+      if (proxyUrl <> "") & proxyUrl.startswith("http://"):
+          netLoc = proxyUrl.strip() + ":" + port
+          proxy = urllib2.ProxyHandler({'http': netLoc ,'https': netLoc })
+          opener = urllib2.build_opener(proxy)
+          responseWMS =  opener.open(capability)
+      else:
+          responseWMS =  urllib2.urlopen(capability)
+      
       result = ET.parse(responseWMS)
       layers =  result.findall( ".//{http://www.opengis.net/wms}Layer" )
       layerNames=[]
@@ -235,13 +243,20 @@ def getWmsLayerNames( url):
 
       return layerNames
 
-def getWFSLayerNames( url):
+def getWFSLayerNames( url, proxyUrl='', port=''):
       if (not "request=GetCapabilities" in url.lower()) or (not "service=wfs" in url.lower()):
           capability = url.split("?")[0] + "?request=GetCapabilities&version=1.0.0&service=wfs"
       else: 
           capability = url
-      responseWMS =  urllib2.urlopen(capability)
-      result = ET.parse(responseWMS)
+      if (proxyUrl <> "") & proxyUrl.startswith("http://"):
+          netLoc = proxyUrl.strip() + ":" + port
+          proxy = urllib2.ProxyHandler({'http': netLoc ,'https': netLoc })
+          opener = urllib2.build_opener(proxy)
+          responseWFS =  opener.open(capability)
+      else:
+          responseWFS =  urllib2.urlopen(capability)
+      
+      result = ET.parse(responseWFS)
       layers =  result.findall( ".//{http://www.opengis.net/wfs}FeatureType" )
       layerNames=[]
 

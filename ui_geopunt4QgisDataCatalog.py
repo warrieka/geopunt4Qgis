@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisDataCatalog.ui'
 #
-# Created: Thu Jul 31 18:25:36 2014
+# Created: Fri Aug  1 23:53:32 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -257,7 +257,7 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.pageNextBtn = QtGui.QPushButton(self.pagingWgt)
         self.pageNextBtn.setText(_fromUtf8(""))
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/Next.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/next.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pageNextBtn.setIcon(icon3)
         self.pageNextBtn.setIconSize(QtCore.QSize(12, 12))
         self.pageNextBtn.setObjectName(_fromUtf8("pageNextBtn"))

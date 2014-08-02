@@ -62,8 +62,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
         self.ui.buttonBox.addButton( QtGui.QPushButton(
                                 QtGui.QIcon(":/plugins/geopunt4Qgis/images/addPointLayer.png" ),
-                                "Voeg toe aan kaart"),  QtGui.QDialogButtonBox.AcceptRole ) 
-        
+                                "Voeg toe aan kaart"),  QtGui.QDialogButtonBox.AcceptRole )         
         self.firstShow = True
         
         #set calenders 

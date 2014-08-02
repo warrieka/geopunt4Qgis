@@ -31,7 +31,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Zoek naar een interessante plaats op naam sleutelwoord:</string>
+      <string>Zoek op naam en keywords:</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>

@@ -27,11 +27,11 @@ class Adres:
     self._locUrl = "http://loc.api.geopunt.be/geolocation/Location?"
     self._sugUrl = "http://loc.api.geopunt.be/geolocation/Suggestion?"
     if (proxyUrl <> "")  & proxyUrl.startswith("http://"):
-      netLoc = proxyUrl.strip() + ":" + port
-      proxy = urllib2.ProxyHandler({'http': netLoc })
-      self.opener = urllib2.build_opener(proxy)
+       netLoc = proxyUrl.strip() + ":" + port
+       proxy = urllib2.ProxyHandler({'http': netLoc })
+       self.opener = urllib2.build_opener(proxy)
     else:
-      self.opener = None
+       self.opener = None
 
   def _createLocationUrl(self, q, c=1):
       geopuntUrl = self._locUrl

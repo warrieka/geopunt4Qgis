@@ -4,136 +4,15 @@
     <file>images/addVectorLayer.png</file>
     <file>images/binoculars.png</file>
     <file>images/binocularsSmall.png</file>
+    <file>images/config.png</file>
     <file>images/draw.png</file>
-    <file>images/geopunt.png</file>
-    <file>images/geopuntAddress.png</file>
-    <file>images/geopuntGIPOD.png</file>
-    <file>images/geopuntGIPODsmall.png</file>
-    <file>images/geopuntIcoMetadata.png</file>
-    <file>images/geopuntIcoMetadataSmall.png</file>
-    <file>images/geopuntIcoTemplate.png</file>
-    <file>images/geopuntPoi.png</file>
-    <file>images/geopuntPoiSmall.png</file>
-    <file>images/geopuntAddressSmall.png</file>
-    <file>images/geopuntBatchgeocode.png</file>
-    <file>images/geopuntBatchgeocodeSmall.png</file>
-    <file>images/geopuntDataCatalogus.png</file>
-    <file>images/geopuntDataCatalogusSmall.png</file>
-    <file>images/geopuntElevation.png</file>
-    <file>images/geopuntElevationSmall.png</file>
-    <file>images/geopuntReverse.png</file>
-    <file>images/geopuntReverseSmall.png</file>
-    <file>images/geopuntSettings.png</file>
-    <file>images/geopuntSettingsSmall.png</file>
-    <file>images/geopuntSmal.png</file>
-    <file>images/logogeopunt.png</file>
-    <file>images/logogeopunt4Q.png</file>
-    <file>images/magnifyingGlass.png</file>
-    <file>images/magnifyingGlassSmall.png</file>
-    <file>images/Next.png</file>
-    <file>images/osm.png</file>
-    <file>images/previous.png</file>
-    <file>images/prik.png</file>
-    <file>images/qgis-icon-16x16.png</file>
-    <file>images/Refresh.png</file>
-    <file>images/select.png</file>
-    <file>images/validAll.png</file>
-    <file>images/Wfs.png</file>
-    <file>images/Wms.png</file>
-    <file>images/zip.png</file>
-    <file>images/binoculars.png</file>
-    <file>images/addPointLayer.png</file>
-    <file>images/addVectorLayer.png</file>
-    <file>images/binoculars.png</file>
-    <file>images/binocularsSmall.png</file>
-    <file>images/geopunt.png</file>
-    <file>images/geopuntAddress.png</file>
-    <file>images/geopuntAddressSmall.png</file>
-    <file>images/geopuntGIPODsmall.png</file>
-    <file>images/geopuntIcoMetadata.png</file>
-    <file>images/geopuntIcoMetadataSmall.png</file>
-    <file>images/geopuntIcoTemplate.png</file>
-    <file>images/geopuntPoi.png</file>
-    <file>images/geopuntPoiSmall.png</file>
-    <file>images/geopuntReverse.png</file>
-    <file>images/geopuntBatchgeocode.png</file>
-    <file>images/geopuntBatchgeocodeSmall.png</file>
-    <file>images/geopuntDataCatalogus.png</file>
-    <file>images/geopuntDataCatalogusSmall.png</file>
-    <file>images/geopuntElevation.png</file>
-    <file>images/geopuntElevationSmall.png</file>
-    <file>images/geopuntGIPOD.png</file>
-    <file>images/geopuntReverseSmall.png</file>
-    <file>images/geopuntSettings.png</file>
-    <file>images/geopuntSettingsSmall.png</file>
-    <file>images/geopuntSmal.png</file>
-    <file>images/logogeopunt.png</file>
-    <file>images/logogeopunt4Q.png</file>
-    <file>images/magnifyingGlass.png</file>
-    <file>images/magnifyingGlassSmall.png</file>
-    <file>images/Next.png</file>
-    <file>images/osm.png</file>
-    <file>images/previous.png</file>
-    <file>images/prik.png</file>
-    <file>images/qgis-icon-16x16.png</file>
-    <file>images/Refresh.png</file>
-    <file>images/select.png</file>
-    <file>images/validAll.png</file>
-    <file>images/Wfs.png</file>
-    <file>images/Wms.png</file>
-    <file>images/zip.png</file>
-    <file>images/binocularsSmall.png</file>
-    <file>images/geopunt.png</file>
-    <file>images/geopuntAddress.png</file>
-    <file>images/geopuntAddressSmall.png</file>
-    <file>images/geopuntBatchgeocode.png</file>
-    <file>images/geopuntIcoMetadata.png</file>
-    <file>images/geopuntIcoMetadataSmall.png</file>
-    <file>images/geopuntIcoTemplate.png</file>
-    <file>images/geopuntPoi.png</file>
-    <file>images/geopuntPoiSmall.png</file>
-    <file>images/geopuntReverse.png</file>
-    <file>images/geopuntReverseSmall.png</file>
-    <file>images/geopuntBatchgeocodeSmall.png</file>
-    <file>images/geopuntDataCatalogus.png</file>
-    <file>images/geopuntDataCatalogusSmall.png</file>
-    <file>images/geopuntElevation.png</file>
-    <file>images/geopuntElevationSmall.png</file>
-    <file>images/geopuntGIPOD.png</file>
-    <file>images/geopuntGIPODsmall.png</file>
-    <file>images/geopuntSettings.png</file>
-    <file>images/geopuntSettingsSmall.png</file>
-    <file>images/geopuntSmal.png</file>
-    <file>images/lijn.png</file>
-    <file>images/logogeopunt.png</file>
-    <file>images/logogeopunt4Q.png</file>
-    <file>images/magnifyingGlass.png</file>
-    <file>images/magnifyingGlassSmall.png</file>
-    <file>images/Next.png</file>
-    <file>images/osm.png</file>
-    <file>images/previous.png</file>
-    <file>images/prik.png</file>
-    <file>images/qgis-icon-16x16.png</file>
-    <file>images/Refresh.png</file>
-    <file>images/select.png</file>
-    <file>images/validAll.png</file>
-    <file>images/Wfs.png</file>
-    <file>images/Wms.png</file>
-    <file>images/zip.png</file>
-    <file>images/binoculars.png</file>
-    <file>images/binocularsSmall.png</file>
+    <file>images/fill.png</file>
+    <file>images/full_extent.png</file>
     <file>images/geopunt.png</file>
     <file>images/geopuntAddress.png</file>
     <file>images/geopuntAddressSmall.png</file>
     <file>images/geopuntBatchgeocode.png</file>
     <file>images/geopuntBatchgeocodeSmall.png</file>
-    <file>images/geopuntIcoMetadataSmall.png</file>
-    <file>images/geopuntIcoTemplate.png</file>
-    <file>images/geopuntPoi.png</file>
-    <file>images/geopuntPoiSmall.png</file>
-    <file>images/geopuntReverse.png</file>
-    <file>images/geopuntReverseSmall.png</file>
-    <file>images/geopuntSettings.png</file>
     <file>images/geopuntDataCatalogus.png</file>
     <file>images/geopuntDataCatalogusSmall.png</file>
     <file>images/geopuntElevation.png</file>
@@ -141,50 +20,35 @@
     <file>images/geopuntGIPOD.png</file>
     <file>images/geopuntGIPODsmall.png</file>
     <file>images/geopuntIcoMetadata.png</file>
+    <file>images/geopuntIcoMetadataSmall.png</file>
+    <file>images/geopuntIcoTemplate.png</file>
+    <file>images/geopuntPoi.png</file>
+    <file>images/geopuntPoiSmall.png</file>
+    <file>images/geopuntReverse.png</file>
+    <file>images/geopuntReverseSmall.png</file>
+    <file>images/geopuntSettings.png</file>
     <file>images/geopuntSettingsSmall.png</file>
     <file>images/geopuntSmal.png</file>
+    <file>images/ico.png</file>
     <file>images/logogeopunt.png</file>
     <file>images/logogeopunt4Q.png</file>
     <file>images/magnifyingGlass.png</file>
     <file>images/magnifyingGlassSmall.png</file>
-    <file>images/Next.png</file>
+    <file>images/next.png</file>
     <file>images/osm.png</file>
+    <file>images/pan.png</file>
     <file>images/previous.png</file>
     <file>images/prik.png</file>
     <file>images/qgis-icon-16x16.png</file>
+    <file>images/rectangleZoom.png</file>
     <file>images/Refresh.png</file>
+    <file>images/save.png</file>
     <file>images/select.png</file>
+    <file>images/size.png</file>
     <file>images/validAll.png</file>
     <file>images/Wfs.png</file>
     <file>images/Wms.png</file>
+    <file>images/wrench.png</file>
     <file>images/zip.png</file>
-    <file>images/Refresh.png</file>
-    <file>images/geopuntDataCatalogus.png</file>
-    <file>images/geopuntDataCatalogusSmall.png</file>
-    <file>images/magnifyingGlass.png</file>
-    <file>images/magnifyingGlassSmall.png</file>
-    <file>images/geopuntElevation.png</file>
-    <file>images/geopuntElevationSmall.png</file>
-    <file>images/geopuntGIPOD.png</file>
-    <file>images/geopuntGIPODsmall.png</file>
-    <file>images/prik.png</file>
-    <file>images/validAll.png</file>
-    <file>images/qgis-icon-16x16.png</file>
-    <file>images/osm.png</file>
-    <file>images/select.png</file>
-    <file>images/geopuntBatchgeocode.png</file>
-    <file>images/geopuntBatchgeocodeSmall.png</file>
-    <file>images/geopuntSettingsSmall.png</file>
-    <file>images/geopuntSettings.png</file>
-    <file>images/geopuntAddressSmall.png</file>
-    <file>images/geopuntReverse.png</file>
-    <file>images/geopuntAddress.png</file>
-    <file>images/binocularsSmall.png</file>
-    <file>images/geopunt.png</file>
-    <file>images/geopuntPoi.png</file>
-    <file>images/geopuntPoiSmall.png</file>
-    <file>images/geopuntSmal.png</file>
-    <file>images/logogeopunt.png</file>
-    <file>images/logogeopunt4Q.png</file>
   </qresource>
 </RCC>

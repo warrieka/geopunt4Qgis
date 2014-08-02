@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisElevation.ui'
 #
-# Created: Mon Jul 21 15:17:32 2014
+# Created: Sat Aug  2 12:09:51 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -77,6 +77,30 @@ class Ui_elevationDlg(object):
         self.horizontalLayout_4 = QtGui.QHBoxLayout(self.toolbar)
         self.horizontalLayout_4.setMargin(0)
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
+        self.toolCanvanHome = QtGui.QToolButton(self.toolbar)
+        self.toolCanvanHome.setObjectName(_fromUtf8("toolCanvanHome"))
+        self.horizontalLayout_4.addWidget(self.toolCanvanHome)
+        self.toolCanvanPrev = QtGui.QToolButton(self.toolbar)
+        self.toolCanvanPrev.setObjectName(_fromUtf8("toolCanvanPrev"))
+        self.horizontalLayout_4.addWidget(self.toolCanvanPrev)
+        self.toolCanvanNext = QtGui.QToolButton(self.toolbar)
+        self.toolCanvanNext.setObjectName(_fromUtf8("toolCanvanNext"))
+        self.horizontalLayout_4.addWidget(self.toolCanvanNext)
+        self.toolCanvanPan = QtGui.QToolButton(self.toolbar)
+        self.toolCanvanPan.setObjectName(_fromUtf8("toolCanvanPan"))
+        self.horizontalLayout_4.addWidget(self.toolCanvanPan)
+        self.toolCanvanZoom = QtGui.QToolButton(self.toolbar)
+        self.toolCanvanZoom.setObjectName(_fromUtf8("toolCanvanZoom"))
+        self.horizontalLayout_4.addWidget(self.toolCanvanZoom)
+        self.toolCanvanSave = QtGui.QToolButton(self.toolbar)
+        self.toolCanvanSave.setObjectName(_fromUtf8("toolCanvanSave"))
+        self.horizontalLayout_4.addWidget(self.toolCanvanSave)
+        self.toolCanvanConfig = QtGui.QToolButton(self.toolbar)
+        self.toolCanvanConfig.setObjectName(_fromUtf8("toolCanvanConfig"))
+        self.horizontalLayout_4.addWidget(self.toolCanvanConfig)
+        self.toolCanvasFill = QtGui.QToolButton(self.toolbar)
+        self.toolCanvasFill.setObjectName(_fromUtf8("toolCanvasFill"))
+        self.horizontalLayout_4.addWidget(self.toolCanvasFill)
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem1)
         self.nrOfsampleLbl = QtGui.QLabel(self.toolbar)
@@ -91,7 +115,7 @@ class Ui_elevationDlg(object):
         self.nrOfSampleSpin.setSizePolicy(sizePolicy)
         self.nrOfSampleSpin.setSuffix(_fromUtf8(""))
         self.nrOfSampleSpin.setMinimum(10)
-        self.nrOfSampleSpin.setMaximum(750)
+        self.nrOfSampleSpin.setMaximum(700)
         self.nrOfSampleSpin.setSingleStep(10)
         self.nrOfSampleSpin.setProperty("value", 50)
         self.nrOfSampleSpin.setObjectName(_fromUtf8("nrOfSampleSpin"))
@@ -173,6 +197,14 @@ class Ui_elevationDlg(object):
         elevationDlg.setWindowTitle(_translate("elevationDlg", "Hoogteprofiel", None))
         self.drawBtn.setText(_translate("elevationDlg", "Teken de profiellijn", None))
         self.addDHMbtn.setText(_translate("elevationDlg", "Voeg hoogtemodel toe als laag", None))
+        self.toolCanvanHome.setText(_translate("elevationDlg", "...", None))
+        self.toolCanvanPrev.setText(_translate("elevationDlg", "...", None))
+        self.toolCanvanNext.setText(_translate("elevationDlg", "...", None))
+        self.toolCanvanPan.setText(_translate("elevationDlg", "...", None))
+        self.toolCanvanZoom.setText(_translate("elevationDlg", "...", None))
+        self.toolCanvanSave.setText(_translate("elevationDlg", "...", None))
+        self.toolCanvanConfig.setText(_translate("elevationDlg", "...", None))
+        self.toolCanvasFill.setText(_translate("elevationDlg", "...", None))
         self.nrOfsampleLbl.setText(_translate("elevationDlg", "Aantal profielpunten", None))
         self.refreshBtn.setToolTip(_translate("elevationDlg", "Herteken profiel", None))
         self.refreshBtn.setStatusTip(_translate("elevationDlg", "Herteken profiel", None))

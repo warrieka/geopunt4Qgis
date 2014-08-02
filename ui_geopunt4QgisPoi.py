@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Mon Jul 21 13:06:57 2014
+# Created: Thu Jul 31 22:54:08 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -197,7 +197,7 @@ class Ui_geopunt4QgisPoiDlg(object):
 
     def retranslateUi(self, geopunt4QgisPoiDlg):
         geopunt4QgisPoiDlg.setWindowTitle(_translate("geopunt4QgisPoiDlg", "Zoek een interessante plaats via Geopunt", None))
-        self.groupBox.setTitle(_translate("geopunt4QgisPoiDlg", "Zoek naar een interessante plaats op naam sleutelwoord:", None))
+        self.groupBox.setTitle(_translate("geopunt4QgisPoiDlg", "Zoek op naam en keywords:", None))
         self.currentBoundsVink.setText(_translate("geopunt4QgisPoiDlg", "Beperk zoekresultaten tot huidige zoomniveau", None))
         self.filterBox.setTitle(_translate("geopunt4QgisPoiDlg", "Filters", None))
         self.filterLbl0.setText(_translate("geopunt4QgisPoiDlg", "Gemeente:", None))

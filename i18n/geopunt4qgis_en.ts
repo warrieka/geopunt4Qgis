@@ -243,6 +243,11 @@
         <source>Gemeente of postcode kolom:</source>
         <translation>Municipality or zipcode:</translation>
     </message>
+    <message>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="414"/>
+        <source>Voeg alle gevalideerde adressen toe aan de kaart</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>elevationDlg</name>
@@ -257,7 +262,7 @@
         <translation type="obsolete">Number of samples:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="204"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="260"/>
         <source>Profiellijn opslaan </source>
         <translation>Save profileline</translation>
     </message>
@@ -292,19 +297,24 @@
         <translation>Add DHM WMS</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="122"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="178"/>
         <source>Aantal profielpunten</source>
         <translation>Number samplepoints</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="224"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="280"/>
         <source>Profielpunten opslaan</source>
         <translation>Save samplepoints</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisElevation.ui" line="172"/>
+        <location filename="ui_geopunt4QgisElevation.ui" line="228"/>
         <source>Herteken profiel</source>
         <translation>Refresh profile</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisElevation.ui" line="158"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -435,12 +445,12 @@
         <translation>Datacatalog</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="207"/>
+        <location filename="geopunt4QgisElevation.py" line="254"/>
         <source>Laag toevoegen</source>
         <translation>Add layer</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="207"/>
+        <location filename="geopunt4QgisElevation.py" line="254"/>
         <source>Geef een naam voor de laag op:</source>
         <translation>Enter a layername:</translation>
     </message>
@@ -597,7 +607,7 @@
 <context>
     <name>geopunt4QgisElevationDialog</name>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="231"/>
+        <location filename="geopunt4QgisElevation.py" line="289"/>
         <source>Kan WMS niet laden</source>
         <translation>Cannot load WMS</translation>
     </message>
@@ -607,25 +617,65 @@
         <translation type="obsolete">No  data was found</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="258"/>
+        <location filename="geopunt4QgisElevation.py" line="316"/>
         <source>Er werd geen of onvoldoende data gevonden</source>
         <translation>No data was found for this location</translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisElevation.py" line="271"/>
+        <source>Kies de vulkleur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisElevation.py" line="150"/>
+        <source>Vorm grafiek aanpassen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisElevation.py" line="126"/>
+        <source>Keer terug naar overzicht</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisElevation.py" line="130"/>
+        <source>Vorige</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisElevation.py" line="134"/>
+        <source>Volgende</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisElevation.py" line="138"/>
+        <source>Pannen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisElevation.py" line="142"/>
+        <source>Zoom naar rechthoek</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisElevation.py" line="146"/>
+        <source>Opslaan als afbeelding</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>geopunt4QgisGIPOD</name>
     <message>
-        <location filename="geopunt4QgisGipod.py" line="104"/>
+        <location filename="geopunt4QgisGipod.py" line="103"/>
         <source>&lt;strong&gt;Waarschuwing: &lt;/strong&gt;kan niet verbinden met internet</source>
         <translation>&lt;strong&gt;Warning: &lt;/strong&gt;no internet connection</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisGipod.py" line="152"/>
+        <location filename="geopunt4QgisGipod.py" line="151"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisGipod.py" line="152"/>
+        <location filename="geopunt4QgisGipod.py" line="151"/>
         <source>Deze bevraging had geen resultaten, er werd geen laag aangemaakt</source>
         <translation>This query did not yield any result, no layer was created</translation>
     </message>
@@ -740,12 +790,17 @@
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="34"/>
         <source>Zoek naar een interessante plaats op naam sleutelwoord:</source>
-        <translation>Search for a place:</translation>
+        <translation type="obsolete">Search for a place:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="49"/>
         <source>Beperk zoekresultaten tot huidige zoomniveau</source>
         <translation>Limit search results to current map</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisPoi.ui" line="34"/>
+        <source>Zoek op naam en keywords:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
