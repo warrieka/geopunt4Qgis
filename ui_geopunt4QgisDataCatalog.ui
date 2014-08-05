@@ -17,13 +17,16 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Datacatalogus</string>
+   <string>Geopunt-catalogus</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
     <normaloff>:/plugins/geopunt4Qgis/images/geopuntDataCatalogusSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntDataCatalogusSmall.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -396,59 +399,19 @@
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="pagingWgt" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QPushButton" name="pagePrvBtn">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="resources.qrc">
-              <normaloff>:/plugins/geopunt4Qgis/images/previous.png</normaloff>:/plugins/geopunt4Qgis/images/previous.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>12</width>
-              <height>12</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="pageLbl">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>0-0/0</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pageNextBtn">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="resources.qrc">
-              <normaloff>:/plugins/geopunt4Qgis/images/next.png</normaloff>:/plugins/geopunt4Qgis/images/next.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>12</width>
-              <height>12</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        <widget class="QLabel" name="countLbl">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -466,7 +429,7 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Toon lagen met:</string>
+             <string>Enkel resultaten met:</string>
             </property>
            </widget>
           </item>
@@ -586,17 +549,17 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
-      <widget class="QLabel" name="msgLbl">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-       <property name="text">
-        <string/>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
        </property>
-      </widget>
+      </spacer>
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">
@@ -615,6 +578,29 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="msgLbl">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;
+&lt;body&gt;
+&lt;span style=&quot; font-size:small;&quot;&gt;
+&lt;a href=&quot;https://metadata.geopunt.be&quot;&gt;
+Geopunt metadatacenter&lt;/a&gt; en 
+&lt;a href=&quot;http://www.geopunt.be/catalogus&quot;&gt;Geopunt catalogus &lt;/a&gt; 
+&lt;/span&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+     </property>
+    </widget>
    </item>
   </layout>
   <action name="addWMSaction">

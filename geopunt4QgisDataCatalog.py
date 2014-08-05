@@ -68,10 +68,10 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.wms = None
         self.wfs = None
         self.dl = None
-        self.to = 0
-        self.start = 1
-        self.count = 0
-        self.step = 30
+        #self.to = 0
+        #self.start = 1
+        #self.count = 0
+        #self.step = 30
         self.zoek = ''
         self.bronnen = None 
         
@@ -90,8 +90,6 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.ui.addWMSbtn.clicked.connect(self.addWMS)
         self.ui.addWFSbtn.clicked.connect(self.addWFS)
         self.ui.DLbtn.clicked.connect(lambda: self.openUrl(self.dl))
-        self.ui.pageNextBtn.clicked.connect(self.nextPage)
-        self.ui.pagePrvBtn.clicked.connect(self.previousPage)
         self.ui.resultView.clicked.connect(self.resultViewClicked)
         self.ui.modelFilterCbx.currentIndexChanged.connect(self.modelFilterCbxIndexChanged)
         self.ui.filterWgt.setHidden(1)
@@ -168,34 +166,8 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         
     def onZoekClicked(self):
         self.zoek = self.ui.zoekTxt.currentText()
-        start = 1
-        to = self.step
-        
-        self.search( start, to )  
-       
-    def previousPage(self):
-        start = self.start - self.step
-        if start <= 0: return
-        
-        if self.count == self.to: 
-          to =  self.count - ( self.count % self.step )
-        else:  
-          to =  self.to  - self.step
-       
-        self.search( start, to) 
+        self.search()  
       
-    def nextPage(self):
-        if ( self.start + self.step ) > self.count: return
-      
-        start = self.start + self.step
-        
-        if self.count == self.to: 
-          to = self.count
-        else:  
-          to =  self.to  + self.step
-
-        self.search( start, to) 
-        
     def modelFilterCbxIndexChanged(self):
         value = self.ui.modelFilterCbx.currentIndex()
         if value == 1:
@@ -215,20 +187,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         else:
            self.proxyModel.setFilterRegExp(None)
         
-        self.proxyEmptycheck()
-   
-    def proxyEmptycheck(self):
-        if self.count == 0: return
-        if self.proxyModel.rowCount() == 0:
-           self.bar.pushMessage(
-              QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Let op"), 
-              QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
-              "Resultaten zijn gefilterd op %s, niet alle waarden worden getoond" % self.ui.modelFilterCbx.currentText() ),  
-                level=QgsMessageBar.WARNING, duration=10)
-        else:
-           self.resultViewClicked()
-   
-    def search(self, start, to):       
+    def search(self):       
         if self.ui.filterBox.isChecked():
             themekey= self.ui.GDIThemaCbx.currentText()
             orgName= self.ui.organisatiesCbx.currentText()
@@ -241,25 +200,19 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
             inspiretheme= self.ui.INSPIREthemaCbx.currentText()
             inspireannex= self.ui.INSPIREannexCbx.currentText()
             inspireServiceType= self.ui.INSPIREserviceCbx.currentText()
-            searchResult = self.md.search( self.zoek , start, to, themekey,
-                    orgName, dataType, siteId, inspiretheme, inspireannex,
-                    inspireServiceType)
+            searchResult = metadata.MDdata( 
+              self.md.search(self.zoek, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType))
         else:
-            searchResult = self.md.search( self.zoek , start, to)
- 
-        self.count, self.start, self.to = ( searchResult.count, searchResult.start, searchResult.to )
-
-        self.ui.pageLbl.setText( "%s-%s/%s" %  (self.start, self.to , self.count) )
+            searchResult = metadata.MDdata( self.md.searchAll( self.zoek ))
+        
+        self.ui.countLbl.setText( "Aantal gevonden: %s" % searchResult.count  )
         self.ui.descriptionText.setText('')
         self._setModel(searchResult.records)
         if searchResult.count == 0:
            self.bar.pushMessage(
              QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "), 
-             QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
-                "Er werden geen resultaten gevonde voor deze zoekopdracht"),
-                duration=10)
-        else:
-          self.proxyEmptycheck()
+             QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Er werden geen resultaten gevonde voor deze zoekopdracht"),
+                duration=5)
 
     def openUrl(self, url):
         if url: webbrowser.open_new_tab( url.encode("utf-8") )
@@ -338,12 +291,9 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.wms = None
         self.wfs = None
         self.dl = None
-        self.start = 1
-        self.count = 0
-        self.step = 30
         self.ui.zoekTxt.setCurrentIndex(0)
         self.ui.descriptionText.setText('')
-        self.ui.pageLbl.setText( "0-0/0" )
+        self.ui.countLbl.setText( "")
         self.ui.msgLbl.setText("" )
         self.ui.DLbtn.setEnabled(0)
         self.ui.addWFSbtn.setEnabled(0)

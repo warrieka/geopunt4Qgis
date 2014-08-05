@@ -205,7 +205,20 @@ class MDReader:
         else:
             result = ET.parse(response)
             resultXML = result.getroot()
-            return  MDdata( resultXML )
+            return  resultXML
+
+    def searchAll(self, q="", themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType=''):
+        start= 1
+        step= 100        
+        searchResult = self.search(q, start, step, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
+        count = int( searchResult[0].attrib["count"] )
+        start += step
+        while (start) <= count:
+           result = self.search(q, start, (start + step -1), themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
+           mds= result.findall("metadata")
+           for md in mds: searchResult.append( md )
+           start += step
+        return searchResult
 
 
 class metaError(Exception):

@@ -110,7 +110,7 @@ class geopunt4Qgis:
         self.elevationAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntElevation.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Hoogteprofiel"), self.iface.mainWindow())
         self.datacatalogusAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntDataCatalogus.png"),
-                QCoreApplication.translate("geopunt4Qgis" , u"Datacatalogus"), self.iface.mainWindow())
+                QCoreApplication.translate("geopunt4Qgis" , u"Geopunt-catalogus"), self.iface.mainWindow())
         self.aboutAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
  

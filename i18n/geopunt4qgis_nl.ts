@@ -437,7 +437,7 @@
     <message>
         <location filename="geopunt4qgis.py" line="113"/>
         <source>Datacatalogus</source>
-        <translation>Datacatalogus</translation>
+        <translation type="obsolete">Datacatalogus</translation>
     </message>
     <message>
         <location filename="geopunt4QgisElevation.py" line="254"/>
@@ -450,9 +450,14 @@
         <translation>Geef een naam voor de laag op:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="66"/>
+        <location filename="geopunt4qgis.py" line="67"/>
         <source>Je versie van &lt;a href=&apos;http://plugins.qgis.org/&gt;plugins/geopunt4Qgis&apos; &gt;geopunt4qgis&lt;/a&gt; is niet meer up to date. &lt;br/&gt;Je kunt deze upgraden via het menu:&lt;br/&gt; &lt;strong&gt;Plugins &gt; Beheer en installeer Plugins &gt; Op te waarderen.&lt;/strong&gt;&lt;br/&gt;Klik daarna op &lt;strong&gt;Plugin opwaarderen&lt;/strong&gt;</source>
         <translation>Je versie van &lt;a href=&apos;http://plugins.qgis.org/&gt;plugins/geopunt4Qgis&apos; &gt;geopunt4qgis&lt;/a&gt; is niet meer up to date. &lt;br/&gt;Je kunt deze upgraden via het menu:&lt;br/&gt; &lt;strong&gt;Plugins &gt; Beheer en installeer Plugins &gt; Op te waarderen.&lt;/strong&gt;&lt;br/&gt;Klik daarna op &lt;strong&gt;Plugin opwaarderen&lt;/strong&gt;</translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="113"/>
+        <source>Geopunt-catalogus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -481,7 +486,7 @@
 <context>
     <name>geopunt4QgisDataCatalog</name>
     <message>
-        <location filename="geopunt4QgisDataCatalog.py" line="305"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="258"/>
         <source>Kan WMS niet laden</source>
         <translation>Kan WMS niet laden</translation>
     </message>
@@ -491,10 +496,10 @@
     <message>
         <location filename="ui_geopunt4QgisDataCatalog.ui" line="20"/>
         <source>Datacatalogus</source>
-        <translation>Datacatalogus</translation>
+        <translation type="obsolete">Datacatalogus</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="45"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="48"/>
         <source>Zoek</source>
         <translation>Zoek</translation>
     </message>
@@ -504,32 +509,32 @@
         <translation type="obsolete">Naam</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="622"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="608"/>
         <source>WMS toevoegen</source>
         <translation>WMS toevoegen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="632"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="618"/>
         <source>WFS toevoegen</source>
         <translation>WFS toevoegen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="627"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="613"/>
         <source>Downloadpagina openen</source>
         <translation>Downloadpagina openen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="563"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="526"/>
         <source>Downloaden</source>
         <translation>Downloaden</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="70"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="73"/>
         <source>Filters</source>
         <translation>Filters</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="176"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="179"/>
         <source>Organisatie:</source>
         <translation>Organisatie:</translation>
     </message>
@@ -544,64 +549,86 @@
         <translation type="obsolete">INSPIRE thema:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="189"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="192"/>
         <source>GDI-thema: </source>
         <translation>GDI-thema:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="97"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="100"/>
         <source>Bron catalogus:</source>
         <translation>Bron catalogus:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="482"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="445"/>
         <source>WMS</source>
         <translation>WMS</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="487"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="450"/>
         <source>WFS</source>
         <translation>WFS</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="492"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="455"/>
         <source>Download</source>
         <translation>Download</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="477"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="440"/>
         <source>Alle lagen</source>
         <translation>Alle lagen</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisDataCatalog.ui" line="469"/>
         <source>Toon lagen met:</source>
-        <translation>Toon lagen met:</translation>
+        <translation type="obsolete">Toon lagen met:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="272"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="275"/>
         <source>INSPIRE-servicetype:</source>
         <translation>INSPIRE-servicetype:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="329"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="332"/>
         <source>Type:</source>
         <translation>Type:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="427"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="430"/>
         <source>0-0/0</source>
-        <translation>0-0/0</translation>
+        <translation type="obsolete">0-0/0</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="224"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="227"/>
         <source>INSPIRE-thema:</source>
         <translation>INSPIRE-thema:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="237"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="240"/>
         <source>INSPIRE-annex:</source>
         <translation>INSPIRE-annex:</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="20"/>
+        <source>Geopunt-catalogus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="432"/>
+        <source>Enkel resultaten met:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="591"/>
+        <source>&lt;html&gt;&lt;head/&gt;
+&lt;body&gt;
+&lt;span style=&quot; font-size:small;&quot;&gt;
+&lt;a href=&quot;https://metadata.geopunt.be&quot;&gt;
+Geopunt metadatacenter&lt;/a&gt; en 
+&lt;a href=&quot;http://www.geopunt.be/catalogus&quot;&gt;Geopunt catalogus &lt;/a&gt; 
+&lt;/span&gt;
+&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -836,12 +863,12 @@
         <translation>Geen resultaten gevonden voor:</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisDataCatalog.py" line="260"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="216"/>
         <source>Waarschuwing </source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisDataCatalog.py" line="140"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="138"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation>Kan geen verbing maken met het internet.</translation>
     </message>
@@ -851,14 +878,14 @@
         <translation>Verfijn je zoekfilter: slechts 32 records kunnen worden opgehaald.</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisDataCatalog.py" line="260"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="216"/>
         <source>Er werden geen resultaten gevonde voor deze zoekopdracht</source>
         <translation>Er werden geen resultaten gevonden voor deze zoekopdracht</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisDataCatalog.py" line="225"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="201"/>
         <source>Let op</source>
-        <translation>Let op</translation>
+        <translation type="obsolete">Let op</translation>
     </message>
 </context>
 <context>
