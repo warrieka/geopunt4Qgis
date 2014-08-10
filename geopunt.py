@@ -205,7 +205,7 @@ class Poi:
               self.srs = srs
               self.maxModel = maxModel
               
-          return poi["pois"]
+          return poi
   
   def poiSuggestion(self):
       if self.PoiResult: 

@@ -88,9 +88,9 @@ class MDReader:
         geopuntUrl = self.geoNetworkUrl + "/q?fast=index&sortBy=changeDate&"
         data = {}
         data["any"] = "*" + unicode(q).encode('utf-8') + "*"
-        data["from"] = start
         data["to"] = to
-
+        data["from"] = start
+        
         if themekey: 
             if " " in themekey and not " or " in themekey.lower():
                 data["themekey"] = '"' +  themekey.lower()  + '"'
@@ -199,7 +199,7 @@ class MDReader:
             if self.opener: response = self.opener.open(url, timeout=self.timeout)
             else: response = urllib2.urlopen(url, timeout=self.timeout)
         except  (urllib2.HTTPError, urllib2.URLError) as e:
-                raise metaError( str( e.reason ))
+                raise metaError( str( e.reason ) +' on '+ url )
         except:
             raise metaError( str( sys.exc_info()[1] ))
         else:
@@ -213,7 +213,7 @@ class MDReader:
         searchResult = self.search(q, start, step, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
         count = int( searchResult[0].attrib["count"] )
         start += step
-        while (start) <= count:
+        while (start) <= count:  #https://metadata.geopunt.be/zoekdienst/srv/dut/q?fast=index&sortBy=changeDate&to=&from=Herbruikbaar&any=%2A%2A'
            result = self.search(q, start, (start + step -1), themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
            mds= result.findall("metadata")
            for md in mds: searchResult.append( md )

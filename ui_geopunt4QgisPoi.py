@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Thu Jul 31 22:54:08 2014
+# Created: Sun Aug 10 16:28:38 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -167,10 +167,27 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.zoomSelKnop.setObjectName(_fromUtf8("zoomSelKnop"))
         self.horizontalLayout_2.addWidget(self.zoomSelKnop)
         self.verticalLayout.addWidget(self.buttonWgt)
+        self.horizontalLayout_4 = QtGui.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem2)
+        self.addMinModelBtn = QtGui.QPushButton(geopunt4QgisPoiDlg)
+        self.addMinModelBtn.setObjectName(_fromUtf8("addMinModelBtn"))
+        self.horizontalLayout_4.addWidget(self.addMinModelBtn)
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.buttonBoxLayout = QtGui.QHBoxLayout()
         self.buttonBoxLayout.setObjectName(_fromUtf8("buttonBoxLayout"))
-        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.buttonBoxLayout.addItem(spacerItem2)
+        self.msgLbl = QtGui.QLabel(geopunt4QgisPoiDlg)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.msgLbl.sizePolicy().hasHeightForWidth())
+        self.msgLbl.setSizePolicy(sizePolicy)
+        self.msgLbl.setFrameShape(QtGui.QFrame.Panel)
+        self.msgLbl.setFrameShadow(QtGui.QFrame.Sunken)
+        self.msgLbl.setText(_fromUtf8(""))
+        self.msgLbl.setObjectName(_fromUtf8("msgLbl"))
+        self.buttonBoxLayout.addWidget(self.msgLbl)
         self.buttonBox = QtGui.QDialogButtonBox(geopunt4QgisPoiDlg)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -220,6 +237,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         item.setText(_translate("geopunt4QgisPoiDlg", "CRAB adres", None))
         self.addToMapKnop.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
         self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))
+        self.addMinModelBtn.setToolTip(_translate("geopunt4QgisPoiDlg", "<html><head/><body><p>Een versie met beperke attributen tot 1000 punten.</p><p>Plaatsen dicht bij elkaar kunnen geclusterd worden.</p></body></html>", None))
+        self.addMinModelBtn.setText(_translate("geopunt4QgisPoiDlg", "Voeg alle punten toe", None))
         self.actionZoomtoSelection.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar Selectie", None))
         self.actionAddTSeltoMap.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
 

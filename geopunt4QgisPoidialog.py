@@ -19,12 +19,12 @@ geopunt4QgisPoiDialog
 *                                                                         *
 ***************************************************************************/
 """
-
 from PyQt4 import QtCore, QtGui
 from qgis.core import *
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 from ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
 import geometryhelper as gh
+from poiHelper import poiHelper
 import geopunt, os, webbrowser, json
 
 class geopunt4QgisPoidialog(QtGui.QDialog):
@@ -56,6 +56,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         #setup geopunt and geometryHelper objects
         self.poi = geopunt.Poi(self.timeout, self.proxy, self.port)
         self.gh = gh.geometryHelper(self.iface)
+        self.ph = poiHelper( self.iface)
         
         #create the graphicsLayer
         self.graphicsLayer = []
@@ -88,14 +89,14 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.ui.resultLijst.itemDoubleClicked.connect(self.onZoomSelClicked )
         self.ui.resultLijst.itemSelectionChanged.connect(self.onSelectionChanged)
         self.ui.addToMapKnop.clicked.connect(self.onAddSelClicked)
+        self.ui.addMinModelBtn.clicked.connect( self.addMinModel )
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.finished.connect(self.clean )
     
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 1))
         layerName =  self.s.value("geopunt4qgis/poilayerText", "")
-        if layerName != "":
-           self.layerName= layerName
+        if layerName != "": self.layerName= layerName
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
@@ -142,20 +143,20 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         
         #filters:
         if self.ui.filterBox.isChecked():
-          poithemeText = self.ui.filterPoiThemeCombo.currentText()
-          if poithemeText != "": poitheme = self.poiThemes[ poithemeText ]
-          else: poitheme = ""
-          poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
-          if poiCategorieText != "": poiCategorie = self.poiCategories[ poiCategorieText ]
-          else: poiCategorie = ""
-          poiTypeText =  self.ui.filterPoiTypeCombo.currentText() 
-          if poiTypeText!= "": poiType = self.poiTypes[ poiTypeText ]
-          else: poiType = ""
-          NISText= self.ui.filterPoiNIS.currentText()
-          if NISText != "" and not self.ui.currentBoundsVink.isChecked(): Niscode = self.NIScodes[NISText]
-          else: Niscode = ""
+           poithemeText = self.ui.filterPoiThemeCombo.currentText()
+           if poithemeText != "": poitheme = self.poiThemes[ poithemeText ]
+           else: poitheme = ""
+           poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
+           if poiCategorieText != "": poiCategorie = self.poiCategories[ poiCategorieText ]
+           else: poiCategorie = ""
+           poiTypeText =  self.ui.filterPoiTypeCombo.currentText() 
+           if poiTypeText!= "": poiType = self.poiTypes[ poiTypeText ]
+           else: poiType = ""
+           NISText= self.ui.filterPoiNIS.currentText()
+           if NISText != "" and not self.ui.currentBoundsVink.isChecked(): Niscode = self.NIScodes[NISText]
+           else: Niscode = ""
         else: 
-          poitheme, poiCategorie, poiType, Niscode, = "","","",""
+           poitheme, poiCategorie, poiType, Niscode, = "","","",""
         
         if self.ui.currentBoundsVink.isChecked():
             bbox = self.iface.mapCanvas().extent()
@@ -191,11 +192,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
               row += 1
           self.ui.resultLijst.setSortingEnabled(True)
           
-          if self.poi.resultCount > 32:
-             self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
-            "Verfijn je zoekfilter: slechts 32 records kunnen worden opgehaald."), 
-            level=QgsMessageBar.INFO, duration=5)
-      
+          self.ui.msgLbl.setText(QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
+          "Aantal getoond: %s gevonden: %s" % (len(sug), self.poi.resultCount ) ))
+        
         elif len(suggesties) == 0:
           self.bar.pushMessage(
             QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Geen resultaten gevonden voor: "), 
@@ -242,11 +241,50 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             m.setPenWidth(10)
 
     def onAddSelClicked(self):
-        self.layernameValid()
+        if not self.layernameValid(): return
         self.clearGraphicsLayer()
         pts = self._getSelectedPois()
-        self.gh.save_pois_points( pts ,  layername=self.layerName, startFolder= os.path.join(self.startDir, self.layerName),
+        self.ph.save_pois_points( pts ,  layername=self.layerName, startFolder= os.path.join(self.startDir, self.layerName),
                   saveToFile=self.saveToFile, sender=self )
+
+    def addMinModel(self):
+        if not self.layernameValid(): return
+        self.clearGraphicsLayer()
+        txt = self.ui.poiText.text()
+        
+        if self.ui.filterBox.isChecked():
+           poithemeText = self.ui.filterPoiThemeCombo.currentText()
+           if poithemeText != "": poitheme = self.poiThemes[ poithemeText ]
+           else: poitheme = ""
+           poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
+           if poiCategorieText != "": poiCategorie = self.poiCategories[ poiCategorieText ]
+           else: poiCategorie = ""
+           poiTypeText =  self.ui.filterPoiTypeCombo.currentText() 
+           if poiTypeText!= "": poiType = self.poiTypes[ poiTypeText ]
+           else: poiType = ""
+           NISText= self.ui.filterPoiNIS.currentText()
+           if NISText != "" and not self.ui.currentBoundsVink.isChecked(): Niscode = self.NIScodes[NISText]
+           else: Niscode = ""
+        else: 
+           poitheme, poiCategorie, poiType, Niscode, = "","","",""
+        
+        if self.ui.currentBoundsVink.isChecked():
+            bbox = self.iface.mapCanvas().extent()
+            minX, minY = self.gh.prjPtFromMapCrs([bbox.xMinimum(),bbox.yMinimum()], 4326)
+            maxX, maxY = self.gh.prjPtFromMapCrs([bbox.xMaximum(),bbox.yMaximum()], 4326)
+            xyBox = [minX, minY, maxX, maxY]
+            pts= self.poi.fetchPoi( txt, c=1024, srs=4326 , maxModel=0, updateResults=0, bbox=xyBox, 
+                               theme=poitheme , category=poiCategorie, POItype=poiType )
+        else:
+            pts= self.poi.fetchPoi( txt, c=1024, srs=4326 , maxModel=0, updateResults=0, bbox=None, 
+                               theme=poitheme , category=poiCategorie, POItype=poiType, region=Niscode )
+
+        if pts.__class__ == str:
+            self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"),
+                                  pts, level=QgsMessageBar.WARNING, duration=5)
+        elif pts.__class__ == list or pts.__class__ == dict:            
+            self.ph.save_minPois_points(pts, layername=self.layerName, startFolder= os.path.join(self.startDir, self.layerName), saveToFile=self.saveToFile, sender=self )
+            self.close()
 
     def _getSelectedPois(self):
         pois =  self.poi.PoiResult

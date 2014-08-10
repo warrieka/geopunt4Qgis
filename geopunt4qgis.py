@@ -81,7 +81,7 @@ class geopunt4Qgis:
         self.aboutDlg = geopunt4QgisAboutdialog()
         
     def initGui(self):
-        'intialize settings'
+        'intialize UI'
         #get settings
         self.s = QSettings()
         self.loadSettings()
@@ -125,14 +125,17 @@ class geopunt4Qgis:
         self.settingsAction.triggered.connect(self.runSettingsDlg)
         self.aboutAction.triggered.connect(self.runAbout)
         
+        #Create toolbar
+        self.toolbar = self.iface.addToolBar("Geopunt toolbar")
+        self.toolbar.setObjectName("Geopunt toolbar")
         # Add to toolbar button
-        self.iface.addToolBarIcon(self.adresAction)
-        self.iface.addToolBarIcon(self.reverseAction)
-        self.iface.addToolBarIcon(self.batchAction)
-        self.iface.addToolBarIcon(self.poiAction)        
-        self.iface.addToolBarIcon(self.gipodAction)
-        self.iface.addToolBarIcon(self.elevationAction)
-        self.iface.addToolBarIcon(self.datacatalogusAction)
+        self.toolbar.addAction(self.adresAction)
+        self.toolbar.addAction(self.reverseAction)
+        self.toolbar.addAction(self.batchAction)
+        self.toolbar.addAction(self.poiAction)        
+        self.toolbar.addAction(self.gipodAction)
+        self.toolbar.addAction(self.elevationAction)
+        self.toolbar.addAction(self.datacatalogusAction)
         
         # Add to Menu
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
@@ -148,22 +151,17 @@ class geopunt4Qgis:
     def unload(self):
         ' Remove the plugin menu items and icons'
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.adresAction)
-        self.iface.removeToolBarIcon(self.adresAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.poiAction)
-        self.iface.removeToolBarIcon(self.poiAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.reverseAction)
-        self.iface.removeToolBarIcon(self.reverseAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.batchAction)
-        self.iface.removeToolBarIcon(self.batchAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.aboutAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.gipodAction)
-        self.iface.removeToolBarIcon(self.gipodAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.elevationAction)
-        self.iface.removeToolBarIcon(self.elevationAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.datacatalogusAction)
-        self.iface.removeToolBarIcon(self.datacatalogusAction)
         
+        del self.toolbar 
+
     def loadSettings(self):
         self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
         layerName_reverse = self.s.value("geopunt4qgis/reverseLayerText", "")

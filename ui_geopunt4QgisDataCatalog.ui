@@ -70,7 +70,7 @@
    <item>
     <widget class="QGroupBox" name="filterBox">
      <property name="title">
-      <string>Filters</string>
+      <string>Filtercriteria metadata</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

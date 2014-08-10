@@ -201,7 +201,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
             inspireannex= self.ui.INSPIREannexCbx.currentText()
             inspireServiceType= self.ui.INSPIREserviceCbx.currentText()
             searchResult = metadata.MDdata( 
-              self.md.search(self.zoek, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType))
+              self.md.searchAll(self.zoek, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType))
         else:
             searchResult = metadata.MDdata( self.md.searchAll( self.zoek ))
         

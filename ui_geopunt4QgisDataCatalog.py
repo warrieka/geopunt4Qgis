@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisDataCatalog.ui'
 #
-# Created: Tue Aug  5 23:50:07 2014
+# Created: Wed Aug  6 19:47:19 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -336,7 +336,7 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
     def retranslateUi(self, geopunt4QgisDataCatalogDlg):
         geopunt4QgisDataCatalogDlg.setWindowTitle(_translate("geopunt4QgisDataCatalogDlg", "Geopunt-catalogus", None))
         self.zoekBtn.setText(_translate("geopunt4QgisDataCatalogDlg", "Zoek", None))
-        self.filterBox.setTitle(_translate("geopunt4QgisDataCatalogDlg", "Filters", None))
+        self.filterBox.setTitle(_translate("geopunt4QgisDataCatalogDlg", "Filtercriteria metadata", None))
         self.bronLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "Bron catalogus:", None))
         self.organisatiesLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "Organisatie:", None))
         self.GDIthemalbl.setText(_translate("geopunt4QgisDataCatalogDlg", "GDI-thema: ", None))
