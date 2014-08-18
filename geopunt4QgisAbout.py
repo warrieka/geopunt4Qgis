@@ -39,11 +39,11 @@ class geopunt4QgisAboutdialog(QtGui.QDialog):
             if QtCore.qVersion() > '4.3.3': 
                QtCore.QCoreApplication.installTranslator(self.translator)
             
-            if 'en' in locale: 
-               self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-en.html')
-            else:
-                #dutch is default
-                self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-nl.html')   
+        if 'en' in locale: 
+            self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-en.html')
+        else:
+            #dutch is default
+            self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-nl.html')   
         self._initGui()
     
     

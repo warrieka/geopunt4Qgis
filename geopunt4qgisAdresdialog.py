@@ -99,7 +99,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 1))
         layerName =  self.s.value("geopunt4qgis/adreslayerText", "")
-        if layerName != "":
+        if not layerName :
            self.layerName= layerName
         self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))

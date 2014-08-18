@@ -71,7 +71,7 @@
         <translation>Stel zelf een separator in: (Maximaal 1 karakter)</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="448"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="450"/>
         <source>&lt;div style=&apos;color:red&apos;&gt;Kon geen connectie maken met geopunt&lt;/div&gt;</source>
         <translation>&lt;div style=&apos;color:red&apos;&gt;Kon geen connectie maken met geopunt&lt;/div&gt;</translation>
     </message>
@@ -345,32 +345,32 @@
         <translation>Zoom naar</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="232"/>
+        <location filename="geopunt4qgis.py" line="242"/>
         <source>Zoek een Adres: </source>
         <translation>Zoek een Adres:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="232"/>
+        <location filename="geopunt4qgis.py" line="242"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Klik op de kaart om het adres op te vragen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="264"/>
+        <location filename="geopunt4qgis.py" line="274"/>
         <source>Resultaat: </source>
         <translation>Resultaat:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="285"/>
+        <location filename="geopunt4qgis.py" line="295"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="280"/>
+        <location filename="geopunt4qgis.py" line="290"/>
         <source>Geen resultaten gevonden</source>
         <translation>Geen resultaten gevonden</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="288"/>
+        <location filename="geopunt4qgis.py" line="298"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
     </message>
@@ -410,7 +410,7 @@
         <translation>CSV-adresbestanden geocoderen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="272"/>
+        <location filename="geopunt4qgis.py" line="282"/>
         <source>Voeg toe</source>
         <translation>Voeg toe</translation>
     </message>

@@ -79,7 +79,6 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         self.accepted.connect(self.okClicked )
         self.rejected.connect(self.clean )
       
-    
     def show(self):
       QtGui.QDialog.show(self)
       if  self.firstShow:
@@ -118,7 +117,8 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         self.data = self.fetchGIPOD()
         fname, ftype= None , None
         if self.saveToFile:
-            fname = gipodHelper.gipodeoHelper.openOutput(self.iface.mainWindow(), os.path.join( self.startDir, name))
+            fname = gipodHelper.gipodeoHelper.openOutput(self.iface.mainWindow(), 
+                                                     os.path.join( self.startDir, name))
             if fname:
               ftype = gipodHelper.gipodeoHelper.checkFtype(fname)
             else:

@@ -40,7 +40,7 @@ from geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
 from versionChecker import versionChecker
 #import from libraries
 import geopunt, geometryhelper
-import os.path, webbrowser
+import os.path, webbrowser, sys 
 from threading import Timer
 
 class geopunt4Qgis:
@@ -160,12 +160,22 @@ class geopunt4Qgis:
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.elevationAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.datacatalogusAction)
         
+        self.iface.removeToolBarIcon( self.adresAction)
+        self.iface.removeToolBarIcon( self.poiAction)
+        self.iface.removeToolBarIcon( self.reverseAction)
+        self.iface.removeToolBarIcon( self.batchAction)
+        self.iface.removeToolBarIcon( self.aboutAction)
+        self.iface.removeToolBarIcon( self.settingsAction)
+        self.iface.removeToolBarIcon( self.gipodAction)
+        self.iface.removeToolBarIcon( self.elevationAction)
+        self.iface.removeToolBarIcon( self.datacatalogusAction)
+        
         del self.toolbar 
 
     def loadSettings(self):
         self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
         layerName_reverse = self.s.value("geopunt4qgis/reverseLayerText", "")
-        if layerName_reverse != "":
+        if not layerName_reverse:
            self.layerName_reverse= layerName_reverse
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")

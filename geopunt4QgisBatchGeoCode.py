@@ -94,7 +94,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.maxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
         self.saveToFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
         layerName =  self.s.value("geopunt4qgis/batchLayerText", "")
-        if layerName != "":
+        if not layerName :
            self.layerName= layerName
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
@@ -366,7 +366,6 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
               if validAdres and validAdres.__class__ is str: 
                 if (validAdres == 'time out') & (retry > 0): 
                   retry -= 1                        #minus 1 retry
-                  print retry 
                   continue
                 elif retry == 0:
                   self.ui.statusMsg.setText("<div style='color:red'>timeout na %s seconden and %s pogingen</div>" % (self.timeout , self.retrys))
@@ -375,6 +374,9 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
                 return
         
               elif validAdres and validAdres.__class__ is list: 
+                if len(validAdres) > 1 and validAdres[0].upper() == adres.upper():
+                   validAdres = [validAdres[0]]
+                   
                 validCombo = QtGui.QComboBox(self.ui.adresColSelect)
                 validCombo.addItems(validAdres)
                 self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)

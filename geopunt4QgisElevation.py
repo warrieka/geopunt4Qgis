@@ -161,11 +161,11 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")  
         self.samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
         sampleLayer = self.s.value("geopunt4qgis/sampleLayerTxt", "")
-        if sampleLayer != "":
+        if not sampleLayer:  
            self.sampleLayerTxt = sampleLayer
         self.profileLineSavetoFile = int( self.s.value("geopunt4qgis/profileLineSavetoFile" , 1))
         profileLineLayer= self.s.value("geopunt4qgis/profileLineLayerTxt", "")
-        if profileLineLayer != "":
+        if not profileLineLayer :
            self.profileLineLayerTxt = profileLineLayer
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
 

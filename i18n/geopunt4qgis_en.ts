@@ -46,7 +46,7 @@
         <translation>Appoint a delimiter (max 1 character)</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisBatchGeoCode.py" line="448"/>
+        <location filename="geopunt4QgisBatchGeoCode.py" line="450"/>
         <source>&lt;div style=&apos;color:red&apos;&gt;Kon geen connectie maken met geopunt&lt;/div&gt;</source>
         <translation>&lt;div style=&apos;color:red&apos;&gt;Can&apos;t connect to geopunt&lt;/div&gt;</translation>
     </message>
@@ -345,32 +345,32 @@
         <translation>Zoom to</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="232"/>
+        <location filename="geopunt4qgis.py" line="242"/>
         <source>Zoek een Adres: </source>
         <translation>Search an Address:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="232"/>
+        <location filename="geopunt4qgis.py" line="242"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Click on the map to request the address</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="264"/>
+        <location filename="geopunt4qgis.py" line="274"/>
         <source>Resultaat: </source>
         <translation>Result:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="285"/>
+        <location filename="geopunt4qgis.py" line="295"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="280"/>
+        <location filename="geopunt4qgis.py" line="290"/>
         <source>Geen resultaten gevonden</source>
         <translation>No results found</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="288"/>
+        <location filename="geopunt4qgis.py" line="298"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
@@ -415,7 +415,7 @@
         <translation>geocode CSV-files</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="272"/>
+        <location filename="geopunt4qgis.py" line="282"/>
         <source>Voeg toe</source>
         <translation>add </translation>
     </message>

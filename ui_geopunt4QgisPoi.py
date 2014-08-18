@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Sun Aug 10 16:28:38 2014
+# Created: Thu Aug 14 20:20:45 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_geopunt4QgisPoiDlg(object):
     def setupUi(self, geopunt4QgisPoiDlg):
         geopunt4QgisPoiDlg.setObjectName(_fromUtf8("geopunt4QgisPoiDlg"))
-        geopunt4QgisPoiDlg.resize(562, 567)
+        geopunt4QgisPoiDlg.resize(562, 574)
         geopunt4QgisPoiDlg.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         geopunt4QgisPoiDlg.setAcceptDrops(False)
         icon = QtGui.QIcon()

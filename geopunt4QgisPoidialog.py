@@ -96,7 +96,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 1))
         layerName =  self.s.value("geopunt4qgis/poilayerText", "")
-        if layerName != "": self.layerName= layerName
+        if not layerName: self.layerName= layerName
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
         self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
@@ -273,16 +273,18 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             minX, minY = self.gh.prjPtFromMapCrs([bbox.xMinimum(),bbox.yMinimum()], 4326)
             maxX, maxY = self.gh.prjPtFromMapCrs([bbox.xMaximum(),bbox.yMaximum()], 4326)
             xyBox = [minX, minY, maxX, maxY]
-            pts= self.poi.fetchPoi( txt, c=1024, srs=4326 , maxModel=0, updateResults=0, bbox=xyBox, 
-                               theme=poitheme , category=poiCategorie, POItype=poiType )
+            pts= self.poi.fetchPoi( txt, c=1024, srs=4326 , maxModel=0, updateResults=0,
+                                   bbox=xyBox, theme=poitheme , category=poiCategorie,
+                                   POItype=poiType )
         else:
-            pts= self.poi.fetchPoi( txt, c=1024, srs=4326 , maxModel=0, updateResults=0, bbox=None, 
-                               theme=poitheme , category=poiCategorie, POItype=poiType, region=Niscode )
+            pts= self.poi.fetchPoi( txt, c=1024, srs=4326 , maxModel=0, updateResults=0,
+                                   bbox=None,  theme=poitheme , category=poiCategorie,
+                                   POItype=poiType, region=Niscode )
 
-        if pts.__class__ == str:
+        if str( pts ) == str:
             self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"),
                                   pts, level=QgsMessageBar.WARNING, duration=5)
-        elif pts.__class__ == list or pts.__class__ == dict:            
+        elif str( pts ) == list or str( pts )  == dict:            
             self.ph.save_minPois_points(pts, layername=self.layerName, startFolder= os.path.join(self.startDir, self.layerName), saveToFile=self.saveToFile, sender=self )
             self.close()
 
