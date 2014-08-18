@@ -265,7 +265,7 @@ class geopunt4Qgis:
         adres = self.adres.fetchLocation( str( lam72pt.x() ) + "," + str( lam72pt.y() ), 1)
         Timer( 3, self._clearGraphicLayer, ()).start()
     
-        if len(adres) and adres.__class__ is list:
+        if len(adres) and type( adres ) is list:
             #only one result in list, was set in request
             FormattedAddress = adres[0]["FormattedAddress"]
       
@@ -290,7 +290,7 @@ class geopunt4Qgis:
             QCoreApplication.translate("geopunt4Qgis", "Geen resultaten gevonden"), 
                     level=QgsMessageBar.INFO, duration=3)
       
-        elif adres.__class__ is str:
+        elif type( adres ) is str:
             self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
                 adres, level=QgsMessageBar.WARNING)
         else:

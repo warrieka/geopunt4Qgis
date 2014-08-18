@@ -99,7 +99,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/adresSavetoFile" , 1))
         layerName =  self.s.value("geopunt4qgis/adreslayerText", "")
-        if not layerName :
+        if layerName :
            self.layerName= layerName
         self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
@@ -123,11 +123,11 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
           suggesties = self.gp.fetchSuggestion( txt , 25 )
       
           self.ui.resultLijst.clear()
-          if suggesties.__class__ == list and len(suggesties) <> 0:
+          if type( suggesties ) is list and len(suggesties) <> 0:
             self.ui.resultLijst.addItems(suggesties)
             if len(suggesties) == 1:
               self.ui.resultLijst.setCurrentRow(0)
-          elif suggesties.__class__ is str:
+          elif type( suggesties ) is str:
             self.bar.pushMessage(
               QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"),
               suggesties, level=QgsMessageBar.WARNING)
@@ -159,7 +159,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
     def _zoomLoc(self, txt):
         self._clearGraphicsLayer()
         locations = self.gp.fetchLocation(txt)
-        if locations.__class__ == list and len(locations):
+        if type( locations ) is list and len(locations):
             loc = locations[0]
         
             LowerLeftX = loc['BoundingBox']['LowerLeft']['X_Lambert72']
@@ -180,7 +180,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
             m.setIconType(QgsVertexMarker.ICON_BOX) 
             m.setPenWidth(9)
         
-        elif locations.__class__ == str:
+        elif type( locations ) is str:
           self.bar.pushMessage(
             QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"), 
                 locations, level=QgsMessageBar.WARNING, duration=3)
@@ -192,7 +192,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
     def _addToMap(self, txt):
         if not self.layernameValid(): return
         locations = self.gp.fetchLocation(txt)
-        if locations.__class__ == list and len(locations):
+        if type( locations ) is list and len(locations):
             loc = locations[0]
             x, y = loc["Location"]["X_Lambert72"], loc["Location"]["Y_Lambert72"]
             adres = loc["FormattedAddress"]
@@ -204,7 +204,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
               layername=self.layerName, saveToFile=self.saveToFile, sender=self, 
               startFolder= os.path.join(self.startDir, self.layerName))
         
-        elif locations.__class__ == str:
+        elif type( locations ) is str:
           self.bar.pushMessage(
             QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"), 
                 locations, level=QgsMessageBar.WARNING)	

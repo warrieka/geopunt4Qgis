@@ -213,7 +213,7 @@ class Poi:
       else: 
         return []
       
-      if sug.__class__ == str:
+      if type( sug ) is str:
         return sug
       else:
         labels = []

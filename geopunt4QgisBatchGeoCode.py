@@ -94,7 +94,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.maxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 2000 ))
         self.saveToFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
         layerName =  self.s.value("geopunt4qgis/batchLayerText", "")
-        if not layerName :
+        if layerName :
            self.layerName= layerName
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
@@ -138,13 +138,13 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
             else:
                 loc = self.gp.fetchLocation(adres,1)
         
-            if loc and loc.__class__ is list:
+            if loc and type( loc ) is list:
                 xylb =  ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
                 xyType = loc[0]["LocationType"]
                 xymap = self.gh.prjPtToMapCrs(xylb, 31370)
                 self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, 
                                 layername=self.layerName )
-            elif loc.__class__ is str:
+            elif type( loc ) is str:
                 if (loc == 'time out') & (retry > 0): 
                   retry -= 1                        #minus 1 retry
                   continue
@@ -363,7 +363,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
               adres = " ".join( adres.split())  #remove too many spaces
               validAdres = self.gp.fetchSuggestion(adres, 5)
           
-              if validAdres and validAdres.__class__ is str: 
+              if validAdres and type( validAdres ) is str: 
                 if (validAdres == 'time out') & (retry > 0): 
                   retry -= 1                        #minus 1 retry
                   continue
@@ -373,7 +373,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
                 self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
                 return
         
-              elif validAdres and validAdres.__class__ is list: 
+              elif validAdres and type( validAdres ) is list: 
                 if len(validAdres) > 1 and validAdres[0].upper() == adres.upper():
                    validAdres = [validAdres[0]]
                    
@@ -412,13 +412,13 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
             adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
           if adres:
             loc = self.gp.fetchLocation(adres,1)
-            if loc and loc.__class__ is list:
+            if loc and type( loc ) is list:
                 xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
                 xyMap = self.gh.prjPtToMapCrs(xylb, 31370)
                 pts.append(xyMap)
                 graphic = self.gh.addPointGraphic(xyMap)
                 self.graphicsLayer.append(graphic)
-            elif loc.__class__ is str:
+            elif type( loc ) is str:
                 self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
                 self.clearGraphicsLayer()
             return
