@@ -77,7 +77,7 @@ class MDReader:
         self.inspireServiceTypes =  ["Discovery","Transformation","View","Other","Invoke"]
         self.inspireannex =  ["i","ii","iii"]
 
-        if (proxyUrl <> "")  & proxyUrl.startswith("http://"):
+        if ( not proxyUrl ) & proxyUrl.startswith("http://"):
             netLoc = proxyUrl.strip() + ":" + port
             proxy = urllib2.ProxyHandler({'http': netLoc ,'https': netLoc })
             self.opener = urllib2.build_opener(proxy)
@@ -234,7 +234,7 @@ def getWmsLayerNames( url, proxyUrl='', port=''):
       else: 
           capability = url
           
-      if (proxyUrl <> "") & proxyUrl.startswith("http://"):
+      if ( not proxyUrl ) & proxyUrl.startswith("http://"):
           netLoc = proxyUrl.strip() + ":" + port
           proxy = urllib2.ProxyHandler({'http': netLoc ,'https': netLoc })
           opener = urllib2.build_opener(proxy)
@@ -261,7 +261,7 @@ def getWFSLayerNames( url, proxyUrl='', port=''):
           capability = url.split("?")[0] + "?request=GetCapabilities&version=1.0.0&service=wfs"
       else: 
           capability = url
-      if (proxyUrl <> "") & proxyUrl.startswith("http://"):
+      if ( not proxyUrl ) & proxyUrl.startswith("http://"):
           netLoc = proxyUrl.strip() + ":" + port
           proxy = urllib2.ProxyHandler({'http': netLoc ,'https': netLoc })
           opener = urllib2.build_opener(proxy)

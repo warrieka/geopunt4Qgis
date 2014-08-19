@@ -7,13 +7,12 @@ class versionChecker:
         self.timeout = timeout
         self.url = 'http://plugins.qgis.org/plugins/plugins.xml?qgis=2.0'
         self.ini = os.path.join(os.path.dirname(__file__), "metadata.txt")
-        if (proxyUrl <> "")  & proxyUrl.startswith("http://"):
-          netLoc = proxyUrl.strip() + ":" + port
-          proxy = urllib2.ProxyHandler({'http': netLoc })
-          self.opener = urllib2.build_opener(proxy)
+        if ( not proxyUrl ) & proxyUrl.startswith("http://"):
+            netLoc = proxyUrl.strip() + ":" + port
+            proxy = urllib2.ProxyHandler({'http': netLoc })
+            self.opener = urllib2.build_opener(proxy)
         else:
-          self.opener = None
-      
+            self.opener = None
         
     def  getCurrentversion(self ):
          config = cfg.ConfigParser()

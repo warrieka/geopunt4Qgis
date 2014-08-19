@@ -60,17 +60,19 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         'geopunt4Qgis settings'
         #General
         useProxy = int( self.s.value("geopunt4qgis/useProxy" , 0))
-            
+        proxyPort = self.s.value("geopunt4qgis/proxyPort" ,"")
+        self.ui.portTxt.setText(proxyPort)   
+        proxyHost = self.s.value("geopunt4qgis/proxyHost" ,"")
+        self.ui.hostTxt.setText(proxyHost)
+        
         if useProxy:
             self.ui.proxyChk.setChecked(1)
-            proxyHost = self.s.value("geopunt4qgis/proxyHost" ,"")
-            self.ui.hostTxt.setText(proxyHost)
             self.ui.hostTxt.setEnabled(1)
-            proxyPort = self.s.value("geopunt4qgis/proxyPort" ,"")
-            self.ui.portTxt.setText(proxyPort)
             self.ui.portTxt.setEnabled(1)
         else:
-            self.ui.proxyChk.setChecked(0)          
+            self.ui.proxyChk.setChecked(0)     
+            self.ui.portTxt.setEnabled(0)
+            self.ui.hostTxt.setEnabled(0)
             
         timeout = int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.ui.timeOutBox.setValue(timeout)
@@ -159,15 +161,13 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
     def saveSettings(self):
         'save all settings to registry'
         #General
+        proxyHost = self.ui.hostTxt.text()
+        self.s.setValue("geopunt4qgis/proxyHost", proxyHost)
+        proxyPort = self.ui.portTxt.text()
+        self.s.setValue("geopunt4qgis/proxyPort" , proxyPort)
         if self.ui.proxyChk.isChecked():
-            proxyHost = self.ui.hostTxt.text()
-            self.s.setValue("geopunt4qgis/proxyHost", proxyHost)
-            proxyPort = self.ui.portTxt.text()
-            self.s.setValue("geopunt4qgis/proxyPort" , proxyPort)
             self.s.setValue("geopunt4qgis/useProxy" , 1)
         else:
-            self.s.setValue("geopunt4qgis/proxyHost", "")
-            self.s.setValue("geopunt4qgis/proxyPort" , "")
             self.s.setValue("geopunt4qgis/useProxy" , 0)
 
         timeout =  self.ui.timeOutBox.value()

@@ -345,32 +345,32 @@
         <translation>Zoom to</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="242"/>
+        <location filename="geopunt4qgis.py" line="241"/>
         <source>Zoek een Adres: </source>
         <translation>Search an Address:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="242"/>
+        <location filename="geopunt4qgis.py" line="241"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Click on the map to request the address</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="274"/>
+        <location filename="geopunt4qgis.py" line="273"/>
         <source>Resultaat: </source>
         <translation>Result:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="295"/>
+        <location filename="geopunt4qgis.py" line="294"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="290"/>
+        <location filename="geopunt4qgis.py" line="289"/>
         <source>Geen resultaten gevonden</source>
         <translation>No results found</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="298"/>
+        <location filename="geopunt4qgis.py" line="297"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
@@ -415,7 +415,7 @@
         <translation>geocode CSV-files</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="282"/>
+        <location filename="geopunt4qgis.py" line="281"/>
         <source>Voeg toe</source>
         <translation>add </translation>
     </message>

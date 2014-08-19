@@ -165,7 +165,6 @@ class geopunt4Qgis:
         self.iface.removeToolBarIcon( self.reverseAction)
         self.iface.removeToolBarIcon( self.batchAction)
         self.iface.removeToolBarIcon( self.aboutAction)
-        self.iface.removeToolBarIcon( self.settingsAction)
         self.iface.removeToolBarIcon( self.gipodAction)
         self.iface.removeToolBarIcon( self.elevationAction)
         self.iface.removeToolBarIcon( self.datacatalogusAction)
