@@ -60,8 +60,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         #get settings
         self.s = QtCore.QSettings()
         self.loadSettings()
-        
-        self.elevation = geopunt.elevation(self.timeout, self.proxy, self.port )
+
         self.gh = geometryHelper( self.iface )
         self.eh = elevationHelper( self.iface, self.startDir)
         
@@ -156,18 +155,23 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         toolbarBtns[7].clicked.connect( self.setFill)
         
     def loadSettings(self):
-        self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")  
+        self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
+        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
+            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        else:
+            self.proxy = ""
+            self.port = ""
         self.samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
         sampleLayer = self.s.value("geopunt4qgis/sampleLayerTxt", "")
-        if not sampleLayer:  
+        if sampleLayer:  
            self.sampleLayerTxt = sampleLayer
         self.profileLineSavetoFile = int( self.s.value("geopunt4qgis/profileLineSavetoFile" , 1))
         profileLineLayer= self.s.value("geopunt4qgis/profileLineLayerTxt", "")
-        if not profileLineLayer :
+        if profileLineLayer:
            self.profileLineLayerTxt = profileLineLayer
-        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))        
+        self.elevation = geopunt.elevation(self.timeout, self.proxy, self.port )
 
     def resizeEvent(self, event):
         QtGui.QDialog.resizeEvent(self, event)

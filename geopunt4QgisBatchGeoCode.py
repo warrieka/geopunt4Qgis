@@ -60,7 +60,6 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.headers = None
         self.graphicsLayer = []
         self.reverseAdresTool = None
-        self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
         self.batcGeoHelper = batcGeoHelper(self.iface, self, startFolder=self.startDir )
         self.gh = geometryhelper.geometryHelper(self.iface)
     
@@ -96,11 +95,16 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         layerName =  self.s.value("geopunt4qgis/batchLayerText", "")
         if layerName :
            self.layerName= layerName
-        self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        self.timeout =  int(self.s.value("geopunt4qgis/timeout" ,15))
+        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
+            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        else:
+            self.proxy = ""
+            self.port = ""
         self.retrys = 3
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
+        self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
 
     #eventHandlers
     def openHelp(self):
@@ -245,6 +249,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
               QtCore.QCoreApplication.translate("batcGeoCodedialog", 
                 "Deze file kon niet correct worden ingelezen, probeer " +
                 " eens in te laden als <strong>UTF-8-file</strong>"))
+        
         header = csvReader.next()
         colCount = len(header)
       

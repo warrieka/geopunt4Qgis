@@ -86,8 +86,6 @@ class geopunt4Qgis:
         self.s = QSettings()
         self.loadSettings()
         
-        #geopunt adres and geometry object
-        self.adres = geopunt.Adres(self.timeout, self.proxy, self.port)
         self.gh = geometryhelper.geometryHelper(self.iface)
         self.graphicsLayer = []
 
@@ -174,12 +172,17 @@ class geopunt4Qgis:
     def loadSettings(self):
         self.saveToFile_reverse = int(self.s.value("geopunt4qgis/reverseSavetoFile", 0))
         layerName_reverse = self.s.value("geopunt4qgis/reverseLayerText", "")
-        if not layerName_reverse:
-           self.layerName_reverse= layerName_reverse
+        if layerName_reverse:
+           self.layerName_reverse = layerName_reverse
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
+            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        else:
+            self.proxy = ""
+            self.port = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
+        self.adres = geopunt.Adres(self.timeout, self.proxy, self.port)
         
     def runSettingsDlg(self):
         ' show the dialog'

@@ -53,8 +53,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         #get settings
         self.s = QtCore.QSettings()
         self.loadSettings()
-        
-        self.gp = geopunt.gipod(self.timeout, self.proxy, self.port)
+
         self.gh = geometryhelper.geometryHelper(self.iface)
         
         self.data = None
@@ -104,9 +103,14 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
     def loadSettings(self):
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
-        self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
-        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
+        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
+            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        else:
+            self.proxy = ""
+            self.port = ""
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))        
+        self.gp = geopunt.gipod(self.timeout, self.proxy, self.port)
     
     def endEditChanged(self, senderDate):
         self.ui.startEdit.setMaximumDate(senderDate)

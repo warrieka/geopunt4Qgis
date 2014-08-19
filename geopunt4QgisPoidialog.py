@@ -54,7 +54,6 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.loadSettings()
 
         #setup geopunt and geometryHelper objects
-        self.poi = geopunt.Poi(self.timeout, self.proxy, self.port)
         self.gh = gh.geometryHelper(self.iface)
         self.ph = poiHelper( self.iface)
         
@@ -98,9 +97,14 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         layerName =  self.s.value("geopunt4qgis/poilayerText", "")
         if layerName: self.layerName= layerName
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
+            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        else:
+            self.proxy = ""
+            self.port = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
+        self.poi = geopunt.Poi(self.timeout, self.proxy, self.port)
     
     def show(self):
         QtGui.QDialog.show(self)

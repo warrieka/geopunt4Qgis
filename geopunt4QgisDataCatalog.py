@@ -53,7 +53,6 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.s = QtCore.QSettings()
         self.loadSettings()
 
-        self.md = metadata.MDReader( self.timeout, self.proxy, self.port  )
         self.gh = gh.geometryHelper( self.iface )
         
         #setup a message bar
@@ -68,10 +67,6 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.wms = None
         self.wfs = None
         self.dl = None
-        #self.to = 0
-        #self.start = 1
-        #self.count = 0
-        #self.step = 30
         self.zoek = ''
         self.bronnen = None 
         
@@ -98,8 +93,14 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
 
     def loadSettings(self):
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
-        self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
+            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        else:
+            self.proxy = ""
+            self.port = ""
+        self.md = metadata.MDReader( self.timeout, self.proxy, self.port )
+            
 
     def _setModel(self, records):   
         self.model.clear()
@@ -223,8 +224,11 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
         if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
            crs = 'EPSG:31370' 
-           
-        lyrs =  metadata.getWmsLayerNames( self.wms , self.proxy, self.port) 
+        try:   
+          lyrs =  metadata.getWmsLayerNames( self.wms , self.proxy, self.port) 
+        except:
+          self.bar.pushMessage( "Error", str( sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
+          return 
         if len(lyrs) == 0:
             self.bar.pushMessage("WMS", 
             QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog", 
@@ -260,8 +264,11 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
       
     def addWFS(self):    
         if self.wfs == None: return
-        lyrs =  metadata.getWFSLayerNames( self.wfs, self.proxy, self.port)
-        
+        try:
+            lyrs =  metadata.getWFSLayerNames( self.wfs, self.proxy, self.port)
+        except:
+            self.bar.pushMessage( "Error", str( sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
+            return 
         if len(lyrs) == 0:
             self.bar.pushMessage("WFS", 
             QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog", 

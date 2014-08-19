@@ -39,11 +39,11 @@ class batcGeoHelper:
       for name, var in tableDict.items():
         typeVar = QVariant.String
         if not allString and var.lstrip("-").isdigit():
-           typeVar = QVariant.Int 
+             typeVar = QVariant.Int 
         elif not allString and var.lstrip("-").replace(".","",1).isdigit():
              typeVar = QVariant.Double
        
-      attributeTable.append(QgsField(name, typeVar))
+        attributeTable.append(QgsField(name, typeVar))
       return attributeTable
     
   def save_adres_point(self, point, address, typeAddress='', attritableDict={}, layername="Geopunt_adressen" ):
@@ -51,12 +51,12 @@ class batcGeoHelper:
     mapcrs = self.canvas.mapRenderer().destinationCrs()
     
     if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid):
-      attributes = self._createAttributeTable( attritableDict )
-      attributes += [QgsField("crabAdres", QVariant.String), QgsField("crabtype", QVariant.String)]
-      self.adreslayer = QgsVectorLayer("Point", layername, "memory")
-      self.adresProvider = self.adreslayer.dataProvider()
-      self.adresProvider.addAttributes(attributes)
-      self.adreslayer.updateFields()
+        attributes = self._createAttributeTable( attritableDict )
+        attributes += [QgsField("crabAdres", QVariant.String), QgsField("crabtype", QVariant.String)]
+        self.adreslayer = QgsVectorLayer("Point", layername, "memory")
+        self.adresProvider = self.adreslayer.dataProvider()
+        self.adresProvider.addAttributes(attributes)
+        self.adreslayer.updateFields()
 
     # add a feature
     fields= self.adreslayer.pendingFields()
@@ -71,8 +71,8 @@ class batcGeoHelper:
     fet['crabAdres'] = address
     fet['crabtype'] = typeAddress
     for name, var in attritableDict.items():
-      field = self.adresProvider.fieldNameMap()[name]
-      fet.setAttribute(field,var)
+       field = self.adresProvider.fieldNameMap()[name]
+       fet.setAttribute(field,var)
     self.adresProvider.addFeatures([ fet ])
     
     # update layer's extent when new features have been added

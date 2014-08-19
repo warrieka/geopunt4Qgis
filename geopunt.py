@@ -26,7 +26,7 @@ class Adres:
     self.timeout = timeout
     self._locUrl = "http://loc.api.geopunt.be/geolocation/Location?"
     self._sugUrl = "http://loc.api.geopunt.be/geolocation/Suggestion?"
-    if ( not proxyUrl ) & proxyUrl.startswith("http://"):
+    if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) & proxyUrl.startswith("http://"):
        netLoc = proxyUrl.strip() + ":" + port
        proxy = urllib2.ProxyHandler({'http': netLoc })
        self.opener = urllib2.build_opener(proxy)
@@ -83,7 +83,7 @@ class Poi:
       self._poiUrl = "http://poi.api.geopunt.be/core"
       self.resultCount = 0
       
-      if ( not proxyUrl ) & proxyUrl.startswith("http://"):
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
         netLoc = proxyUrl.strip() + ":" + port
         proxy = urllib2.ProxyHandler({'http': netLoc })
         self.opener = urllib2.build_opener(proxy)
@@ -253,7 +253,7 @@ class gipod:
       self.timeout = timeout
       self.baseUri = 'http://gipod.api.agiv.be/ws/v1/'
       
-      if ( not proxyUrl ) & proxyUrl.startswith("http://"):
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
           netLoc = proxyUrl.strip() + ":" + port
           proxy = urllib2.ProxyHandler({'http': netLoc })
           self.opener = urllib2.build_opener(proxy)
@@ -426,7 +426,7 @@ class elevation:
       self.timeout = timeout
       self.baseUri = 'http://ws.agiv.be/elevation/dhmv1/search'
       
-      if ( not proxyUrl ) & proxyUrl.startswith("http://"):
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
         netLoc = proxyUrl.strip() + ":" + port
         proxy = urllib2.ProxyHandler({'http': netLoc })
         self.opener = urllib2.build_opener(proxy)
@@ -464,7 +464,7 @@ class geopuntError(Exception):
       return repr(self.message)
       
 def internet_on(timeout=15, proxyUrl="", port="" ):
-    if ( not proxyUrl ) & proxyUrl.startswith("http://"):
+    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
         netLoc = proxyUrl.strip() + ":" + port
         proxy = urllib2.ProxyHandler({'http': netLoc })
         opener = urllib2.build_opener(proxy)

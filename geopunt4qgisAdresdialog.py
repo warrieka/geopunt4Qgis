@@ -52,8 +52,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.s = QtCore.QSettings()
         self.loadSettings()
         
-        #setup geopunt and geometryHelper objects
-        self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
+        #setup geometryHelper object
         self.gh = gh.geometryHelper(self.iface)
         
         #create graphicsLayer
@@ -103,9 +102,14 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
            self.layerName= layerName
         self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
+            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
+            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        else:
+            self.proxy = ""
+            self.port = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
+        self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
         
     def openHelp(self):
         webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntAddress.md")
