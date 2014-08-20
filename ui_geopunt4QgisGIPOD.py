@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisGIPOD.ui'
 #
-# Created: Thu Jul 31 20:07:51 2014
+# Created: Wed Aug 20 18:31:15 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -43,12 +43,6 @@ class Ui_gipodDlg(object):
         gipodDlg.setModal(False)
         self.verticalLayout = QtGui.QVBoxLayout(gipodDlg)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.mgsBox = QtGui.QLabel(gipodDlg)
-        self.mgsBox.setFrameShape(QtGui.QFrame.NoFrame)
-        self.mgsBox.setFrameShadow(QtGui.QFrame.Plain)
-        self.mgsBox.setText(_fromUtf8(""))
-        self.mgsBox.setObjectName(_fromUtf8("mgsBox"))
-        self.verticalLayout.addWidget(self.mgsBox)
         self.typeBox = QtGui.QGroupBox(gipodDlg)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -154,7 +148,7 @@ class Ui_gipodDlg(object):
         self.outputWgt = QtGui.QWidget(gipodDlg)
         self.outputWgt.setObjectName(_fromUtf8("outputWgt"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.outputWgt)
-        self.horizontalLayout_2.setMargin(0)
+        self.horizontalLayout_2.setContentsMargins(-1, 1, -1, 1)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.laagNaamLbl = QtGui.QLabel(self.outputWgt)
         self.laagNaamLbl.setObjectName(_fromUtf8("laagNaamLbl"))
@@ -167,6 +161,13 @@ class Ui_gipodDlg(object):
         self.lyrName.setObjectName(_fromUtf8("lyrName"))
         self.horizontalLayout_2.addWidget(self.lyrName)
         self.verticalLayout.addWidget(self.outputWgt)
+        self.mgsBox = QtGui.QLabel(gipodDlg)
+        self.mgsBox.setFrameShape(QtGui.QFrame.NoFrame)
+        self.mgsBox.setFrameShadow(QtGui.QFrame.Plain)
+        self.mgsBox.setText(_fromUtf8(""))
+        self.mgsBox.setMargin(0)
+        self.mgsBox.setObjectName(_fromUtf8("mgsBox"))
+        self.verticalLayout.addWidget(self.mgsBox)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)

@@ -61,9 +61,11 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         #General
         useProxy = int( self.s.value("geopunt4qgis/useProxy" , 0))
         proxyPort = self.s.value("geopunt4qgis/proxyPort" ,"")
-        self.ui.portTxt.setText(proxyPort)   
+        if (isinstance(proxyPort, unicode) or isinstance(proxyPort, str)):
+            self.ui.portTxt.setText(proxyPort)   
         proxyHost = self.s.value("geopunt4qgis/proxyHost" ,"")
-        self.ui.hostTxt.setText(proxyHost)
+        if (isinstance(proxyHost, unicode) or isinstance(proxyHost, str)): 
+            self.ui.hostTxt.setText(proxyHost)
         
         if useProxy:
             self.ui.proxyChk.setChecked(1)
@@ -78,7 +80,8 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         self.ui.timeOutBox.setValue(timeout)
         home = os.environ["HOME"]
         startDir = self.s.value("geopunt4qgis/startDir", home)
-        self.ui.startDirTxt.setText( startDir)                                   
+        if (isinstance(startDir, unicode) or isinstance(startDir, str)): 
+            self.ui.startDirTxt.setText( startDir)                                   
         
         #geopunt4Qgis AdresDialog settings
         adresSearchOnEdit = int( self.s.value("geopunt4qgis/adresSearchOnEdit" , 1))
@@ -94,7 +97,8 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         self.ui.adresSaveMemoryChk.setChecked(adresSaveMemory)
         
         adreslayerText =  self.s.value("geopunt4qgis/adreslayerText", "")
-        self.ui.adresLayerTxt.setText(adreslayerText)
+        if (isinstance(adreslayerText, unicode) or isinstance(adreslayerText, str)): 
+            self.ui.adresLayerTxt.setText(adreslayerText)
         
         #geopunt4Qgis ReverseAdres Settings
         reverseSavetoFile = int( self.s.value("geopunt4qgis/reverseSavetoFile", 1))
@@ -104,7 +108,8 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         self.ui.reverseSaveMemoryChk.setChecked(reverseSaveMemory)
         
         reverseLayerText =  self.s.value("geopunt4qgis/reverseLayerText", "")
-        self.ui.reverseLayerTxt.setText(reverseLayerText)
+        if (isinstance(reverseLayerText, unicode) or isinstance(reverseLayerText, str)): 
+            self.ui.reverseLayerTxt.setText(reverseLayerText)
         
         #geopunt4Qgis batchGeoCode settings
         batchGeoCodeSavetoFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
@@ -114,7 +119,8 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         self.ui.batchSaveMemoryChk.setChecked(batchGeoCodeSavetoMemory)
         
         batchLayerText = self.s.value("geopunt4qgis/batchLayerText", "")
-        self.ui.batchLayerTxt.setText(batchLayerText)
+        if (isinstance(batchLayerText, unicode) or isinstance(batchLayerText, str)): 
+           self.ui.batchLayerTxt.setText(batchLayerText)
         
         batchMaxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 500 ))
         self.ui.maxRowsSpinBox.setValue(batchMaxRows)	
@@ -127,7 +133,8 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         self.ui.poiSaveMemoryChk.setChecked(poiSaveMemory)
         
         poilayerText =  self.s.value("geopunt4qgis/poilayerText", "")
-        self.ui.poiLayerTxt.setText(poilayerText)
+        if (isinstance(poilayerText, unicode) or isinstance(poilayerText, str)): 
+           self.ui.poiLayerTxt.setText(poilayerText)
         
         #geopunt4Qgis gipod settngs
         gipodSavetoFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
@@ -137,7 +144,8 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         self.ui.gipodSaveMemoryChk.setChecked(poiSaveMemory)
         
         gipodLayerTxt = self.s.value("geopunt4qgis/gipodLayerTxt", "GIPOD")        
-        self.ui.gipodLayerTxt.setText(gipodLayerTxt)
+        if (isinstance(gipodLayerTxt, unicode) or isinstance(gipodLayerTxt, str)): 
+            self.ui.gipodLayerTxt.setText(gipodLayerTxt)
         
         #geopunt4Qgis Elevation settings
         samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
@@ -147,7 +155,8 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         self.ui.samplesSaveMemoryChk.setChecked(samplesSaveMemory)
         
         sampleLayerTxt = self.s.value("geopunt4qgis/sampleLayerTxt", "")
-        self.ui.sampleLayerTxt.setText(sampleLayerTxt)
+        if (isinstance(sampleLayerTxt, unicode) or isinstance(sampleLayerTxt, str)): 
+           self.ui.sampleLayerTxt.setText(sampleLayerTxt)
         
         profileLineSavetoFile = int( self.s.value("geopunt4qgis/profileLineSavetoFile" , 1))
         self.ui.profileLineSavetoFileChk.setChecked(profileLineSavetoFile)
@@ -156,7 +165,8 @@ class geopunt4QgisSettingsdialog(QtGui.QDialog):
         self.ui.profileLineSaveMemoryChk.setChecked(profileLineSaveMemory)
         
         profileLineLayerTxt = self.s.value("geopunt4qgis/profileLineLayerTxt", "")
-        self.ui.profileLineLayerTxt.setText(profileLineLayerTxt)
+        if (isinstance(profileLineLayerTxt, unicode) or isinstance(profileLineLayerTxt, str)):
+            self.ui.profileLineLayerTxt.setText(profileLineLayerTxt)
         
     def saveSettings(self):
         'save all settings to registry'

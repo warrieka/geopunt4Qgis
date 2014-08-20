@@ -230,6 +230,7 @@ class geopunt4Qgis:
     def rundatacatalog(self):
         'show the dialog'
         self.datacatalogusDlg.show()
+        self.datacatalogusDlg.loadSettings()
         # Run the dialog event loop
         self.datacatalogusDlg.exec_()
 

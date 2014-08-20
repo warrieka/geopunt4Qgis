@@ -197,7 +197,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
           self.ui.resultLijst.setSortingEnabled(True)
           
           self.ui.msgLbl.setText(QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
-          "Aantal getoond: %s gevonden: %s" % (len(sug), self.poi.resultCount ) ))
+          "Aantal getoond: %s gevonden: %s" % ( self.ui.resultLijst.rowCount() , self.poi.resultCount ) ))
         
         elif len(suggesties) == 0:
           self.bar.pushMessage(

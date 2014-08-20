@@ -188,8 +188,9 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         else:
            self.proxyModel.setFilterRegExp(None)
         
-    def search(self):       
-        if self.ui.filterBox.isChecked():
+    def search(self): 
+        try:      
+          if self.ui.filterBox.isChecked():
             themekey= self.ui.GDIThemaCbx.currentText()
             orgName= self.ui.organisatiesCbx.currentText()
             dataTypes= [ n[1] for n in self.md.dataTypes if n[0] == self.ui.typeCbx.currentText()] 
@@ -201,10 +202,13 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
             inspiretheme= self.ui.INSPIREthemaCbx.currentText()
             inspireannex= self.ui.INSPIREannexCbx.currentText()
             inspireServiceType= self.ui.INSPIREserviceCbx.currentText()
-            searchResult = metadata.MDdata( 
-              self.md.searchAll(self.zoek, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType))
-        else:
+            searchResult = metadata.MDdata( self.md.searchAll(
+              self.zoek, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType))
+          else:
             searchResult = metadata.MDdata( self.md.searchAll( self.zoek ))
+        except:
+           self.bar.pushMessage("Error", str( sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=3)
+           return
         
         self.ui.countLbl.setText( "Aantal gevonden: %s" % searchResult.count  )
         self.ui.descriptionText.setText('')
