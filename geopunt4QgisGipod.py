@@ -23,7 +23,7 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import QFileDialog, QMessageBox
 from ui_geopunt4QgisGIPOD import Ui_gipodDlg
 import geopunt, geometryhelper, gipodHelper
-import os, json, webbrowser
+import os, json, webbrowser, sys
 from  datetime import date, timedelta
 
 class geopunt4QgisGipodDialog(QtGui.QDialog):
@@ -119,17 +119,18 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         name= self.ui.lyrName.text()
         manifestation = self.ui.manifestationRadio.isChecked()
         self.data = self.fetchGIPOD()
-        fname, ftype= None , None
-        if self.saveToFile:
-            fname = gipodHelper.gipodeoHelper.openOutput(self.iface.mainWindow(), 
-                                                     os.path.join( self.startDir, name))
-            if fname:
-              ftype = gipodHelper.gipodeoHelper.checkFtype(fname)
-            else:
-              self.clean()
-              return
           
         if self.data:
+           fname, ftype= None , None
+           if self.saveToFile:
+              fname = gipodHelper.gipodeoHelper.openOutput(self.iface.mainWindow(), 
+                                                      os.path.join( self.startDir, name))
+              if fname:
+                ftype = gipodHelper.gipodeoHelper.checkFtype(fname)
+              else:
+                self.clean()
+                return
+              
            with gipodHelper.gipodWriter( self.iface, name , 31370, manifestation, ftype ) as gipodWriter:
               for row in self.data:
                   xy = row['coordinate']["coordinates"]
@@ -142,10 +143,10 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
                   importantHindrance = int( row["importantHindrance"] )
                   cities = row["cities"]
                   if manifestation:
-                    initiator = row["initiator"]
-                    recurrencePattern = row["recurrencePattern"]
+                     initiator = row["initiator"]
+                     recurrencePattern = row["recurrencePattern"]
                   else:
-                    initiator, recurrencePattern = None, None
+                     initiator, recurrencePattern = None, None
                     
                   gipodWriter.writePoint(xy, gipodId, owner, description, startDateTime, endDateTime,
                       importantHindrance, detail, cities, initiator, recurrencePattern )
@@ -173,10 +174,15 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
             bbox = [minX, minY, maxX, maxY]
         else:
             bbox=[]
-        if self.ui.workassignmentRadio.isChecked():
-            return  self.gp.allWorkassignments(owner, startdate, enddate, city, province, srs, bbox)
-        elif self.ui.manifestationRadio.isChecked():
-            return self.gp.allManifestations(owner, eventtype, startdate, enddate, city, province, srs, bbox)
+        try:
+           if self.ui.workassignmentRadio.isChecked():
+              return  self.gp.allWorkassignments(owner, startdate, enddate, city, province, srs, bbox)
+           elif self.ui.manifestationRadio.isChecked():
+              return self.gp.allManifestations(owner, eventtype, startdate, enddate, city, province, srs, bbox)
+        except:      
+           self.ui.mgsBox.setText( 
+             "<div style='color:red'>%s</div>" % str( sys.exc_info()[1]) )
+           return 
    
     def provinceChanged(self):
         provText = self.ui.provinceCbx.currentText()

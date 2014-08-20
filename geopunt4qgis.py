@@ -194,41 +194,42 @@ class geopunt4Qgis:
             
     def runAdresDlg(self):
         ' show the dialog'
-        self.adresdlg.show()
         self.adresdlg.loadSettings()
+        self.adresdlg.show()
         # Run the dialog event loop
         self.adresdlg.exec_()
         
     def runPoiDlg(self):
         'show the dialog'
-        self.poiDlg.show()
         self.poiDlg.loadSettings()
+        self.poiDlg.show()
         # Run the dialog event loop
         self.poiDlg.exec_()
   
     def runGipod(self):
         'show the dialog'
-        self.gipodDlg.show()
         self.gipodDlg.loadSettings()
+        self.gipodDlg.show()
         # Run the dialog event loop
         self.gipodDlg.exec_()
   
     def runBatch(self):
         'show the dialog'
-        self.batchgeoDlg.show()
         self.batchgeoDlg.loadSettings()
+        self.batchgeoDlg.show()
         # Run the dialog event loop
         self.batchgeoDlg.exec_()
 
     def runElevation(self):
         'show the dialog'
-        self.elevationDlg.show()
         self.elevationDlg.loadSettings()
+        self.elevationDlg.show()
         # Run the dialog event loop
         self.elevationDlg.exec_()
 
     def rundatacatalog(self):
         'show the dialog'
+        self.datacatalogusDlg.loadSettings()
         self.datacatalogusDlg.show()
         # Run the dialog event loop
         self.datacatalogusDlg.exec_()
