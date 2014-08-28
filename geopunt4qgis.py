@@ -231,6 +231,7 @@ class geopunt4Qgis:
         'show the dialog'
         self.datacatalogusDlg.loadSettings()
         self.datacatalogusDlg.show()
+        self.datacatalogusDlg.loadSettings()
         # Run the dialog event loop
         self.datacatalogusDlg.exec_()
 
