@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Thu Aug 14 20:20:45 2014
+# Created: Thu Aug 21 19:47:15 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -237,7 +237,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         item.setText(_translate("geopunt4QgisPoiDlg", "CRAB adres", None))
         self.addToMapKnop.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
         self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))
-        self.addMinModelBtn.setToolTip(_translate("geopunt4QgisPoiDlg", "<html><head/><body><p>Een versie met beperke attributen tot 1000 punten.</p><p>Plaatsen dicht bij elkaar kunnen geclusterd worden.</p></body></html>", None))
+        self.addMinModelBtn.setToolTip(_translate("geopunt4QgisPoiDlg", "Voeg alle POI’s toe die voldoen aan de criteria. \n"
+"Indien meer dan 1000 punten zal een gedeelte geclusterd worden", None))
         self.addMinModelBtn.setText(_translate("geopunt4QgisPoiDlg", "Voeg alle punten toe", None))
         self.actionZoomtoSelection.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar Selectie", None))
         self.actionAddTSeltoMap.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))

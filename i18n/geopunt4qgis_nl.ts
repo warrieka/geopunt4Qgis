@@ -757,7 +757,7 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">crab adres</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="373"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="374"/>
         <source>Voeg selectie toe aan kaart</source>
         <translation>Voeg selectie toe aan kaart</translation>
     </message>
@@ -767,7 +767,7 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation>Zoom naar selectie</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="368"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="369"/>
         <source>Zoom naar Selectie</source>
         <translation>Zoom naar Selectie</translation>
     </message>
@@ -844,12 +844,19 @@ Geopunt metadatacenter&lt;/a&gt; en
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="314"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Een versie met beperke attributen tot 1000 punten.&lt;/p&gt;&lt;p&gt;Plaatsen dicht bij elkaar kunnen geclusterd worden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Een versie met beperke attributen tot 1000 punten.&lt;/p&gt;&lt;p&gt;Plaatsen dicht bij elkaar kunnen geclusterd worden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Een versie met beperke attributen tot 1000 punten.&lt;/p&gt;&lt;p&gt;Plaatsen dicht bij elkaar kunnen geclusterd worden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="317"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="318"/>
         <source>Voeg alle punten toe</source>
         <translation>Voeg alle punten toe</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="ui_geopunt4QgisPoi.ui" line="314"/>
+        <source>Voeg alle POI’s toe die voldoen aan de criteria. 
+Indien meer dan 1000 punten zal een gedeelte geclusterd worden</source>
+        <translation>Voeg alle POI’s toe die voldoen aan de criteria. 
+Indien meer dan 1000 punten zal een gedeelte geclusterd worden</translation>
     </message>
 </context>
 <context>

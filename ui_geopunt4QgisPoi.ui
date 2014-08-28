@@ -311,7 +311,8 @@
      <item>
       <widget class="QPushButton" name="addMinModelBtn">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Een versie met beperke attributen tot 1000 punten.&lt;/p&gt;&lt;p&gt;Plaatsen dicht bij elkaar kunnen geclusterd worden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>Voeg alle POI’s toe die voldoen aan de criteria. 
+Indien meer dan 1000 punten zal een gedeelte geclusterd worden</string>
        </property>
        <property name="text">
         <string>Voeg alle punten toe</string>

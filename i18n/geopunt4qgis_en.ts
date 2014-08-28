@@ -762,7 +762,7 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">crab Address</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="373"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="374"/>
         <source>Voeg selectie toe aan kaart</source>
         <translation>Add Selection to map</translation>
     </message>
@@ -772,7 +772,7 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation>Zoom to selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="368"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="369"/>
         <source>Zoom naar Selectie</source>
         <translation>Zoom to selection</translation>
     </message>
@@ -849,12 +849,18 @@ Geopunt metadatacenter&lt;/a&gt; en
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="314"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Een versie met beperke attributen tot 1000 punten.&lt;/p&gt;&lt;p&gt;Plaatsen dicht bij elkaar kunnen geclusterd worden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A versie with limited attributes up to 1000 points&lt;/p&gt;&lt;p&gt;Locations close to each other can be clustered&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A versie with limited attributes up to 1000 points&lt;/p&gt;&lt;p&gt;Locations close to each other can be clustered&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="317"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="318"/>
         <source>Voeg alle punten toe</source>
         <translation>Add all points</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="ui_geopunt4QgisPoi.ui" line="314"/>
+        <source>Voeg alle POI’s toe die voldoen aan de criteria. 
+Indien meer dan 1000 punten zal een gedeelte geclusterd worden</source>
+        <translation>Add all poi&apos;s that forfill the critiria</translation>
     </message>
 </context>
 <context>
