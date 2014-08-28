@@ -88,7 +88,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.ui.resultView.clicked.connect(self.resultViewClicked)
         self.ui.modelFilterCbx.currentIndexChanged.connect(self.modelFilterCbxIndexChanged)
         self.ui.filterWgt.setHidden(1)
-        
+        self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.finished.connect(self.clean)
 
     def loadSettings(self):
@@ -101,6 +101,8 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
             self.port = ""
         self.md = metadata.MDReader( self.timeout, self.proxy, self.port )
             
+    def openHelp(self):
+        webbrowser.open_new_tab("http://warrieka.github.io/#!geopuntDatacatalog.md")
 
     def _setModel(self, records):   
         self.model.clear()

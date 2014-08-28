@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisDataCatalog.ui'
 #
-# Created: Wed Aug  6 19:47:19 2014
+# Created: Thu Aug 28 16:25:16 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -318,6 +318,8 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         sizePolicy.setHeightForWidth(self.msgLbl.sizePolicy().hasHeightForWidth())
         self.msgLbl.setSizePolicy(sizePolicy)
         self.msgLbl.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing)
+        self.msgLbl.setOpenExternalLinks(True)
+        self.msgLbl.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse)
         self.msgLbl.setObjectName(_fromUtf8("msgLbl"))
         self.verticalLayout.addWidget(self.msgLbl)
         self.addWMSaction = QtGui.QAction(geopunt4QgisDataCatalogDlg)

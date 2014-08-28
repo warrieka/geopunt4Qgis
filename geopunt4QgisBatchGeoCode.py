@@ -41,7 +41,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
             self.translator = QtCore.QTranslator()
             self.translator.load(localePath)
             if QtCore.qVersion() > '4.3.3': 
-              QtCore.QCoreApplication.installTranslator(self.translator)
+               QtCore.QCoreApplication.installTranslator(self.translator)
         #load gui
         self._initGui()
     
@@ -109,7 +109,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
     #eventHandlers
     def openHelp(self):
         webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntBatchgeocode.md")
-      
+
     def addToMap(self): 
         if not self.layernameValid(): return
 
@@ -126,6 +126,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
             self.ui.statusProgress.setValue(row)
             if self.ui.outPutTbl.cellWidget(row,adresCol):
                 adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
+                if not adres: continue
             else: 
                 row  += 1
                 continue
@@ -153,8 +154,8 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
                   retry -= 1                        #minus 1 retry
                   continue
                 else:
-                  self.ui.statusMsg.setText("<div style='color:red'>timeout after %s seconds and %s try's</div>" 
-                    % (self.timeout , retry))
+                  self.ui.statusMsg.setText("<div style='color:red'>timeout after %s seconds</div>" 
+                    % (self.timeout))
                   return
                 self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
                 return
@@ -379,19 +380,25 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
                 return
         
               elif validAdres and type( validAdres ) is list: 
-                if len(validAdres) > 1 and validAdres[0].upper() == adres.upper():
-                   validAdres = [validAdres[0]]
+                if len(validAdres) > 1 and len( validAdres[0].split(',')) == 2 and len(adres.strip()): 
+                   resustNR =  validAdres[0].split(',')[0].split()[-1]
+                   adresNR = adres.split(',')[0].split()[-1]
+                   if adresNR == resustNR:
+                      validAdres = [validAdres[0]]
                    
                 validCombo = QtGui.QComboBox(self.ui.adresColSelect)
                 validCombo.addItems(validAdres)
                 self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
     
               if len(validAdres) == 1:
+                  self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).setEnabled(0)
                   for col in range(len(self.headers)):
                       self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#CCFFCC"))
               elif len(validAdres) > 1:
+                  self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).addItem("")
                   for col in range(len(self.headers)):
                       self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#FFFFC8"))
+                      
               elif len(validAdres) == 0:
                   self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, None)
                   for col in range(len(self.headers)):
