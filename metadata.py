@@ -53,7 +53,7 @@ class MDdata:
         links = links.split('|') 
         for n in range(1, len( links )):
             if "OGC:WMS" in links[n].upper(): 
-              if "http" in  links[n - 1]: #some wms are store with relative path's, ignore those
+              if "http" in  links[n - 1]: #some wms are stored with relative path's, ignore those
                   return links[n - 1]
         return ""
 
@@ -61,8 +61,8 @@ class MDdata:
         links =  "|".join( [ n.text for n in node.findall("link") ] )
         links = links.split('|') 
         for n in range(1, len( links )):
-            if "WWW:DOWNLOAD" in links[n].upper(): 
-               if "http" in  links[n - 1]: #some wms are store with relative path's
+            if "DOWNLOAD" in links[n].upper(): 
+               if "http" in  links[n - 1]: #some files are stored with relative path's, ignore those
                   return links[n - 1]
         return ""
 

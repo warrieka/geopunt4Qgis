@@ -65,7 +65,7 @@ class geopunt4Qgis:
            if not vc.isUptoDate():
               QMessageBox.warning(None, QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
                   QCoreApplication.translate("geopunt4Qgis", 
-                  "Je versie van <a href='http://plugins.qgis.org/>plugins/geopunt4Qgis' >geopunt4qgis</a> is niet meer "+ 
+                  "Je versie van <a href='http://plugins.qgis.org/plugins/geopunt4Qgis' >geopunt4qgis</a> is niet meer "+ 
                   "up to date. <br/>Je kunt deze upgraden via het menu:<br/> "+
                   "<strong>Plugins > Beheer en installeer Plugins > Op te waarderen.</strong>"+
                   "<br/>Klik daarna op <strong>Plugin opwaarderen</strong>"))           

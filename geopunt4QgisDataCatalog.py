@@ -311,3 +311,4 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.ui.DLbtn.setEnabled(0)
         self.ui.addWFSbtn.setEnabled(0)
         self.ui.addWMSbtn.setEnabled(0)
+        self.ui.modelFilterCbx.setCurrentIndex(0)
