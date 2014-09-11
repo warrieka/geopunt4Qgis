@@ -377,17 +377,17 @@
     <message>
         <location filename="geopunt4qgis.py" line="94"/>
         <source>Zoek een Adres</source>
-        <translation>Search an Address</translation>
+        <translation type="obsolete">Search an Address</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="96"/>
         <source>Prik een Adres op kaart</source>
-        <translation>Find an Address on the map</translation>
+        <translation type="obsolete">Find an Address on the map</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="102"/>
         <source>Zoek een Plaats - interesse punt</source>
-        <translation>Search for a place of intrest</translation>
+        <translation type="obsolete">Search for a place of intrest</translation>
     </message>
     <message>
         <location filename="geopunt4qgis.py" line="113"/>
@@ -467,6 +467,21 @@
     <message>
         <location filename="geopunt4qgis.py" line="67"/>
         <source>Je versie van &lt;a href=&apos;http://plugins.qgis.org/plugins/geopunt4Qgis&apos; &gt;geopunt4qgis&lt;/a&gt; is niet meer up to date. &lt;br/&gt;Je kunt deze upgraden via het menu:&lt;br/&gt; &lt;strong&gt;Plugins &gt; Beheer en installeer Plugins &gt; Op te waarderen.&lt;/strong&gt;&lt;br/&gt;Klik daarna op &lt;strong&gt;Plugin opwaarderen&lt;/strong&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="96"/>
+        <source>Prik een adres op kaart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="102"/>
+        <source>Zoek een interessante plaats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="94"/>
+        <source>Zoek een adres</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

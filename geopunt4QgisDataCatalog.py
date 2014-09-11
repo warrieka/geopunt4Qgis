@@ -291,7 +291,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         crs = [n[2] for n in lyrs if n[1] == layerTitle ][0]
         url =  self.wfs.split('?')[0]
         wfsUri = metadata.makeWFSuri( url, layerName, crs )
-        
+        print  wfsUri
         try:
             vlayer = QgsVectorLayer( wfsUri, layerTitle , "WFS")
             QgsMapLayerRegistry.instance().addMapLayer(vlayer)

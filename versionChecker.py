@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys, os, urllib2
 import xml.etree.ElementTree as ET
 import ConfigParser as cfg

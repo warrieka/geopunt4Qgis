@@ -91,15 +91,15 @@ class geopunt4Qgis:
 
         # Create actions that will start plugin configuration
         self.adresAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntAddress.png"),
-            QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Adres"), self.iface.mainWindow())
+            QCoreApplication.translate("geopunt4Qgis" , u"Zoek een adres"), self.iface.mainWindow())
         self.reverseAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntReverse.png"),
-                QCoreApplication.translate("geopunt4Qgis", u"Prik een Adres op kaart"), 
+                QCoreApplication.translate("geopunt4Qgis", u"Prik een adres op kaart"), 
                 self.iface.mainWindow())
         self.batchAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntBatchgeocode.png"),
 	        QCoreApplication.translate("geopunt4Qgis", u"CSV-adresbestanden geocoderen"),
 	        self.iface.mainWindow())
         self.poiAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
-                QCoreApplication.translate("geopunt4Qgis" , u"Zoek een Plaats - interesse punt"), 
+                QCoreApplication.translate("geopunt4Qgis" , u"Zoek een interessante plaats"), 
 	        self.iface.mainWindow())	
         self.gipodAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntGIPOD.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Bevraag GIPOD"), self.iface.mainWindow())
@@ -320,7 +320,7 @@ class geopunt4Qgis:
         self._clearGraphicLayer()
         
     def openReverseHelp(self):
-        webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntReverse.md")
+        webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntReverse.md")
                 
     def _addMarker(self, pnt, clr=QColor(255,255,0)):
         m = QgsVertexMarker(self.iface.mapCanvas())

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import urllib2, urllib, json, sys, os.path, datetime
 import xml.etree.ElementTree as ET
 
@@ -285,7 +286,7 @@ def getWFSLayerNames( url, proxyUrl='', port=''):
 
 def makeWFSuri( url, name='', srsname="EPSG:31370", version='1.0.0' ):
     params = {  'SERVICE': 'WFS',
-                'VERSION':version ,
+                'VERSION': version ,
                 'REQUEST': 'GetFeature',
                 'TYPENAME': name,
                 'SRSNAME': srsname }
