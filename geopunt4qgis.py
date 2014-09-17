@@ -34,7 +34,7 @@ from geopunt4QgisAbout import geopunt4QgisAboutdialog
 from geopunt4QgisSettingsdialog import geopunt4QgisSettingsdialog
 from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
 from geopunt4QgisGipod import geopunt4QgisGipodDialog
-from geopunt4QgisElevation import geopunt4QgisElevationDialog
+import geopunt4QgisElevation as elv
 from geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
 #import selfmade libs
 from versionChecker import versionChecker
@@ -76,7 +76,7 @@ class geopunt4Qgis:
         self.poiDlg = geopunt4QgisPoidialog(self.iface)        
         self.gipodDlg = geopunt4QgisGipodDialog(self.iface)
         self.settingsDlg = geopunt4QgisSettingsdialog()
-        self.elevationDlg = geopunt4QgisElevationDialog(self.iface)
+        if elv.mathplotlibWorks : self.elevationDlg = elv.geopunt4QgisElevationDialog(self.iface)
         self.datacatalogusDlg = geopunt4QgisDataCatalog(self.iface)
         self.aboutDlg = geopunt4QgisAboutdialog()
         
@@ -221,6 +221,7 @@ class geopunt4Qgis:
         self.batchgeoDlg.exec_()
 
     def runElevation(self):
+        if elv.mathplotlibWorks == False: return
         'show the dialog'
         self.elevationDlg.loadSettings()
         self.elevationDlg.show()

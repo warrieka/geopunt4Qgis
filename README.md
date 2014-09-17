@@ -3,22 +3,28 @@ Geopunt4Qgis
 
 ![Geopunt for QGIS](images/logogeopunt4Q.png "Geopunt for QGIS")
 
+
 Functions
 --------
 
-  * <a href="http://warrieka.github.io/#!geopuntAddress.md" ><img src="images/geopuntAddressSmall.png" /> search an  address</a> 
-  * <a href="http://warrieka.github.io/#!geopuntReverse.md" ><img src="images/geopuntReverseSmall.png" /> click an address on the map</a>
-  * <a href="http://warrieka.github.io/#!geopuntBatchgeocode.md" ><img src="images/geopuntBatchgeocodeSmall.png" /> batch geocode CSV-files </a>
-  * <a href="http://warrieka.github.io/#!geopuntPoi.md" ><img src="images/geopuntPoiSmall.png" /> search for poi</a>
+  * <a href="http://warrieka.github.io/index.html#!geopuntAddress.md" ><img src="images/geopuntAddressSmall.png" /> Search an Address</a> 
+  * <a href="http://warrieka.github.io/index.html#!geopuntReverse.md" ><img src="images/geopuntReverseSmall.png" /> Click an Address on the m   map</a>
+  * <a href="http://warrieka.github.io/index.html#!geopuntBatchgeocode.md" ><img src="images/geopuntBatchgeocodeSmall.png" /> Geocode CSV-files </a>
+  * <a href="http://warrieka.github.io/index.html#!geopuntPoi.md" ><img src="images/geopuntPoiSmall.png" /> Find a point of intrest</a>
   * <a href="http://warrieka.github.io/index.html#!geopuntGIPOD.md" ><img src="images/geopuntGIPODsmall.png" /> GIPOD</a>
+  * <a href="http://warrieka.github.io/index.html#!geopuntElevation.md" ><img src="images/geopuntElevationSmall.png" /> Elevation profile</a>
+  * <a href="http://warrieka.github.io/index.html#!geopuntDatacatalog.md" ><img src="images/geopuntDataCatalogusSmall.png" /> Geopunt catalog</a>
 
+  
 System requirements
 -------------------
 
 - QGIS 2.0 or above
 - Python 2.7 (installed with qgis)
 - Any OS capable of running QGIS with python plug-ins: ao. MS Windows, Mac OSX and Linux
+- The python modules mathplotlib and numpy, installed with the Windows and Linux version of QGIS, but on MacOSX you have to install them separately. 
 - Requires internet connection, restrictive firewalls may block connection
+
  
 Goals
 -----
@@ -36,17 +42,11 @@ These include:
 - **Geocoding** based on the Flemish [CRAB](http://www.agiv.be/gis/projecten/?catid=34) address-database
 - **Location search** based on databases joined to the CRAB database, like the locations of the schools in Flanders.
 - **Traffic obstruction information** from the [GIPOD](http://gipod.api.agiv.be/#!index.md) public works and manifestation database.
+- **Elevation profile** a service that queries the digital elevation model Flanders, a set of along a line is retrieved.
+- **Metadata catalog** the [metadatacenter](https://metadata.geopunt.be) of Geopunt contains information about datasets and services from AGIV, DOV (geology) and MercatorNet (a co-operation between several Flemish governmental agencies).
 
 The goal of this project is to make these web-services available to QGIS-users, so they can be uses for creating print-maps and for doing research and analyses.
 
-Use cases:
-----------
-
-- The services are accessed through a interactive dialog, opened when the user clicks a button or menu entry.
-- The dialogs can be used and the data can be displayed at every supported Spatial Reference System, not just Belgian Lambert 1972 (epsg:31370) or wgs84.
-- The user can enter a "text" search query and if available also add other search options like a geographical extent.
-- The user gets a list of results for the query and he can select "zoom to selection" on this list, in order to evaluate if the selected variable is the wanted data.
-- The user can select the correct search result from the dialog and add it to map.
 
 What is Geopunt ?
 --------------
@@ -60,9 +60,9 @@ Geopunt is the website of the partnership for geographic information within the 
 About the author
 ----------------
 
-My name is **Kay Warrie**. I am geospatial data analyst and developer from Belgium. 
+My name is **Kay Warrie**. I am geospatial data-analyst and developer from Belgium. 
 My current employer is the research department of the city of Antwerp. 
-Professionaly I work on webmapping with ESRI arcgis-server or Mapbox Tilemill. I also maintain INSPIRE-compliant metadata as a part of the flemish Geodata Infrastruce (GDI). But above all I do all kinds of GIS analyses on city data. Most analyses are related to adressing-geocoding, spatial relationships,  proximity analyses (routing, service area's etc.) for environmental impact studies, zoning or construction permits.
+Professionaly I work on webmapping with ESRI arcgis-server or Mapbox Tilemill and on desktop GIS using arcgis or QGIS and other open source GIS. I also maintain INSPIRE-compliant metadata as a part of the Flemish Geodata Infrastruce (GDI). But above all I do all kinds of GIS analyses on city data. Most analyses are related to adressing-geocoding, spatial relationships,  proximity analyses (routing, service area's etc.) for environmental impact studies, zoning or construction permits.
 
 [Contact me](mailto:kaywarrie@gmail.com)
 

@@ -24,10 +24,14 @@ from ui_geopunt4QgisElevation import Ui_elevationDlg
 from qgis.core import *
 from qgis.gui import  QgsMessageBar, QgsVertexMarker
 #mathplotlib
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
-from matplotlib.figure import Figure
-import numpy as np
+try:
+  from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+  from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
+  from matplotlib.figure import Figure
+  import numpy as np
+  mathplotlibWorks = True
+except ImportError:
+  mathplotlibWorks = False          
 #other libs
 from geometryhelper import geometryHelper
 from elevationHelper import elevationHelper

@@ -11,6 +11,8 @@
 <li><a href="http://warrieka.github.io/index.html#!geopuntBatchgeocode.md" ><img src="../images/geopuntBatchgeocodeSmall.png" /> CSV-adresbestanden geocoderen</a></li>
 <li><a href="http://warrieka.github.io/index.html#!geopuntPoi.md" ><img src="../images/geopuntPoiSmall.png" /> Zoek een Plaats - interesse punt</a></li>
 <li><a href="http://warrieka.github.io/index.html#!geopuntGIPOD.md" ><img src="../images/geopuntGIPODsmall.png" /> GIPOD</a></li>
+<li><a href="http://warrieka.github.io/index.html#!geopuntElevation.md" ><img src="../images/geopuntElevationSmall.png" /> Hoogteprofiel</a></li>
+<li><a href="http://warrieka.github.io/index.html#!geopuntDatacatalog.md" ><img src="../images/geopuntDataCatalogusSmall.png" /> Geopunt catalogus</a></li>
 </ul>
 
 <h2>Systeem vereisten</h2>
@@ -18,43 +20,38 @@
 <ul>
 <li>QGIS 2.0 of hoger</li>
 <li>Python 2.7 (wordt geïnstalleerd met qgis)</li>
+<li>De python modules numpy en matplotlib (worden op Windows en Linux samen met QGIS geïnstalleerd, op Mac OSX dien je die zelf nog te installeren.)</li>
 <li>Elk besturingssysteem dat QGIS met python plug-ins ondersteund: ea. MS Windows, Mac OSX en Linux</li>
-<li>Vereist internet connectie, restrictieve firewalls kunnen mogelijk de connectie blokkeren</li>
+<li>Vereist internet connectie, restrictieve firewalls kunnen mogelijk de connectie blokkeren.</li>
 </ul>
 
 <h2>Doelstelling</h2>
 
-<p>geopunt4Qgis - <em>"Geopunt voor QGIS"</em> is een plugin voor de <a href="http://www.qgis.org/">QGIS</a> open source desktop GIS. </p>
+<p>geopunt4Qgis - <em>"Geopunt voor QGIS"</em> is een plugin voor de <a href="http://www.qgis.org/">QGIS</a> open source desktop GIS, die de webservices van het Vlaamse geoportaal Geopunt ontsluit naar desktop GIS-gebruikers. </p>
 
 <p>Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan die mogen gebruikt worden door derden zoals andere overheden en bedrijven.</p>
 
-<p>De kaartdiensten zijn gebaseerd op de OGC open standaard WMS of WMTS en kunnen gemakkelijk worden toegevoegd aan desktop GIS. GIS-gebruikers kunnen deze diensten ontdekken via het <a href="https://metadata.geopunt.be/zoekdienst/apps/tabsearch/index.html">metadacenter</a>.</p>
+<p>De kaartdiensten zijn gebaseerd op de OGC open standaard WMS of WMTS en kunnen gemakkelijk worden toegevoegd aan desktop GIS. GIS-gebruikers kunnen deze diensten ontdekken via het <a href="https://metadata.geopunt.be">metadatacenter</a>. 
+De achterliggende zoekservice voor deze diensten is niet direct bruikbaar in QGIS en wordt in deze plugin ingebouwd.</p>
 
-<p>Sommige diensten aangeboden door geopunt zijn niet gebaseerd op een open standaard omdat het gaat om diensten die geen  open standaard hebben. Deze publieke webdiensten zijn opgesteld volgens een REST-volle API, die eenvoudiger in gebruik is voor programmeurs dan OGC-diensten. Maar omdat ze niet gestandaardiseerd zijn kunnen ze niet zomaar binnen getrokken worden in desktop software.</p>
+<p>Sommige diensten aangeboden door geopunt zijn niet gebaseerd op een open standaard omdat het gaat om diensten die geen  courant gebruikte open standaard hebben. Deze publieke webdiensten zijn opgesteld volgens een REST-volle API, die eenvoudiger in gebruik is voor programmeurs dan OGC-diensten, maar omdat ze niet gestandaardiseerd zijn, kunnen ze niet zomaar binnen getrokken worden in desktop software.</p>
 
 <p>Het gaat onder andere over:</p>
 
 <ul>
-<li><strong>Geocoding</strong> gebaseerd op de officiële <a href="http://www.agiv.be/gis/projecten/?catid=34">CRAB</a> adressen-databank</li>
-<li><strong>Locaties zoeken</strong> door koppeling van adressen aan de crab-databank, bijvoorbeeld de scholendatabank van de Vlaamse overheid. (documentatie  nog niet beschikbaar)</li>
-<li><strong>Innames van openbaar domein</strong> van het Generiek Informatieplatform Openbaar Domein (GIPOD)  <a href="hhttp://gipod.api.agiv.be/#!index.md">GIPOD</a>, de officiële databank met manifestaties, wegenwerken en andere obstructies op het openbaar domein.</li>
+<li><strong>Geocoderen</strong>, gebaseerd op de officiële <a href="http://www.agiv.be/gis/projecten/?catid=34">CRAB</a> adressen-databank</li>
+<li><strong>Locaties zoeken</strong>, door koppeling van adressen aan de crab-databank, bijvoorbeeld de scholendatabank van de Vlaamse overheid. (documentatie  nog niet beschikbaar)</li>
+<li><strong>Innames van openbaar domein</strong>, van het Generiek Informatieplatform Openbaar Domein (GIPOD)  <a href="hhttp://gipod.api.agiv.be/#!index.md">GIPOD</a>, de officiële databank met manifestaties, wegenwerken en andere obstructies op het openbaar domein.</li>
+<li><strong>Hoogteprofiel</strong>, een dienst waarmee de hoogte, in digitaal hoogte model Vlaanderen, langsheen een lijn kan worden opgevraagd.</li>
+<li><strong>Metadata zoekdienst</strong>, deze diensten worden gebruik in het <a href="https://metadata.geopunt.be">metadatacenter</a> van geopunt en bevat ondermeer metadatafiches van AGIV, het samenwerkingsverband MercatorNet en DOV. </li>
 </ul>
 
-<p>Het van dit project om deze informatie te ontsluiten naar desktop QGIS-gebruikers, voor gebruik in papieren kaarten en voor het doen van analyse en onderzoek.</p>
-
-<h2>Use cases</h2>
-
-<ul>
-<li>De diensten zijn toegankelijk via een interactieve dialoog, geopend wanneer de gebruiker op een knop of menu-item klikt.</li>
-<li>De dialogen kunnen worden gebruikt en de gegevens kunnen worden weergegeven op elke ondersteund Spatial Reference System, niet alleen het Belgische Lambert 1972 (EPSG: 31370) of WGS84.</li>
-<li>De gebruiker kan een "tekst" zoekopdracht in voeren en indien beschikbaar, ook andere zoekopties toevoegen zoals een geografisch gebied.</li>
-<li>De gebruiker krijgt een lijst met resultaten voor de zoekopdracht en kan zoomen op een ​selectie van deze lijst, om te kunnen beoordelen of de variabele de gewenste data is.</li>
-<li>De gebruiker kan het juiste zoekresultaat selecteren in het dialoogvenster en toevoegen in kaart.</li>
-</ul>
+<p>Om GIS gebruikers binnen en buiten de Vlaamse Overheid dezelfde functionaliteit ter beschikking te stellen als aangeboden in Geopunt, wenst AGIV deze gebruikers te voorzien van software plug-ins die deze functionaliteit geïntegreerd aanbieden binnen de meest gangbare GIS desktop  omgevingen. 
+Op basis van voorafgaand overleg met de GDI-Vlaanderen gemeenschap werd volgende GIS software geselecteerd: Quantum GIS (QGIS) v2.0 Dufour en ESRI ArcMap v10. </p>
 
 <h2>Wat is Geopunt ?</h2>
 
-<p><a href="http://www.geopunt.be/">Geopunt</a> is de centrale toegangspoort tot geografische overheidsinformatie, en het uithangbord van het samenwerkingsverband voor geografische informatie in Vlaanderen (GDI-Vlaanderen). Het portaal richt zich met een uitgebreid data-, diensten- en toepassingenaanbod naar een breed en divers publiek. Van burgers op zoek naar een geschikte bouwgrond tot de GIS-coördinator of het studiebureau die een milieu-studie wensen uit te voeren. Het geoportaal maakt laagdrempelig gebruik van geografische informatie door zowel overheidsinstanties, burgers, organisaties als bedrijven mogelijk. Maatschappelijk relevante geografische gegevens en diensten worden op een slimme en gebruiksvriendelijke wijze bijeengebracht.   </p>
+<p><a href="http://www.geopunt.be/">Geopunt</a> is de centrale toegangspoort tot geografische overheidsinformatie, en het uithangbord van het samenwerkingsverband voor geografische informatie in Vlaanderen (GDI-Vlaanderen). Het portaal richt zich met een uitgebreid data-, diensten- en toepassingenaanbod naar een breed en divers publiek. Van burgers op zoek naar een geschikte bouwgrond tot de GIS-coördinator of het studiebureau die een milieu-studie wensen uit te voeren. Het geoportaal maakt laagdrempelig gebruik van geografische informatie door zowel overheidsinstanties, burgers, organisaties als bedrijven mogelijk. Maatschappelijk relevante geografische gegevens en diensten worden op een slimme en gebruiksvriendelijke wijze bijeengebracht. </p>
 
 <p>Alle componenten (metadata-cataloog, downloadapplicatie, e-commerce-applicatie, data en netwerkdiensten) worden rechtstreeks en geïntegreerd aangeboden. Het geoportaal vormt het Vlaams knooppunt in een Europese geografische data-infrastructuur en voldoet aan de vereisten van de <a href="http://inspire-geoportal.ec.europa.eu/">European INSPIRE richtlijn</a>.</p>
 
@@ -62,16 +59,17 @@
 
 <h2>Over de auteur</h2>
 
-<p>Ik ben geodata analyst en occasioneel programmeur, werkzaam bij de Studiedienst van stad Antwerpen. 
-Naast geohacking en kaartjes maken, houd ik van lezen, film kijken en reizen.</p>
+<p><a href="http://warrieka.github.io">Kay Warrie</a></p>
 
-<p>Professioneel werk ik op webmapping met ESRI arcgis-server of Mapbox Tilemill. Ik beheer ook mee de centrale geodatabases van het stad en INSPIRE-compliant metadata in kader van GDI, Voor de rest doe ik vooral allerlei GIS analyses op data van het Stad. De meeste analyses zijn gerelateerd aan adressering-geocoding, ruimtelijke relaties, nabijheids analyses (routing, service area's ed.) voor onder andere MER studies, ruimtelijke ordening of bouwvergunningen.</p>
+<p>Ik ben geodata analyst en occasioneel programmeur, werkzaam als freelance GIS consultant en bij de Studiedienst van stad Antwerpen. </p>
+
+<p>Professioneel werk ik op desktop GIS, voornamelijk Arcgis en QGIS en op webmapping met ESRI Arcgis-server of opensource webGIS en Maptiling Systemen. Ik beheer ook mee de centrale geodatabases van het stad en INSPIRE-compliant metadata in kader van GDI, Voor de rest doe ik vooral allerlei GIS analyses op data van het Stad. De meeste analyses zijn gerelateerd aan adressering-geocoding, ruimtelijke relaties, nabijheidsanalyses (routing, service area's ed.) voor onder andere MER studies, ruimtelijke ordening of bouwvergunningen.</p>
 
 <p><a href="mailto:kaywarrie@gmail.com">Contact mij</a></p>
 
 <p><a href="http://warrieka.github.io/#!aboutMe.md">Meer over mij</a></p>
 
-<h4>Bronnen:</h4>
+<h4>Online Bronnen:</h4>
 
 <ul>
 <li><em><a href="http://www.geopunt.be/over-geopunt">http://www.geopunt.be</a></em> </li>

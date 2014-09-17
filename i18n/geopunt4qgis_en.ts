@@ -345,32 +345,32 @@
         <translation>Zoom to</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="248"/>
+        <location filename="geopunt4qgis.py" line="249"/>
         <source>Zoek een Adres: </source>
         <translation>Search an Address:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="248"/>
+        <location filename="geopunt4qgis.py" line="249"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Click on the map to request the address</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="280"/>
+        <location filename="geopunt4qgis.py" line="281"/>
         <source>Resultaat: </source>
         <translation>Result:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="301"/>
+        <location filename="geopunt4qgis.py" line="302"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="296"/>
+        <location filename="geopunt4qgis.py" line="297"/>
         <source>Geen resultaten gevonden</source>
         <translation>No results found</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="304"/>
+        <location filename="geopunt4qgis.py" line="305"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
@@ -415,7 +415,7 @@
         <translation>geocode CSV-files</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="288"/>
+        <location filename="geopunt4qgis.py" line="289"/>
         <source>Voeg toe</source>
         <translation>add </translation>
     </message>
@@ -445,12 +445,12 @@
         <translation type="obsolete">Datacatalog</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="260"/>
+        <location filename="geopunt4QgisElevation.py" line="264"/>
         <source>Laag toevoegen</source>
         <translation>Add layer</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="260"/>
+        <location filename="geopunt4QgisElevation.py" line="264"/>
         <source>Geef een naam voor de laag op:</source>
         <translation>Enter a layername:</translation>
     </message>
@@ -671,7 +671,7 @@ Geopunt metadatacenter&lt;/a&gt; en
 <context>
     <name>geopunt4QgisElevationDialog</name>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="295"/>
+        <location filename="geopunt4QgisElevation.py" line="299"/>
         <source>Kan WMS niet laden</source>
         <translation>Cannot load WMS</translation>
     </message>
@@ -681,47 +681,47 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">No  data was found</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="322"/>
+        <location filename="geopunt4QgisElevation.py" line="326"/>
         <source>Er werd geen of onvoldoende data gevonden</source>
         <translation>No data was found for this location</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="277"/>
+        <location filename="geopunt4QgisElevation.py" line="281"/>
         <source>Kies de vulkleur</source>
         <translation>Pick a fill color</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="149"/>
+        <location filename="geopunt4QgisElevation.py" line="153"/>
         <source>Vorm grafiek aanpassen</source>
         <translation>Edit curves line and axes parameters</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="125"/>
+        <location filename="geopunt4QgisElevation.py" line="129"/>
         <source>Keer terug naar overzicht</source>
         <translation>Back to original view</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="129"/>
+        <location filename="geopunt4QgisElevation.py" line="133"/>
         <source>Vorige</source>
         <translation>Back</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="133"/>
+        <location filename="geopunt4QgisElevation.py" line="137"/>
         <source>Volgende</source>
         <translation>Next</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="137"/>
+        <location filename="geopunt4QgisElevation.py" line="141"/>
         <source>Pannen</source>
         <translation>Pan</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="141"/>
+        <location filename="geopunt4QgisElevation.py" line="145"/>
         <source>Zoom naar rechthoek</source>
         <translation>Zoom to rectangle</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="145"/>
+        <location filename="geopunt4QgisElevation.py" line="149"/>
         <source>Opslaan als afbeelding</source>
         <translation>Save as picture</translation>
     </message>

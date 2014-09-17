@@ -23,15 +23,15 @@ import urllib2, urllib, json, sys, os.path, datetime
 
 class Adres:
   def __init__(self, timeout=15, proxyUrl="", port="" ):
-    self.timeout = timeout
-    self._locUrl = "http://loc.api.geopunt.be/geolocation/Location?"
-    self._sugUrl = "http://loc.api.geopunt.be/geolocation/Suggestion?"
-    if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) & proxyUrl.startswith("http://"):
-       netLoc = proxyUrl.strip() + ":" + port
-       proxy = urllib2.ProxyHandler({'http': netLoc })
-       self.opener = urllib2.build_opener(proxy)
-    else:
-       self.opener = None
+      self.timeout = timeout
+      self._locUrl = "http://loc.api.geopunt.be/geolocation/Location?"
+      self._sugUrl = "http://loc.api.geopunt.be/geolocation/Suggestion?"
+      if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) & proxyUrl.startswith("http://"):
+         netLoc = proxyUrl.strip() + ":" + port
+         proxy = urllib2.ProxyHandler({'http': netLoc })
+         self.opener = urllib2.build_opener(proxy)
+      else:
+         self.opener = None
 
   def _createLocationUrl(self, q, c=1):
       geopuntUrl = self._locUrl
