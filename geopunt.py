@@ -39,7 +39,7 @@ class Adres:
       data["q"] = unicode(q).encode('utf-8')
       data["c"] = c
       values = urllib.urlencode(data)
-      result = geopuntUrl + values
+      result = geopuntUrl + values 
       return result
 
   def fetchLocation(self, q, c=1):
