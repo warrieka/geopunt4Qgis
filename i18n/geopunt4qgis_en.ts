@@ -762,17 +762,17 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">Limit search results to current map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="219"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="217"/>
         <source>id</source>
         <translation>id</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="229"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="227"/>
         <source>Categorie</source>
         <translation>Category</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="239"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="237"/>
         <source>Naam</source>
         <translation>Name</translation>
     </message>
@@ -782,52 +782,52 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">crab Address</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="374"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="372"/>
         <source>Voeg selectie toe aan kaart</source>
         <translation>Add Selection to map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="282"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="280"/>
         <source>Zoom naar selectie</source>
         <translation>Zoom to selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="369"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="367"/>
         <source>Zoom naar Selectie</source>
         <translation>Zoom to selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="59"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="34"/>
         <source>Filters</source>
         <translation>Filters</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="128"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="129"/>
         <source>Type:</source>
         <translation>Type:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="111"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="119"/>
         <source>Categorie:</source>
         <translation>Category:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="91"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="79"/>
         <source>Thema:</source>
         <translation>Thema:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="234"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="232"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="224"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="222"/>
         <source>Thema</source>
         <translation>Thema</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="74"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="62"/>
         <source>Gemeente:</source>
         <translation>Gemeente:</translation>
     </message>
@@ -837,12 +837,12 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">Search a location with geopunt</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="166"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="164"/>
         <source>Zoek</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="244"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="242"/>
         <source>CRAB adres</source>
         <translation>CRAB address</translation>
     </message>
@@ -864,7 +864,7 @@ Geopunt metadatacenter&lt;/a&gt; en
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="34"/>
         <source>Zoek op naam en keywords:</source>
-        <translation>Search for a place:</translation>
+        <translation type="obsolete">Search for a place:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisPoi.ui" line="314"/>
@@ -872,15 +872,20 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A versie with limited attributes up to 1000 points&lt;/p&gt;&lt;p&gt;Locations close to each other can be clustered&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisPoi.ui" line="318"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="316"/>
         <source>Voeg alle punten toe</source>
         <translation>Add all points</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui_geopunt4QgisPoi.ui" line="314"/>
+        <location filename="ui_geopunt4QgisPoi.ui" line="312"/>
         <source>Voeg alle POI’s toe die voldoen aan de criteria. 
 Indien meer dan 1000 punten zal een gedeelte geclusterd worden</source>
         <translation>Add all poi&apos;s that forfill the critiria</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisPoi.ui" line="136"/>
+        <source>Sleutelwoord:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -891,27 +896,27 @@ Indien meer dan 1000 punten zal een gedeelte geclusterd worden</source>
         <translation type="obsolete">No results for</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="334"/>
+        <location filename="geopunt4QgisPoidialog.py" line="326"/>
         <source>Waarschuwing</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="224"/>
+        <location filename="geopunt4QgisPoidialog.py" line="221"/>
         <source>onbekende fout</source>
         <translation>unknown error</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="231"/>
+        <location filename="geopunt4QgisPoidialog.py" line="228"/>
         <source>Merk op</source>
         <translation>Remark</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="231"/>
+        <location filename="geopunt4QgisPoidialog.py" line="228"/>
         <source>Er niets om naar te zoomen</source>
         <translation>Nothing to zoom to</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="216"/>
+        <location filename="geopunt4QgisPoidialog.py" line="213"/>
         <source>Geen resultaten gevonden voor: </source>
         <translation>No results for: </translation>
     </message>

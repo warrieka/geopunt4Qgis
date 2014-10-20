@@ -30,7 +30,7 @@ try:
   from matplotlib.figure import Figure
   import numpy as np
   mathplotlibWorks = True
-except ImportError:
+except:
   mathplotlibWorks = False          
 #other libs
 from geometryhelper import geometryHelper

@@ -149,23 +149,21 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         txt = self.ui.poiText.text()
         self.ui.resultLijst.clearContents()
         self.ui.resultLijst.setRowCount(0)
+        self.ui.msgLbl.setText("")
         
-        #filters:
-        if self.ui.filterBox.isChecked():
-           poithemeText = self.ui.filterPoiThemeCombo.currentText()
-           if poithemeText != "": poitheme = self.poiThemes[ poithemeText ]
-           else: poitheme = ""
-           poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
-           if poiCategorieText != "": poiCategorie = self.poiCategories[ poiCategorieText ]
-           else: poiCategorie = ""
-           poiTypeText =  self.ui.filterPoiTypeCombo.currentText() 
-           if poiTypeText!= "": poiType = self.poiTypes[ poiTypeText ]
-           else: poiType = ""
-           NISText= self.ui.filterPoiNIS.currentText()
-           if NISText != "" and not self.ui.currentBoundsVink.isChecked(): Niscode = self.NIScodes[NISText]
-           else: Niscode = ""
-        else: 
-           poitheme, poiCategorie, poiType, Niscode, = "","","",""
+        ##filters:
+        poithemeText = self.ui.filterPoiThemeCombo.currentText()
+        if poithemeText != "": poitheme = self.poiThemes[ poithemeText ]
+        else: poitheme = ""
+        poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
+        if poiCategorieText != "": poiCategorie = self.poiCategories[ poiCategorieText ]
+        else: poiCategorie = ""
+        poiTypeText =  self.ui.filterPoiTypeCombo.currentText() 
+        if poiTypeText!= "": poiType = self.poiTypes[ poiTypeText ]
+        else: poiType = ""
+        NISText= self.ui.filterPoiNIS.currentText()
+        if NISText != "" and not self.ui.currentBoundsVink.isChecked(): Niscode = self.NIScodes[NISText]
+        else: Niscode = ""
         
         if self.ui.currentBoundsVink.isChecked():
             bbox = self.iface.mapCanvas().extent()
@@ -267,8 +265,8 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
            self.ui.filterPoiTypeCombo.clear()
            self.ui.filterPoiCategoryCombo.addItems( poiCategories )
         else:
-          self.ui.filterPoiCategoryCombo.addItems(self.poiCategories.keys())
-          self.ui.filterPoiTypeCombo.addItems(self.poiTypes.keys())
+          self.ui.filterPoiCategoryCombo.addItems([""] + self.poiCategories.keys())
+          self.ui.filterPoiTypeCombo.addItems([""] + self.poiTypes.keys())
 
     def onCategorieFilterChange(self):
         poithemeText = self.ui.filterPoiThemeCombo.currentText()
@@ -282,28 +280,24 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
            self.ui.filterPoiTypeCombo.clear()
            self.ui.filterPoiTypeCombo.addItems( poiTypes )
 
-
     def addMinModel(self):
         if not self.layernameValid(): return
         self.clearGraphicsLayer()
         txt = self.ui.poiText.text()
-        
-        if self.ui.filterBox.isChecked():
-           poithemeText = self.ui.filterPoiThemeCombo.currentText()
-           if poithemeText != "": poitheme = self.poiThemes[ poithemeText ]
-           else: poitheme = ""
-           poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
-           if poiCategorieText != "": poiCategorie = self.poiCategories[ poiCategorieText ]
-           else: poiCategorie = ""
-           poiTypeText =  self.ui.filterPoiTypeCombo.currentText() 
-           if poiTypeText!= "": poiType = self.poiTypes[ poiTypeText ]
-           else: poiType = ""
-           NISText= self.ui.filterPoiNIS.currentText()
-           if NISText != "" and not self.ui.currentBoundsVink.isChecked(): Niscode = self.NIScodes[NISText]
-           else: Niscode = ""
-        else: 
-           poitheme, poiCategorie, poiType, Niscode, = "","","",""
-        
+
+        poithemeText = self.ui.filterPoiThemeCombo.currentText()
+        if poithemeText != "": poitheme = self.poiThemes[ poithemeText ]
+        else: poitheme = ""
+        poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
+        if poiCategorieText != "": poiCategorie = self.poiCategories[ poiCategorieText ]
+        else: poiCategorie = ""
+        poiTypeText =  self.ui.filterPoiTypeCombo.currentText() 
+        if poiTypeText!= "": poiType = self.poiTypes[ poiTypeText ]
+        else: poiType = ""
+        NISText= self.ui.filterPoiNIS.currentText()
+        if NISText != "" and not self.ui.currentBoundsVink.isChecked(): Niscode = self.NIScodes[NISText]
+        else: Niscode = ""
+      
         if self.ui.currentBoundsVink.isChecked():
             bbox = self.iface.mapCanvas().extent()
             minX, minY = self.gh.prjPtFromMapCrs([bbox.xMinimum(),bbox.yMinimum()], 4326)
@@ -352,6 +346,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
     def clean(self):
         self.bar.clearWidgets()
         self.ui.poiText.setText("")
+        self.ui.msgLbl.setText("")
         self.ui.resultLijst.clearContents()
         self.ui.resultLijst.setRowCount(0)
         self.clearGraphicsLayer()

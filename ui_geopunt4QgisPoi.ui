@@ -29,31 +29,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Zoek op naam en keywords:</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLineEdit" name="poiText"/>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="currentBoundsVink">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="text">
-      <string>Beperk zoekresultaten tot huidige zoomniveau</string>
-     </property>
-     <property name="tristate">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QGroupBox" name="filterBox">
      <property name="title">
       <string>Filters</string>
@@ -62,10 +37,23 @@
       <bool>false</bool>
      </property>
      <property name="checkable">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="currentBoundsVink">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Beperk zoekresultaten tot huidige zoomniveau</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
        <widget class="QWidget" name="filterWgt" native="true">
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">
@@ -105,13 +93,6 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="filterLbl2">
-           <property name="text">
-            <string>Categorie:</string>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="1">
           <widget class="QComboBox" name="filterPoiCategoryCombo">
            <property name="sizePolicy">
@@ -122,13 +103,6 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="filterLbl3">
-           <property name="text">
-            <string>Type:</string>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="1">
           <widget class="QComboBox" name="filterPoiTypeCombo">
            <property name="sizePolicy">
@@ -136,6 +110,30 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="filterLbl2">
+           <property name="text">
+            <string>Categorie:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="poiText"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="filterLbl3">
+           <property name="text">
+            <string>Type:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Sleutelwoord:</string>
            </property>
           </widget>
          </item>

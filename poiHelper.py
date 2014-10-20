@@ -35,6 +35,11 @@ class poiHelper:
         attributes = [ QgsField("id", QVariant.Int),
             QgsField("type", QVariant.String),
             QgsField("name", QVariant.String),
+            QgsField("straat", QVariant.String),
+            QgsField("huisnr", QVariant.String),
+            QgsField("busnr", QVariant.String),
+            QgsField("postcode", QVariant.String),
+            QgsField("gemeente", QVariant.String),
             QgsField("link", QVariant.String),
             QgsField("count", QVariant.Int) ]
     
@@ -50,11 +55,35 @@ class poiHelper:
             pt = QgsPoint( point['location']['points'][0]['Point']['coordinates'][0], 
                            point['location']['points'][0]['Point']['coordinates'][1]  )
             poiId = point["id"]
-            if "categories" in point and len(point["categories"]) > 0: poiType = point["categories"][0]['value']
+            
+            if "address" in point['location']: 
+              if "street" in point['location']["address"]: 
+                straat = point['location']["address"]["street"]
+              else:  straat = ''
+              if "streetnumber" in point['location']["address"]: 
+                huisnr = point['location']["address"]["streetnumber"]
+              else:  huisnr = ''
+              if "boxnumber" in point['location']["address"]: 
+                busnr = point['location']["address"]["boxnumber"]
+              else:  busnr = ''
+              postcode = point['location']["address"]["postalcode"]
+              gemeente = point['location']["address"]["municipality"]
+            else: 
+              straat = ""
+              huisnr = ""
+              busnr = ""
+              postcode = ""
+              gemeente = ""
+              
+            if "categories" in point and len(point["categories"]) > 0: 
+              poiType = point["categories"][0]["value"]
             else: poiType = ''
-            name = point["labels"][0]["value"]
-            if "links" in point: link = point["links"][0]['href']
-            else: link = ""
+            if "labels" in point and len(point["labels"]) > 0:
+              name = point["labels"][0]["value"]
+            else: name = ''
+            if "links" in point: 
+              link = point["links"][0]["href"]
+            else: link = ''
 
             # add a feature
             fet = QgsFeature(fields)
@@ -66,6 +95,11 @@ class poiHelper:
             fet.setGeometry(QgsGeometry.fromPoint(prjPt))
       
             fet['id'] = int( poiId )
+            fet['straat'] = straat
+            fet['huisnr'] = huisnr
+            fet['busnr'] = busnr
+            fet['postcode'] = postcode
+            fet['gemeente'] = gemeente
             fet['type'] = poiType
             fet['name'] = name
             fet['link'] = link
@@ -117,14 +151,23 @@ class poiHelper:
     
     def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None, sender=None, startFolder=None ):       
         attributes = [ QgsField("id", QVariant.Int),
-            QgsField("thema", QVariant.String),
+            QgsField("thema", QVariant.String), 
             QgsField("category", QVariant.String),
             QgsField("type", QVariant.String),
+
             QgsField("name", QVariant.String),
-            QgsField("adres", QVariant.String),
+            QgsField("telefoon", QVariant.String),  
+            QgsField("email", QVariant.String) ,
+            #address
+            QgsField("straat", QVariant.String),
+            QgsField("huisnr", QVariant.String),
+            QgsField("busnr", QVariant.String),
+            QgsField("postcode", QVariant.String),
+            QgsField("gemeente", QVariant.String),
+            
             QgsField("link", QVariant.String),
             QgsField("lastupdate", QVariant.String, "DateTime"),
-            QgsField("owner", QVariant.String)  ]
+            QgsField("owner", QVariant.String) ]
     
         if not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid) :
             self.poilayer = QgsVectorLayer("Point", layername, "memory")
@@ -138,20 +181,51 @@ class poiHelper:
             pt = QgsPoint( point['location']['points'][0]['Point']['coordinates'][0], 
                            point['location']['points'][0]['Point']['coordinates'][1]  )
             poiId = point["id"]
-            if "categories" in point and len(point["categories"]) > 0: theme =     point["categories"][0]['value']
+            if "categories" in point and len(point["categories"]) > 0: 
+              theme = point["categories"][0]['value']
             else: theme = ''
-            if "categories" in  point and len(point["categories"]) > 1: category = point["categories"][1]['value']
+            if "categories" in  point and len(point["categories"]) > 1: 
+              category = point["categories"][1]['value']
             else: category = ''
-            if "categories" in  point and len(point["categories"]) > 2: poiType =  point["categories"][2]['value']
+            if "categories" in  point and len(point["categories"]) > 2: 
+              poiType =  point["categories"][2]['value']
             else: poiType = ''
+            
             name = point["labels"][0]["value"]
-            adres = point['location']['address']["value"].replace("<br />",", ").replace("<br/>",", ")
-            if "links" in point: link = point["links"][0]['href']
+            if "phone" in point: 
+              phone = point["phone"]
+            else: phone= ""
+            if "email" in point: 
+              email = point["email"]
+            else: email= ""
+            #address
+            if "address" in point['location']: 
+              if "street" in point['location']["address"]: 
+                straat = point['location']["address"]["street"]
+              else:  straat = ''
+              if "streetnumber" in point['location']["address"]: 
+                huisnr = point['location']["address"]["streetnumber"]
+              else:  huisnr = ''
+              if "boxnumber" in point['location']["address"]: 
+                busnr = point['location']["address"]["boxnumber"]
+              else:  boxnr = ''
+              postcode = point['location']["address"]["postalcode"]
+              gemeente = point['location']["address"]["municipality"]
+            else: 
+              straat = ""
+              huisnr = ""
+              busnr = ""
+              postcode = ""
+              gemeente = ""
+            
+            if "links" in point: 
+              link = point["links"][0]['href']
             else: link = ""
             tijd =  point["updated"] 
-            if "authors" in point: owner = point["authors"][0]["value"]
+            if "authors" in point: 
+              owner = point["authors"][0]["value"]
             else: owner= ""
-
+            
             # add a feature
             fet = QgsFeature(fields)
 
@@ -166,7 +240,15 @@ class poiHelper:
             fet['category'] = category
             fet['type'] = poiType
             fet['name'] = name
-            fet['adres'] = adres
+            fet["email"] = email
+            fet["phone"] = phone
+            #address
+            fet['straat'] = straat
+            fet['huisnr'] = huisnr
+            fet['busnr'] = busnr
+            fet['postcode'] = postcode
+            fet['gemeente'] = gemeente
+            
             fet['link'] = link
             fet['lastupdate'] = tijd
             fet['owner'] = owner

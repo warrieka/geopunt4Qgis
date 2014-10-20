@@ -91,8 +91,8 @@ class Poi:
         self.opener = None
       
       #TODO: What if no WGS coordinates as input???
-      self.maxBounds = [1.17,49.77,7.29,52.35]  
-      self.resultBounds =  [1.17,49.77,7.29,52.35]  
+      self.maxBounds = [1.17, 49.77, 7.29, 52.35]  
+      self.resultBounds =  [1.17, 49.77, 7.29, 52.35]  
       self.PoiResult = []
       self.qeury = ""
       self.srs = 31370
@@ -164,9 +164,9 @@ class Poi:
   def _createPoiUrl(self, q, c=30, srs=31370, maxModel=False, bbox=None, theme='', category='', POItype='', region='' ):
       poiUrl = self._poiUrl
       data = {}
-      data["keyword"] = unicode(q).encode('utf-8')
+      if q : data["keyword"] = unicode(q).encode('utf-8')
       data["srsOut"] = srs
-      data["srsIn"] = srs    #i am asuming srsIn wil alwaysbe = srsOut
+      data["srsIn"] = srs    #i am assuming srsIn wil always be same as srsOut
       data["maxcount"] = c
       data["theme"]  = theme
       data["category"]  = category
@@ -230,16 +230,30 @@ class Poi:
       else:
         labels = []
         for n in sug:
+          recID= n["id"]
+          name= n["labels"][0]["value"]
+          if "address" in n['location']: 
+              straat = n['location']["address"]["street"]
+              huisnr = n['location']["address"]["streetnumber"]
+              postcode = n['location']["address"]["postalcode"]
+              gemeente = n['location']["address"]["municipality"]
+              if  'boxnumber' in n['location']["address"]:
+                  busnr = n['location']["address"]["boxnumber"]
+                  address = u"{} {} {}, {} {}".format(straat, huisnr, busnr, postcode, gemeente)
+              else: 
+                  address = u"{} {}, {} {}".format(straat, huisnr, postcode, gemeente)
+                
+          else: address = ''
+          
           if self.maxModel: 
             Thema= n["categories"][0]["value"]
             Categorie = n["categories"][1]["value"]
             Type = n["categories"][2]["value"]
-            address =  n["location"]["address"]["value"]
           else:
             Type = ["categories"][0]["value"]
-            Thema, Categorie, address = "","",""
+            Thema, Categorie = "",""
 
-          labels += [(n["id"],Thema, Categorie, Type ,n["labels"][0]["value"], address )] 
+          labels += [(recID, Thema, Categorie, Type , name , address )] 
         
         labels.sort()
         return labels
@@ -436,7 +450,7 @@ class gipod:
 class elevation:
   def __init__(self, timeout=15, proxyUrl="", port="" ):
       self.timeout = timeout
-      self.baseUri = 'http://ws.agiv.be/elevation/dhmv1/search'
+      self.baseUri = 'http://dhm.beta.agiv.be/api/elevation/v1/DHMVMIXED/request'
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
         netLoc = proxyUrl.strip() + ":" + port
