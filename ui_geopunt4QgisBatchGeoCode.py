@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Thu Aug 28 16:25:16 2014
+# Created: Tue Sep 30 20:57:50 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!

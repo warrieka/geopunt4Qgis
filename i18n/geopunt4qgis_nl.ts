@@ -887,27 +887,27 @@ Indien meer dan 1000 punten zal een gedeelte geclusterd worden</translation>
         <translation type="obsolete">Geen resultaten gevonden voor</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="302"/>
+        <location filename="geopunt4QgisPoidialog.py" line="334"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="219"/>
+        <location filename="geopunt4QgisPoidialog.py" line="224"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="226"/>
+        <location filename="geopunt4QgisPoidialog.py" line="231"/>
         <source>Merk op</source>
         <translation>Merk op</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="226"/>
+        <location filename="geopunt4QgisPoidialog.py" line="231"/>
         <source>Er niets om naar te zoomen</source>
         <translation>Er niets om naar te zoomen</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="211"/>
+        <location filename="geopunt4QgisPoidialog.py" line="216"/>
         <source>Geen resultaten gevonden voor: </source>
         <translation>Geen resultaten gevonden voor:</translation>
     </message>

@@ -41,7 +41,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             self.translator = QtCore.QTranslator()
             self.translator.load(localePath)
             if QtCore.qVersion() > '4.3.3': 
-              QtCore.QCoreApplication.installTranslator(self.translator)
+               QtCore.QCoreApplication.installTranslator(self.translator)
         self._initGui()
     
     def _initGui(self):
@@ -90,6 +90,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.ui.addToMapKnop.clicked.connect(self.onAddSelClicked)
         self.ui.addMinModelBtn.clicked.connect( self.addMinModel )
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
+        
         self.finished.connect(self.clean )
     
     def loadSettings(self):
@@ -130,6 +131,10 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
                 gemeenteNamen = [n["Naam"] for n in gemeentes]
                 gemeenteNamen.sort()
                 self.ui.filterPoiNIS.addItems( gemeenteNamen )            
+                #connect when inet on
+                self.ui.filterPoiThemeCombo.activated.connect(self.onThemeFilterChange)
+                self.ui.filterPoiCategoryCombo.activated.connect(self.onCategorieFilterChange)
+                
                 self.firstShow = False      
              else:
                 self.bar.pushMessage(
@@ -250,6 +255,33 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         pts = self._getSelectedPois()
         self.ph.save_pois_points( pts ,  layername=self.layerName, startFolder= os.path.join(self.startDir, self.layerName),
                   saveToFile=self.saveToFile, sender=self )
+
+    def onThemeFilterChange(self): 
+        poithemeText = self.ui.filterPoiThemeCombo.currentText()
+        
+        if poithemeText != "": 
+           poithemeID = self.poiThemes[ poithemeText ]
+           poiCategories = [""] + [n[0] for n in self.poi.listPoiCategories(poithemeID)]
+           poiCategories.sort()
+           self.ui.filterPoiCategoryCombo.clear()
+           self.ui.filterPoiTypeCombo.clear()
+           self.ui.filterPoiCategoryCombo.addItems( poiCategories )
+        else:
+          self.ui.filterPoiCategoryCombo.addItems(self.poiCategories.keys())
+          self.ui.filterPoiTypeCombo.addItems(self.poiTypes.keys())
+
+    def onCategorieFilterChange(self):
+        poithemeText = self.ui.filterPoiThemeCombo.currentText()
+        poiCategorieText = self.ui.filterPoiCategoryCombo.currentText() 
+        
+        if poiCategorieText != "" and poithemeText != "": 
+           poiCategorieID = self.poiCategories[ poiCategorieText ]
+           poithemeID = self.poiThemes[ poithemeText ]
+           poiTypes = [""] + [n[0] for n in self.poi.listPoitypes(poithemeID, poiCategorieID)]
+           poiTypes.sort()          
+           self.ui.filterPoiTypeCombo.clear()
+           self.ui.filterPoiTypeCombo.addItems( poiTypes )
+
 
     def addMinModel(self):
         if not self.layernameValid(): return

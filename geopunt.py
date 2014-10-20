@@ -80,7 +80,7 @@ class Adres:
 class Poi:
   def __init__(self, timeout=15, proxyUrl="", port=""):
       self.timeout = timeout
-      self._poiUrl = "http://poi.api.geopunt.be/core"
+      self._poiUrl = "http://poi.beta.geopunt.be/core"
       self.resultCount = 0
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
@@ -99,7 +99,7 @@ class Poi:
       self.maxModel=True
      
   def listPoiThemes(self):
-      url = self._poiUrl + "/themes/"
+      url = self._poiUrl + "/themes"
       poithemes = None
       try:
          if self.opener: response = self.opener.open(url, timeout=self.timeout)
@@ -115,8 +115,13 @@ class Poi:
       themes = [(  n["value"], n["term"]) for n in poithemes["categories"] ] #only need value and  term
       return themes
      
-  def listPoiCategories(self):
-      url = self._poiUrl + "/categories/"
+  def listPoiCategories(self, themeid=""):
+      "http://{base}/{path}/themes/{themeid}/categories"
+      if themeid:
+        url = self._poiUrl + "/themes/" + themeid +"/categories"
+      else:
+        url = self._poiUrl + "/categories"
+      
       poicategories = None
       try:
          if self.opener: response = self.opener.open(url, timeout=self.timeout)
@@ -132,8 +137,15 @@ class Poi:
       categories = [(  n["value"], n["term"]) for n in poicategories["categories"] ]
       return categories
     
-  def listPoitypes(self):
-      url = self._poiUrl + "/poitypes/"
+  def listPoitypes(self, themeid="", categoriename=""):
+      "http://{base}/{path}/themes/{themeid}/categories/{categoriename}/POITypes"
+      if themeid and categoriename:
+        url = self._poiUrl + "/themes/" + themeid + "/categories/" + categoriename +"/poitypes"
+      #elif categoriename  :
+        #url = self._poiUrl + "/categories/" + categoriename +"/poitypes"
+      else:
+        url = self._poiUrl + "/poitypes"
+        
       poitypes = None
       try:
          if self.opener: response = self.opener.open(url, timeout=self.timeout)
