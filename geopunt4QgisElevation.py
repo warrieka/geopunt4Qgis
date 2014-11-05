@@ -199,7 +199,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.figure.tight_layout()
     
     def openHelp(self):
-        webbrowser.open_new_tab("http://warrieka.github.io/#!geopuntElevation.md")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/hoogteprofiel")
     
     def drawBtnClicked(self):
         self.clean()

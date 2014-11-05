@@ -89,6 +89,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.ui.resultLijst.itemSelectionChanged.connect(self.onSelectionChanged)
         self.ui.addToMapKnop.clicked.connect(self.onAddSelClicked)
         self.ui.addMinModelBtn.clicked.connect( self.addMinModel )
+        self.ui.poiText.textChanged.connect( self.searchTxtChanged )
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         
         self.finished.connect(self.clean )
@@ -143,7 +144,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
                   level=QgsMessageBar.WARNING, duration=3)
       
     def openHelp(self):
-        webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntPoi.md")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/poi")
     
     def onZoekActivated(self):
         txt = self.ui.poiText.text()
@@ -170,10 +171,10 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             minX, minY = self.gh.prjPtFromMapCrs([bbox.xMinimum(),bbox.yMinimum()], 4326)
             maxX, maxY = self.gh.prjPtFromMapCrs([bbox.xMaximum(),bbox.yMaximum()], 4326)
             xyBox = [minX, minY, maxX, maxY]
-            self.poi.fetchPoi( txt, c=32, srs=4326 , maxModel=True, updateResults=True, bbox=xyBox, 
+            self.poi.fetchPoi( txt, c=100, srs=4326 , maxModel=True, updateResults=True, bbox=xyBox, 
                                theme=poitheme , category=poiCategorie, POItype=poiType )
         else:
-            self.poi.fetchPoi( txt, c=32, srs=4326 , maxModel=True, updateResults=True, bbox=None, 
+            self.poi.fetchPoi( txt, c=100, srs=4326 , maxModel=True, updateResults=True, bbox=None, 
                                theme=poitheme , category=poiCategorie, POItype=poiType, region=Niscode )
       
         suggesties = self.poi.poiSuggestion()
@@ -199,8 +200,12 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
               row += 1
           self.ui.resultLijst.setSortingEnabled(True)
           
-          self.ui.msgLbl.setText(QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
-          "Aantal getoond: %s gevonden: %s" % ( self.ui.resultLijst.rowCount() , self.poi.resultCount ) ))
+          if txt == "":
+            self.ui.msgLbl.setText(QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
+            "Aantal getoond: %s gevonden: %s" % ( self.ui.resultLijst.rowCount() , self.poi.resultCount ) ))
+          else:
+            self.ui.msgLbl.setText(QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
+            "Aantal gevonden: %s" % ( self.poi.resultCount ) ))
         
         elif len(suggesties) == 0:
           self.bar.pushMessage(
@@ -317,6 +322,16 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         elif type( pts ) == list or type( pts )  == dict:            
             self.ph.save_minPois_points(pts, layername=self.layerName, startFolder= os.path.join(self.startDir, self.layerName), saveToFile=self.saveToFile, sender=self )
             self.close()
+
+    def searchTxtChanged(self):
+        txt= self.ui.poiText.text()
+        if txt != "":
+           msg = QtCore.QCoreApplication.translate("geopunt4QgisPoidialog",
+                                                   "Voeg meer punten toe")
+        else:
+           msg = QtCore.QCoreApplication.translate("geopunt4QgisPoidialog",
+                                                   "Voeg alle punten toe" )
+        self.ui.addMinModelBtn.setText(msg)   
 
     def _getSelectedPois(self):
         pois =  self.poi.PoiResult

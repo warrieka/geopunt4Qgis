@@ -1,5 +1,6 @@
-
 docs/*.pdf
+docs/*.docx
+docs/*.doc
 
 ###############
 ## Kdevelop  ##

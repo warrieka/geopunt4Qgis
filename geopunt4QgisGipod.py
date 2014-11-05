@@ -127,6 +127,8 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
                                                       os.path.join( self.startDir, name))
               if fname:
                 ftype = gipodHelper.gipodeoHelper.checkFtype(fname)
+                if ftype == None:
+                  ftype = "ESRI Shapefile"
               else:
                 self.clean()
                 return
@@ -216,7 +218,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
             self.ui.cityCbx.addItems([ n["Naam"] for n in self.gemeentes ])
    
     def openHelp(self):
-        webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntGIPOD.md")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/gipod")
     
     def clean(self):
         self.ui.lyrName.setText("GIPOD")

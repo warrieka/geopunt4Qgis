@@ -112,7 +112,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
         
     def openHelp(self):
-        webbrowser.open_new_tab("http://kgis.be/index.html#!geopuntAddress.md")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/zoek-een-adres")
     
     def onZoekActivated(self):
         self._clearGraphicsLayer()

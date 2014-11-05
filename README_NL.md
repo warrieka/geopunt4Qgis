@@ -6,13 +6,13 @@ Geopunt4Qgis
 Functies
 --------
 
-  * <a href="http://warrieka.github.io/index.html#!geopuntAddress.md" ><img src="images/geopuntAddressSmall.png" /> Zoek een Adres</a> 
-  * <a href="http://warrieka.github.io/index.html#!geopuntReverse.md" ><img src="images/geopuntReverseSmall.png" /> Prik een Adres op kaart</a>
-  * <a href="http://warrieka.github.io/index.html#!geopuntBatchgeocode.md" ><img src="images/geopuntBatchgeocodeSmall.png" /> CSV-adresbestanden geocoderen</a>
-  * <a href="http://warrieka.github.io/index.html#!geopuntPoi.md" ><img src="images/geopuntPoiSmall.png" /> Zoek een Plaats - interesse punt</a>
-  * <a href="http://warrieka.github.io/index.html#!geopuntGIPOD.md" ><img src="images/geopuntGIPODsmall.png" /> GIPOD</a>
-  * <a href="http://warrieka.github.io/index.html#!geopuntElevation.md" ><img src="images/geopuntElevationSmall.png" /> Hoogteprofiel</a>
-  * <a href="http://warrieka.github.io/index.html#!geopuntDatacatalog.md" ><img src="images/geopuntDataCatalogusSmall.png" /> Geopunt catalogus</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/zoek-een-adres" ><img src="images/geopuntAddressSmall.png" /> Zoek een Adres</a> 
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/prik-een-adres-op-kaart" ><img src="images/geopuntReverseSmall.png" /> Prik een Adres op kaart</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/csv-bestanden-geocoderen" ><img src="images/geopuntBatchgeocodeSmall.png" /> CSV-adresbestanden geocoderen</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/poi" ><img src="images/geopuntPoiSmall.png" /> Zoek een Plaats - interesse punt</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/gipod" ><img src="images/geopuntGIPODsmall.png" /> GIPOD</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/hoogteprofiel" ><img src="images/geopuntElevationSmall.png" /> Hoogteprofiel</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/catalogus" ><img src="images/geopuntDataCatalogusSmall.png" /> Geopunt catalogus</a>
  
 Systeem vereisten
 -----------------
@@ -37,10 +37,10 @@ Sommige diensten aangeboden door geopunt zijn niet gebaseerd op een open standaa
 
 Het gaat onder andere over:
 
-- **Geocoderen**, gebaseerd op de officiële [CRAB](http://www.agiv.be/gis/projecten/?catid=34) adressen-databank
+- **Geocoderen**, gebaseerd op de officiële [CRAB](https://www.agiv.be/producten/crab) adressen-databank
 - **Locaties zoeken**, door koppeling van adressen aan de crab-databank, bijvoorbeeld de scholendatabank van de Vlaamse overheid. (documentatie  nog niet beschikbaar)
 - **Innames van openbaar domein**, van het Generiek Informatieplatform Openbaar Domein (GIPOD)  [GIPOD](hhttp://gipod.api.agiv.be/#!index.md), de officiële databank met manifestaties, wegenwerken en andere obstructies op het openbaar domein.
-- **Hoogteprofiel**, een dienst waarmee de hoogte, in digitaal hoogte model Vlaanderen, langsheen een lijn kan worden opgevraagd.
+- **Hoogteprofiel**, een dienst waarmee de hoogte, in digitaal hoogte model Vlaanderen, langsheen een lijn kan worden opgevraagd. De brondata is [DHM-Vlaanderen](https://www.agiv.be/producten/digitaal-hoogtemodel-vlaanderen).
 - **Metadata zoekdienst**, deze diensten worden gebruik in het [metadatacenter](https://metadata.geopunt.be) van geopunt en bevat ondermeer metadatafiches van AGIV, het samenwerkingsverband MercatorNet en DOV. 
 
 Om GIS gebruikers binnen en buiten de Vlaamse Overheid dezelfde functionaliteit ter beschikking te stellen als aangeboden in Geopunt, wenst AGIV deze gebruikers te voorzien van software plug-ins die deze functionaliteit geïntegreerd aanbieden binnen de meest gangbare GIS desktop  omgevingen. 
@@ -58,7 +58,7 @@ Geopunt is de website van het samenwerkingsverband voor geografische informatie 
 Over de auteur
 -------------
 
-[Kay Warrie](http://warrieka.github.io)
+[Kay Warrie](http://kgis.be)
 
 Ik ben geodata analyst en occasioneel programmeur, werkzaam als freelance GIS consultant en bij de Studiedienst van stad Antwerpen. 
 
@@ -70,8 +70,7 @@ Professioneel werk ik op desktop GIS, voornamelijk Arcgis en QGIS en op webmappi
 
 #### Online Bronnen:
 
-- *[http://www.geopunt.be](http://www.geopunt.be/over-geopunt)* 
-- *[http://gditestbed.agiv.be/](http://gditestbed.agiv.be/)*
+- *[http://www.geopunt.be](http://www.geopunt.be/voor-experts/geopunt-plugins)* 
 - *[https://www.agiv.be/](https://www.agiv.be/)*
 
 

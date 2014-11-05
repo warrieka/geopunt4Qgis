@@ -483,11 +483,159 @@ class elevation:
         elevationJson = json.load(response)
         return elevationJson
 
+class perceel:
+    def __init__(self, timeout=15, proxyUrl="", port="" ):
+      self.timeout = timeout
+      self.baseUrl = "http://ws.beta.agiv.be/capakey/api/v0"
+      if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) & proxyUrl.startswith("http://"):
+         netLoc = proxyUrl.strip() + ":" + port
+         proxy = urllib2.ProxyHandler({'http': netLoc })
+         self.opener = urllib2.build_opener(proxy)
+      else:
+         self.opener = None
+    
+    def getMunicipalities(self):
+        url = self.baseUrl + "/municipality/"
+        try:
+          if self.opener: response = self.opener.open(url, timeout=self.timeout)
+          else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except (urllib2.HTTPError, urllib2.URLError) as e:
+            raise geopuntError( e.reason )
+        except:
+            raise geopuntError( sys.exc_info()[1] )
+        else:
+            municipalities = json.load(response)
+            return municipalities["municipalities"]
+
+    def getMunicipalitieInfo(self, niscode, srs=31370, geometryType="no" ):
+
+        data = {}
+        if srs in [31370, 4326, 3857]: data["srs"] = srs
+        if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
+        values = urllib.urlencode(data)
+        
+        url = "{0}/municipality/{1}?{2}".format( self.baseUrl, niscode, values )
+        
+        try:
+          if self.opener: response = self.opener.open(url, timeout=self.timeout)
+          else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except (urllib2.HTTPError, urllib2.URLError) as e:
+           raise geopuntError( e.reason )
+        except:
+           raise geopuntError( sys.exc_info()[1] )
+        else:
+            municipality = json.load(response)
+            return municipality
+
+    def getDepartments(self, niscode):
+        url = "{0}/municipality/{1}/department/".format( self.baseUrl, niscode)
+
+        try:
+          if self.opener: response = self.opener.open(url, timeout=self.timeout)
+          else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except (urllib2.HTTPError, urllib2.URLError) as e:
+            raise geopuntError( e.reason )
+        except:
+            raise geopuntError( sys.exc_info()[1] )
+        else:
+            departments = json.load(response)
+            return departments['departments']
+
+    def getDepartmentInfo(self, niscode, departmentCode, srs=31370, geometryType="no" ):
+        
+        data = {}
+        if srs in [31370, 4326, 3857]: data["srs"] = srs
+        if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
+        values = urllib.urlencode(data)
+
+        url = "{0}/municipality/{1}/department/{2}?{3}".format( 
+                                    self.baseUrl, niscode, departmentCode, values)
+        try:
+          if self.opener: response = self.opener.open(url, timeout=self.timeout)
+          else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except (urllib2.HTTPError, urllib2.URLError) as e:
+            raise geopuntError( e.reason )
+        except:
+            raise geopuntError( sys.exc_info()[1] )
+        else:
+            department = json.load(response)
+            return department
+
+    def getSections(self, niscode, departmentCode):
+        url = "{0}/municipality/{1}/department/{2}/section/".format( self.baseUrl, niscode, departmentCode)
+
+        try:
+          if self.opener: response = self.opener.open(url, timeout=self.timeout)
+          else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except (urllib2.HTTPError, urllib2.URLError) as e:
+            raise geopuntError( e.reason )
+        except:
+            raise geopuntError( sys.exc_info()[1] )
+        else:
+            secties = json.load(response)
+            return secties['sections']
+
+    def getSectionInfo(self, niscode, departmentCode, sectieCode, srs=31370, geometryType="no" ):
+      
+        data = {}
+        if srs in [31370, 4326, 3857]: data["srs"] = srs
+        if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
+        values = urllib.urlencode(data)
+      
+        url = "{0}/municipality/{1}/department/{2}/section/{3}?{4}".format( 
+                                  self.baseUrl, niscode, departmentCode, sectieCode, values)
+        try:
+          if self.opener: response = self.opener.open(url, timeout=self.timeout)
+          else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except (urllib2.HTTPError, urllib2.URLError) as e:
+            raise geopuntError( e.reason )
+        except:
+            raise geopuntError( sys.exc_info()[1] )
+        else:
+            sectie = json.load(response)
+            return sectie 
+
+    def getParcels(self, niscode, departmentCode, sectieCode):
+        url = "{0}/municipality/{1}/department/{2}/section/{3}/parcel".format( 
+                              self.baseUrl, niscode, departmentCode, sectieCode)
+        try:
+          if self.opener: response = self.opener.open(url, timeout=self.timeout)
+          else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except (urllib2.HTTPError, urllib2.URLError) as e:
+            raise geopuntError( e.reason )
+        except:
+            raise geopuntError( sys.exc_info()[1] )
+        else:
+            parcels = json.load(response)
+            return parcels['parcels']
+          
+    def getParcel(self, niscode, departmentCode, sectieCode, perceelnummer, srs=31370, geometryType="no"):
+      
+        data = {}
+        if srs in [31370, 4326, 3857]: data["srs"] = srs
+        if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
+        values = urllib.urlencode(data)
+  
+        url = "{0}/municipality/{1}/department/{2}/section/{3}/parcel/{4}?{5}".format( 
+                              self.baseUrl, niscode, departmentCode, sectieCode, perceelnummer, values)
+        try:
+          if self.opener: response = self.opener.open(url, timeout=self.timeout)
+          else: response = urllib2.urlopen(url, timeout=self.timeout)
+        except (urllib2.HTTPError, urllib2.URLError) as e:
+            raise geopuntError( e.reason )
+        except:
+            raise geopuntError( sys.exc_info()[1] )
+        else:
+            parcel = json.load(response)
+            return parcel
+          
+
 class geopuntError(Exception):
     def __init__(self, message):
       self.message = message
     def __str__(self):
       return repr(self.message)
+      
       
 def internet_on(timeout=15, proxyUrl="", port="" ):
     if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):

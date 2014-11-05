@@ -102,7 +102,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.md = metadata.MDReader( self.timeout, self.proxy, self.port )
             
     def openHelp(self):
-        webbrowser.open_new_tab("http://warrieka.github.io/#!geopuntDatacatalog.md")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/catalogus")
 
     def _setModel(self, records):   
         self.model.clear()

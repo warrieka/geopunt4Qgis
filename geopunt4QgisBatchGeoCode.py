@@ -108,7 +108,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
 
     #eventHandlers
     def openHelp(self):
-        webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntBatchgeocode.md")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/csv-bestanden-geocoderen")
 
     def addToMap(self): 
         if not self.layernameValid(): return
@@ -450,7 +450,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         filter = "Comma separated value File (.csv) (*.csv);;Text Files (.txt) (*.txt);;Any File (*.*)"
         fd.setFileMode(QtGui.QFileDialog.AnyFile)
         #testdata:  /home/kay/projects/geopunt4Qgis/testData/vergunning2.csv
-        fName = fd.getOpenFileName( self, "open file" , None, filter)
+        fName = fd.getOpenFileName( self, "open file" , self.startDir, filter)
         if fName:
             self.ui.inputTxt.setText(fName)
             self.loadTable()

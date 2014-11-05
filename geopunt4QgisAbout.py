@@ -19,7 +19,7 @@ geopunt4QgisAboutdialog
 *                                                                         *
 ***************************************************************************/
 """
-import os.path
+import os.path, codecs
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisAbout import Ui_aboutDlg
 
@@ -53,6 +53,6 @@ class geopunt4QgisAboutdialog(QtGui.QDialog):
       self.ui = Ui_aboutDlg() 
       self.ui.setupUi(self)
       self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole  )
-      with open(self.htmlFile, 'r') as html:
+      with codecs.open(self.htmlFile, 'r', encoding="utf-8") as html:
            self.ui.aboutText.setHtml( html.read() )
       

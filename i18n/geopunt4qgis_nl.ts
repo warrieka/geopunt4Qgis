@@ -729,12 +729,12 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation>&lt;strong&gt;Waarschuwing: &lt;/strong&gt;kan niet verbinden met internet</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisGipod.py" line="159"/>
+        <location filename="geopunt4QgisGipod.py" line="161"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisGipod.py" line="159"/>
+        <location filename="geopunt4QgisGipod.py" line="161"/>
         <source>Deze bevraging had geen resultaten, er werd geen laag aangemaakt</source>
         <translation>Deze bevraging had geen resultaten, er werd geen laag aangemaakt</translation>
     </message>
@@ -892,27 +892,27 @@ Indien meer dan 1000 punten zal een gedeelte geclusterd worden</translation>
         <translation type="obsolete">Geen resultaten gevonden voor</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="326"/>
+        <location filename="geopunt4QgisPoidialog.py" line="331"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="221"/>
+        <location filename="geopunt4QgisPoidialog.py" line="226"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="228"/>
+        <location filename="geopunt4QgisPoidialog.py" line="233"/>
         <source>Merk op</source>
         <translation>Merk op</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="228"/>
+        <location filename="geopunt4QgisPoidialog.py" line="233"/>
         <source>Er niets om naar te zoomen</source>
         <translation>Er niets om naar te zoomen</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisPoidialog.py" line="213"/>
+        <location filename="geopunt4QgisPoidialog.py" line="218"/>
         <source>Geen resultaten gevonden voor: </source>
         <translation>Geen resultaten gevonden voor:</translation>
     </message>
@@ -940,6 +940,16 @@ Indien meer dan 1000 punten zal een gedeelte geclusterd worden</translation>
         <location filename="geopunt4QgisDataCatalog.py" line="201"/>
         <source>Let op</source>
         <translation type="obsolete">Let op</translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisPoidialog.py" line="340"/>
+        <source>Voeg meer punten toe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="geopunt4QgisPoidialog.py" line="343"/>
+        <source>Voeg alle punten toe</source>
+        <translation type="unfinished">Voeg alle punten toe</translation>
     </message>
 </context>
 <context>

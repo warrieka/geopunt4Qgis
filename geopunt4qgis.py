@@ -321,7 +321,7 @@ class geopunt4Qgis:
         self._clearGraphicLayer()
         
     def openReverseHelp(self):
-        webbrowser.open_new_tab("http://warrieka.github.io/index.html#!geopuntReverse.md")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/prik-een-adres-op-kaart")
                 
     def _addMarker(self, pnt, clr=QColor(255,255,0)):
         m = QgsVertexMarker(self.iface.mapCanvas())

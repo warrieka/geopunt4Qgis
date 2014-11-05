@@ -137,4 +137,31 @@ create a graph with mathplotlib
         
         sys.exit(app.exec_())
 ```
+
+
+perceel
+-----
+voorbeeldlinken:
+
+http://ws.beta.agiv.be/capakey/api/v0/municipality
+
+http://ws.beta.agiv.be/capakey/api/v0/municipality/44021
+
+http://ws.beta.agiv.be/capakey/api/v0/municipality/44021/department
+
+http://ws.beta.agiv.be/capakey/api/v0/municipality/44021/department/44808
+
+http://ws.beta.agiv.be/capakey/api/v0/municipality/44021/department/44808/section
+
+http://ws.beta.agiv.be/capakey/api/v0/municipality/44021/department/44808/section/H
+
+http://ws.beta.agiv.be/capakey/api/v0/municipality/44021/department/44808/section/H/parcel
+
+http://ws.beta.agiv.be/capakey/api/v0/municipality/44021/department/44808/section/H/parcel/0301/00R002
+
+
+
+
+
+
   
