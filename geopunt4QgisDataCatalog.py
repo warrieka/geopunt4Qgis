@@ -227,7 +227,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
     def addWMS(self):
         if self.wms == None: return
       
-        crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
+        crs =  self.gh.getGetMapCrs(self.iface).authid()
         if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
            crs = 'EPSG:31370' 
         try:   

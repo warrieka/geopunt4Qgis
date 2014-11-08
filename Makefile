@@ -32,6 +32,7 @@ SOURCES         = geopunt4qgis.py \
 		  geopunt4QgisGipod.py \
 		  geopunt4QgisElevation.py \
 		  geopunt4QgisDataCatalog.py \
+		  geopunt4qgisParcel.py   \
 		  versionChecker.py
 
 FORMS           = ui_geopunt4qgis.ui \
@@ -41,7 +42,8 @@ FORMS           = ui_geopunt4qgis.ui \
 		  ui_geopunt4QgisBatchGeoCode.ui \
 		  ui_geopunt4QgisGIPOD.ui \
 		  ui_geopunt4QgisElevation.ui \
-		  ui_geopunt4QgisDataCatalog.ui
+		  ui_geopunt4QgisDataCatalog.ui \
+		  ui_geopunt4qgisParcel.ui
 		    
 TRANSLATIONS = i18n/geopunt4qgis_en.ts i18n/geopunt4qgis_nl.ts
 
@@ -52,7 +54,7 @@ PY_FILES =  __init__.py geometryhelper.py geopunt.py \
 geopunt4qgis.py geopunt4QgisAbout.py geopunt4qgisAdresdialog.py \
 geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py  \
 geopunt4QgisBatchGeoCode.py batchGeoHelper.py reverseAdresMapTool.py \
-geopunt4QgisGipod.py gipodHelper.py \
+geopunt4QgisGipod.py gipodHelper.py geopunt4qgisParcel.py \
 geopunt4QgisElevation.py elevationHelper.py elevationProfileMapTool.py \
 metadata.py geopunt4QgisDataCatalog.py versionChecker.py poiHelper.py
 
@@ -60,7 +62,7 @@ EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html ext-libs
 
 UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py \
 ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py ui_geopunt4QgisGIPOD.py \
-ui_geopunt4QgisElevation.py ui_geopunt4QgisDataCatalog.py 
+ui_geopunt4QgisElevation.py ui_geopunt4QgisDataCatalog.py ui_geopunt4qgisParcel.py
 
 RESOURCE_FILES = resources_rc.py
 
@@ -73,9 +75,6 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 
 %.py : %.ui
 	pyuic4 -o $@ $<
-# [KW]: removed -> is not compile but transcompile
-# %.qm : %.ts
-# 	lrelease $<
 
 # [KW]: extra command with my own python script, that I can also use on windows
 # workflow testPlugin.py: pack -> extract at QGISDIR -> start QGIS

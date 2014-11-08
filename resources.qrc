@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="/plugins/geopunt4Qgis">
+    <file>images/geopuntParcelSmall.png</file>
+    <file>images/geopuntParcel.png</file>
     <file>images/addPointLayer.png</file>
     <file>images/addVectorLayer.png</file>
     <file>images/binoculars.png</file>

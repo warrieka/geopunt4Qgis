@@ -23,6 +23,7 @@ import os.path, codecs
 from PyQt4.QtCore import *
 from PyQt4.QtGui import QFileDialog
 from qgis.core import *
+from geometryhelper import geometryHelper
 
 class batcGeoHelper:
   def __init__(self,iface, parent, startFolder="" ):
@@ -48,7 +49,7 @@ class batcGeoHelper:
     
   def save_adres_point(self, point, address, typeAddress='', attritableDict={}, layername="Geopunt_adressen" ):
     
-    mapcrs = self.canvas.mapRenderer().destinationCrs()
+    mapcrs = geometryHelper.getMetMapCrs( self.iface )
     
     if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid):
         attributes = self._createAttributeTable( attritableDict )

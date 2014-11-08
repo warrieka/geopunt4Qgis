@@ -23,7 +23,7 @@ from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisSettings import Ui_settingsDlg
 import os
 
-class geopunt4QgisSettingsdialog(QtGui.QDialog):
+class geopunt4QgisSettingsDialog(QtGui.QDialog):
     def __init__(self):
       QtGui.QDialog.__init__(self, None)
       self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )

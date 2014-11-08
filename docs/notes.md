@@ -160,8 +160,27 @@ http://ws.beta.agiv.be/capakey/api/v0/municipality/44021/department/44808/sectio
 http://ws.beta.agiv.be/capakey/api/v0/municipality/44021/department/44808/section/H/parcel/0301/00R002
 
 
+2.6: DeprecationWarning
+---
 
+2014-11-08T13:58:12 1   warning:/home/kay/.qgis2/python/plugins/geopunt4Qgis/geopunt4QgisDataCatalog.py:230: DeprecationWarning: QgsMapCanvas.mapRenderer() is deprecated
+              crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
+            
+            traceback:  File "/home/kay/.qgis2/python/plugins/geopunt4Qgis/geopunt4qgis.py", line 245, in rundatacatalog
+                self.datacatalogusDlg.exec_()
+            
+2014-11-08T13:59:23 1   warning:/home/kay/.qgis2/python/plugins/geopunt4Qgis/geopunt4QgisElevation.py:286: DeprecationWarning: QgsMapCanvas.mapRenderer() is deprecated
+              crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
+            
+            traceback:  File "/home/kay/.qgis2/python/plugins/geopunt4Qgis/geopunt4qgis.py", line 238, in runElevation
+                self.elevationDlg.exec_()
 
-
+Solution: 
+  need to use QgsMapSettings() -> http://qgis.org/api/2.6/classQgsMapSettings.html 
+  
+  replace: crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
+  with 
+    crs = self.iface.mapCanvas().mapSettings().destinationCrs()
+  
 
   

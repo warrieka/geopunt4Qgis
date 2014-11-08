@@ -483,7 +483,7 @@ class elevation:
         elevationJson = json.load(response)
         return elevationJson
 
-class perceel:
+class parcel:
     def __init__(self, timeout=15, proxyUrl="", port="" ):
       self.timeout = timeout
       self.baseUrl = "http://ws.beta.agiv.be/capakey/api/v0"
@@ -505,7 +505,8 @@ class perceel:
             raise geopuntError( sys.exc_info()[1] )
         else:
             municipalities = json.load(response)
-            return municipalities["municipalities"]
+            if municipalities: return municipalities["municipalities"]
+            else : return []
 
     def getMunicipalitieInfo(self, niscode, srs=31370, geometryType="no" ):
 
@@ -539,7 +540,8 @@ class perceel:
             raise geopuntError( sys.exc_info()[1] )
         else:
             departments = json.load(response)
-            return departments['departments']
+            if departments: return departments['departments']
+            else : return []             
 
     def getDepartmentInfo(self, niscode, departmentCode, srs=31370, geometryType="no" ):
         
@@ -573,7 +575,8 @@ class perceel:
             raise geopuntError( sys.exc_info()[1] )
         else:
             secties = json.load(response)
-            return secties['sections']
+            if secties: return secties['sections']
+            else : return []       
 
     def getSectionInfo(self, niscode, departmentCode, sectieCode, srs=31370, geometryType="no" ):
       
@@ -607,7 +610,8 @@ class perceel:
             raise geopuntError( sys.exc_info()[1] )
         else:
             parcels = json.load(response)
-            return parcels['parcels']
+            if parcels: return parcels['parcels']
+            else : return []       
           
     def getParcel(self, niscode, departmentCode, sectieCode, perceelnummer, srs=31370, geometryType="no"):
       

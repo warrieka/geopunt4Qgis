@@ -30,12 +30,13 @@ import resources_rc
 from geopunt4qgisAdresdialog import geopunt4QgisAdresDialog
 from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from reverseAdresMapTool import reverseAdresMapTool
-from geopunt4QgisAbout import geopunt4QgisAboutdialog
-from geopunt4QgisSettingsdialog import geopunt4QgisSettingsdialog
+from geopunt4QgisAbout import geopunt4QgisAboutDialog
+from geopunt4QgisSettingsdialog import geopunt4QgisSettingsDialog
 from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
 from geopunt4QgisGipod import geopunt4QgisGipodDialog
 import geopunt4QgisElevation as elv
 from geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
+from geopunt4qgisParcel import geopunt4QgisParcelDlg
 #import selfmade libs
 from versionChecker import versionChecker
 #import from libraries
@@ -75,10 +76,11 @@ class geopunt4Qgis:
         self.batchgeoDlg = geopunt4QgisBatcGeoCodeDialog(self.iface) 
         self.poiDlg = geopunt4QgisPoidialog(self.iface)        
         self.gipodDlg = geopunt4QgisGipodDialog(self.iface)
-        self.settingsDlg = geopunt4QgisSettingsdialog()
+        self.settingsDlg = geopunt4QgisSettingsDialog()
         if elv.mathplotlibWorks : self.elevationDlg = elv.geopunt4QgisElevationDialog(self.iface)
         self.datacatalogusDlg = geopunt4QgisDataCatalog(self.iface)
-        self.aboutDlg = geopunt4QgisAboutdialog()
+        self.parcelDlg = geopunt4QgisParcelDlg(self.iface)
+        self.aboutDlg = geopunt4QgisAboutDialog()
         
     def initGui(self):
         'intialize UI'
@@ -109,6 +111,8 @@ class geopunt4Qgis:
                 QCoreApplication.translate("geopunt4Qgis" , u"Hoogteprofiel"), self.iface.mainWindow())
         self.datacatalogusAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntDataCatalogus.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Geopunt-catalogus"), self.iface.mainWindow())
+        self.parcelAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntParcel.png"),
+                QCoreApplication.translate("geopunt4Qgis" , u"Zoeken naar perceel"), self.iface.mainWindow())
         self.aboutAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
  
@@ -120,6 +124,7 @@ class geopunt4Qgis:
         self.gipodAction.triggered.connect(self.runGipod)
         self.elevationAction.triggered.connect(self.runElevation)
         self.datacatalogusAction.triggered.connect(self.rundatacatalog)
+        self.parcelAction.triggered.connect(self.runParcel)
         self.settingsAction.triggered.connect(self.runSettingsDlg)
         self.aboutAction.triggered.connect(self.runAbout)
         
@@ -134,6 +139,7 @@ class geopunt4Qgis:
         self.toolbar.addAction(self.gipodAction)
         self.toolbar.addAction(self.elevationAction)
         self.toolbar.addAction(self.datacatalogusAction)
+        self.toolbar.addAction(self.parcelAction)
         
         # Add to Menu
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
@@ -145,6 +151,7 @@ class geopunt4Qgis:
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.datacatalogusAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
+        self.iface.addPluginToMenu(u'&geopunt4Qgis' ,self.parcelAction)
         
     def unload(self):
         ' Remove the plugin menu items and icons'
@@ -157,6 +164,7 @@ class geopunt4Qgis:
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.gipodAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.elevationAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.datacatalogusAction)
+        self.iface.removePluginMenu(u"&geopunt4Qgis", self.parcelAction)
         
         self.iface.removeToolBarIcon( self.adresAction)
         self.iface.removeToolBarIcon( self.poiAction)
@@ -166,6 +174,7 @@ class geopunt4Qgis:
         self.iface.removeToolBarIcon( self.gipodAction)
         self.iface.removeToolBarIcon( self.elevationAction)
         self.iface.removeToolBarIcon( self.datacatalogusAction)
+        self.iface.removeToolBarIcon( self.parcelAction)
         
         del self.toolbar 
 
@@ -232,9 +241,16 @@ class geopunt4Qgis:
         'show the dialog'
         self.datacatalogusDlg.loadSettings()
         self.datacatalogusDlg.show()
-        self.datacatalogusDlg.loadSettings()
         # Run the dialog event loop
         self.datacatalogusDlg.exec_()
+
+    def runParcel(self):
+        'show the dialog'  
+        self.parcelDlg.loadSettings()
+        self.parcelDlg.show()
+        # Run the dialog event loop
+        self.parcelDlg.exec_()
+
 
     def runAbout(self):
         'show the dialog'
@@ -259,7 +275,7 @@ class geopunt4Qgis:
     def _reverseAdresCallback(self, point):
         self._addMarker( point )
         lam72 = QgsCoordinateReferenceSystem(31370)
-        mapCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+        mapCrs = self.gh.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform(mapCrs, lam72)
         lam72pt = xform.transform(point)
         

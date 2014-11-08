@@ -283,7 +283,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
           self.ax.fill_between( xdata, ydata, -9999, color=clr.name() )
     
     def addDHMasWMS(self):
-        crs = self.iface.mapCanvas().mapRenderer().destinationCrs().authid()
+        crs = self.gh.getGetMapCrs(self.iface).authid()
         if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
            crs = 'EPSG:31370' 
         dhmUrl =  "url=http://geo.agiv.be/inspire/wms/Hoogte&layers=DHM&format=image/png&styles=default&crs="+ crs

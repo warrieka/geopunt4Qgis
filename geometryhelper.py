@@ -30,23 +30,29 @@ class geometryHelper:
         self.iface = iface
         self.canvas = iface.mapCanvas()
         self.adreslayerid = ''
+    
+    @staticmethod
+    def getGetMapCrs(iface):
+        new24 = QGis.QGIS_VERSION_INT >= 20400
+        return ( iface.mapCanvas().mapSettings().destinationCrs() if new24
+                 else  iface.mapCanvas().mapRenderer().destinationCrs() )
         
     def prjPtToMapCrs( self, xy , fromCRS=4326 ):
         point = QgsPoint( xy[0], xy[1] )
         fromCrs = QgsCoordinateReferenceSystem(fromCRS)
-        toCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+        toCrs = self.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform( fromCrs, toCrs )
         return   xform.transform( point )
     
     def prjPtFromMapCrs( self, xy , toCRS=31370 ):
         point = QgsPoint( xy[0], xy[1] )
         toCrs = QgsCoordinateReferenceSystem(toCRS)
-        fromCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+        fromCrs = self.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform( fromCrs, toCrs )
         return   xform.transform( point )
 
     def prjLineFromMapCrs(self, lineString, toCRS=4326 ):
-        fromCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+        fromCrs = self.getGetMapCrs(self.iface)
         toCrs = QgsCoordinateReferenceSystem(toCRS)
         xform = QgsCoordinateTransform(fromCrs, toCrs)
         wgsLine = [ xform.transform( xy ) for xy in  lineString.asPolyline()]
@@ -54,7 +60,7 @@ class geometryHelper:
 
     def prjLineToMapCrs(self, lineString, fromCRS=4326 ):
         fromCrs = QgsCoordinateReferenceSystem(fromCRS)
-        toCrs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+        toCrs = self.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform(fromCrs, toCrs)
         wgsLine = [ xform.transform( xy ) for xy in  lineString.asPolyline()]
         return QgsGeometry.fromPolyline( wgsLine )
@@ -62,7 +68,7 @@ class geometryHelper:
     def zoomtoRec(self, xyMin, xyMax , crs=None):
         """zoom to rectangle from 2 points with given crs, default= mapCRS"""
         if crs is None:
-            crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+            crs = self.getGetMapCrs(self.iface)
             
         maxpoint = QgsPoint(xyMax[0], xyMax[1])
         minpoint = QgsPoint(xyMin[0], xyMin[1])
@@ -83,7 +89,7 @@ class geometryHelper:
         if not bounds or len(bounds) != 4:
             return
         if crs is None:
-            crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+            crs = self.getGetMapCrs(self.iface)
             
         maxpoint = QgsPoint( bounds[0], bounds[1])
         minpoint = QgsPoint( bounds[2], bounds[3])
@@ -101,7 +107,7 @@ class geometryHelper:
 
     def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres", saveToFile=False, sender=None, startFolder=None ):
         attributes = [QgsField("adres", QVariant.String), QgsField("type", QVariant.String)]
-        mapcrs = self.canvas.mapRenderer().destinationCrs()
+        mapcrs = self.getGetMapCrs(self.iface)
         
         if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid):
             self.adreslayer = QgsVectorLayer("Point", layername, "memory")
