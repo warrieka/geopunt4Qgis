@@ -27,7 +27,7 @@ from qgis.gui import  QgsMessageBar, QgsVertexMarker
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialogs
-from geopunt4qgisAdresdialog import geopunt4QgisAdresDialog
+from geopunt4QgisAdresdialog import geopunt4QgisAdresDialog
 from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from reverseAdresMapTool import reverseAdresMapTool
 from geopunt4QgisAbout import geopunt4QgisAboutDialog

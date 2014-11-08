@@ -62,7 +62,10 @@ class geometryHelper:
         fromCrs = QgsCoordinateReferenceSystem(fromCRS)
         toCrs = self.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform(fromCrs, toCrs)
-        wgsLine = [ xform.transform( xy ) for xy in  lineString.asPolyline()]
+        if isinstance(lineString, QgsGeometry):
+            wgsLine = [ xform.transform( xy ) for xy in  lineString.asPolyline()]
+        if hasattr(lineString, '__iter__'):
+            wgsLine = [ xform.transform( QgsPoint(xy[0], xy[1]) ) for xy in  lineString]
         return QgsGeometry.fromPolyline( wgsLine )
 
     def zoomtoRec(self, xyMin, xyMax , crs=None):

@@ -490,17 +490,17 @@
     <message>
         <location filename="geopunt4qgisAdresdialog.py" line="215"/>
         <source>Waarschuwing</source>
-        <translation>Waarschuwing</translation>
+        <translation type="obsolete">Waarschuwing</translation>
     </message>
     <message>
         <location filename="geopunt4qgisAdresdialog.py" line="219"/>
         <source>onbekende fout</source>
-        <translation>onbekende fout</translation>
+        <translation type="obsolete">onbekende fout</translation>
     </message>
     <message>
         <location filename="geopunt4qgisAdresdialog.py" line="238"/>
         <source>gemeente</source>
-        <translation>gemeente</translation>
+        <translation type="obsolete">gemeente</translation>
     </message>
     <message>
         <location filename="geopunt4QgisElevation.py" line="193"/>
@@ -752,37 +752,37 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">Zoek een adres via Geopunt</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="43"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="150"/>
         <source>Gemeente:</source>
         <translation type="unfinished">Gemeente:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="50"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="96"/>
         <source>Departement:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="67"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="123"/>
         <source>Sectie:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="129"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="36"/>
         <source>Toevoegen aan kaart</source>
         <translation type="unfinished">Toevoegen aan kaart</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="143"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="213"/>
         <source>Zoom naar</source>
         <translation type="unfinished">Zoom naar</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="95"/>
+        <location filename="geopunt4qgisParcel.py" line="103"/>
         <source>Waarschuwing </source>
         <translation type="unfinished">Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="95"/>
+        <location filename="geopunt4qgisParcel.py" line="103"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation type="unfinished">Kan geen verbing maken met het internet.</translation>
     </message>
@@ -792,7 +792,7 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="84"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="243"/>
         <source>Perceelnummer:</source>
         <translation type="unfinished"></translation>
     </message>
