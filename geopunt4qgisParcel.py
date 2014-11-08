@@ -203,17 +203,29 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten")
 
     def addPolygonFromJson(self, geojson ):
-        canvas = self.iface.mapCanvas()
-        prjPolygon = []
-        rings = geojson['coordinates']
-        for ring in rings:
-           prjRing = self.gh.prjLineToMapCrs( ring, 31370 )
-           prjPolygon.append( prjRing.asPolyline() )
+        geoType= geojson['type']
         
-        gPolygon = QgsGeometry.fromPolygon( prjPolygon )
+        if geoType == "Polygon":
+           rings = geojson['coordinates']
+           mPolygon = [ rings ]
+        if geoType == "MultiPolygon":
+           mPolygon = geojson['coordinates']
+           print  len( mPolygon)
+           
+        for rings in mPolygon:
+          prjPolygon = []
+          for ring in rings:
+            prjRing = self.gh.prjLineToMapCrs( ring, 31370 )
+            prjPolygon.append( prjRing.asPolyline() )
+          
+          gPolygon = QgsGeometry.fromPolygon( prjPolygon )
+          self.addGraphic( gPolygon )
+
+    def addGraphic(self, geom ):
+        canvas = self.iface.mapCanvas()      
         rBand = QgsRubberBand(canvas, True) 
         self.graphics.append( rBand )
-        rBand.setToGeometry( gPolygon, None )
+        rBand.setToGeometry( geom, None )
         rBand.setColor(QtGui.QColor(0,0,255, 70))
         rBand.setBorderColor( QtGui.QColor(70,70,70, 220) )
         rBand.setWidth(3)
