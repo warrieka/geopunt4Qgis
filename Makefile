@@ -56,7 +56,8 @@ geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py  \
 geopunt4QgisBatchGeoCode.py batchGeoHelper.py reverseAdresMapTool.py \
 geopunt4QgisGipod.py gipodHelper.py geopunt4qgisParcel.py \
 geopunt4QgisElevation.py elevationHelper.py elevationProfileMapTool.py \
-metadata.py geopunt4QgisDataCatalog.py versionChecker.py poiHelper.py
+metadata.py geopunt4QgisDataCatalog.py versionChecker.py poiHelper.py \
+parcelHelper.py
 
 EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html ext-libs
 

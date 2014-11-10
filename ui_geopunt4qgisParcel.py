@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgisParcel.ui'
 #
-# Created: Sat Nov  8 18:55:11 2014
+# Created: Sun Nov  9 15:54:11 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,14 +35,14 @@ class Ui_geopunt4QgisParcelDlg(object):
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.widgetBtnsLayout = QtGui.QHBoxLayout()
         self.widgetBtnsLayout.setObjectName(_fromUtf8("widgetBtnsLayout"))
-        self.Add2mapKnop = QtGui.QPushButton(geopunt4QgisParcelDlg)
-        self.Add2mapKnop.setEnabled(False)
+        self.saveBtn = QtGui.QPushButton(geopunt4QgisParcelDlg)
+        self.saveBtn.setEnabled(False)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/addPointLayer.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.Add2mapKnop.setIcon(icon1)
-        self.Add2mapKnop.setAutoDefault(False)
-        self.Add2mapKnop.setObjectName(_fromUtf8("Add2mapKnop"))
-        self.widgetBtnsLayout.addWidget(self.Add2mapKnop)
+        self.saveBtn.setIcon(icon1)
+        self.saveBtn.setAutoDefault(False)
+        self.saveBtn.setObjectName(_fromUtf8("saveBtn"))
+        self.widgetBtnsLayout.addWidget(self.saveBtn)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.widgetBtnsLayout.addItem(spacerItem)
         self.buttonBox = QtGui.QDialogButtonBox(geopunt4QgisParcelDlg)
@@ -156,7 +156,7 @@ class Ui_geopunt4QgisParcelDlg(object):
 
     def retranslateUi(self, geopunt4QgisParcelDlg):
         geopunt4QgisParcelDlg.setWindowTitle(_translate("geopunt4QgisParcelDlg", "Zoek een perceel via Geopunt ", None))
-        self.Add2mapKnop.setText(_translate("geopunt4QgisParcelDlg", "Toevoegen aan kaart", None))
+        self.saveBtn.setText(_translate("geopunt4QgisParcelDlg", "Toevoegen aan kaart", None))
         self.departmentLbl.setText(_translate("geopunt4QgisParcelDlg", "Departement:", None))
         self.ZoomKnop_muni.setStatusTip(_translate("geopunt4QgisParcelDlg", "Zoom naar", None))
         self.sectionLbl.setText(_translate("geopunt4QgisParcelDlg", "Sectie:", None))

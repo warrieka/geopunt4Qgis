@@ -25,6 +25,7 @@ from qgis.core import *
 from qgis.gui import  QgsMessageBar, QgsVertexMarker, QgsRubberBand
 import geopunt, os, json, webbrowser
 from geometryhelper import geometryHelper
+from parcelHelper import parcelHelper
 
 class geopunt4QgisParcelDlg(QtGui.QDialog):
     def __init__(self, iface):
@@ -55,6 +56,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
 
         #setup geometryHelper object
         self.gh = geometryHelper(self.iface)
+        self.ph = parcelHelper(self.iface)
         
         #variables
         self.firstShow = True 
@@ -74,6 +76,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.ui.ZoomKnop_sect.clicked.connect(self.zoomTo)
         self.ui.ZoomKnop_parcel.clicked.connect(self.zoomTo)
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
+        self.ui.saveBtn.clicked.connect(self.saveParcel)
         self.finished.connect( self.clearGraphics )
         
     def loadSettings(self):
@@ -84,6 +87,8 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         else:
             self.proxy = ""
             self.port = ""
+        self.saveToFile = True
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))    
         self.parcel = geopunt.parcel(self.timeout, self.proxy, self.port )
         
     def show(self):
@@ -101,7 +106,29 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                   QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", "Waarschuwing "), 
                   QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", 
                     "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=3)
+
+    def saveParcel(self):
+        municipality= self.ui.municipalityCbx.currentText()
+        if municipality:
+            niscode = [n['municipalityCode'] for n in self.municipalities if n['municipalityName'] == municipality ][0]
+            self.clearGraphics()
+        else: 
+            niscode = None
+        department = self.ui.departmentCbx.currentText()
+        if department:
+            departmentcode = [n['departmentCode'] for n in self.departments if n['departmentName'] == department ][0]
+        else:
+            departmentcode = None
+        section = self.ui.sectionCbx.currentText()
+        parcelNr = self.ui.parcelCbx.currentText()
         
+        if municipality != None or department != None or section != '' or parcelNr != '':
+            parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
+            shape = json.loads( parcelInfo['geometry']['shape'])
+            pts = [n.asPolygon() for n in self.PolygonFromJson( shape )]
+            mPolgon = QgsGeometry.fromMultiPolygon( pts )  
+            self.ph.save_parcel_polygon(mPolgon, parcelInfo, "perceel", self.saveToFile, self, self.startDir)
+      
     def municipalityChanged(self):
         municipality= self.ui.municipalityCbx.currentText()
         
@@ -114,7 +141,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.ui.departmentCbx.addItems(['']+ [n['departmentName'] for n in self.departments] )
         self.ui.sectionCbx.clear()
         self.ui.parcelCbx.clear()
-        self.ui.Add2mapKnop.setEnabled(False)
+        self.ui.saveBtn.setEnabled(False)
   
     def departmentChanged(self):
         department = self.ui.departmentCbx.currentText()
@@ -129,7 +156,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.ui.sectionCbx.clear()
         self.ui.sectionCbx.addItems([''] + self.sections)
         self.ui.parcelCbx.clear()
-        self.ui.Add2mapKnop.setEnabled(False)
+        self.ui.saveBtn.setEnabled(False)
 
     def sectionChanged(self):
         department = self.ui.departmentCbx.currentText()
@@ -145,10 +172,10 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.ui.parcelCbx.clear()
         self.ui.parcelCbx.addItems([''] + [n['perceelnummer'] for n in self.parcels])
         
-        self.ui.Add2mapKnop.setEnabled(False)
+        self.ui.saveBtn.setEnabled(False)
 
     def parcelChanged(self):
-        self.ui.Add2mapKnop.setEnabled( self.ui.parcelCbx.currentText() != '' )
+        self.ui.saveBtn.setEnabled( self.ui.parcelCbx.currentText() != '' )
 
     def zoomTo(self):
         sender = self.sender()
@@ -172,7 +199,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
             self.clearGraphics()
             self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )        
             shape = json.loads( muniInfo['geometry']['shape'])
-            self.addPolygonFromJson( shape )
+            for n in self.PolygonFromJson( shape ):  self.addGraphic(n)
             return
         if sender is self.ui.ZoomKnop_dep and department != '':
             depInfo = self.parcel.getDepartmentInfo( niscode, departmentcode, 31370, 'full') 
@@ -180,7 +207,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
             self.clearGraphics()
             self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
             shape = json.loads( depInfo['geometry']['shape'])
-            self.addPolygonFromJson( shape )
+            for n in self.PolygonFromJson( shape ):  self.addGraphic(n)
             return
         if sender is self.ui.ZoomKnop_sect and section != '':
             sectInfo = self.parcel.getSectionInfo( niscode, departmentcode, section, 31370, 'full') 
@@ -188,7 +215,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
             self.clearGraphics()
             self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
             shape = json.loads( sectInfo['geometry']['shape'])
-            self.addPolygonFromJson( shape )
+            for n in self.PolygonFromJson( shape ):  self.addGraphic(n)
             return
         if sender is self.ui.ZoomKnop_parcel and parcelNr != '':
             parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
@@ -196,14 +223,15 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
             self.clearGraphics()
             self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
             shape = json.loads( parcelInfo['geometry']['shape'])
-            self.addPolygonFromJson( shape )
+            for n in self.PolygonFromJson( shape ):  self.addGraphic(n)
             return
 
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten")
 
-    def addPolygonFromJson(self, geojson ):
+    def PolygonFromJson(self, geojson ):
         geoType= geojson['type']
+        Polygons = []
         
         if geoType == "Polygon":
            rings = geojson['coordinates']
@@ -213,13 +241,15 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
            print  len( mPolygon)
            
         for rings in mPolygon:
-          prjPolygon = []
-          for ring in rings:
-            prjRing = self.gh.prjLineToMapCrs( ring, 31370 )
-            prjPolygon.append( prjRing.asPolyline() )
-          
-          gPolygon = QgsGeometry.fromPolygon( prjPolygon )
-          self.addGraphic( gPolygon )
+            prjPolygon = []
+            for ring in rings:
+              prjRing = self.gh.prjLineToMapCrs( ring, 31370 )
+              prjPolygon.append( prjRing.asPolyline() )
+            
+            gPolygon = QgsGeometry.fromPolygon( prjPolygon )
+            Polygons.append( gPolygon )
+        
+        return Polygons
 
     def addGraphic(self, geom ):
         canvas = self.iface.mapCanvas()      

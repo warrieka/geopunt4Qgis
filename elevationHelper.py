@@ -142,8 +142,6 @@ class elevationHelper:
         self.iface.mapCanvas().refresh()
 
     def _saveToFile( self, sender, startFolder=None ):
-        'save to file'
-        #"Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
         filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)

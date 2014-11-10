@@ -135,7 +135,8 @@ class geometryHelper:
         # update layer's extent when new features have been added
         # because change of extent in provider is not propagated to the layer
         self.adreslayer.updateExtents()
-            
+        
+        # save memoryLAYER to file and replace all references    
         if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid): 
           save = self._saveToFile( sender, startFolder )
           if save:

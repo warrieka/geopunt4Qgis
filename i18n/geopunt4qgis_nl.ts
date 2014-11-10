@@ -777,12 +777,12 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="unfinished">Zoom naar</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="103"/>
+        <location filename="geopunt4qgisParcel.py" line="108"/>
         <source>Waarschuwing </source>
         <translation type="unfinished">Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="103"/>
+        <location filename="geopunt4qgisParcel.py" line="108"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation type="unfinished">Kan geen verbing maken met het internet.</translation>
     </message>

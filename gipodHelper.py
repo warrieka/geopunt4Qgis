@@ -55,7 +55,7 @@ class gipodeoHelper:
                 fType = "MapInfo File"  
             return fType
         else:
-          return None
+            return None
 
 
 class gipodWriter:

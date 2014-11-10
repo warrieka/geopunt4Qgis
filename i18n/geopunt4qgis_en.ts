@@ -782,12 +782,12 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="unfinished">Zoom to</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="103"/>
+        <location filename="geopunt4qgisParcel.py" line="108"/>
         <source>Waarschuwing </source>
         <translation type="unfinished">Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="103"/>
+        <location filename="geopunt4qgisParcel.py" line="108"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation type="unfinished">Could not connect to the internet.</translation>
     </message>

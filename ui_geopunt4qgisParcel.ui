@@ -28,7 +28,7 @@
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="widgetBtnsLayout">
      <item>
-      <widget class="QPushButton" name="Add2mapKnop">
+      <widget class="QPushButton" name="saveBtn">
        <property name="enabled">
         <bool>false</bool>
        </property>
