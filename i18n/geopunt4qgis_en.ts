@@ -445,12 +445,12 @@
         <translation type="obsolete">Datacatalog</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="242"/>
+        <location filename="geopunt4qgisParcel.py" line="287"/>
         <source>Laag toevoegen</source>
         <translation>Add layer</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="242"/>
+        <location filename="geopunt4qgisParcel.py" line="287"/>
         <source>Geef een naam voor de laag op:</source>
         <translation>Enter a layername:</translation>
     </message>
