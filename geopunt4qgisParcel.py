@@ -66,6 +66,11 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.parcels = []
         self.graphics = []
         
+        #setup a message bar
+        self.bar = QgsMessageBar() 
+        self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
+        self.ui.verticalLayout.addWidget(self.bar)
+        
         #event handlers 
         self.ui.municipalityCbx.currentIndexChanged.connect(self.municipalityChanged)
         self.ui.departmentCbx.currentIndexChanged.connect( self.departmentChanged )
@@ -103,12 +108,14 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 
                 self.municipalities = self.parcel.getMunicipalities()
                 self.ui.municipalityCbx.clear()
-                self.ui.municipalityCbx.addItems( [''] + [n['municipalityName'] for n in self.municipalities] )
+                muniNames = [n['municipalityName'] for n in self.municipalities]
+                self.ui.municipalityCbx.addItems( [''] + muniNames )
+                self.setCompleter( muniNames, self.ui.municipalityCbx )
              else:
                 self.bar.pushMessage(
                   QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", "Waarschuwing "), 
                   QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", 
-                    "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=3)
+                    "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=5)
 
     def saveParcel(self):
         if not self.layernameValid(): return
@@ -134,13 +141,12 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
               self.ph.save_parcel_polygon(mPolygon, parcelInfo, self.layerName, self.saveToFile,
                                         self, os.path.join(self.startDir, self.layerName))
         except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.WARNING)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
           return
         except Exception as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.CRITICAL)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
           return
 
-      
     def municipalityChanged(self):
         municipality= self.ui.municipalityCbx.currentText()
         
@@ -153,17 +159,19 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         try:
           self.departments = self.parcel.getDepartments(niscode)
         except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.WARNING)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
           return
         except Exception as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.CRITICAL)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
           return
-          
+        self.ui.departmentCbx.setEnabled(1) 
         self.ui.departmentCbx.clear()
-        self.ui.departmentCbx.addItems(['']+ [n['departmentName'] for n in self.departments] )
-        self.ui.sectionCbx.clear()
-        self.ui.parcelCbx.clear()
-        self.ui.saveBtn.setEnabled(False)
+        depNames = [n['departmentName'] for n in self.departments]
+        self.ui.departmentCbx.addItems([''] + depNames )
+        self.setCompleter( depNames, self.ui.departmentCbx)
+        self.ui.sectionCbx.setEnabled(0)
+        self.ui.parcelCbx.setEnabled(0)
+        self.ui.saveBtn.setEnabled(0)
   
     def departmentChanged(self):
         department = self.ui.departmentCbx.currentText()
@@ -181,27 +189,29 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         try:
           self.sections = [n['sectionCode'] for n in self.parcel.getSections(niscode, departmentcode)]
         except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.WARNING)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
           return
         except Exception as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.CRITICAL)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
           return
 
         self.ui.sectionCbx.clear()
+        self.ui.sectionCbx.setEnabled(1)
         self.ui.sectionCbx.addItems([''] + self.sections )
-        self.ui.parcelCbx.clear()
-        self.ui.saveBtn.setEnabled(False)
+        self.setCompleter( self.sections, self.ui.sectionCbx ) 
+        self.ui.parcelCbx.setEnabled(0)
+        self.ui.saveBtn.setEnabled(0)
 
     def sectionChanged(self):
-        department = self.ui.departmentCbx.currentText()
         municipality= self.ui.municipalityCbx.currentText()
+        department = self.ui.departmentCbx.currentText()
         section = self.ui.sectionCbx.currentText()
         
         if municipality == '' or department == '' or section == '': return
         
         niscodes = [n['municipalityCode'] for n in self.municipalities if n['municipalityName'] == municipality ]
         niscode = (niscodes[0] if len(niscodes) else '')
-        departmentcodes = [n['municipalityCode'] for n in self.municipalities if n['municipalityName'] == municipality ]
+        departmentcodes = [n['departmentCode'] for n in self.departments if n['departmentName'] == department ]
         departmentcode = (departmentcodes[0] if len( departmentcodes) else '')
         
         if niscode == '' or departmentcode == '': return
@@ -209,16 +219,18 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         try:
           self.parcels = self.parcel.getParcels( niscode, departmentcode, section )
         except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.WARNING)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
           return
         except Exception as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.CRITICAL)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
           return
         
         self.ui.parcelCbx.clear()
-        self.ui.parcelCbx.addItems([''] + [n['perceelnummer'] for n in self.parcels])
-        
-        self.ui.saveBtn.setEnabled(False)
+        self.ui.parcelCbx.setEnabled(1)
+        parcelNrs = [n['perceelnummer'] for n in self.parcels]
+        self.ui.parcelCbx.addItems([''] + parcelNrs)
+        self.setCompleter( parcelNrs, self.ui.parcelCbx ) 
+        self.ui.saveBtn.setEnabled(0)
 
     def parcelChanged(self):
         self.ui.saveBtn.setEnabled( self.ui.parcelCbx.currentText() != '' )
@@ -239,6 +251,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         try:
             if sender is self.ui.ZoomKnop_muni and municipality != '':
                 muniInfo = self.parcel.getMunicipalitieInfo( niscode, 31370, 'full') 
+                if muniInfo == []: return
                 bbox= json.loads( muniInfo['geometry']['boundingBox'])['coordinates'][0]
                 self.clearGraphics()
                 self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )        
@@ -247,6 +260,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 return
             if sender is self.ui.ZoomKnop_dep and municipality != '' and department != '':
                 depInfo = self.parcel.getDepartmentInfo( niscode, departmentcode, 31370, 'full') 
+                if depInfo == []: return
                 bbox= json.loads( depInfo['geometry']['boundingBox'])['coordinates'][0]
                 self.clearGraphics()
                 self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
@@ -255,6 +269,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 return
             if sender is self.ui.ZoomKnop_sect and municipality != '' and department != '' and section != '':
                 sectInfo = self.parcel.getSectionInfo( niscode, departmentcode, section, 31370, 'full') 
+                if sectInfo == []: return
                 bbox= json.loads( sectInfo['geometry']['boundingBox'])['coordinates'][0]
                 self.clearGraphics()
                 self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
@@ -263,6 +278,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 return
             if sender is self.ui.ZoomKnop_parcel and municipality != '' and department != '' and section != '' and parcelNr != '':
                 parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
+                if parcelInfo == []: return
                 bbox= json.loads( parcelInfo['geometry']['boundingBox'])['coordinates'][0]
                 self.clearGraphics()
                 self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
@@ -270,10 +286,10 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
                 return
         except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.WARNING)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
           return
         except Exception as e:
-          self.bar.pushMessage("Error", e.message , level=QgsMessageBar.CRITICAL)
+          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
           return
 
     def openHelp(self):
@@ -325,10 +341,22 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         canvas = self.iface.mapCanvas()
         for g in self.graphics:
             canvas.scene().removeItem(g)
-    
+  
+    def setCompleter(self, values, wgt):
+        completer = QtGui.QCompleter( self )
+        completerModel = QtGui.QStringListModel( self )
+        wgt.setCompleter( completer )
+        completer.setModel( completerModel )
+        completer.setCaseSensitivity(False)
+        completerModel.setStringList( values )
+  
     def clean(self):
         self.clearGraphics()
-        self.ui.municipalityCbx.clear()
+        self.ui.municipalityCbx.setCurrentIndex(0)
         self.ui.departmentCbx.clear()
         self.ui.sectionCbx.clear()
         self.ui.parcelCbx.clear()
+        self.ui.departmentCbx.setDisabled(1)
+        self.ui.sectionCbx.setDisabled(1)
+        self.ui.parcelCbx.setDisabled(1)
+        

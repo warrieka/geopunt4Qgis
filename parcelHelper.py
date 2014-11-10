@@ -27,13 +27,13 @@ import os
 
 class parcelHelper:
     def __init__(self, iface, parent= None, startFolder="" ):
-      self.iface = iface
-      self.parent = parent
-      self.canvas = iface.mapCanvas()
-      self.parcellayer = None
-      self.parcellayerid = ''
-      self.parcelProvider = None
-      self.startFolder = startFolder
+        self.iface = iface
+        self.parent = parent
+        self.canvas = iface.mapCanvas()
+        self.parcellayer = None
+        self.parcellayerid = ''
+        self.parcelProvider = None
+        self.startFolder = startFolder
       
       
     def save_parcel_polygon(self, polygon, parcelInfo, layername="perceel", saveToFile=False, sender=None, startFolder=None ):
@@ -104,22 +104,22 @@ class parcelHelper:
         Fdlg.setFileMode(QFileDialog.AnyFile)
         fName = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
         if fName:
-          ext = os.path.splitext( fName )[1]
-          if "SHP" in ext.upper():
-            flType = "ESRI Shapefile"
-          elif "SQLITE" in ext.upper():
-            flType = "SQLite" 
-          elif "GEOJSON" in ext.upper():  #no update possible -> hidden
-            flType = "GeoJSON"
-          elif "GML" in ext.upper():
-            flType = "GML"
-          elif 'TAB' in ext.upper():
-            flType = 'MapInfo File'
-          elif 'KML' in ext.upper():
-            flType = 'KML'
-          else:
-            fName = fName + ".shp"
-            flType = "ESRI Shapefile"
-          return (fName , flType )
+            ext = os.path.splitext( fName )[1]
+            if "SHP" in ext.upper():
+              flType = "ESRI Shapefile"
+            elif "SQLITE" in ext.upper():
+              flType = "SQLite" 
+            elif "GEOJSON" in ext.upper():  #no update possible -> hidden
+              flType = "GeoJSON"
+            elif "GML" in ext.upper():
+              flType = "GML"
+            elif 'TAB' in ext.upper():
+              flType = 'MapInfo File'
+            elif 'KML' in ext.upper():
+              flType = 'KML'
+            else:
+              fName = fName + ".shp"
+              flType = "ESRI Shapefile"
+            return (fName , flType )
         else:
             return None

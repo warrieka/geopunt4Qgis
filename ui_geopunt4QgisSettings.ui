@@ -35,7 +35,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>321</height>
+        <height>320</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -55,6 +55,16 @@
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
          <layout class="QFormLayout" name="formLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::ExpandingFieldsGrow</enum>
+          </property>
+          <item row="0" column="0" colspan="2">
+           <widget class="QCheckBox" name="proxyChk">
+            <property name="text">
+             <string>Netwerk proxy gebruiken</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_6">
             <property name="sizePolicy">
@@ -78,16 +88,6 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="portTxt">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="placeholderText">
-             <string>bv: 8080</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_5">
             <property name="text">
@@ -95,17 +95,13 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0" colspan="2">
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>Herstart qgis om deze instellingen te gebruiken.</string>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="portTxt">
+            <property name="enabled">
+             <bool>false</bool>
             </property>
-           </widget>
-          </item>
-          <item row="0" column="0" colspan="2">
-           <widget class="QCheckBox" name="proxyChk">
-            <property name="text">
-             <string>Netwerk proxy gebruiken</string>
+            <property name="placeholderText">
+             <string>bv: 8080</string>
             </property>
            </widget>
           </item>
@@ -205,8 +201,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>285</width>
+        <height>228</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -305,8 +301,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>321</height>
+        <width>221</width>
+        <height>141</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -376,8 +372,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>371</width>
+        <height>177</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -481,8 +477,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>321</height>
+        <width>221</width>
+        <height>141</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -552,8 +548,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>254</width>
+        <height>141</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -626,8 +622,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>257</width>
+        <height>274</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -738,6 +734,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="parcelTab">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>229</width>
+        <height>141</height>
+       </rect>
+      </property>
       <attribute name="icon">
        <iconset resource="resources.qrc">
         <normaloff>:/plugins/geopunt4Qgis/images/geopuntParcelSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntParcelSmall.png</iconset>
