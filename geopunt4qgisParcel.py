@@ -80,6 +80,10 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.finished.connect( self.clearGraphics )
         
     def loadSettings(self):
+        self.saveToFile = int( self.s.value("geopunt4qgis/parcelSavetoFile" , 1))
+        layerName =  self.s.value("geopunt4qgis/parcelLayerText", "")
+        if layerName :
+           self.layerName= layerName   
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
         if int( self.s.value("geopunt4qgis/useProxy" , 0)):
             self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
@@ -87,7 +91,6 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         else:
             self.proxy = ""
             self.port = ""
-        self.saveToFile = True
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))    
         self.parcel = geopunt.parcel(self.timeout, self.proxy, self.port )
         
@@ -108,6 +111,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                     "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=3)
 
     def saveParcel(self):
+        if not self.layernameValid(): return
         municipality= self.ui.municipalityCbx.currentText()
         if municipality:
             niscode = [n['municipalityCode'] for n in self.municipalities if n['municipalityName'] == municipality ][0]
@@ -127,7 +131,8 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
             shape = json.loads( parcelInfo['geometry']['shape'])
             pts = [n.asPolygon() for n in self.PolygonFromJson( shape )]
             mPolgon = QgsGeometry.fromMultiPolygon( pts )  
-            self.ph.save_parcel_polygon(mPolgon, parcelInfo, "perceel", self.saveToFile, self, self.startDir)
+            self.ph.save_parcel_polygon(mPolgon, parcelInfo, self.layerName, self.saveToFile,
+                                      self, os.path.join(self.startDir, self.layerName))
       
     def municipalityChanged(self):
         municipality= self.ui.municipalityCbx.currentText()
@@ -228,6 +233,17 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
 
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten")
+
+    def layernameValid(self):   
+        if not hasattr(self, 'layerName'):
+          layerName, accept = QtGui.QInputDialog.getText(None,
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+          if accept == False: 
+             return False
+          else: 
+             self.layerName = layerName
+        return True
 
     def PolygonFromJson(self, geojson ):
         geoType= geojson['type']

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>550</height>
+    <height>566</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -25,13 +25,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QToolBox" name="settingsTab">
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
@@ -42,7 +35,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>325</height>
+        <height>321</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -176,7 +169,7 @@
          <item>
           <widget class="QLabel" name="label_10">
            <property name="text">
-            <string>Startfolder:</string>
+            <string>Start Folder:</string>
            </property>
           </widget>
          </item>
@@ -213,7 +206,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>325</height>
+        <height>320</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -313,7 +306,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>325</height>
+        <height>321</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -384,7 +377,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>325</height>
+        <height>320</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -489,7 +482,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>325</height>
+        <height>321</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -560,7 +553,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>325</height>
+        <height>320</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -634,7 +627,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>325</height>
+        <height>320</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -731,6 +724,72 @@
        </item>
        <item>
         <spacer name="verticalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="parcelTab">
+      <attribute name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/plugins/geopunt4Qgis/images/geopuntParcelSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntParcelSmall.png</iconset>
+      </attribute>
+      <attribute name="label">
+       <string>Percelen zoeken</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_18">
+       <item>
+        <widget class="QGroupBox" name="add2mapBox_8">
+         <property name="title">
+          <string>Toevoegen van percelen aan de kaart</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_17">
+          <item>
+           <widget class="QRadioButton" name="parcelSavetoFileChk">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>Opslaan naar bestand </string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="parcelSaveMemoryChk">
+            <property name="text">
+             <string>Opslaan naar tijdelijke laag</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Naam  van de laag met percelen:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="parcelLayerTxt"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_7">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>

@@ -440,12 +440,12 @@
         <translation type="obsolete">Datacatalogus</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="264"/>
+        <location filename="geopunt4qgisParcel.py" line="242"/>
         <source>Laag toevoegen</source>
         <translation>Laag toevoegen</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="264"/>
+        <location filename="geopunt4qgisParcel.py" line="242"/>
         <source>Geef een naam voor de laag op:</source>
         <translation>Geef een naam voor de laag op:</translation>
     </message>
@@ -777,12 +777,12 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="unfinished">Zoom naar</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="108"/>
+        <location filename="geopunt4qgisParcel.py" line="111"/>
         <source>Waarschuwing </source>
         <translation type="unfinished">Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="108"/>
+        <location filename="geopunt4qgisParcel.py" line="111"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation type="unfinished">Kan geen verbing maken met het internet.</translation>
     </message>
@@ -1141,74 +1141,74 @@ Indien meer dan 1000 punten zal een gedeelte geclusterd worden</translation>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="230"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="223"/>
         <source>Zoeken naar adressen</source>
         <translation>Zoeken naar adressen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="236"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="229"/>
         <source>Zoeken bij elke verandering in de zoektekst</source>
         <translation>Zoeken bij elke verandering in de zoektekst</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="243"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="236"/>
         <source>Zoeken enkel als ENTER wordt ingedrukt</source>
         <translation>Zoeken enkel als ENTER wordt ingedrukt</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="577"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="570"/>
         <source>Toevoegen punten aan de kaart</source>
         <translation>Toevoegen punten aan de kaart</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="702"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="761"/>
         <source>Opslaan naar bestand </source>
         <translation>Opslaan naar bestand </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="712"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="771"/>
         <source>Opslaan naar tijdelijke laag</source>
         <translation>Opslaan naar tijdelijke laag</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="532"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="525"/>
         <source>Naam  van de laag met adrespunten:</source>
         <translation>Naam  van de laag met adrespunten:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="324"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="317"/>
         <source>Prikken van een adres</source>
         <translation>Prikken van een adres</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="500"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="493"/>
         <source>Zoeken naar plaatsen</source>
         <translation>Zoeken naar plaatsen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="395"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="388"/>
         <source>CSV-adresbestanden geocoderen</source>
         <translation>CSV-adresbestanden geocoderen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="445"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="438"/>
         <source>Maximaal aantal rijen dat inlezen mag worden: &lt;br/&gt;
 (Grote bestanden kunnen de servers van AGIV belasten)</source>
         <translation>Maximaal aantal rijen dat inlezen mag worden: &lt;br/&gt;
 (Grote bestanden kunnen de servers van AGIV belasten)</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="571"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="564"/>
         <source>GIPOD</source>
         <translation>GIPOD</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="53"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="46"/>
         <source>Algemeen</source>
         <translation>Algemeen</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="59"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="52"/>
         <source>Netwerk -  Proxy</source>
         <translation>Netwerk -  Proxy</translation>
     </message>
@@ -1218,22 +1218,22 @@ Indien meer dan 1000 punten zal een gedeelte geclusterd worden</translation>
         <translation type="obsolete">Host:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="84"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="77"/>
         <source>http://yourProxy</source>
         <translation>http://yourProxy</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="94"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="87"/>
         <source>bv: 8080</source>
         <translation>bv: 8080</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="101"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="94"/>
         <source>Poort:</source>
         <translation>Poort:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="108"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="101"/>
         <source>Herstart qgis om deze instellingen te gebruiken.</source>
         <translation>Herstart qgis om deze instellingen te gebruiken.</translation>
     </message>
@@ -1243,22 +1243,22 @@ Indien meer dan 1000 punten zal een gedeelte geclusterd worden</translation>
         <translation type="obsolete">Timeout:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="146"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="139"/>
         <source> seconden</source>
         <translation> seconden</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="74"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="67"/>
         <source>Host: </source>
         <translation>Host: </translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="115"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="108"/>
         <source>Netwerk proxy gebruiken</source>
         <translation>Netwerk proxy gebruiken</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="645"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="638"/>
         <source>Hoogteprofiel</source>
         <translation>Hoogteprofiel</translation>
     </message>
@@ -1273,44 +1273,64 @@ Indien meer dan 1000 punten zal een gedeelte geclusterd worden</translation>
         <translation type="obsolete">Naam  van de laag met samplepunten:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="722"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="715"/>
         <source>Naam  van de laag met de profiellijn:</source>
         <translation>Naam  van de laag met de profiellijn:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="133"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="126"/>
         <source>Timeout:      </source>
         <translation>Timeout:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisSettings.ui" line="179"/>
         <source>Startfolder:</source>
-        <translation>Startfolder:</translation>
+        <translation type="obsolete">Startfolder:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="189"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="182"/>
         <source>Open</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="606"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="599"/>
         <source>Naam  van de laag met GIPOD-activiteiten:</source>
         <translation>Naam  van de laag met GIPOD-activiteiten:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="651"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="644"/>
         <source>Toevoegen van profielpunten aan de kaart</source>
         <translation>Toevoegen van profielpunten aan de kaart</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="680"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="673"/>
         <source>Naam  van de laag met profielpunten:</source>
         <translation>Naam  van de laag met profielpunten:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisSettings.ui" line="693"/>
+        <location filename="ui_geopunt4QgisSettings.ui" line="686"/>
         <source>Toevoegen van profiellijnen aan de kaart</source>
         <translation>Toevoegen van profiellijnen aan de kaart</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisSettings.ui" line="172"/>
+        <source>Start Folder:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisSettings.ui" line="746"/>
+        <source>Percelen zoeken</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisSettings.ui" line="752"/>
+        <source>Toevoegen van percelen aan de kaart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisSettings.ui" line="781"/>
+        <source>Naam  van de laag met percelen:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

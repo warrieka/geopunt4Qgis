@@ -138,8 +138,8 @@ class geopunt4Qgis:
         self.toolbar.addAction(self.poiAction)        
         self.toolbar.addAction(self.gipodAction)
         self.toolbar.addAction(self.elevationAction)
-        self.toolbar.addAction(self.datacatalogusAction)
         self.toolbar.addAction(self.parcelAction)
+        self.toolbar.addAction(self.datacatalogusAction)
         
         # Add to Menu
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
@@ -148,10 +148,10 @@ class geopunt4Qgis:
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.poiAction)        
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.gipodAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.elevationAction)
+        self.iface.addPluginToMenu(u'&geopunt4Qgis' ,self.parcelAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.datacatalogusAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
         self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
-        self.iface.addPluginToMenu(u'&geopunt4Qgis' ,self.parcelAction)
         
     def unload(self):
         ' Remove the plugin menu items and icons'

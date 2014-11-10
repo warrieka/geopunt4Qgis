@@ -78,7 +78,10 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
             
         timeout = int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.ui.timeOutBox.setValue(timeout)
-        home = os.environ["HOME"]
+        if 'HOME' in os.environ.keys():
+            home = os.environ["HOME"]
+        else: 
+            home = os.path.dirname(__file__)
         startDir = self.s.value("geopunt4qgis/startDir", home)
         if (isinstance(startDir, unicode) or isinstance(startDir, str)): 
             self.ui.startDirTxt.setText( startDir)                                   
@@ -168,6 +171,18 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         if (isinstance(profileLineLayerTxt, unicode) or isinstance(profileLineLayerTxt, str)):
             self.ui.profileLineLayerTxt.setText(profileLineLayerTxt)
         
+        #geopunt4Qgis parcel settings
+        parcelSavetoFile = int( self.s.value("geopunt4qgis/parcelSavetoFile", 1))
+        self.ui.parcelSavetoFileChk.setChecked(parcelSavetoFile)
+        
+        parcelSaveMemory = int( self.s.value("geopunt4qgis/parcelSaveMemory", 0))
+        self.ui.parcelSaveMemoryChk.setChecked(parcelSaveMemory)
+        
+        parcelLayerText =  self.s.value("geopunt4qgis/parcelLayerText", "")
+        if (isinstance(parcelLayerText, unicode) or isinstance(parcelLayerText, str)): 
+            self.ui.parcelLayerTxt.setText(parcelLayerText)
+            
+ 
     def saveSettings(self):
         'save all settings to registry'
         #General
@@ -262,6 +277,16 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         
         profileLineLayerTxt = self.ui.profileLineLayerTxt.text()
         self.s.setValue("geopunt4qgis/profileLineLayerTxt",  profileLineLayerTxt)
+        
+        #geopunt4Qgis parcel settings
+        parcelSavetoFile = int( self.ui.parcelSavetoFileChk.isChecked() )
+        self.s.setValue("geopunt4qgis/parcelSavetoFile", parcelSavetoFile)
+        
+        parcelSaveMemory = int( self.ui.parcelSaveMemoryChk.isChecked() )
+        self.s.setValue("geopunt4qgis/parcelSaveMemory", parcelSaveMemory)
+        
+        parcelLayerText =  self.ui.parcelLayerTxt.text()
+        self.s.setValue("geopunt4qgis/parcelLayerText",  parcelLayerText)
         
     def setDir(self):
         dirpath = QtGui.QFileDialog.getExistingDirectory()
