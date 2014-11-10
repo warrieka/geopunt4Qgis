@@ -81,7 +81,9 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.ui.verticalLayout.addWidget(self.bar)
         
         self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
-
+        for btn in self.ui.buttonBox.buttons():
+            btn.setAutoDefault(0)
+            
         #event handlers 
         if self.adresSearchOnEnter:
           self.ui.zoekText.returnPressed.connect(self.onZoekActivated)
@@ -112,7 +114,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
         
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/zoek-een-adres")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-adres")
     
     def onZoekActivated(self):
         self._clearGraphicsLayer()

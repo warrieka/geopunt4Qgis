@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Thu Aug 28 16:25:16 2014
+# Created: Mon Nov 10 16:38:32 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -62,6 +62,7 @@ class Ui_geopunt4Qgis(object):
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/binocularsSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.ZoomKnop.setIcon(icon2)
+        self.ZoomKnop.setDefault(True)
         self.ZoomKnop.setObjectName(_fromUtf8("ZoomKnop"))
         self.horizontalLayout_2.addWidget(self.ZoomKnop)
         self.verticalLayout.addLayout(self.horizontalLayout_2)

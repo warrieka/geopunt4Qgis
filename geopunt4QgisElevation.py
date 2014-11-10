@@ -73,8 +73,10 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
         self.ui.verticalLayout.addWidget(self.bar)
         
-        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
-        
+        self.ui.buttonBox.addButton(QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
+        for btn in self.ui.buttonBox.buttons():
+            btn.setAutoDefault(0)
+                  
         ##graph global vars
         self.Rubberline =  None
         self.profile = None
@@ -199,7 +201,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.figure.tight_layout()
     
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/hoogteprofiel")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/hoogteprofiel")
     
     def drawBtnClicked(self):
         self.clean()

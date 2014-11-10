@@ -318,6 +318,12 @@
          <iconset resource="resources.qrc">
           <normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</iconset>
         </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="4" column="1">
@@ -345,6 +351,9 @@
          <iconset resource="resources.qrc">
           <normaloff>:/plugins/geopunt4Qgis/images/select.png</normaloff>:/plugins/geopunt4Qgis/images/select.png</iconset>
         </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -366,7 +375,7 @@
           <normaloff>:/plugins/geopunt4Qgis/images/validAll.png</normaloff>:/plugins/geopunt4Qgis/images/validAll.png</iconset>
         </property>
         <property name="autoDefault">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -398,6 +407,9 @@
          <iconset resource="resources.qrc">
           <normaloff>:/plugins/geopunt4Qgis/images/prik.png</normaloff>:/plugins/geopunt4Qgis/images/prik.png</iconset>
         </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
      </layout>
@@ -421,7 +433,7 @@
         <bool>false</bool>
        </property>
        <property name="autoDefault">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="default">
         <bool>false</bool>

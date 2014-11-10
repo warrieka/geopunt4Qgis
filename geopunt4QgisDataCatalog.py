@@ -61,7 +61,9 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.ui.verticalLayout.addWidget(self.bar)
         
         self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
-        
+        for btn in self.ui.buttonBox.buttons():
+            btn.setAutoDefault(0)
+            
         #vars
         self.firstShow = True
         self.wms = None
@@ -102,7 +104,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.md = metadata.MDReader( self.timeout, self.proxy, self.port )
             
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/catalogus")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/catalogus")
 
     def _setModel(self, records):   
         self.model.clear()

@@ -66,7 +66,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.ui.verticalLayout.addWidget(self.bar)
     
         self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole  )
-    
+        for btn in self.ui.buttonBox.buttons():
+            btn.setAutoDefault(0)
+            
         #table ui
         self.ui.resultLijst.hideColumn(0)
        
@@ -144,7 +146,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
                   level=QgsMessageBar.WARNING, duration=3)
       
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/poi")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/poi")
     
     def onZoekActivated(self):
         txt = self.ui.poiText.text()

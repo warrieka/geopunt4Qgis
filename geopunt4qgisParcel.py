@@ -49,7 +49,9 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.ui = Ui_geopunt4QgisParcelDlg()
         self.ui.setupUi(self)
         self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole  )
-
+        for btn in self.ui.buttonBox.buttons():
+            btn.setAutoDefault(0)
+            
         #get settings
         self.s = QtCore.QSettings()
         self.loadSettings()
@@ -76,6 +78,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.ui.departmentCbx.currentIndexChanged.connect( self.departmentChanged )
         self.ui.sectionCbx.currentIndexChanged.connect(self.sectionChanged)
         self.ui.parcelCbx.currentIndexChanged.connect(self.parcelChanged)
+        
         self.ui.ZoomKnop_muni.clicked.connect(self.zoomTo)
         self.ui.ZoomKnop_dep.clicked.connect(self.zoomTo)
         self.ui.ZoomKnop_sect.clicked.connect(self.zoomTo)
@@ -146,6 +149,8 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         except Exception as e:
           self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
           return
+        
+        self.accept()
 
     def municipalityChanged(self):
         municipality= self.ui.municipalityCbx.currentText()
@@ -171,12 +176,12 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.setCompleter( depNames, self.ui.departmentCbx)
         self.ui.sectionCbx.setEnabled(0)
         self.ui.parcelCbx.setEnabled(0)
-        self.ui.saveBtn.setEnabled(0)
+        self.ui.saveBtn.setEnabled(0)        
   
     def departmentChanged(self):
         department = self.ui.departmentCbx.currentText()
         municipality= self.ui.municipalityCbx.currentText()
-
+        
         if municipality == '' or department == '': return
 
         niscodes = [n['municipalityCode'] for n in self.municipalities if n['municipalityName'] == municipality ]
@@ -232,7 +237,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.setCompleter( parcelNrs, self.ui.parcelCbx ) 
         self.ui.saveBtn.setEnabled(0)
 
-    def parcelChanged(self):
+    def parcelChanged(self): 
         self.ui.saveBtn.setEnabled( self.ui.parcelCbx.currentText() != '' )
 
     def zoomTo(self):
@@ -293,7 +298,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
           return
 
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten")
 
     def layernameValid(self):   
         if not hasattr(self, 'layerName'):
@@ -334,7 +339,8 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.graphics.append( rBand )
         rBand.setToGeometry( geom, None )
         rBand.setColor(QtGui.QColor(0,0,255, 70))
-        rBand.setBorderColor( QtGui.QColor(70,70,70, 220) )
+        if QGis.QGIS_VERSION_INT >= 20600:
+            rBand.setBorderColor( QtGui.QColor(0,0,250, 220) )
         rBand.setWidth(3)
 
     def clearGraphics(self):

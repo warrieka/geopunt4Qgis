@@ -159,17 +159,17 @@
         <translation type="obsolete">Add valid addresses to map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="566"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="578"/>
         <source>Valideer selectie</source>
         <translation>Validate selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="575"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="587"/>
         <source>Valideer alle Adressen</source>
         <translation>Validate all addresses</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="557"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="569"/>
         <source>Voeg alle valide adressen toe aan de kaart</source>
         <translation>Add al valid addresses to map</translation>
     </message>
@@ -179,12 +179,12 @@
         <translation>geocode CSV-files</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="584"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="596"/>
         <source>Zoom naar selectie</source>
         <translation>Zoom to selection</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="534"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="546"/>
         <source>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</source>
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Wrong addresses should be reported through LARA(for members of GDI-Flanders)&lt;/a&gt;&lt;/small&gt;</translation>
     </message>
@@ -199,12 +199,12 @@
         <translation>ansi</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="392"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="401"/>
         <source>Prik locatie op kaart</source>
         <translation>Click loaction on the map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="596"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="608"/>
         <source>Prik locatie op Kaart</source>
         <translation>Click loaction on the map</translation>
     </message>
@@ -219,7 +219,7 @@
         <translation type="obsolete">(Optional) municipality or zipcode:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="359"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="368"/>
         <source>Valideer alle adressen</source>
         <translation>Validate all addresses</translation>
     </message>
@@ -244,7 +244,7 @@
         <translation>Municipality or zipcode:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="414"/>
+        <location filename="ui_geopunt4QgisBatchGeoCode.ui" line="426"/>
         <source>Voeg alle gevalideerde adressen toe aan de kaart</source>
         <translation>Add all valid addresses</translation>
     </message>
@@ -395,7 +395,7 @@
         <translation>About geopunt4Qgis</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgis.ui" line="129"/>
+        <location filename="ui_geopunt4qgis.ui" line="132"/>
         <source>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)&lt;/a&gt;&lt;/small&gt;</source>
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Wrong addresses should be reported through LARA(for members of GDI-Flanders)&lt;/a&gt;&lt;/small&gt;</translation>
     </message>
@@ -445,12 +445,12 @@
         <translation type="obsolete">Datacatalog</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="303"/>
+        <location filename="geopunt4qgisParcel.py" line="306"/>
         <source>Laag toevoegen</source>
         <translation>Add layer</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="303"/>
+        <location filename="geopunt4qgisParcel.py" line="306"/>
         <source>Geef een naam voor de laag op:</source>
         <translation>Enter a layername:</translation>
     </message>
@@ -539,17 +539,17 @@
         <translation type="obsolete">Name</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="614"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="617"/>
         <source>WMS toevoegen</source>
         <translation>Add WMS</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="624"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="627"/>
         <source>WFS toevoegen</source>
         <translation>Add WFS</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="619"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="622"/>
         <source>Downloadpagina openen</source>
         <translation>Open Download </translation>
     </message>
@@ -649,7 +649,7 @@
         <translation>Only results with:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4QgisDataCatalog.ui" line="591"/>
+        <location filename="ui_geopunt4QgisDataCatalog.ui" line="594"/>
         <source>&lt;html&gt;&lt;head/&gt;
 &lt;body&gt;
 &lt;span style=&quot; font-size:small;&quot;&gt;
@@ -676,7 +676,7 @@ Geopunt metadatacenter&lt;/a&gt; en
 <context>
     <name>geopunt4QgisElevationDialog</name>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="299"/>
+        <location filename="geopunt4QgisElevation.py" line="302"/>
         <source>Kan WMS niet laden</source>
         <translation>Cannot load WMS</translation>
     </message>
@@ -686,47 +686,47 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">No  data was found</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="326"/>
+        <location filename="geopunt4QgisElevation.py" line="329"/>
         <source>Er werd geen of onvoldoende data gevonden</source>
         <translation>No data was found for this location</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="281"/>
+        <location filename="geopunt4QgisElevation.py" line="284"/>
         <source>Kies de vulkleur</source>
         <translation>Pick a fill color</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="153"/>
+        <location filename="geopunt4QgisElevation.py" line="156"/>
         <source>Vorm grafiek aanpassen</source>
         <translation>Edit curves line and axes parameters</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="129"/>
+        <location filename="geopunt4QgisElevation.py" line="132"/>
         <source>Keer terug naar overzicht</source>
         <translation>Back to original view</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="133"/>
+        <location filename="geopunt4QgisElevation.py" line="136"/>
         <source>Vorige</source>
         <translation>Back</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="137"/>
+        <location filename="geopunt4QgisElevation.py" line="140"/>
         <source>Volgende</source>
         <translation>Next</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="141"/>
+        <location filename="geopunt4QgisElevation.py" line="144"/>
         <source>Pannen</source>
         <translation>Pan</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="145"/>
+        <location filename="geopunt4QgisElevation.py" line="148"/>
         <source>Zoom naar rechthoek</source>
         <translation>Zoom to rectangle</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisElevation.py" line="149"/>
+        <location filename="geopunt4QgisElevation.py" line="152"/>
         <source>Opslaan als afbeelding</source>
         <translation>Save as picture</translation>
     </message>
@@ -757,37 +757,37 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="obsolete">Search an Address with Geopunt</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="112"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="40"/>
         <source>Gemeente:</source>
         <translation type="unfinished">Gemeente:</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="43"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="87"/>
         <source>Departement:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="73"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="137"/>
         <source>Sectie:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="238"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="251"/>
         <source>Toevoegen aan kaart</source>
         <translation type="unfinished">Add to map</translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="187"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="221"/>
         <source>Zoom naar</source>
         <translation type="unfinished">Zoom to</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="118"/>
+        <location filename="geopunt4qgisParcel.py" line="119"/>
         <source>Waarschuwing </source>
         <translation type="unfinished">Warning</translation>
     </message>
     <message>
-        <location filename="geopunt4qgisParcel.py" line="118"/>
+        <location filename="geopunt4qgisParcel.py" line="119"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation type="unfinished">Could not connect to the internet.</translation>
     </message>
@@ -797,7 +797,7 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui_geopunt4qgisParcel.ui" line="223"/>
+        <location filename="ui_geopunt4qgisParcel.ui" line="187"/>
         <source>Perceelnummer:</source>
         <translation type="unfinished"></translation>
     </message>

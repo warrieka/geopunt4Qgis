@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisDataCatalog.ui'
 #
-# Created: Tue Sep 30 20:57:50 2014
+# Created: Mon Nov 10 16:02:04 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -50,7 +50,7 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/magnifyingGlass.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.zoekBtn.setIcon(icon1)
         self.zoekBtn.setCheckable(False)
-        self.zoekBtn.setAutoDefault(False)
+        self.zoekBtn.setAutoDefault(True)
         self.zoekBtn.setDefault(True)
         self.zoekBtn.setFlat(False)
         self.zoekBtn.setObjectName(_fromUtf8("zoekBtn"))
@@ -291,6 +291,7 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/zip.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.DLbtn.setIcon(icon4)
+        self.DLbtn.setAutoDefault(False)
         self.DLbtn.setObjectName(_fromUtf8("DLbtn"))
         self.horizontalLayout_2.addWidget(self.DLbtn)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)

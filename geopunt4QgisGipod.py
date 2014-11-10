@@ -218,7 +218,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
             self.ui.cityCbx.addItems([ n["Naam"] for n in self.gemeentes ])
    
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/gipod")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/gipod")
     
     def clean(self):
         self.ui.lyrName.setText("GIPOD")

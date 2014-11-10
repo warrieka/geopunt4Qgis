@@ -68,7 +68,9 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.ui.tlFrame.setEnabled(False)
         
         self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
-    
+        for btn in self.ui.buttonBox.buttons():
+            btn.setAutoDefault(0)
+            
         #actions
         self.ui.outPutTbl.addAction( self.ui.actionValidateSelection)      
         self.ui.actionValidateSelection.triggered.connect(self.validateSelection)
@@ -108,7 +110,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
 
     #eventHandlers
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/csv-bestanden-geocoderen")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/csv-bestanden-geocoderen")
 
     def addToMap(self): 
         if not self.layernameValid(): return

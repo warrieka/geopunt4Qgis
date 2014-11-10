@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Tue Sep 30 20:57:50 2014
+# Created: Mon Nov 10 16:38:32 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -204,6 +204,8 @@ class Ui_batchGeocodeDlg(object):
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/binocularsSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.zoomToSelBtn.setIcon(icon1)
+        self.zoomToSelBtn.setAutoDefault(False)
+        self.zoomToSelBtn.setDefault(True)
         self.zoomToSelBtn.setObjectName(_fromUtf8("zoomToSelBtn"))
         self.gridLayout.addWidget(self.zoomToSelBtn, 2, 1, 1, 1)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -213,6 +215,7 @@ class Ui_batchGeocodeDlg(object):
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/select.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.validateSelBtn.setIcon(icon2)
+        self.validateSelBtn.setAutoDefault(False)
         self.validateSelBtn.setObjectName(_fromUtf8("validateSelBtn"))
         self.gridLayout.addWidget(self.validateSelBtn, 1, 1, 1, 1)
         self.validateBtn = QtGui.QPushButton(self.tlFrame)
@@ -225,7 +228,7 @@ class Ui_batchGeocodeDlg(object):
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/validAll.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.validateBtn.setIcon(icon3)
-        self.validateBtn.setAutoDefault(True)
+        self.validateBtn.setAutoDefault(False)
         self.validateBtn.setObjectName(_fromUtf8("validateBtn"))
         self.gridLayout.addWidget(self.validateBtn, 0, 1, 1, 1)
         self.outPutTbl = QtGui.QTableWidget(self.tlFrame)
@@ -241,6 +244,7 @@ class Ui_batchGeocodeDlg(object):
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/prik.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.adresFromMapBtn.setIcon(icon4)
+        self.adresFromMapBtn.setAutoDefault(False)
         self.adresFromMapBtn.setObjectName(_fromUtf8("adresFromMapBtn"))
         self.gridLayout.addWidget(self.adresFromMapBtn, 3, 1, 1, 1)
         self.verticalLayout.addWidget(self.tlFrame)
@@ -252,7 +256,7 @@ class Ui_batchGeocodeDlg(object):
         icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/addPointLayer.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.addToMapKnop.setIcon(icon5)
         self.addToMapKnop.setCheckable(False)
-        self.addToMapKnop.setAutoDefault(True)
+        self.addToMapKnop.setAutoDefault(False)
         self.addToMapKnop.setDefault(False)
         self.addToMapKnop.setFlat(False)
         self.addToMapKnop.setObjectName(_fromUtf8("addToMapKnop"))

@@ -83,6 +83,9 @@
         <iconset resource="resources.qrc">
          <normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</iconset>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
