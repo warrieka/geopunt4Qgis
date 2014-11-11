@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisSettings.ui'
 #
-# Created: Mon Nov 10 13:42:54 2014
+# Created: Tue Nov 11 12:35:01 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -112,7 +112,7 @@ class Ui_settingsDlg(object):
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntSmal.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.settingsTab.addItem(self.generalTab, icon1, _fromUtf8(""))
         self.adresTab = QtGui.QWidget()
-        self.adresTab.setGeometry(QtCore.QRect(0, 0, 285, 228))
+        self.adresTab.setGeometry(QtCore.QRect(0, 0, 482, 320))
         self.adresTab.setObjectName(_fromUtf8("adresTab"))
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.adresTab)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
@@ -154,7 +154,7 @@ class Ui_settingsDlg(object):
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntAddressSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.settingsTab.addItem(self.adresTab, icon2, _fromUtf8(""))
         self.reverseTab = QtGui.QWidget()
-        self.reverseTab.setGeometry(QtCore.QRect(0, 0, 221, 141))
+        self.reverseTab.setGeometry(QtCore.QRect(0, 0, 482, 320))
         self.reverseTab.setObjectName(_fromUtf8("reverseTab"))
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.reverseTab)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
@@ -183,7 +183,7 @@ class Ui_settingsDlg(object):
         icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntReverse.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.settingsTab.addItem(self.reverseTab, icon3, _fromUtf8(""))
         self.batchgeoCodeTab = QtGui.QWidget()
-        self.batchgeoCodeTab.setGeometry(QtCore.QRect(0, 0, 371, 177))
+        self.batchgeoCodeTab.setGeometry(QtCore.QRect(0, 0, 482, 320))
         self.batchgeoCodeTab.setObjectName(_fromUtf8("batchgeoCodeTab"))
         self.verticalLayout_10 = QtGui.QVBoxLayout(self.batchgeoCodeTab)
         self.verticalLayout_10.setObjectName(_fromUtf8("verticalLayout_10"))
@@ -227,7 +227,7 @@ class Ui_settingsDlg(object):
         icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntBatchgeocodeSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.settingsTab.addItem(self.batchgeoCodeTab, icon4, _fromUtf8(""))
         self.poiTab = QtGui.QWidget()
-        self.poiTab.setGeometry(QtCore.QRect(0, 0, 221, 141))
+        self.poiTab.setGeometry(QtCore.QRect(0, 0, 482, 320))
         self.poiTab.setObjectName(_fromUtf8("poiTab"))
         self.verticalLayout_7 = QtGui.QVBoxLayout(self.poiTab)
         self.verticalLayout_7.setObjectName(_fromUtf8("verticalLayout_7"))
@@ -256,7 +256,7 @@ class Ui_settingsDlg(object):
         icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntPoiSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.settingsTab.addItem(self.poiTab, icon5, _fromUtf8(""))
         self.gipodTab = QtGui.QWidget()
-        self.gipodTab.setGeometry(QtCore.QRect(0, 0, 254, 141))
+        self.gipodTab.setGeometry(QtCore.QRect(0, 0, 482, 320))
         self.gipodTab.setObjectName(_fromUtf8("gipodTab"))
         self.verticalLayout_12 = QtGui.QVBoxLayout(self.gipodTab)
         self.verticalLayout_12.setObjectName(_fromUtf8("verticalLayout_12"))
@@ -286,7 +286,7 @@ class Ui_settingsDlg(object):
         icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntGIPODsmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.settingsTab.addItem(self.gipodTab, icon6, _fromUtf8(""))
         self.elevationTab = QtGui.QWidget()
-        self.elevationTab.setGeometry(QtCore.QRect(0, 0, 257, 274))
+        self.elevationTab.setGeometry(QtCore.QRect(0, 0, 482, 320))
         self.elevationTab.setObjectName(_fromUtf8("elevationTab"))
         self.verticalLayout_16 = QtGui.QVBoxLayout(self.elevationTab)
         self.verticalLayout_16.setObjectName(_fromUtf8("verticalLayout_16"))
@@ -336,7 +336,7 @@ class Ui_settingsDlg(object):
         icon7.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntElevationSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.settingsTab.addItem(self.elevationTab, icon7, _fromUtf8(""))
         self.parcelTab = QtGui.QWidget()
-        self.parcelTab.setGeometry(QtCore.QRect(0, 0, 229, 141))
+        self.parcelTab.setGeometry(QtCore.QRect(0, 0, 482, 320))
         self.parcelTab.setObjectName(_fromUtf8("parcelTab"))
         self.verticalLayout_18 = QtGui.QVBoxLayout(self.parcelTab)
         self.verticalLayout_18.setObjectName(_fromUtf8("verticalLayout_18"))

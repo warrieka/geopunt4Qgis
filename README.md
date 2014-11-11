@@ -7,13 +7,14 @@ Geopunt4Qgis
 Functions
 --------
 
-  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/zoek-een-adres" ><img src="images/geopuntAddressSmall.png" /> Search an Address</a> 
-  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/prik-een-adres-op-kaart" ><img src="images/geopuntReverseSmall.png" /> Click an Address on the map</a>
-  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/csv-bestanden-geocoderen" ><img src="images/geopuntBatchgeocodeSmall.png" /> Geocode CSV-files </a>
-  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/poi" > Find a point of intrest</a>
-  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/gipod" ><img src="images/geopuntGIPODsmall.png" /> GIPOD</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-adres" ><img src="images/geopuntAddressSmall.png" /> Search an Address</a> 
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/prik-een-adres-op-kaart" ><img src="images/geopuntReverseSmall.png" /> Click an Address on the map</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/csv-bestanden-geocoderen" ><img src="images/geopuntBatchgeocodeSmall.png" /> Geocode CSV-files </a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/poi" ><img src="images/geopuntPoiSmall.png" /> Find a point of intrest</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/gipod" ><img src="images/geopuntGIPODsmall.png" /> GIPOD</a>
   * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/hoogteprofiel" ><img src="images/geopuntElevationSmall.png" /> Elevation profile</a>
-  * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/catalogus" ><img src="images/geopuntDataCatalogusSmall.png" /> Geopunt catalog</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten" ><img src="images/geopuntParcelSmall.png" /> Find a parcel</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/catalogus" ><img src="images/geopuntDataCatalogusSmall.png" /> Geopunt catalog</a>
 
   
 System requirements
@@ -43,6 +44,7 @@ These include:
 - **Location search** based on databases joined to the CRAB database, like the locations of the schools in Flanders.
 - **Traffic obstruction information** from the [GIPOD](http://gipod.api.agiv.be/#!index.md) public works and manifestation database.
 - **Elevation profile** a service that queries the digital elevation model Flanders, a set of along a line is retrieved. The source-data is [DHM-Vlaanderen](https://www.agiv.be/producten/digitaal-hoogtemodel-vlaanderen).
+- **Find parcels** find parcels in KADMAP.
 - **Metadata catalog** the [metadatacenter](https://metadata.geopunt.be) of Geopunt contains information about datasets and services from AGIV, DOV (geology) and MercatorNet (a co-operation between several Flemish governmental agencies).
 
 The goal of this project is to make these web-services available to QGIS-users, so they can be uses for creating print-maps and for doing research and analyses.

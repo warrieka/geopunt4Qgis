@@ -54,4 +54,5 @@
     <file>images/wrench.png</file>
     <file>images/zip.png</file>
   </qresource>
+  <qresource prefix="rest"/>
 </RCC>

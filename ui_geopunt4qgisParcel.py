@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgisParcel.ui'
 #
-# Created: Mon Nov 10 16:18:57 2014
+# Created: Tue Nov 11 11:58:58 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -150,7 +150,7 @@ class Ui_geopunt4QgisParcelDlg(object):
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/addPointLayer.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.saveBtn.setIcon(icon2)
         self.saveBtn.setAutoDefault(False)
-        self.saveBtn.setDefault(True)
+        self.saveBtn.setDefault(False)
         self.saveBtn.setObjectName(_fromUtf8("saveBtn"))
         self.widgetBtnsLayout.addWidget(self.saveBtn)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -174,7 +174,7 @@ class Ui_geopunt4QgisParcelDlg(object):
         QtCore.QMetaObject.connectSlotsByName(geopunt4QgisParcelDlg)
 
     def retranslateUi(self, geopunt4QgisParcelDlg):
-        geopunt4QgisParcelDlg.setWindowTitle(_translate("geopunt4QgisParcelDlg", "Zoek een perceel via Geopunt ", None))
+        geopunt4QgisParcelDlg.setWindowTitle(_translate("geopunt4QgisParcelDlg", "Zoek een perceel", None))
         self.municipalityLbl.setText(_translate("geopunt4QgisParcelDlg", "Gemeente:", None))
         self.ZoomKnop_muni.setToolTip(_translate("geopunt4QgisParcelDlg", "Zoom naar", None))
         self.ZoomKnop_muni.setStatusTip(_translate("geopunt4QgisParcelDlg", "Zoom naar", None))
