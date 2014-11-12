@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Mon Nov 10 16:38:32 2014
+# Created: Wed Nov 12 21:16:14 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -101,6 +101,6 @@ class Ui_geopunt4Qgis(object):
         self.zoekText.setPlaceholderText(_translate("geopunt4Qgis", "straat huisnummer", None))
         self.Add2mapKnop.setText(_translate("geopunt4Qgis", "Toevoegen aan kaart", None))
         self.ZoomKnop.setText(_translate("geopunt4Qgis", "Zoom naar", None))
-        self.laraLbl.setText(_translate("geopunt4Qgis", "<small><a href=\"http://crab.agiv.be/Lara\">Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)</a></small>", None))
+        self.laraLbl.setText(_translate("geopunt4Qgis", "<small><a href=\"http://crab.agiv.be/Lara\">Foute adressen kunt u melden via LARA</a></small>", None))
 
 import resources_rc

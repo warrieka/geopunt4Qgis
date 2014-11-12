@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Mon Nov 10 16:38:32 2014
+# Created: Wed Nov 12 21:16:14 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -361,7 +361,7 @@ class Ui_batchGeocodeDlg(object):
         self.outPutTbl.setSortingEnabled(True)
         self.adresFromMapBtn.setToolTip(_translate("batchGeocodeDlg", "Prik locatie op kaart", None))
         self.addToMapKnop.setText(_translate("batchGeocodeDlg", "Voeg alle gevalideerde adressen toe aan de kaart", None))
-        self.laraLbl.setText(_translate("batchGeocodeDlg", "<small><a href=\"http://crab.agiv.be/Lara\">Foute adressen kunt u melden via LARA (enkel voor GDI-Vlaanderen)</a></small>", None))
+        self.laraLbl.setText(_translate("batchGeocodeDlg", "<small><a href=\"http://crab.agiv.be/Lara\">Foute adressen kunt u melden via LARA</a></small>", None))
         self.actionAddValidToMap.setText(_translate("batchGeocodeDlg", "Voeg alle valide adressen toe aan de kaart", None))
         self.actionValidateSelection.setText(_translate("batchGeocodeDlg", "Valideer selectie", None))
         self.actionValidateAll.setText(_translate("batchGeocodeDlg", "Valideer alle Adressen", None))

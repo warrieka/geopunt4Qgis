@@ -13,7 +13,7 @@ Functions
   * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/poi" ><img src="images/geopuntPoiSmall.png" /> Find a point of intrest</a>
   * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/gipod" ><img src="images/geopuntGIPODsmall.png" /> GIPOD</a>
   * <a href="http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/hoogteprofiel" ><img src="images/geopuntElevationSmall.png" /> Elevation profile</a>
-  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten" ><img src="images/geopuntParcelSmall.png" /> Find a parcel</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-perceel" ><img src="images/geopuntParcelSmall.png" /> Find a parcel</a>
   * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/catalogus" ><img src="images/geopuntDataCatalogusSmall.png" /> Geopunt catalog</a>
 
   
@@ -68,7 +68,7 @@ Professionaly I work on webmapping with ESRI arcgis-server or Mapbox Tilemill an
 
 [Contact me](mailto:kaywarrie@gmail.com)
 
-[More about me](http://warrieka.github.io/#!aboutMe.md)
+[More about me](http://kgis.be)
 
 #### Sources:
 

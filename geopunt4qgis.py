@@ -251,7 +251,6 @@ class geopunt4Qgis:
         # Run the dialog event loop
         self.parcelDlg.exec_()
 
-
     def runAbout(self):
         'show the dialog'
         self.aboutDlg.show()
@@ -337,7 +336,7 @@ class geopunt4Qgis:
         self._clearGraphicLayer()
         
     def openReverseHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plugins/functionaliteiten/prik-een-adres-op-kaart")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/prik-een-adres-op-kaart")
                 
     def _addMarker(self, pnt, clr=QColor(255,255,0)):
         m = QgsVertexMarker(self.iface.mapCanvas())

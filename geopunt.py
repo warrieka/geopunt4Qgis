@@ -450,7 +450,7 @@ class gipod:
 class elevation:
   def __init__(self, timeout=15, proxyUrl="", port="" ):
       self.timeout = timeout
-      self.baseUri = 'http://dhm.beta.agiv.be/api/elevation/v1/DHMVMIXED/request'
+      self.baseUri = 'http://dhm.agiv.be/api/elevation/v1/DHMVMIXED/request'
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
         netLoc = proxyUrl.strip() + ":" + port
@@ -497,8 +497,8 @@ class parcel:
     def getMunicipalities(self):
         url = self.baseUrl + "/municipality/"
         try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -518,8 +518,8 @@ class parcel:
         url = "{0}/municipality/{1}?{2}".format( self.baseUrl, niscode, values )
         
         try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
            raise geopuntError( e.reason )
         except:
@@ -532,8 +532,8 @@ class parcel:
         url = "{0}/municipality/{1}/department/".format( self.baseUrl, niscode)
 
         try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -553,8 +553,8 @@ class parcel:
         url = "{0}/municipality/{1}/department/{2}?{3}".format( 
                                     self.baseUrl, niscode, departmentCode, values)
         try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -567,8 +567,8 @@ class parcel:
         url = "{0}/municipality/{1}/department/{2}/section/".format( self.baseUrl, niscode, departmentCode)
 
         try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -588,8 +588,8 @@ class parcel:
         url = "{0}/municipality/{1}/department/{2}/section/{3}?{4}".format( 
                                   self.baseUrl, niscode, departmentCode, sectieCode, values)
         try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -602,8 +602,8 @@ class parcel:
         url = "{0}/municipality/{1}/department/{2}/section/{3}/parcel".format( 
                               self.baseUrl, niscode, departmentCode, sectieCode)
         try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -623,8 +623,8 @@ class parcel:
         url = "{0}/municipality/{1}/department/{2}/section/{3}/parcel/{4}?{5}".format( 
                               self.baseUrl, niscode, departmentCode, sectieCode, perceelnummer, values)
         try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:

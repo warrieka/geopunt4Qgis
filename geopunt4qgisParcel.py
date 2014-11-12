@@ -298,7 +298,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
           return
 
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten")
+        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-perceel")
 
     def layernameValid(self):   
         if not hasattr(self, 'layerName'):

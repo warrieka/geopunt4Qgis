@@ -12,7 +12,7 @@ Functies
   * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/poi" ><img src="images/geopuntPoiSmall.png" /> Zoek een Plaats - interesse punt</a>
   * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/gipod" ><img src="images/geopuntGIPODsmall.png" /> GIPOD</a>
   * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/hoogteprofiel" ><img src="images/geopuntElevationSmall.png" /> Hoogteprofiel</a>
-  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten" ><img src="images/geopuntParcelSmall.png" /> Zoek een perceel</a>
+  * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-perceel" ><img src="images/geopuntParcelSmall.png" /> Zoek een perceel</a>
   * <a href="http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/catalogus" ><img src="images/geopuntDataCatalogusSmall.png" /> Geopunt catalogus</a>
  
 Systeem vereisten
