@@ -152,10 +152,10 @@ class poiHelper:
     def save_pois_points(self, points, layername="Geopunt_poi", saveToFile=None, sender=None, startFolder=None ):       
         attributes = [ QgsField("id", QVariant.Int),
             QgsField("thema", QVariant.String), 
-            QgsField("category", QVariant.String),
+            QgsField("categorie", QVariant.String),
             QgsField("type", QVariant.String),
 
-            QgsField("name", QVariant.String),
+            QgsField("naam", QVariant.String),
             QgsField("telefoon", QVariant.String),  
             QgsField("email", QVariant.String) ,
             #address
@@ -166,7 +166,7 @@ class poiHelper:
             QgsField("gemeente", QVariant.String),
             
             QgsField("link", QVariant.String),
-            QgsField("lastupdate", QVariant.String, "DateTime"),
+            QgsField("lastupdate", QVariant.String),
             QgsField("owner", QVariant.String) ]
     
         if not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid) :
@@ -181,33 +181,33 @@ class poiHelper:
             pt = QgsPoint( point['location']['points'][0]['Point']['coordinates'][0], 
                            point['location']['points'][0]['Point']['coordinates'][1]  )
             poiId = point["id"]
-            if "categories" in point and len(point["categories"]) > 0: 
-              theme = point["categories"][0]['value']
+            if "categories" in point.keys() and len(point["categories"]) > 0: 
+               theme = point["categories"][0]['value']
             else: theme = ''
-            if "categories" in  point and len(point["categories"]) > 1: 
-              category = point["categories"][1]['value']
+            if "categories" in  point.keys() and len(point["categories"]) > 1: 
+               category = point["categories"][1]['value']
             else: category = ''
             if "categories" in  point and len(point["categories"]) > 2: 
-              poiType =  point["categories"][2]['value']
+               poiType =  point["categories"][2]['value']
             else: poiType = ''
             
             name = point["labels"][0]["value"]
-            if "phone" in point: 
-              phone = point["phone"]
+            if "phone" in point.keys(): 
+               phone = point["phone"]
             else: phone= ""
-            if "email" in point: 
-              email = point["email"]
+            if "email" in point.keys(): 
+               email = point["email"]
             else: email= ""
             #address
-            if "address" in point['location']: 
-              if "street" in point['location']["address"]: 
-                straat = point['location']["address"]["street"]
+            if "address" in point['location'].keys(): 
+              if "street" in point['location']["address"].keys(): 
+                 straat = point['location']["address"]["street"]
               else:  straat = ''
-              if "streetnumber" in point['location']["address"]: 
-                huisnr = point['location']["address"]["streetnumber"]
+              if "streetnumber" in point['location']["address"].keys(): 
+                 huisnr = point['location']["address"]["streetnumber"]
               else:  huisnr = ''
-              if "boxnumber" in point['location']["address"]: 
-                busnr = point['location']["address"]["boxnumber"]
+              if "boxnumber" in point['location']["address"].keys(): 
+                 busnr = point['location']["address"]["boxnumber"]
               else:  boxnr = ''
               postcode = point['location']["address"]["postalcode"]
               gemeente = point['location']["address"]["municipality"]
@@ -237,11 +237,11 @@ class poiHelper:
       
             fet['id'] = int( poiId )
             fet['thema'] = theme
-            fet['category'] = category
+            fet['categorie'] = category
             fet['type'] = poiType
-            fet['name'] = name
+            fet['naam'] = name
             fet["email"] = email
-            fet["phone"] = phone
+            fet["telefoon"] = phone
             #address
             fet['straat'] = straat
             fet['huisnr'] = huisnr

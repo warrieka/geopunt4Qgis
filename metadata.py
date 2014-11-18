@@ -132,7 +132,9 @@ class MDReader:
         else:
             result = ET.parse(response)
             r= result.getroot()
-            return [ n.find("value").text for n in  r[0].findall('keyword') ]
+            themes = [ n.find("value").text for n in  r[0].findall('keyword') ]
+            themes.sort()
+            return themes
           
     def list_inspire_theme(self, q=''):
         url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.inspire-theme&pKeyword=*" + unicode(q).encode('utf-8') +"*"
@@ -146,7 +148,9 @@ class MDReader:
         else:
             result = ET.parse(response)
             r= result.getroot()
-            return [ n.find("value").text for n in  r[0].findall('keyword') ]
+            themes = [ n.find("value").text for n in  r[0].findall('keyword') ]
+            themes.sort()
+            return themes
     
     def list_suggestionKeyword(self, q=''):
         url = self.geoNetworkUrl + "/main.search.suggest?field=any" 
@@ -177,7 +181,13 @@ class MDReader:
             raise metaError( str( sys.exc_info()[1] ))
         else:
             result = json.load(response)
-            return result[1]
+            if len( result ) <= 2:
+               organisations = result[1]
+               organisations.sort()
+               return organisations
+            else:
+               return []
+               
 
     def list_bronnen(self):
         url = self.geoNetworkUrl + "/xml.info?type=sources"
@@ -191,8 +201,10 @@ class MDReader:
         else:
             result = ET.parse(response)
             r= result.getroot()
-            return  [ ( n.find("uuid").text, n.find("name").text ) 
+            bronnen = [ ( n.find("uuid").text, n.find("name").text ) 
                      for n in  r[0].findall('source') ]
+            bronnen.sort()
+            return bronnen
 
     def search(self, q="", start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType='' ):
         url = self._createFindUrl( q, start, to, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)

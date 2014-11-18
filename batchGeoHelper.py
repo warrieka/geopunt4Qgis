@@ -49,7 +49,7 @@ class batcGeoHelper:
     
   def save_adres_point(self, point, address, typeAddress='', attritableDict={}, layername="Geopunt_adressen" ):
     
-    mapcrs = geometryHelper.getMetMapCrs( self.iface )
+    mapcrs = geometryHelper.getGetMapCrs( self.iface )
     
     if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid):
         attributes = self._createAttributeTable( attritableDict )

@@ -131,7 +131,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
                 self.completerModel.setStringList( keywords )
                 self.bronnen = self.md.list_bronnen()
                 self.ui.bronCbx.addItems( ['']+ [ n[1] for n in self.bronnen] )
-                self.ui.typeCbx.addItems(['']+  [ n[0] for n in self.md.dataTypes])                
+                self.ui.typeCbx.addItems( ['']+  [ n[0] for n in self.md.dataTypes] )                
                 
                 self.ui.INSPIREannexCbx.addItems( ['']+ self.md.inspireannex )
                 self.ui.INSPIREserviceCbx.addItems( ['']+ self.md.inspireServiceTypes )

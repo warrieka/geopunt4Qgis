@@ -195,6 +195,11 @@ class geopunt4Qgis:
         
     def runSettingsDlg(self):
         ' show the dialog'
+        if self.settingsDlg.isVisible():
+           self.settingsDlg.showNormal()
+           self.settingsDlg.activateWindow()
+           return
+        
         self.settingsDlg.show()
         # Run the dialog event loop
         result = self.settingsDlg.exec_()
@@ -203,6 +208,11 @@ class geopunt4Qgis:
             
     def runAdresDlg(self):
         ' show the dialog'
+        if self.adresdlg.isVisible():
+           self.adresdlg.showNormal()
+           self.adresdlg.activateWindow()
+           return
+          
         self.adresdlg.loadSettings()
         self.adresdlg.show()
         # Run the dialog event loop
@@ -210,6 +220,11 @@ class geopunt4Qgis:
         
     def runPoiDlg(self):
         'show the dialog'
+        if self.poiDlg.isVisible():
+           self.poiDlg.showNormal()
+           self.poiDlg.activateWindow()
+           return 
+         
         self.poiDlg.loadSettings()
         self.poiDlg.show()
         # Run the dialog event loop
@@ -217,6 +232,11 @@ class geopunt4Qgis:
   
     def runGipod(self):
         'show the dialog'
+        if self.gipodDlg.isVisible():
+           self.gipodDlg.showNormal()
+           self.gipodDlg.activateWindow()
+           return 
+        
         self.gipodDlg.loadSettings()
         self.gipodDlg.show()
         # Run the dialog event loop
@@ -224,14 +244,29 @@ class geopunt4Qgis:
   
     def runBatch(self):
         'show the dialog'
+        if self.batchgeoDlg.isVisible():
+           self.batchgeoDlg.showNormal()
+           self.batchgeoDlg.activateWindow()
+           return 
+
         self.batchgeoDlg.loadSettings()
         self.batchgeoDlg.show()
         # Run the dialog event loop
         self.batchgeoDlg.exec_()
 
     def runElevation(self):
-        if elv.mathplotlibWorks == False: return
+
+        if elv.mathplotlibWorks == False: 
+          QMessageBox.critical(None, "Error",
+             QCoreApplication.translate("geopunt4Qgis" ,
+            "Deze functie kan niet geladen worden door het ontbreken van of een fout in mathplotlib") )
+          return
         'show the dialog'
+        if self.elevationDlg.isVisible():
+           self.elevationDlg.showNormal()
+           self.elevationDlg.activateWindow()
+           return 
+        
         self.elevationDlg.loadSettings()
         self.elevationDlg.show()
         # Run the dialog event loop
@@ -239,6 +274,11 @@ class geopunt4Qgis:
 
     def rundatacatalog(self):
         'show the dialog'
+        if self.datacatalogusDlg.isVisible():
+           self.datacatalogusDlg.showNormal()
+           self.datacatalogusDlg.activateWindow()
+           return 
+        
         self.datacatalogusDlg.loadSettings()
         self.datacatalogusDlg.show()
         # Run the dialog event loop
@@ -246,6 +286,11 @@ class geopunt4Qgis:
 
     def runParcel(self):
         'show the dialog'  
+        if self.parcelDlg.isVisible():
+           self.parcelDlg.showNormal()
+           self.parcelDlg.activateWindow()
+           return 
+        
         self.parcelDlg.loadSettings()
         self.parcelDlg.show()
         # Run the dialog event loop
@@ -253,6 +298,11 @@ class geopunt4Qgis:
 
     def runAbout(self):
         'show the dialog'
+        if self.aboutDlg.isVisible():
+           self.aboutDlg.showNormal()
+           self.aboutDlg.activateWindow()
+           return 
+        
         self.aboutDlg.show()
         # Run the dialog event loop
         self.aboutDlg.exec_()

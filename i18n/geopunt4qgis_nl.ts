@@ -350,32 +350,32 @@
         <translation>Zoom naar</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="264"/>
+        <location filename="geopunt4qgis.py" line="314"/>
         <source>Zoek een Adres: </source>
         <translation>Zoek een Adres:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="264"/>
+        <location filename="geopunt4qgis.py" line="314"/>
         <source>Klik op de kaart om het adres op te vragen</source>
         <translation>Klik op de kaart om het adres op te vragen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="296"/>
+        <location filename="geopunt4qgis.py" line="346"/>
         <source>Resultaat: </source>
         <translation>Resultaat:</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="317"/>
+        <location filename="geopunt4qgis.py" line="367"/>
         <source>Waarschuwing</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="312"/>
+        <location filename="geopunt4qgis.py" line="362"/>
         <source>Geen resultaten gevonden</source>
         <translation>Geen resultaten gevonden</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="320"/>
+        <location filename="geopunt4qgis.py" line="370"/>
         <source>onbekende fout</source>
         <translation>onbekende fout</translation>
     </message>
@@ -415,7 +415,7 @@
         <translation>CSV-adresbestanden geocoderen</translation>
     </message>
     <message>
-        <location filename="geopunt4qgis.py" line="304"/>
+        <location filename="geopunt4qgis.py" line="354"/>
         <source>Voeg toe</source>
         <translation>Voeg toe</translation>
     </message>
@@ -493,6 +493,11 @@
         <location filename="ui_geopunt4qgis.ui" line="132"/>
         <source>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA&lt;/a&gt;&lt;/small&gt;</source>
         <translation>&lt;small&gt;&lt;a href=&quot;http://crab.agiv.be/Lara&quot;&gt;Foute adressen kunt u melden via LARA&lt;/a&gt;&lt;/small&gt;</translation>
+    </message>
+    <message>
+        <location filename="geopunt4qgis.py" line="263"/>
+        <source>Deze functie kan niet geladen worden door het ontbreken van of een fout in mathplotlib</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
