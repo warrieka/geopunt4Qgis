@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="nl_BE" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.0" language="nl_BE">
 <context>
     <name>aboutDlg</name>
     <message>
@@ -497,7 +498,7 @@
     <message>
         <location filename="geopunt4qgis.py" line="263"/>
         <source>Deze functie kan niet geladen worden door het ontbreken van of een fout in mathplotlib</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Deze functie kan niet geladen worden door het ontbreken van of een fout in mathplotlib</translation>
     </message>
 </context>
 <context>
@@ -944,7 +945,7 @@ Geopunt metadatacenter&lt;/a&gt; en
         <source>Voeg alle punten toe</source>
         <translation>Voeg alle punten toe</translation>
     </message>
-    <message encoding="UTF-8">
+    <message utf8="true">
         <location filename="ui_geopunt4QgisPoi.ui" line="312"/>
         <source>Voeg alle POI’s toe die voldoen aan de criteria. 
 Indien meer dan 1000 punten zal een gedeelte geclusterd worden</source>

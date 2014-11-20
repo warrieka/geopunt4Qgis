@@ -80,7 +80,7 @@ class Adres:
 class Poi:
   def __init__(self, timeout=15, proxyUrl="", port=""):
       self.timeout = timeout
-      self._poiUrl = "http://poi.beta.geopunt.be/core"
+      self._poiUrl = "http://poi.api.geopunt.be/core"
       self.resultCount = 0
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
@@ -486,7 +486,7 @@ class elevation:
 class parcel:
     def __init__(self, timeout=15, proxyUrl="", port="" ):
       self.timeout = timeout
-      self.baseUrl = "http://ws.beta.agiv.be/capakey/api/v0"
+      self.baseUrl = "http://geo.agiv.be/capakey/api/v0"
       if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) & proxyUrl.startswith("http://"):
          netLoc = proxyUrl.strip() + ":" + port
          proxy = urllib2.ProxyHandler({'http': netLoc })
