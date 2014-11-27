@@ -35,7 +35,9 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.iface = iface
 
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale")[0:2]
+        locale = QtCore.QSettings().value("locale/userLocale", "nl")
+        if not locale: locale == 'nl' 
+        else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
             self.translator = QtCore.QTranslator()
@@ -207,7 +209,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             "Aantal getoond: %s gevonden: %s" % ( self.ui.resultLijst.rowCount() , self.poi.resultCount ) ))
           else:
             self.ui.msgLbl.setText(QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
-            "Aantal gevonden: %s" % ( self.poi.resultCount ) ))
+            "Aantal getoond: %s" % ( self.ui.resultLijst.rowCount() ) ))
         
         elif len(suggesties) == 0:
           self.bar.pushMessage(
