@@ -62,7 +62,7 @@ Over de auteur
 
 [Kay Warrie](http://kgis.be)
 
-Ik ben geodata analyst en occasioneel programmeur, werkzaam als freelance GIS consultant en bij de Studiedienst van stad Antwerpen. 
+Ik ben geodata analyst en programmeur, werkzaam als freelance GIS consultant en bij de Studiedienst van stad Antwerpen. 
 
 Professioneel werk ik op desktop GIS, voornamelijk Arcgis en QGIS en op webmapping met ESRI Arcgis-server of opensource webGIS en Maptiling Systemen. Ik beheer ook mee de centrale geodatabases van het stad en INSPIRE-compliant metadata in kader van GDI, Voor de rest doe ik vooral allerlei GIS analyses op data van het Stad. De meeste analyses zijn gerelateerd aan adressering-geocoding, ruimtelijke relaties, nabijheidsanalyses (routing, service area's ed.) voor onder andere MER studies, ruimtelijke ordening of bouwvergunningen.
 
