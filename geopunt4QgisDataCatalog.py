@@ -262,7 +262,6 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         try:
             rlayer = QgsRasterLayer(wmsUrl, layerTitle, 'wms') 
             if rlayer.isValid():
-               rlayer.renderer().setOpacity(0.8)
                QgsMapLayerRegistry.instance().addMapLayer(rlayer)
             else:  
                 self.bar.pushMessage("Error", 
