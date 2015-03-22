@@ -138,13 +138,12 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         if '' in (niscode, departmentcode, section, parcelNr): return
         
         try:
-          if municipality != '' or department != '' or section != '' or parcelNr != '':
-              parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
-              shape = json.loads( parcelInfo['geometry']['shape'])
-              pts = [n.asPolygon() for n in self.PolygonsFromJson( shape )]
-              mPolygon = QgsGeometry.fromMultiPolygon( pts )  
-              self.ph.save_parcel_polygon(mPolygon, parcelInfo, self.layerName, self.saveToFile,
-                                        self, os.path.join(self.startDir, self.layerName))
+          parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
+          shape = json.loads( parcelInfo['geometry']['shape'])
+          pts = [n.asPolygon() for n in self.PolygonsFromJson( shape )]
+          mPolygon = QgsGeometry.fromMultiPolygon( pts )  
+          self.ph.save_parcel_polygon(mPolygon, parcelInfo, self.layerName, self.saveToFile,
+                                    self, os.path.join(self.startDir, self.layerName))
         except geopunt.geopuntError as e:
           self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
           return
@@ -240,6 +239,31 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.ui.saveBtn.setEnabled(0)
 
     def parcelChanged(self): 
+        municipality= self.ui.municipalityCbx.currentText()
+        department = self.ui.departmentCbx.currentText()
+        
+        niscodes = [n['municipalityCode'] for n in self.municipalities if n['municipalityName'] == municipality ]
+        niscode = (niscodes[0] if len(niscodes) else '')
+        departmentcodes = [n['departmentCode'] for n in self.departments if n['departmentName'] == department ]
+        departmentcode = (departmentcodes[0] if len( departmentcodes) else '')
+            
+        section = self.ui.sectionCbx.currentText()
+        parcelNr = self.ui.parcelCbx.currentText()
+        
+        if '' in (niscode, departmentcode, section, parcelNr): return
+        
+        try:
+            parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr)
+            addresses = "; ".join(parcelInfo['adres'])
+            self.ui.adresLine.setText(addresses)
+
+        except geopunt.geopuntError as e:
+            self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
+            return
+        except Exception as e:
+            self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
+            return
+    
         self.ui.saveBtn.setEnabled( self.ui.parcelCbx.currentText() != '' )
 
     def zoomTo(self):
