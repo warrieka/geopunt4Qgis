@@ -25,7 +25,7 @@ QGISDIR=.qgis2
 # translation
 SOURCES         = geopunt4qgis.py \
 		  geopunt4QgisPoidialog.py \
-		  geopunt4qgisAdresdialog.py \
+		  geopunt4QgisAdresdialog.py \
 		  geopunt4QgisAbout.py \
 		  geopunt4QgisSettingsdialog.py \
 		  geopunt4QgisBatchGeoCode.py \

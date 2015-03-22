@@ -97,7 +97,7 @@ class geopunt4Qgis:
         self.adresAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntAddress.png"),
             QCoreApplication.translate("geopunt4Qgis" , u"Zoek een adres"), self.iface.mainWindow())
         self.reverseAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntReverse.png"),
-                QCoreApplication.translate("geopunt4Qgis", u"Prik een adres op kaart"), 
+                QCoreApplication.translate("geopunt4Qgis", u"Prik een adres op de kaart"), 
                 self.iface.mainWindow())
         self.batchAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntBatchgeocode.png"),
 	        QCoreApplication.translate("geopunt4Qgis", u"CSV-adresbestanden geocoderen"),
@@ -328,13 +328,13 @@ class geopunt4Qgis:
         lam72 = QgsCoordinateReferenceSystem(31370)
         mapCrs = self.gh.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform(mapCrs, lam72)
-        lam72pt = xform.transform(point)
+        lam72clickt = xform.transform(point)
         
         #to clear or not clear that is the question
         self.iface.messageBar().clearWidgets()
         
         #fetch Location from geopunt
-        adres = self.adres.fetchLocation( str( lam72pt.x() ) + "," + str( lam72pt.y() ), 1)
+        adres = self.adres.fetchLocation( str( lam72clickt.x() ) + "," + str( lam72clickt.y() ), 1)
         Timer( 3, self._clearGraphicLayer, ()).start()
     
         if len(adres) and type( adres ) is list:
@@ -342,9 +342,13 @@ class geopunt4Qgis:
             FormattedAddress = adres[0]["FormattedAddress"]
       
             #add a button to the messageBar widget
-            widget = self.iface.messageBar().createMessage(QCoreApplication.translate("geopunt4Qgis", "Resultaat: "), FormattedAddress)
-            
             xlam72, ylam72 = adres[0]["Location"]["X_Lambert72"], adres[0]["Location"]["Y_Lambert72"]    
+            
+            diff = int(((xlam72 - lam72clickt.x())**2 +(ylam72 - lam72clickt.y())**2 )**(0.5))
+            
+            widget = self.iface.messageBar().createMessage(QCoreApplication.translate(
+              "geopunt4Qgis", "Resultaat: "), "{0} (verschil: {1}m)".format(FormattedAddress, diff))
+            
             xy = self.gh.prjPtToMapCrs([xlam72, ylam72], 31370)            
             self._addMarker( xy, QColor(0,255,200))
             
@@ -376,7 +380,7 @@ class geopunt4Qgis:
         if not hasattr(self, 'layerName_reverse'):
            layerName, accept = QInputDialog.getText(None,
              QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
-             QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+             QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:'))
            if accept == False: return
            else:  self.layerName_reverse = layerName
            

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Thu Nov 20 18:45:01 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Sun Mar 22 21:59:40 2015
+#      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_geopunt4Qgis(object):
     def setupUi(self, geopunt4Qgis):
         geopunt4Qgis.setObjectName(_fromUtf8("geopunt4Qgis"))
-        geopunt4Qgis.resize(472, 352)
+        geopunt4Qgis.resize(604, 352)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntAddressSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         geopunt4Qgis.setWindowIcon(icon)
@@ -68,6 +68,12 @@ class Ui_geopunt4Qgis(object):
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.label = QtGui.QLabel(geopunt4Qgis)
+        self.label.setMinimumSize(QtCore.QSize(120, 0))
+        self.label.setFrameShape(QtGui.QFrame.Panel)
+        self.label.setFrameShadow(QtGui.QFrame.Sunken)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.horizontalLayout_3.addWidget(self.label)
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem1)
         self.buttonBox = QtGui.QDialogButtonBox(geopunt4Qgis)
@@ -97,10 +103,11 @@ class Ui_geopunt4Qgis(object):
 
     def retranslateUi(self, geopunt4Qgis):
         geopunt4Qgis.setWindowTitle(_translate("geopunt4Qgis", "Zoek een adres via Geopunt ", None))
-        self.inputBox.setTitle(_translate("geopunt4Qgis", "Selecteer een gemeente  en voer een adres in", None))
+        self.inputBox.setTitle(_translate("geopunt4Qgis", "Selecteer een gemeente. Geef een straat (+nr) op en selecteer dan een suggestie ", None))
         self.zoekText.setPlaceholderText(_translate("geopunt4Qgis", "straat huisnummer", None))
         self.Add2mapKnop.setText(_translate("geopunt4Qgis", "Toevoegen aan kaart", None))
         self.ZoomKnop.setText(_translate("geopunt4Qgis", "Zoom naar", None))
+        self.label.setText(_translate("geopunt4Qgis", "  ", None))
         self.laraLbl.setText(_translate("geopunt4Qgis", "<small><a href=\"http://crab.agiv.be/Lara\">Foute adressen kunt u melden via LARA</a></small>", None))
 
 import resources_rc

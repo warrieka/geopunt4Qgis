@@ -215,7 +215,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
             for col in range(validAdresCol):
                 self.ui.outPutTbl.item(rowIdx,col).setBackgroundColor(QtGui.QColor("#DDFFDD"))
             self.ui.outPutTbl.clearSelection()
-        
+    
     def loadTable(self):
         self.ui.outPutTbl.clearContents()   #clear existing stuff
         self.ui.outPutTbl.setColumnCount(0)
@@ -429,15 +429,15 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
           if adres:
             loc = self.gp.fetchLocation(adres,1)
             if loc and type( loc ) is list:
-                xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
+                xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"])
                 xyMap = self.gh.prjPtToMapCrs(xylb, 31370)
                 pts.append(xyMap)
                 graphic = self.gh.addPointGraphic(xyMap)
                 self.graphicsLayer.append(graphic)
-            elif type( loc ) is str:
+            elif type(loc ) is str:
                 self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
                 self.clearGraphicsLayer()
-            return
+            
           i += 1
       
         bounds = None

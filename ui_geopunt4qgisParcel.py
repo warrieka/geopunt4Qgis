@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgisParcel.ui'
 #
-# Created: Thu Nov 20 18:45:02 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Sun Mar 22 20:01:58 2015
+#      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,8 +26,9 @@ except AttributeError:
 class Ui_geopunt4QgisParcelDlg(object):
     def setupUi(self, geopunt4QgisParcelDlg):
         geopunt4QgisParcelDlg.setObjectName(_fromUtf8("geopunt4QgisParcelDlg"))
-        geopunt4QgisParcelDlg.resize(468, 232)
-        geopunt4QgisParcelDlg.setMaximumSize(QtCore.QSize(900, 232))
+        geopunt4QgisParcelDlg.resize(468, 280)
+        geopunt4QgisParcelDlg.setMinimumSize(QtCore.QSize(0, 280))
+        geopunt4QgisParcelDlg.setMaximumSize(QtCore.QSize(900, 280))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/geopunt4Qgis/images/geopuntParcelSmall.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         geopunt4QgisParcelDlg.setWindowIcon(icon)
@@ -141,7 +142,24 @@ class Ui_geopunt4QgisParcelDlg(object):
         self.ZoomKnop_parcel.setObjectName(_fromUtf8("ZoomKnop_parcel"))
         self.horizontalLayout_4.addWidget(self.ZoomKnop_parcel)
         self.formLayout.setLayout(7, QtGui.QFormLayout.FieldRole, self.horizontalLayout_4)
+        self.horizontalLayout_5 = QtGui.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
+        self.horizontalLayout_6 = QtGui.QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
+        self.label = QtGui.QLabel(self.parcelWgt)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.horizontalLayout_6.addWidget(self.label)
+        self.adresLine = QtGui.QLineEdit(self.parcelWgt)
+        self.adresLine.setEnabled(True)
+        self.adresLine.setFrame(False)
+        self.adresLine.setReadOnly(True)
+        self.adresLine.setObjectName(_fromUtf8("adresLine"))
+        self.horizontalLayout_6.addWidget(self.adresLine)
+        self.horizontalLayout_5.addLayout(self.horizontalLayout_6)
+        self.formLayout.setLayout(9, QtGui.QFormLayout.SpanningRole, self.horizontalLayout_5)
         self.verticalLayout.addWidget(self.parcelWgt)
+        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem)
         self.widgetBtnsLayout = QtGui.QHBoxLayout()
         self.widgetBtnsLayout.setObjectName(_fromUtf8("widgetBtnsLayout"))
         self.saveBtn = QtGui.QPushButton(geopunt4QgisParcelDlg)
@@ -153,8 +171,8 @@ class Ui_geopunt4QgisParcelDlg(object):
         self.saveBtn.setDefault(False)
         self.saveBtn.setObjectName(_fromUtf8("saveBtn"))
         self.widgetBtnsLayout.addWidget(self.saveBtn)
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.widgetBtnsLayout.addItem(spacerItem)
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.widgetBtnsLayout.addItem(spacerItem1)
         self.buttonBox = QtGui.QDialogButtonBox(geopunt4QgisParcelDlg)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -187,6 +205,7 @@ class Ui_geopunt4QgisParcelDlg(object):
         self.parcelLbl.setText(_translate("geopunt4QgisParcelDlg", "Perceelnummer:", None))
         self.ZoomKnop_parcel.setToolTip(_translate("geopunt4QgisParcelDlg", "Zoom naar", None))
         self.ZoomKnop_parcel.setStatusTip(_translate("geopunt4QgisParcelDlg", "Zoom naar", None))
+        self.label.setText(_translate("geopunt4QgisParcelDlg", "Adres:", None))
         self.saveBtn.setText(_translate("geopunt4QgisParcelDlg", "Toevoegen aan kaart", None))
 
 import resources_rc

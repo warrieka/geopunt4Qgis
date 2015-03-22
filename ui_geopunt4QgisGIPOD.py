@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisGIPOD.ui'
 #
-# Created: Thu Nov 20 18:45:02 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Sun Mar 22 20:01:58 2015
+#      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -70,16 +70,6 @@ class Ui_gipodDlg(object):
         self.gridLayout = QtGui.QGridLayout(self.queryWgt)
         self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        self.ownerCbx = QtGui.QComboBox(self.queryWgt)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.ownerCbx.sizePolicy().hasHeightForWidth())
-        self.ownerCbx.setSizePolicy(sizePolicy)
-        self.ownerCbx.setMinimumSize(QtCore.QSize(100, 0))
-        self.ownerCbx.setEditable(False)
-        self.ownerCbx.setObjectName(_fromUtf8("ownerCbx"))
-        self.gridLayout.addWidget(self.ownerCbx, 0, 1, 1, 1)
         self.startEdit = QtGui.QDateEdit(self.queryWgt)
         self.startEdit.setMinimumSize(QtCore.QSize(100, 0))
         self.startEdit.setDate(QtCore.QDate(2013, 1, 1))
@@ -98,14 +88,6 @@ class Ui_gipodDlg(object):
         self.einddatumLbl = QtGui.QLabel(self.queryWgt)
         self.einddatumLbl.setObjectName(_fromUtf8("einddatumLbl"))
         self.gridLayout.addWidget(self.einddatumLbl, 7, 0, 1, 1)
-        self.eigenaarLbl = QtGui.QLabel(self.queryWgt)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.eigenaarLbl.sizePolicy().hasHeightForWidth())
-        self.eigenaarLbl.setSizePolicy(sizePolicy)
-        self.eigenaarLbl.setObjectName(_fromUtf8("eigenaarLbl"))
-        self.gridLayout.addWidget(self.eigenaarLbl, 0, 0, 1, 1)
         self.stadLbl = QtGui.QLabel(self.queryWgt)
         self.stadLbl.setObjectName(_fromUtf8("stadLbl"))
         self.gridLayout.addWidget(self.stadLbl, 2, 0, 1, 1)
@@ -144,6 +126,24 @@ class Ui_gipodDlg(object):
         self.provncieLbl = QtGui.QLabel(self.queryWgt)
         self.provncieLbl.setObjectName(_fromUtf8("provncieLbl"))
         self.gridLayout.addWidget(self.provncieLbl, 1, 0, 1, 1)
+        self.eigenaarLbl = QtGui.QLabel(self.queryWgt)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.eigenaarLbl.sizePolicy().hasHeightForWidth())
+        self.eigenaarLbl.setSizePolicy(sizePolicy)
+        self.eigenaarLbl.setObjectName(_fromUtf8("eigenaarLbl"))
+        self.gridLayout.addWidget(self.eigenaarLbl, 3, 0, 1, 1)
+        self.ownerCbx = QtGui.QComboBox(self.queryWgt)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.ownerCbx.sizePolicy().hasHeightForWidth())
+        self.ownerCbx.setSizePolicy(sizePolicy)
+        self.ownerCbx.setMinimumSize(QtCore.QSize(100, 0))
+        self.ownerCbx.setEditable(False)
+        self.ownerCbx.setObjectName(_fromUtf8("ownerCbx"))
+        self.gridLayout.addWidget(self.ownerCbx, 3, 1, 1, 1)
         self.verticalLayout.addWidget(self.queryWgt)
         self.outputWgt = QtGui.QWidget(gipodDlg)
         self.outputWgt.setObjectName(_fromUtf8("outputWgt"))
@@ -192,7 +192,7 @@ class Ui_gipodDlg(object):
         QtCore.QMetaObject.connectSlotsByName(gipodDlg)
 
     def retranslateUi(self, gipodDlg):
-        gipodDlg.setWindowTitle(_translate("gipodDlg", "GIPOD", None))
+        gipodDlg.setWindowTitle(_translate("gipodDlg", "Bevraag GIPOD", None))
         self.typeBox.setTitle(_translate("gipodDlg", "Type", None))
         self.workassignmentRadio.setText(_translate("gipodDlg", "Werkopdracht", None))
         self.manifestationRadio.setText(_translate("gipodDlg", "Manifestatie", None))
@@ -200,11 +200,11 @@ class Ui_gipodDlg(object):
         self.endEdit.setDisplayFormat(_translate("gipodDlg", "dd/MM/yyyy", None))
         self.startdatumLbl.setText(_translate("gipodDlg", "Startdatum:", None))
         self.einddatumLbl.setText(_translate("gipodDlg", "Einddatum:", None))
-        self.eigenaarLbl.setText(_translate("gipodDlg", "Eigenaar: ", None))
         self.stadLbl.setText(_translate("gipodDlg", "Stad of gemeente:", None))
         self.extendChk.setText(_translate("gipodDlg", "Beperk zoekresultaten tot huidig zoomniveau", None))
         self.manifestationlbl.setText(_translate("gipodDlg", "Type manifestatie:", None))
         self.provncieLbl.setText(_translate("gipodDlg", "Provincie:", None))
+        self.eigenaarLbl.setText(_translate("gipodDlg", "Eigenaar: ", None))
         self.laagNaamLbl.setText(_translate("gipodDlg", "Laagnaam:", None))
 
 import resources_rc

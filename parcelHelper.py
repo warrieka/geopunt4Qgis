@@ -63,7 +63,7 @@ class parcelHelper:
         fet['macht'] = parcelInfo['macht']
         fet['bisnummer'] = parcelInfo['bisnummer']
         fet['exponent'] = parcelInfo['exponent']
-        fet['adres'] = "; ".join( parcelInfo['adres'] )
+        fet['adres'] = ", ".join( parcelInfo['adres'] )
         fet['capakey'] = parcelInfo['capakey']
         fet['grondnr'] = parcelInfo['grondnummer']
         fet['type'] = parcelInfo['type']

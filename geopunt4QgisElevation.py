@@ -22,7 +22,8 @@ geopunt4QgisElevation
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisElevation import Ui_elevationDlg
 from qgis.core import *
-from qgis.gui import  QgsMessageBar, QgsVertexMarker
+from qgis.gui import  QgsMessageBar, QgsVertexMarker 
+from PyQt4.QtGui import QFileDialog
 #mathplotlib
 try:
   from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
@@ -152,7 +153,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         toolbarBtns[5].setToolTip(QtCore.QCoreApplication.translate(
                                             "geopunt4QgisElevationDialog", "Opslaan als afbeelding"))
         toolbarBtns[5].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/save.png"))
-        toolbarBtns[5].clicked.connect( self.toolbar.save_figure )
+        toolbarBtns[5].clicked.connect( self.save_fig ) #semf.toolbar.save_figure
         toolbarBtns[6].setToolTip(QtCore.QCoreApplication.translate(
                                             "geopunt4QgisElevationDialog", "Vorm grafiek aanpassen"))
         toolbarBtns[6].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/wrench.png")) 
@@ -190,6 +191,18 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
                 print str( sys.exc_info()[1] )
 
     #eventhandlers
+    def save_fig(self):
+        formats = (
+        "Joint Photographic Experts Group (*.jpg) (*.jpg);;Scalable Vector Grapics (*.svg) (*.svg);;"+
+        "Portable Document Format (*.pdf) (*.pdf);;Tagged Image File Format (*.tif) (*.tif)"+
+        ";;Encapsulated Postscript (*.eps) (*.eps)")
+      
+        if not(sys.platform == 'win32' and matplotlib.__version__ == "1.3.1"):
+           formats += ";;Portable Network Graphics  (*.png) (*.png)"
+      
+        fileName = QFileDialog.getSaveFileName( self , "Save File", self.startDir, formats);
+        self.figure.savefig(fileName)
+    
     def onRefresh(self):
         if self.ano: 
             self.ano.remove()
