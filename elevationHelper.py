@@ -35,7 +35,7 @@ class elevationHelper:
 
     def save_sample_points(self, pointData, profileName="", layername="elevation_samples", saveToFile=None, sender=None):
         ''
-        attributes = [    QgsField("name", QVariant.String),
+        attributes = [ QgsField("name", QVariant.String),
           QgsField("Dist", QVariant.Double), QgsField("z_taw", QVariant.Double) ]
     
         if not QgsMapLayerRegistry.instance().mapLayer(self.sampleslayerid) :
