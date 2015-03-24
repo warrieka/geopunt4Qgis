@@ -80,16 +80,16 @@ class Adres:
 class Poi:
   def __init__(self, timeout=15, proxyUrl="", port=""):
       self.timeout = timeout
-      self._poiUrl = "http://poi.api.geopunt.be/core"
+      self._poiUrl = "http://poi.beta.geopunt.be/v1/core"
       self.resultCount = 0
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-        netLoc = proxyUrl.strip() + ":" + port
-        proxy = urllib2.ProxyHandler({'http': netLoc })
-        self.opener = urllib2.build_opener(proxy)
+          netLoc = proxyUrl.strip() + ":" + port
+          proxy = urllib2.ProxyHandler({'http': netLoc })
+          self.opener = urllib2.build_opener(proxy)
       else:
-        self.opener = None
-      
+          self.opener = None
+        
       #TODO: What if no WGS coordinates as input???
       self.maxBounds = [1.17, 49.77, 7.29, 52.35]  
       self.resultBounds =  [1.17, 49.77, 7.29, 52.35]  
@@ -161,7 +161,7 @@ class Poi:
       types = [(  n["value"], n["term"]) for n in poitypes["categories"] ]
       return types
     
-  def _createPoiUrl(self, q, c=30, srs=31370, maxModel=False, bbox=None, theme='', category='', POItype='', region='' ):
+  def _createPoiUrl(self, q, c=32, srs=31370, maxModel=False, bbox=None, theme='', category='', POItype='', region='' ):
       poiUrl = self._poiUrl
       data = {}
       if q : data["keyword"] = unicode(q).encode('utf-8')
@@ -189,16 +189,17 @@ class Poi:
     
       values = urllib.urlencode(data)
       result = poiUrl + "?" + values
+      print result    
       return result
     
-  def fetchPoi(self, q,  c=30, srs=31370, maxModel=True , updateResults=True, bbox=None,  theme='', category='', POItype='', region='' ):
+  def fetchPoi(self, q,  c=32, srs=31370, maxModel=True , updateResults=True, bbox=None,  theme='', category='', POItype='', region='' ):
         url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region)
         poi = None
         try:
           if self.opener: response = self.opener.open(url, timeout=self.timeout)
           else: response = urllib2.urlopen(url, timeout=self.timeout)
         except urllib2.HTTPError as e:
-          return json.load(e)["Message"]
+          return str( e.reason )
         except urllib2.URLError as e:
           return str( e.reason )
         except:
@@ -207,7 +208,7 @@ class Poi:
           poi = json.load(response)
       
           if updateResults:
-              self.resultCount =  int( poi["label"]["value"] )
+              self.resultCount =  int( [n["value"] for n in poi["labels"] if n["term"] == 'Count'][0] )
               if bbox:
                   self.resultBounds = bbox
               else:
@@ -639,8 +640,7 @@ class geopuntError(Exception):
       self.message = message
     def __str__(self):
       return repr(self.message)
-      
-      
+           
 def internet_on(timeout=15, proxyUrl="", port="" ):
     if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
         netLoc = proxyUrl.strip() + ":" + port

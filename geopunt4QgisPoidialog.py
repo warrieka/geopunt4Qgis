@@ -175,13 +175,13 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             minX, minY = self.gh.prjPtFromMapCrs([bbox.xMinimum(),bbox.yMinimum()], 4326)
             maxX, maxY = self.gh.prjPtFromMapCrs([bbox.xMaximum(),bbox.yMaximum()], 4326)
             xyBox = [minX, minY, maxX, maxY]
-            self.poi.fetchPoi( txt, c=100, srs=4326 , maxModel=True, updateResults=True, bbox=xyBox, 
+            self.poi.fetchPoi( txt, c=32, srs=4326 , maxModel=True, updateResults=True, bbox=xyBox, 
                                theme=poitheme , category=poiCategorie, POItype=poiType )
         else:
-            self.poi.fetchPoi( txt, c=100, srs=4326 , maxModel=True, updateResults=True, bbox=None, 
+            self.poi.fetchPoi( txt, c=32, srs=4326 , maxModel=True, updateResults=True, bbox=None, 
                                theme=poitheme , category=poiCategorie, POItype=poiType, region=Niscode )
       
-        suggesties = self.poi.poiSuggestion()
+        suggesties = self.poi.poiSuggestion()        
     
         if type( suggesties ) is list and len(suggesties) > 0:
           #prevent sorting every time an item is added
@@ -213,7 +213,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         
         elif len(suggesties) == 0:
           self.bar.pushMessage(
-            QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Geen resultaten gevonden voor: "), 
+            QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Geen resultaten gevonden"), 
             txt, level=QgsMessageBar.INFO, duration=5)
         elif type( suggesties ) is str:
           self.bar.pushMessage(
