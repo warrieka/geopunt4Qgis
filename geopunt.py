@@ -80,7 +80,7 @@ class Adres:
 class Poi:
   def __init__(self, timeout=15, proxyUrl="", port=""):
       self.timeout = timeout
-      self._poiUrl = "http://poi.api.geopunt.be/core"
+      self._poiUrl = "http://poi.beta.geopunt.be/v1/core"
       self.resultCount = 0
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
@@ -193,12 +193,18 @@ class Poi:
     
   def fetchPoi(self, q,  c=30, srs=31370, maxModel=True , updateResults=True, bbox=None,  theme='', category='', POItype='', region='' ):
         url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region)
+        print url
         poi = None
         try:
           if self.opener: response = self.opener.open(url, timeout=self.timeout)
           else: response = urllib2.urlopen(url, timeout=self.timeout)
         except urllib2.HTTPError as e:
-          return json.load(e)["Message"]
+          error = e.read()
+          errorjs =  json.loads(error)
+          if "Message" in errorjs.keys():
+            return error["Message"]
+          else: 
+            return error
         except urllib2.URLError as e:
           return str( e.reason )
         except:
@@ -207,7 +213,7 @@ class Poi:
           poi = json.load(response)
       
           if updateResults:
-              self.resultCount =  int( poi["label"]["value"] )
+              self.resultCount =  int( poi["labels"][0]["value"] )
               if bbox:
                   self.resultBounds = bbox
               else:
@@ -215,8 +221,7 @@ class Poi:
               self.PoiResult = poi["pois"]
               self.qeury = q
               self.srs = srs
-              self.maxModel = maxModel
-              
+              self.maxModel = maxModel           
           return poi
   
   def poiSuggestion(self):
@@ -633,14 +638,12 @@ class parcel:
             parcel = json.load(response)
             return parcel
           
-
 class geopuntError(Exception):
     def __init__(self, message):
       self.message = message
     def __str__(self):
       return repr(self.message)
-      
-      
+         
 def internet_on(timeout=15, proxyUrl="", port="" ):
     if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
         netLoc = proxyUrl.strip() + ":" + port
