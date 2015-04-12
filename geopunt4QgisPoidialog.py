@@ -183,7 +183,7 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
       
         suggesties = self.poi.poiSuggestion()
     
-        if type(suggesties) is list and len(suggesties) > 0:
+        if type(suggesties) is list:
           #prevent sorting every time an item is added
           self.ui.resultLijst.setSortingEnabled(False)
           row =0
@@ -193,28 +193,38 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
               categorie = QtGui.QTableWidgetItem( sug[2], 0 )
               PoiType = QtGui.QTableWidgetItem( sug[3], 0 )
               naam = QtGui.QTableWidgetItem( sug[4], 0 )
-              adres = QtGui.QTableWidgetItem( sug[5].replace("<br />",", ").replace("<br/>",", "), 0)
+              straat = QtGui.QTableWidgetItem( sug[5], 0)
+              huisnr = QtGui.QTableWidgetItem( sug[6], 0)
+              busnr = QtGui.QTableWidgetItem( sug[7], 0)
+              postcode = QtGui.QTableWidgetItem( sug[8], 0)
+              gemeente = QtGui.QTableWidgetItem( sug[9], 0)
               self.ui.resultLijst.insertRow(row)
               self.ui.resultLijst.setItem(row, 0, id)
               self.ui.resultLijst.setItem(row, 1, theme)
               self.ui.resultLijst.setItem(row, 2, categorie)
               self.ui.resultLijst.setItem(row, 3, PoiType)
               self.ui.resultLijst.setItem(row, 4, naam)
-              self.ui.resultLijst.setItem(row, 5, adres)
+              self.ui.resultLijst.setItem(row, 5, straat)
+              self.ui.resultLijst.setItem(row, 6, huisnr)
+              self.ui.resultLijst.setItem(row, 7, busnr)
+              self.ui.resultLijst.setItem(row, 8, postcode)
+              self.ui.resultLijst.setItem(row, 9, gemeente)
               row += 1
           self.ui.resultLijst.setSortingEnabled(True)
           
-          if txt == "":
+          if self.poi.resultCount > 0:
             self.ui.msgLbl.setText(QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
             "Aantal getoond: %s gevonden: %s" % ( self.ui.resultLijst.rowCount() , self.poi.resultCount ) ))
-          else:
+          elif self.poi.resultCount == 0:
+            self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
+            "Geen resultaten gevonden voor deze zoekopdracht"), "", level=QgsMessageBar.INFO, duration=10)
+          elif self.poi.resultCount < 0:
+            self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
+            "Het aantal gevonden kon niet worden bepaald, te complexe zoekopdracht"), 
+            "", level=QgsMessageBar.INFO, duration=10)
             self.ui.msgLbl.setText(QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
-            "Aantal getoond: %s" % ( self.ui.resultLijst.rowCount() ) ))
-        
-        elif len(suggesties) == 0:
-          self.bar.pushMessage(
-            QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Geen resultaten gevonden voor deze  zoekopdracht"), 
-            txt, level=QgsMessageBar.INFO, duration=5)
+            "Aantal getoond: %s, aantal gevonden niet bepaald" % self.ui.resultLijst.rowCount() ) )
+
         elif type( suggesties ) is str:
           self.bar.pushMessage(
             QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"), 
@@ -225,6 +235,12 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             level=QgsMessageBar.CRITICAL)
     
     def onZoomSelClicked(self):
+        if not len( self.ui.resultLijst.selectedIndexes() ):
+            self.bar.pushMessage("",
+               QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
+               "Er zijn geen records geselecteerd"), level=QgsMessageBar.WARNING )
+            return
+        
         selPois = self._getSelectedPois()
         if len(selPois) <= 0 :
           self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Merk op"), 
@@ -257,10 +273,17 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             m.setPenWidth(10)
 
     def onAddSelClicked(self):
-        if not self.layernameValid(): return
+        if not len( self.ui.resultLijst.selectedIndexes() ):
+            self.bar.pushMessage("",
+               QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", 
+               "Er zijn geen records geselecteerd"), level=QgsMessageBar.WARNING )
+            return
+        
+        if not self.layernameValid(): return        
         self.clearGraphicsLayer()
         pts = self._getSelectedPois()
-        self.ph.save_pois_points( pts ,  layername=self.layerName, startFolder= os.path.join(self.startDir, self.layerName),
+        self.ph.save_pois_points( pts ,  layername=self.layerName, 
+                                    startFolder= os.path.join(self.startDir, self.layerName),
                   saveToFile=self.saveToFile, sender=self )
 
     def onThemeFilterChange(self): 
@@ -306,6 +329,8 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         NISText= self.ui.filterPoiNIS.currentText()
         if NISText != "" and not self.ui.currentBoundsVink.isChecked(): Niscode = self.NIScodes[NISText]
         else: Niscode = ""
+        
+        cluster = self.ui.clusterCheck.isChecked()
       
         if self.ui.currentBoundsVink.isChecked():
             bbox = self.iface.mapCanvas().extent()
@@ -313,12 +338,12 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
             maxX, maxY = self.gh.prjPtFromMapCrs([bbox.xMaximum(),bbox.yMaximum()], 4326)
             xyBox = [minX, minY, maxX, maxY]
             pts= self.poi.fetchPoi( txt, c=1024, srs=4326 , maxModel=0, updateResults=0,
-                                   bbox=xyBox, theme=poitheme , category=poiCategorie,
-                                   POItype=poiType )
+                                   bbox= xyBox, theme= poitheme , category= poiCategorie,
+                                   POItype= poiType, clustering= cluster )
         else:
             pts= self.poi.fetchPoi( txt, c=1024, srs=4326 , maxModel=0, updateResults=0,
-                                   bbox=None,  theme=poitheme , category=poiCategorie,
-                                   POItype=poiType, region=Niscode )
+                                   bbox=None,  theme= poitheme , category= poiCategorie,
+                                   POItype= poiType, region= Niscode, clustering= cluster )
 
         if type( pts ) == str:
             self.bar.pushMessage( QtCore.QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"),

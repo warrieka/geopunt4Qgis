@@ -161,17 +161,22 @@ class Poi:
       types = [(  n["value"], n["term"]) for n in poitypes["categories"] ]
       return types
     
-  def _createPoiUrl(self, q, c=30, srs=31370, maxModel=False, bbox=None, theme='', category='', POItype='', region='' ):
+  def _createPoiUrl(self, q, c=30, srs=31370, maxModel=False, bbox=None, theme='', category='', POItype='', region='', clustering=True):
       poiUrl = self._poiUrl
       data = {}
       if q : data["keyword"] = unicode(q).encode('utf-8')
       data["srsOut"] = srs
-      data["srsIn"] = srs    #i am assuming srsIn wil always be same as srsOut
+      data["srsIn"] = srs    
       data["maxcount"] = c
       data["theme"]  = theme
       data["category"]  = category
       data["POItype"]  = POItype
       data["region"] = str( region )
+      
+      if (not maxModel) and clustering:
+         data["Clustering"] = "true"
+      else: data["Clustering"] = "false"
+      
       if maxModel:
         data["maxModel"] = "true"
       else:
@@ -191,9 +196,9 @@ class Poi:
       result = poiUrl + "?" + values
       return result
     
-  def fetchPoi(self, q,  c=30, srs=31370, maxModel=True , updateResults=True, bbox=None,  theme='', category='', POItype='', region='' ):
-        url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region)
-        print url
+  def fetchPoi(self, q,  c=30, srs=31370, maxModel=True , updateResults=True, bbox=None,  theme='', category='', POItype='', region='', clustering=True):
+        url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region, clustering)
+
         poi = None
         try:
           if self.opener: response = self.opener.open(url, timeout=self.timeout)
@@ -238,17 +243,28 @@ class Poi:
           recID= n["id"]
           name= n["labels"][0]["value"]
           if "address" in n['location']: 
-              straat = n['location']["address"]["street"]
-              huisnr = n['location']["address"]["streetnumber"]
-              postcode = n['location']["address"]["postalcode"]
-              gemeente = n['location']["address"]["municipality"]
-              if  'boxnumber' in n['location']["address"]:
-                  busnr = n['location']["address"]["boxnumber"]
-                  address = u"{} {} {}, {} {}".format(straat, huisnr, busnr, postcode, gemeente)
+              if 'street' in n['location']["address"]:
+                straat = n['location']["address"]["street"]
               else: 
-                  address = u"{} {}, {} {}".format(straat, huisnr, postcode, gemeente)
+                straat = ''
+              if 'streetnumber' in n['location']["address"]:
+                huisnr = n['location']["address"]["streetnumber"]
+              else: 
+                huisnr = ''
+              if  'boxnumber' in n['location']["address"]:
+                busnr = n['location']["address"]["boxnumber"]
+              else: 
+                busnr = ''
+              if 'postalcode' in n['location']["address"]:
+                postcode = n['location']["address"]["postalcode"]
+              else: postcode = ''
+              if 'municipality' in n['location']["address"]:
+                gemeente = n['location']["address"]["municipality"]
+              else: 
+                gemeente = ''
                 
-          else: address = ''
+          else: 
+            straat, huisnr, busnr, postcode, gemeente = '', '', '', '', ''
           
           if self.maxModel: 
             Thema= n["categories"][0]["value"]
@@ -258,12 +274,13 @@ class Poi:
             Type = ["categories"][0]["value"]
             Thema, Categorie = "",""
 
-          labels += [(recID, Thema, Categorie, Type , name , address )] 
+          labels += [(recID, Thema, Categorie, Type , name , straat, huisnr, busnr, postcode, gemeente )] 
         
         labels.sort()
         return labels
     
   def _getBounds(self, poiResult ):
+      
       minX = 1.7976931348623157e+308
       maxX = -1.7976931348623157e+308
       minY = 1.7976931348623157e+308

@@ -5,9 +5,9 @@
 [general]
 name=geopunt4Qgis
 qgisMinimumVersion=2.0
-description= NL: Plugin om geopunt diensten in QGIS te gebruiken: - Zoeken op adres [gewoon, in batch en prikken op kaart] op basis van CRAB (Vlaanderen) en URBIS (Brussel) - Zoeken naar Intressepunten in geopunt - zoeken naar wegenwerken en manifestaties in GIPOD - Hoogte Profielen tekenen - Zoeken naar percelen - Zoeken naar lagen in de geopunt catlogus
-  EN: Plug-in to use geopunt services in QGIS: - Geocoding [regular, batch and reverse] based on CRAB (Flanders) and and URBIS (Brussels) - Search for POI's in geopunt - Search for trafic obstructions in GIPOD - Draw elevation profiles - Search for Parcels - Search for layers in the geopunt catalog
-version=1.5.6
+description= NL: Plugin om geopunt diensten in QGIS te gebruiken: - Zoeken op adres [gewoon, in batch en prikken op kaart] op basis van CRAB (Vlaanderen) en URBIS (Brussel) - Zoeken naar Intressepunten in geopunt - zoeken naar wegenwerken en manifestaties in GIPOD - Hoogte Profielen tekenen - Zoeken naar percelen - Zoeken naar lagen in de geopunt catlogus 
+EN: Plug-in to use geopunt services in QGIS: - Geocoding [regular, batch and reverse] based on CRAB (Flanders) and and URBIS (Brussels) - Search for POI's in geopunt - Search for trafic obstructions in GIPOD - Draw elevation profiles - Search for Parcels - Search for layers in the geopunt catalog
+version=1.6.0
 author=Kay Warrie
 email=kay@kgis.be
 
@@ -15,7 +15,7 @@ email=kay@kgis.be
 
 # Optional items:
 # Uncomment the following line and add your changelog entries:
-changelog=correctie system settings on OSX
+changelog=aanpassing Poi en WMS transparatie
 
 # tags are comma separated with spaces allowed
 tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS, GIPOD
@@ -26,7 +26,7 @@ repository=https://github.com/warrieka/geopunt4Qgis
 icon=images/geopunt.png
 #category=
 # experimental flag
-experimental=False
+experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version
 deprecated=False

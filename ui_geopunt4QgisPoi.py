@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Mon Nov 24 18:00:09 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Tue Apr 07 11:38:30 2015
+#      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_geopunt4QgisPoiDlg(object):
     def setupUi(self, geopunt4QgisPoiDlg):
         geopunt4QgisPoiDlg.setObjectName(_fromUtf8("geopunt4QgisPoiDlg"))
-        geopunt4QgisPoiDlg.resize(562, 574)
+        geopunt4QgisPoiDlg.resize(608, 574)
         geopunt4QgisPoiDlg.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         geopunt4QgisPoiDlg.setAcceptDrops(False)
         icon = QtGui.QIcon()
@@ -126,7 +126,7 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.resultLijst.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.resultLijst.setRowCount(0)
         self.resultLijst.setObjectName(_fromUtf8("resultLijst"))
-        self.resultLijst.setColumnCount(6)
+        self.resultLijst.setColumnCount(10)
         item = QtGui.QTableWidgetItem()
         self.resultLijst.setHorizontalHeaderItem(0, item)
         item = QtGui.QTableWidgetItem()
@@ -139,6 +139,14 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.resultLijst.setHorizontalHeaderItem(4, item)
         item = QtGui.QTableWidgetItem()
         self.resultLijst.setHorizontalHeaderItem(5, item)
+        item = QtGui.QTableWidgetItem()
+        self.resultLijst.setHorizontalHeaderItem(6, item)
+        item = QtGui.QTableWidgetItem()
+        self.resultLijst.setHorizontalHeaderItem(7, item)
+        item = QtGui.QTableWidgetItem()
+        self.resultLijst.setHorizontalHeaderItem(8, item)
+        item = QtGui.QTableWidgetItem()
+        self.resultLijst.setHorizontalHeaderItem(9, item)
         self.resultLijst.horizontalHeader().setSortIndicatorShown(True)
         self.resultLijst.horizontalHeader().setStretchLastSection(False)
         self.resultLijst.verticalHeader().setSortIndicatorShown(False)
@@ -169,6 +177,10 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
         spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem2)
+        self.clusterCheck = QtGui.QCheckBox(geopunt4QgisPoiDlg)
+        self.clusterCheck.setChecked(True)
+        self.clusterCheck.setObjectName(_fromUtf8("clusterCheck"))
+        self.horizontalLayout_4.addWidget(self.clusterCheck)
         self.addMinModelBtn = QtGui.QPushButton(geopunt4QgisPoiDlg)
         self.addMinModelBtn.setObjectName(_fromUtf8("addMinModelBtn"))
         self.horizontalLayout_4.addWidget(self.addMinModelBtn)
@@ -232,11 +244,20 @@ class Ui_geopunt4QgisPoiDlg(object):
         item = self.resultLijst.horizontalHeaderItem(4)
         item.setText(_translate("geopunt4QgisPoiDlg", "Naam", None))
         item = self.resultLijst.horizontalHeaderItem(5)
-        item.setText(_translate("geopunt4QgisPoiDlg", "CRAB adres", None))
-        self.addToMapKnop.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
-        self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie", None))
-        self.addMinModelBtn.setToolTip(_translate("geopunt4QgisPoiDlg", "Voeg alle POI’s toe die voldoen aan de criteria. \n"
-"Indien meer dan 1000 punten zal een gedeelte geclusterd worden", None))
+        item.setText(_translate("geopunt4QgisPoiDlg", "Straat", None))
+        item = self.resultLijst.horizontalHeaderItem(6)
+        item.setText(_translate("geopunt4QgisPoiDlg", "Huisnummer", None))
+        item = self.resultLijst.horizontalHeaderItem(7)
+        item.setText(_translate("geopunt4QgisPoiDlg", "Busnummer", None))
+        item = self.resultLijst.horizontalHeaderItem(8)
+        item.setText(_translate("geopunt4QgisPoiDlg", "Postcode", None))
+        item = self.resultLijst.horizontalHeaderItem(9)
+        item.setText(_translate("geopunt4QgisPoiDlg", "Gemeente", None))
+        self.addToMapKnop.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart ", None))
+        self.zoomSelKnop.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar selectie ", None))
+        self.clusterCheck.setToolTip(_translate("geopunt4QgisPoiDlg", "Resultaten Clusteren indien groter dan 1024", None))
+        self.clusterCheck.setText(_translate("geopunt4QgisPoiDlg", "Resultaten geclusterd toevoegen", None))
+        self.addMinModelBtn.setToolTip(_translate("geopunt4QgisPoiDlg", "<html><head/><body><p>Voeg alle POI’s toe die voldoen aan de criteria. </p><p>Indien meer dan 1024 punten zal een gedeelte geclusterd worden,</p><p>tenzij u u het vinkje hiernaast uitvink.</p></body></html>", None))
         self.addMinModelBtn.setText(_translate("geopunt4QgisPoiDlg", "Voeg alle punten toe", None))
         self.actionZoomtoSelection.setText(_translate("geopunt4QgisPoiDlg", "Zoom naar Selectie", None))
         self.actionAddTSeltoMap.setText(_translate("geopunt4QgisPoiDlg", "Voeg selectie toe aan kaart", None))
