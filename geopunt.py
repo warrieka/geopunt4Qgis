@@ -80,7 +80,7 @@ class Adres:
 class Poi:
   def __init__(self, timeout=15, proxyUrl="", port=""):
       self.timeout = timeout
-      self._poiUrl = "http://poi.beta.geopunt.be/v1/core"
+      self._poiUrl = "http://poi.api.geopunt.be/v1/core"
       self.resultCount = 0
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
