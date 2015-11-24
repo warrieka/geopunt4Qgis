@@ -35,7 +35,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>320</height>
+        <height>302</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -46,68 +46,6 @@
        <string>Algemeen</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_13">
-       <item>
-        <widget class="QGroupBox" name="networkSettings">
-         <property name="title">
-          <string>Netwerk -  Proxy</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <layout class="QFormLayout" name="formLayout">
-          <property name="fieldGrowthPolicy">
-           <enum>QFormLayout::ExpandingFieldsGrow</enum>
-          </property>
-          <item row="0" column="0" colspan="2">
-           <widget class="QCheckBox" name="proxyChk">
-            <property name="text">
-             <string>Netwerk proxy gebruiken</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Host: </string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="hostTxt">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="placeholderText">
-             <string>http://yourProxy</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Poort:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="portTxt">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="placeholderText">
-             <string>bv: 8080</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
@@ -202,7 +140,7 @@
         <x>0</x>
         <y>0</y>
         <width>482</width>
-        <height>320</height>
+        <height>302</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -301,8 +239,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>216</width>
+        <height>142</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -372,8 +310,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>344</width>
+        <height>176</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -477,8 +415,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>216</width>
+        <height>142</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -548,8 +486,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>244</width>
+        <height>142</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -622,8 +560,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>242</width>
+        <height>266</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -738,8 +676,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>320</height>
+        <width>219</width>
+        <height>142</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -857,38 +795,6 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>proxyChk</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>hostTxt</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>231</x>
-     <y>88</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>250</x>
-     <y>114</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>proxyChk</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>portTxt</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>231</x>
-     <y>88</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>250</x>
-     <y>141</y>
     </hint>
    </hints>
   </connection>

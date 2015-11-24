@@ -25,25 +25,25 @@ from ui_geopunt4QgisGIPOD import Ui_gipodDlg
 import geopunt, geometryhelper, gipodHelper
 import os, json, webbrowser, sys
 from  datetime import date, timedelta
+from settings import settings
 
 class geopunt4QgisGipodDialog(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self, None)
         self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-        #self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+
         self.iface = iface
         
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "nl")
-        if not locale: locale == 'nl' 
+        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        if not locale: locale == 'en'
         else: locale = locale[0:2]
-        localePath = os.path.join(os.path.dirname(__file__), 'i18n', 
-                      'geopunt4qgis_{}.qm'.format(locale))
+        localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
             self.translator = QtCore.QTranslator()
             self.translator.load(localePath)
             if QtCore.qVersion() > '4.3.3': 
-              QtCore.QCoreApplication.installTranslator(self.translator)
+               QtCore.QCoreApplication.installTranslator(self.translator)
         #load gui
         self._initGui()
     
@@ -84,7 +84,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
       QtGui.QDialog.show(self)
       if  self.firstShow:
         'exend show to load data'
-        internet = geopunt.internet_on( proxyUrl=self.proxy, port=self.port, timeout=self.timeout )
+        internet = geopunt.internet_on( proxyUrl=self.proxy, timeout=self.timeout )
         if internet:
             self.gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
             #populate combo's
@@ -105,14 +105,12 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
     def loadSettings(self):
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
-        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
-            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if settings().proxyUrl:
+            self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-            self.port = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))        
-        self.gp = geopunt.gipod(self.timeout, self.proxy, self.port)
+        self.gp = geopunt.gipod(self.timeout, self.proxy)
     
     def endEditChanged(self, senderDate):
         self.ui.startEdit.setMaximumDate(senderDate)

@@ -23,7 +23,7 @@ PLUGIN_UPLOAD = $(CURDIR)/utils/plugin_upload.py
 QGISDIR=.qgis2
 
 # translation
-SOURCES         = geopunt4qgis.py \
+SOURCES = geopunt4qgis.py \
 		  geopunt4QgisPoidialog.py \
 		  geopunt4QgisAdresdialog.py \
 		  geopunt4QgisAbout.py \
@@ -32,10 +32,10 @@ SOURCES         = geopunt4qgis.py \
 		  geopunt4QgisGipod.py \
 		  geopunt4QgisElevation.py \
 		  geopunt4QgisDataCatalog.py \
-		  geopunt4qgisParcel.py   \
+		  geopunt4QgisParcel.py   \
 		  versionChecker.py
 
-FORMS           = ui_geopunt4qgis.ui \
+FORMS   = ui_geopunt4qgis.ui \
 		  ui_geopunt4QgisPoi.ui \
 		  ui_geopunt4QgisAbout.ui \
 		  ui_geopunt4QgisSettings.ui  \
@@ -43,7 +43,7 @@ FORMS           = ui_geopunt4qgis.ui \
 		  ui_geopunt4QgisGIPOD.ui \
 		  ui_geopunt4QgisElevation.ui \
 		  ui_geopunt4QgisDataCatalog.ui \
-		  ui_geopunt4qgisParcel.ui
+		  ui_geopunt4QgisParcel.ui
 		    
 TRANSLATIONS = i18n/geopunt4qgis_en.ts i18n/geopunt4qgis_nl.ts
 
@@ -51,15 +51,15 @@ TRANSLATIONS = i18n/geopunt4qgis_en.ts i18n/geopunt4qgis_nl.ts
 PLUGINNAME = geopunt4Qgis
 
 PY_FILES =  __init__.py geometryhelper.py geopunt.py \
-geopunt4qgis.py geopunt4QgisAbout.py geopunt4qgisAdresdialog.py \
+geopunt4qgis.py geopunt4QgisAbout.py geopunt4QgisAdresdialog.py \
 geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py  \
 geopunt4QgisBatchGeoCode.py batchGeoHelper.py reverseAdresMapTool.py \
-geopunt4QgisGipod.py gipodHelper.py geopunt4qgisParcel.py \
+geopunt4QgisGipod.py gipodHelper.py geopunt4QgisParcel.py \
 geopunt4QgisElevation.py elevationHelper.py elevationProfileMapTool.py \
-metadata.py geopunt4QgisDataCatalog.py versionChecker.py poiHelper.py \
-parcelHelper.py
+metadataParser.py geopunt4QgisDataCatalog.py versionChecker.py poiHelper.py \
+parcelHelper.py settings.py
 
-EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html ext-libs
+EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html ext-libs data
 
 UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py \
 ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py ui_geopunt4QgisGIPOD.py \
@@ -76,6 +76,7 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 
 %.py : %.ui
 	pyuic4 -o $@ $<
+#	python C:\OSGeo4W64\apps\Python27\lib\site-packages\PyQt4\uic\pyuic.py -o $@ $<
 
 # [KW]: extra command with my own python script, that I can also use on windows
 # workflow testPlugin.py: pack -> extract at QGISDIR -> start QGIS
@@ -85,7 +86,8 @@ runplugin: compile transup
 # The deploy  target only works on unix like operating system where
 # the Python plugin directory is located at: $HOME/$(QGISDIR)/python/plugins
 # [KW]: use "make runplugin" instead on windows
-deploy: compile transup 
+deploy: compile
+	if [ -d "$(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)" ]; then rm -r $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME); fi
 	mkdir -p $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(PY_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(UI_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)

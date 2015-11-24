@@ -24,9 +24,6 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.gui import  QgsMessageBar, QgsVertexMarker
-# Initialize Qt resources from file resources.py
-import resources_rc
-# Import the code for the dialogs
 from geopunt4QgisAdresdialog import geopunt4QgisAdresDialog
 from geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from reverseAdresMapTool import reverseAdresMapTool
@@ -36,12 +33,11 @@ from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
 from geopunt4QgisGipod import geopunt4QgisGipodDialog
 import geopunt4QgisElevation as elv
 from geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
-from geopunt4qgisParcel import geopunt4QgisParcelDlg
-#import selfmade libs
+from geopunt4QgisParcel import geopunt4QgisParcelDlg
 from versionChecker import versionChecker
-#import from libraries
 import geopunt, geometryhelper
-import os.path, webbrowser, sys 
+import os.path, webbrowser
+from settings import settings
 from threading import Timer
 
 class geopunt4Qgis:
@@ -68,10 +64,10 @@ class geopunt4Qgis:
            if not vc.isUptoDate():
               QMessageBox.warning(None, QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
                   QCoreApplication.translate("geopunt4Qgis", 
-                  "Je versie van <a href='http://plugins.qgis.org/plugins/geopunt4Qgis' >geopunt4qgis</a> is niet meer "+ 
-                  "up to date. <br/>Je kunt deze upgraden via het menu:<br/> "+
-                  "<strong>Plugins > Beheer en installeer Plugins > Op te waarderen.</strong>"+
-                  "<br/>Klik daarna op <strong>Plugin opwaarderen</strong>"))           
+          "Je versie van <a href='http://plugins.qgis.org/plugins/geopunt4Qgis' >geopunt4qgis</a> is niet meer "+
+          "up to date. <br/>Je kunt deze upgraden via het menu:<br/> "+
+          "<strong>Plugins > Beheer en installeer Plugins > Op te waarderen.</strong>"+
+          "<br/>Klik daarna op <strong>Plugin opwaarderen</strong>"))
 
         # Create the dialogs (after translation) and keep reference
         self.adresdlg = geopunt4QgisAdresDialog(self.iface)
@@ -186,14 +182,12 @@ class geopunt4Qgis:
         if layerName_reverse:
            self.layerName_reverse = layerName_reverse
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
-            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if  settings().proxyUrl:
+            self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-            self.port = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
-        self.adres = geopunt.Adres(self.timeout, self.proxy, self.port)
+        self.adres = geopunt.Adres(self.timeout, self.proxy)
         
     def runSettingsDlg(self):
         ' show the dialog'

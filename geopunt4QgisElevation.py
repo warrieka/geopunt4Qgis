@@ -37,19 +37,19 @@ except:
 from geometryhelper import geometryHelper
 from elevationHelper import elevationHelper
 from elevationProfileMapTool import lineTool
-import geopunt, os, json, webbrowser, random, sys
+import geopunt, os, webbrowser, sys
+from settings import settings
 
 class geopunt4QgisElevationDialog(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self, None)
         self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-        #self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
-        
+
         self.iface = iface
     
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "nl")
-        if not locale: locale == 'nl' 
+        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        if not locale: locale == 'en'
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
@@ -165,12 +165,10 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
     def loadSettings(self):
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
-        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
-            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if settings().proxyUrl:
+            self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-            self.port = ""
         self.samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
         sampleLayer = self.s.value("geopunt4qgis/sampleLayerTxt", "")
         if sampleLayer:  
@@ -180,7 +178,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         if profileLineLayer:
            self.profileLineLayerTxt = profileLineLayer
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))        
-        self.elevation = geopunt.elevation(self.timeout, self.proxy, self.port )
+        self.elevation = geopunt.elevation(self.timeout, self.proxy )
 
     def resizeEvent(self, event):
         QtGui.QDialog.resizeEvent(self, event)

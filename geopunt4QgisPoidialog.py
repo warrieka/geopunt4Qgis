@@ -26,6 +26,7 @@ from ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
 import geometryhelper as gh
 from poiHelper import poiHelper
 import geopunt, os, webbrowser, json
+from settings import settings
 
 class geopunt4QgisPoidialog(QtGui.QDialog):
     def __init__(self, iface):
@@ -102,21 +103,19 @@ class geopunt4QgisPoidialog(QtGui.QDialog):
         self.saveToFile = int( self.s.value("geopunt4qgis/poiSavetoFile" , 1))
         layerName =  self.s.value("geopunt4qgis/poilayerText", "")
         if layerName: self.layerName= layerName
-        self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
-            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
+        if settings().proxyUrl:
+            self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-            self.port = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
-        self.poi = geopunt.Poi(self.timeout, self.proxy, self.port)
+        self.poi = geopunt.Poi(self.timeout, self.proxy)
     
     def show(self):
         QtGui.QDialog.show(self)
         self.setWindowModality(0)
         if self.firstShow:
-             inet = geopunt.internet_on( proxyUrl=self.proxy, port=self.port, timeout=self.timeout )
+             inet = geopunt.internet_on( proxyUrl=self.proxy, timeout=self.timeout )
              #filters
              if inet:
                 self.poiThemes = dict( self.poi.listPoiThemes() )

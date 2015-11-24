@@ -206,7 +206,6 @@ $RECYCLE.BIN/
 *.egg
 *.egg-info
 dist/
-build/
 eggs/
 parts/
 var/
@@ -224,8 +223,11 @@ pip-log.txt
 #Translations
 *.mo
 
-#Mr Developer
-.mr.developer.cfg
+
+.idea/
 doc/*.pdf
 doc/*.docx
 doc/*.xlsx
+
+
+

@@ -31,7 +31,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         
       # initialize locale
       locale = QtCore.QSettings().value("locale/userLocale", "nl")
-      if not locale: locale == 'nl' 
+      if not locale: locale == 'en'
       else: locale = locale[0:2]
       localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
       if os.path.exists(localePath):
@@ -60,30 +60,9 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
 
     def loadSettings(self):
         'geopunt4Qgis settings'
-        #General
-        useProxy = int( self.s.value("geopunt4qgis/useProxy" , 0))
-        proxyPort = self.s.value("geopunt4qgis/proxyPort" ,"")
-        if (isinstance(proxyPort, unicode) or isinstance(proxyPort, str)):
-            self.ui.portTxt.setText(proxyPort)   
-        proxyHost = self.s.value("geopunt4qgis/proxyHost" ,"")
-        if (isinstance(proxyHost, unicode) or isinstance(proxyHost, str)): 
-            self.ui.hostTxt.setText(proxyHost)
-        
-        if useProxy:
-            self.ui.proxyChk.setChecked(1)
-            self.ui.hostTxt.setEnabled(1)
-            self.ui.portTxt.setEnabled(1)
-        else:
-            self.ui.proxyChk.setChecked(0)     
-            self.ui.portTxt.setEnabled(0)
-            self.ui.hostTxt.setEnabled(0)
-            
-        timeout = int(  self.s.value("geopunt4qgis/timeout" ,15))
+        timeout = int(self.s.value("geopunt4qgis/timeout", 15))
         self.ui.timeOutBox.setValue(timeout)
-        if 'HOME' in os.environ.keys():
-            home = os.environ["HOME"]
-        else: 
-            home = os.path.dirname(__file__)
+        home = os.path.expanduser("~")
         startDir = self.s.value("geopunt4qgis/startDir", home)
         if (isinstance(startDir, unicode) or isinstance(startDir, str)): 
             self.ui.startDirTxt.setText( startDir)                                   
@@ -120,7 +99,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         batchGeoCodeSavetoFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
         self.ui.batchSavetoFileChk.setChecked(batchGeoCodeSavetoFile)
         
-        batchGeoCodeSavetoMemory = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoMemory", 0))
+        batchGeoCodeSavetoMemory = int(self.s.value("geopunt4qgis/batchGeoCodeSavetoMemory", 0))
         self.ui.batchSaveMemoryChk.setChecked(batchGeoCodeSavetoMemory)
         
         batchLayerText = self.s.value("geopunt4qgis/batchLayerText", "")
@@ -187,16 +166,6 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
  
     def saveSettings(self):
         'save all settings to registry'
-        #General
-        proxyHost = self.ui.hostTxt.text()
-        self.s.setValue("geopunt4qgis/proxyHost", proxyHost)
-        proxyPort = self.ui.portTxt.text()
-        self.s.setValue("geopunt4qgis/proxyPort" , proxyPort)
-        if self.ui.proxyChk.isChecked():
-            self.s.setValue("geopunt4qgis/useProxy" , 1)
-        else:
-            self.s.setValue("geopunt4qgis/useProxy" , 0)
-
         timeout =  self.ui.timeOutBox.value()
         self.s.setValue("geopunt4qgis/timeout" , timeout )
         startDir = self.ui.startDirTxt.text()
@@ -294,7 +263,4 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         dirpath = QtGui.QFileDialog.getExistingDirectory()
         if dirpath == None: return
         self.ui.startDirTxt.setText(dirpath)
-       
-        
-          
-      
+

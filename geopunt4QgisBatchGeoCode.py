@@ -19,12 +19,13 @@ batcGeoCodedialog
 *                                                                         *
 ***************************************************************************/
 """
-import os.path, sys
+import os.path
 from PyQt4 import QtCore, QtGui
 from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
 import geopunt, geometryhelper, csv, unicodecsv, webbrowser
 from batchGeoHelper import batcGeoHelper
 from reverseAdresMapTool import reverseAdresMapTool
+from settings import settings
 
 class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
     def __init__(self, iface):
@@ -100,15 +101,13 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         if layerName :
            self.layerName= layerName
         self.timeout =  int(self.s.value("geopunt4qgis/timeout" ,15))
-        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
-            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if settings().proxyUrl:
+            self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-            self.port = ""
         self.retrys = 3
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
-        self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
+        self.gp = geopunt.Adres(self.timeout, self.proxy)
 
     #eventHandlers
     def openHelp(self):
@@ -460,7 +459,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
             self.loadTable()
 
     def internet_on(self):
-        inet_on = geopunt.internet_on( timeout= self.timeout , proxyUrl= self.proxy , port= self.port  )
+        inet_on = geopunt.internet_on( timeout= self.timeout , proxyUrl= self.proxy )
         if True != inet_on:
             self.ui.statusMsg.setText(
             QtCore.QCoreApplication.translate("batcGeoCodedialog", 

@@ -25,12 +25,12 @@ from qgis.core import *
 from qgis.gui import  QgsMessageBar, QgsVertexMarker
 import geopunt, os, json, webbrowser
 import geometryhelper as gh
+from settings import settings
 
 class geopunt4QgisAdresDialog(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self, None)
         self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-        #self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.iface = iface
     
         # initialize locale
@@ -106,14 +106,12 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
            self.layerName= layerName
         self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
-            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if settings().proxyUrl:
+            self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-            self.port = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
-        self.gp = geopunt.Adres(self.timeout, self.proxy, self.port)
+        self.gp = geopunt.Adres(self.timeout, self.proxy)
         
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-adres")

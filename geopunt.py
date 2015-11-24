@@ -19,16 +19,15 @@ geopunt
 *                                                                         *
 ***************************************************************************/
 """
-import urllib2, urllib, json, sys, os.path, datetime
+import urllib2, urllib, json, sys, datetime
 
 class Adres:
-  def __init__(self, timeout=15, proxyUrl="", port="" ):
+  def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
       self._locUrl = "http://loc.api.geopunt.be/geolocation/Location?"
       self._sugUrl = "http://loc.api.geopunt.be/geolocation/Suggestion?"
-      if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) & proxyUrl.startswith("http://"):
-         netLoc = proxyUrl.strip() + ":" + port
-         proxy = urllib2.ProxyHandler({'http': netLoc })
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+         proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
          self.opener = urllib2.build_opener(proxy)
       else:
          self.opener = None
@@ -78,19 +77,18 @@ class Adres:
           return suggestion["SuggestionResult"]
 
 class Poi:
-  def __init__(self, timeout=15, proxyUrl="", port=""):
+  def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
       self._poiUrl = "http://poi.api.geopunt.be/v1/core"
       self.resultCount = 0
       
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-        netLoc = proxyUrl.strip() + ":" + port
-        proxy = urllib2.ProxyHandler({'http': netLoc })
-        self.opener = urllib2.build_opener(proxy)
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+         proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
+         self.opener = urllib2.build_opener(proxy)
       else:
-        self.opener = None
+         self.opener = None
       
-      #TODO: What if no WGS coordinates as input???
+      #REMARK: WGS coordinates as input!
       self.maxBounds = [1.17, 49.77, 7.29, 52.35]  
       self.resultBounds =  [1.17, 49.77, 7.29, 52.35]  
       self.PoiResult = []
@@ -138,15 +136,11 @@ class Poi:
       return categories
     
   def listPoitypes(self, themeid="", categoriename=""):
-      "http://{base}/{path}/themes/{themeid}/categories/{categoriename}/POITypes"
       if themeid and categoriename:
         url = self._poiUrl + "/themes/" + themeid + "/categories/" + categoriename +"/poitypes"
-      #elif categoriename  :
-        #url = self._poiUrl + "/categories/" + categoriename +"/poitypes"
       else:
         url = self._poiUrl + "/poitypes"
-        
-      poitypes = None
+
       try:
          if self.opener: response = self.opener.open(url, timeout=self.timeout)
          else: response = urllib2.urlopen(url, timeout=self.timeout)
@@ -196,10 +190,10 @@ class Poi:
       result = poiUrl + "?" + values
       return result
     
-  def fetchPoi(self, q,  c=30, srs=31370, maxModel=True , updateResults=True, bbox=None,  theme='', category='', POItype='', region='', clustering=True):
+  def fetchPoi(self, q,  c=30, srs=31370, maxModel=True , updateResults=True,
+               bbox=None,  theme='', category='', POItype='', region='', clustering=True):
         url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region, clustering)
 
-        poi = None
         try:
           if self.opener: response = self.opener.open(url, timeout=self.timeout)
           else: response = urllib2.urlopen(url, timeout=self.timeout)
@@ -297,13 +291,12 @@ class Poi:
       return [ minX, minY, maxX, maxY]
 
 class gipod:
-  def __init__(self, timeout=15, proxyUrl="", port="" ):
+  def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
       self.baseUri = 'http://gipod.api.agiv.be/ws/v1/'
       
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-          netLoc = proxyUrl.strip() + ":" + port
-          proxy = urllib2.ProxyHandler({'http': netLoc })
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+          proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
           self.opener = urllib2.build_opener(proxy)
       else:
           self.opener = None
@@ -470,13 +463,12 @@ class gipod:
       return mAs
   
 class elevation:
-  def __init__(self, timeout=15, proxyUrl="", port="" ):
+  def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
       self.baseUri = 'http://dhm.agiv.be/api/elevation/v1/DHMVMIXED/request'
       
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-        netLoc = proxyUrl.strip() + ":" + port
-        proxy = urllib2.ProxyHandler({'http': netLoc })
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+        proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
         self.opener = urllib2.build_opener(proxy)
       else:
         self.opener = None
@@ -506,12 +498,11 @@ class elevation:
         return elevationJson
 
 class parcel:
-    def __init__(self, timeout=15, proxyUrl="", port="" ):
+    def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
       self.baseUrl = "http://geo.agiv.be/capakey/api/v0"
-      if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) & proxyUrl.startswith("http://"):
-         netLoc = proxyUrl.strip() + ":" + port
-         proxy = urllib2.ProxyHandler({'http': netLoc })
+      if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )):
+         proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
          self.opener = urllib2.build_opener(proxy)
       else:
          self.opener = None
@@ -531,7 +522,6 @@ class parcel:
             else : return []
 
     def getMunicipalitieInfo(self, niscode, srs=31370, geometryType="no" ):
-
         data = {}
         if srs in [31370, 4326, 3857]: data["srs"] = srs
         if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
@@ -566,7 +556,6 @@ class parcel:
             else : return []             
 
     def getDepartmentInfo(self, niscode, departmentCode, srs=31370, geometryType="no" ):
-        
         data = {}
         if srs in [31370, 4326, 3857]: data["srs"] = srs
         if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
@@ -601,7 +590,6 @@ class parcel:
             else : return []       
 
     def getSectionInfo(self, niscode, departmentCode, sectieCode, srs=31370, geometryType="no" ):
-      
         data = {}
         if srs in [31370, 4326, 3857]: data["srs"] = srs
         if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
@@ -661,10 +649,9 @@ class geopuntError(Exception):
     def __str__(self):
       return repr(self.message)
          
-def internet_on(timeout=15, proxyUrl="", port="" ):
-    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-        netLoc = proxyUrl.strip() + ":" + port
-        proxy = urllib2.ProxyHandler({'http': netLoc })
+def internet_on(timeout=15, proxyUrl="" ):
+    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+        proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
         opener = urllib2.build_opener(proxy)
     else:
         opener = None

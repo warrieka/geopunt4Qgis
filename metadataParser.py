@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import urllib2, urllib, json, sys, os.path, datetime
+import urllib2, urllib, json, sys
 import xml.etree.ElementTree as ET
 
 class MDdata:
@@ -69,18 +69,17 @@ class MDdata:
 
 
 class MDReader:
-    def __init__(self, timeout=15, proxyUrl="", port="" ):
+    def __init__(self, timeout=15, proxyUrl="" ):
         self.timeout = timeout
-        self.geoNetworkUrl = "https://metadata.geopunt.be/zoekdienst/srv/dut"
+        self.geoNetworkUrl = "http://geoservices.beta.informatievlaanderen.be/zoekdienst/srv/dut/"
 
         self.dataTypes = [["Dataset", "dataset"],["Datasetserie","series"],
                           ["Objectencatalogus","model"],["Service","service"]]
         self.inspireServiceTypes =  ["Discovery","Transformation","View","Other","Invoke"]
         self.inspireannex =  ["i","ii","iii"]
 
-        if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-            netLoc = proxyUrl.strip() + ":" + port
-            proxy = urllib2.ProxyHandler({'http': netLoc ,'https': netLoc })
+        if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+            proxy = urllib2.ProxyHandler({'http': proxyUrl ,'https': proxyUrl })
             self.opener = urllib2.build_opener(proxy)
         else:
             self.opener = None
@@ -241,42 +240,40 @@ class metaError(Exception):
         return repr(self.message)
 
       
-def getWmsLayerNames( url, proxyUrl='', port=''):
-      if (not "request=GetCapabilities" in url.lower()) or (not "service=wms" in url.lower()):
-          capability = url.split("?")[0] + "?request=GetCapabilities&version=1.3.0&service=wms"
-      else: 
-          capability = url
-          
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-          netLoc = proxyUrl.strip() + ":" + port
-          proxy = urllib2.ProxyHandler({'http': netLoc ,'https': netLoc })
-          opener = urllib2.build_opener(proxy)
-          responseWMS =  opener.open(capability)
-      else:
-          responseWMS =  urllib2.urlopen(capability)
-      
-      result = ET.parse(responseWMS)
-      layers =  result.findall( ".//{http://www.opengis.net/wms}Layer" )
-      layerNames=[]
+def getWmsLayerNames( url, proxyUrl=''):
+    if (not "request=GetCapabilities" in url.lower()) or (not "service=wms" in url.lower()):
+      capability = url.split("?")[0] + "?request=GetCapabilities&version=1.3.0&service=wms"
+    else:
+      capability = url
 
-      for lyr in layers:
-          name= lyr.find("{http://www.opengis.net/wms}Name")
-          title = lyr.find("{http://www.opengis.net/wms}Title")
-          style = lyr.find("{http://www.opengis.net/wms}Style/{http://www.opengis.net/wms}Name")
-          if ( name != None) and ( title != None ):
-             if style == None: layerNames.append(( name.text, title.text, ''))
-             else: layerNames.append(( name.text, title.text, style.text))
+    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+      proxy = urllib2.ProxyHandler({'http': proxyUrl ,'https': proxyUrl })
+      opener = urllib2.build_opener(proxy)
+      responseWMS =  opener.open(capability)
+    else:
+      responseWMS =  urllib2.urlopen(capability)
 
-      return layerNames
+    result = ET.parse(responseWMS)
+    layers =  result.findall( ".//{http://www.opengis.net/wms}Layer" )
+    layerNames=[]
 
-def getWFSLayerNames( url, proxyUrl='', port=''):
+    for lyr in layers:
+      name= lyr.find("{http://www.opengis.net/wms}Name")
+      title = lyr.find("{http://www.opengis.net/wms}Title")
+      style = lyr.find("{http://www.opengis.net/wms}Style/{http://www.opengis.net/wms}Name")
+      if ( name != None) and ( title != None ):
+         if style == None: layerNames.append(( name.text, title.text, ''))
+         else: layerNames.append(( name.text, title.text, style.text))
+
+    return layerNames
+
+def getWFSLayerNames( url, proxyUrl=''):
       if (not "request=GetCapabilities" in url.lower()) or (not "service=wfs" in url.lower()):
           capability = url.split("?")[0] + "?request=GetCapabilities&version=1.0.0&service=wfs"
       else: 
           capability = url
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-          netLoc = proxyUrl.strip() + ":" + port
-          proxy = urllib2.ProxyHandler({'http': netLoc ,'https': netLoc })
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+          proxy = urllib2.ProxyHandler({'http': proxyUrl ,'https': proxyUrl })
           opener = urllib2.build_opener(proxy)
           responseWFS =  opener.open(capability)
       else:
@@ -296,6 +293,96 @@ def getWFSLayerNames( url, proxyUrl='', port=''):
 
       return layerNames
 
+def getWMTSlayersNames( url, proxyUrl='' ):
+    if (not "request=getcapabilities" in url.lower()) or (not "service=wmts" in url.lower()):
+        capability = url.split("?")[0] + "?service=WMTS&request=Getcapabilities"
+    else:
+        capability = url
+    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+        proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
+        auth = urllib2.HTTPBasicAuthHandler()
+        opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+        responseWMTS =  opener.open(capability)
+    else:
+        responseWMTS =  urllib2.urlopen(capability)
+
+    result = ET.parse(responseWMTS).getroot()
+    content = result.find( "{http://www.opengis.net/wmts/1.0}Contents" )
+    layers =  content.findall( "{http://www.opengis.net/wmts/1.0}Layer" )
+    layerNames = []
+
+    matrixSets = content.findall("{http://www.opengis.net/wmts/1.0}TileMatrixSet")
+
+    for lyr in layers:
+        name= lyr.find("{http://www.opengis.net/ows/1.1}Identifier")
+        title = lyr.find("{http://www.opengis.net/ows/1.1}Title")
+        matrix = lyr.find("{http://www.opengis.net/wmts/1.0}TileMatrixSetLink/{http://www.opengis.net/wmts/1.0}TileMatrixSet")
+        format = lyr.find("{http://www.opengis.net/wmts/1.0}Format")
+
+        srsList = [ n.find("{http://www.opengis.net/ows/1.1}SupportedCRS").text
+                    for n in matrixSets if n.find("{http://www.opengis.net/ows/1.1}Identifier").text == matrix.text]
+
+        if srsList: srs =  "EPSG:"+ srsList[0].split(':')[-1]
+        else: srs = ""
+
+        if ( name != None) and ( title != None ) and ( matrix != None ) and ( format != None ):
+              layerNames.append(( name.text, title.text, matrix.text, format.text, srs ))
+
+    return layerNames
+
+def getWCSlayerNames( url, proxyUrl='' ):
+    wcsNS = "http://www.opengis.net/wcs/1.1"
+
+    if (not "request=getcapabilities" in url.lower()) or (not "service=wcs" in url.lower()):
+      capability = url.split("?")[0] + "?request=GetCapabilities&version=1.1.0&service=wcs"
+    else:
+      capability = url
+    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+      proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl})
+      auth = urllib2.HTTPBasicAuthHandler()
+      opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+      responseWCS =  opener.open(capability)
+    else:
+      responseWCS =  urllib2.urlopen(capability)
+
+    responseTxt = responseWCS.read()
+    if 'xmlns:wcs="http://www.opengis.net/wcs/1.1.1"' in responseTxt:
+        wcsNS = "http://www.opengis.net/wcs/1.1.1"
+
+    result = ET.fromstring(responseTxt)
+    content = result.find( "{%s}Contents" % wcsNS)
+    layers =  content.findall( "{%s}CoverageSummary" % wcsNS)
+    layerNames = []
+
+    for lyr in layers:
+       Identifier= lyr.find("{%s}Identifier" % wcsNS)
+       title = lyr.find("{http://www.opengis.net/ows/1.1}Title")
+
+       DescribeCoverage = url.split("?")[0] + "?request=DescribeCoverage&version=1.1.0&service=wcs&Identifiers=" + Identifier.text
+       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+         proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl})
+         auth = urllib2.HTTPBasicAuthHandler()
+         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+         responseDC =  opener.open(DescribeCoverage)
+       else:
+         responseDC =  urllib2.urlopen(DescribeCoverage)
+
+       resultDC = ET.parse(responseDC).getroot()
+       CoverageDescription = resultDC.find( "{%s}CoverageDescription" % wcsNS)
+
+       Identifier = CoverageDescription.find("{%s}Identifier" % wcsNS)
+
+       formats =  CoverageDescription.findall( "{%s}SupportedFormat" % wcsNS)
+       if [n.text for n in formats if 'tiff' in n.text.lower()] :
+          format = [n.text for n in formats if 'tiff' in n.text.lower()][0]
+       elif formats: format = formats[0].text.split(";")[0]
+       else: format = "image/tiff"
+
+       if ( Identifier != None) and (title != None):
+            layerNames.append(( Identifier.text, title.text, format ))
+
+    return layerNames
+
 def makeWFSuri( url, name='', srsname="EPSG:31370", version='1.0.0' ):
     params = {  'SERVICE': 'WFS',
                 'VERSION': version ,
@@ -304,4 +391,30 @@ def makeWFSuri( url, name='', srsname="EPSG:31370", version='1.0.0' ):
                 'SRSNAME': srsname }
     
     uri = url.split("?")[0] + '?' + urllib.unquote( urllib.urlencode(params) )
+    return uri
+
+def makeWMTSuri( url, layer, tileMatrixSet, srsname="EPSG:3857", styles='', format='image/png' ):
+    params = {  'tileMatrixSet': tileMatrixSet,
+                'styles': styles,
+                'format': format ,
+                'layers': layer,
+                'crs': srsname,
+                'url': url.split('?')[0]  + '?service=WMTS'}
+
+    uri = urllib.unquote( urllib.urlencode(params)  )
+    return uri
+
+def makeWCSuri( url, layer,srsname="EPSG:31370", format="GeoTIFF" ):
+    """ cache=PreferNetwork
+        crs=EPSG:28992
+        format=GeoTIFF
+        identifier=dank:altr_a04_gi_bodemC
+        url=http://geodata.rivm.nl/geoserver/wcs?version%3D1.0.0%26"""
+    params = {  'cache': 'PreferNetwork',
+                'format': format ,
+                'identifier': layer,
+                'crs': srsname,
+                'url': url.split('?')[0]  } #+ '?version%3D1.0.0%26'
+
+    uri = urllib.unquote( urllib.urlencode(params)  )
     return uri

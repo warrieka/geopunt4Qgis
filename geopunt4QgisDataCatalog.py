@@ -24,19 +24,19 @@ from ui_geopunt4QgisDataCatalog import Ui_geopunt4QgisDataCatalogDlg
 from qgis.core import *
 from qgis.gui import QgsMessageBar 
 from geopunt import internet_on
-import metadata, os, json, webbrowser, sys
+import metadataParser, os, webbrowser, sys
 import geometryhelper as gh
+from settings import settings
 
 class geopunt4QgisDataCatalog(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self, None)
         self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-        #self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.iface = iface
     
         # initialize locale
         locale = QtCore.QSettings().value("locale/userLocale", "nl")
-        if not locale: locale == 'nl' 
+        if not locale: locale == 'en'
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
@@ -97,13 +97,12 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
 
     def loadSettings(self):
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
-        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
-            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if settings().proxyUrl:
+            self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-            self.port = ""
-        self.md = metadata.MDReader( self.timeout, self.proxy, self.port )
+
+        self.md = metadataParser.MDReader(self.timeout, self.proxy)
             
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/catalogus")
@@ -125,7 +124,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         QtGui.QDialog.show(self)
         self.setWindowModality(0)
         if self.firstShow:
-             inet = internet_on( proxyUrl=self.proxy, port=self.port, timeout=self.timeout )
+             inet = internet_on( proxyUrl=self.proxy, timeout=self.timeout )
              if inet:
                 self.ui.GDIThemaCbx.addItems( ['']+ self.md.list_GDI_theme() )
                 self.ui.organisatiesCbx.addItems( ['']+ self.md.list_organisations() )
@@ -208,10 +207,10 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
             inspiretheme= self.ui.INSPIREthemaCbx.currentText()
             inspireannex= self.ui.INSPIREannexCbx.currentText()
             inspireServiceType= self.ui.INSPIREserviceCbx.currentText()
-            searchResult = metadata.MDdata( self.md.searchAll(
+            searchResult = metadataParser.MDdata( self.md.searchAll(
               self.zoek, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType))
           else:
-            searchResult = metadata.MDdata( self.md.searchAll( self.zoek ))
+            searchResult = metadataParser.MDdata(self.md.searchAll(self.zoek))
         except:
            self.bar.pushMessage("Error", str( sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=3)
            return
@@ -235,7 +234,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
            crs = 'EPSG:31370' 
         try:   
-          lyrs =  metadata.getWmsLayerNames( self.wms , self.proxy, self.port) 
+          lyrs =  metadataParser.getWmsLayerNames(self.wms, self.proxy)
         except:
           self.bar.pushMessage( "Error", str( sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
           return 
@@ -274,7 +273,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
     def addWFS(self):    
         if self.wfs == None: return
         try:
-            lyrs =  metadata.getWFSLayerNames( self.wfs, self.proxy, self.port)
+            lyrs =  metadataParser.getWFSLayerNames(self.wfs, self.proxy)
         except:
             self.bar.pushMessage( "Error", str( sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
             return 
@@ -293,7 +292,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         layerName = [n[0] for n in lyrs if n[1] == layerTitle ][0]
         crs = [n[2] for n in lyrs if n[1] == layerTitle ][0]
         url =  self.wfs.split('?')[0]
-        wfsUri = metadata.makeWFSuri( url, layerName, crs )
+        wfsUri = metadataParser.makeWFSuri(url, layerName, crs)
         print  wfsUri
         try:
             vlayer = QgsVectorLayer( wfsUri, layerTitle , "WFS")
