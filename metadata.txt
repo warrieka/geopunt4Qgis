@@ -15,7 +15,7 @@ email=kay@kgis.be
 
 # Optional items:
 # Uncomment the following line and add your changelog entries:
-changelog=aanpassing Poi en WMS transparatie
+changelog=correctie voor verandering in AGIV server, bounding bbox voor WFS
 
 # tags are comma separated with spaces allowed
 tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS, GIPOD

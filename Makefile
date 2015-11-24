@@ -44,7 +44,7 @@ FORMS   = ui_geopunt4qgis.ui \
 		  ui_geopunt4QgisElevation.ui \
 		  ui_geopunt4QgisDataCatalog.ui \
 		  ui_geopunt4QgisParcel.ui
-		    
+
 TRANSLATIONS = i18n/geopunt4qgis_en.ts i18n/geopunt4qgis_nl.ts
 
 # plugin
@@ -63,7 +63,7 @@ EXTRAS = images metadata.txt i18n/about-en.html i18n/about-nl.html ext-libs data
 
 UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py \
 ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py ui_geopunt4QgisGIPOD.py \
-ui_geopunt4QgisElevation.py ui_geopunt4QgisDataCatalog.py ui_geopunt4qgisParcel.py
+ui_geopunt4QgisElevation.py ui_geopunt4QgisDataCatalog.py ui_geopunt4QgisParcel.py
 
 RESOURCE_FILES = resources_rc.py
 
