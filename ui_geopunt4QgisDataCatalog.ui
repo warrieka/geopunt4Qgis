@@ -415,6 +415,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="bboxChk">
+         <property name="text">
+          <string>WFS-lagen enkel laden binnen huidig kaartbeeld</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QFrame" name="modelFilter">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>

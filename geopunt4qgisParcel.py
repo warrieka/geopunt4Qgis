@@ -20,23 +20,23 @@ geopunt4qgisdialog
 ***************************************************************************/
 """
 from PyQt4 import QtCore, QtGui
-from ui_geopunt4qgisParcel import Ui_geopunt4QgisParcelDlg
+from ui_geopunt4QgisParcel import Ui_geopunt4QgisParcelDlg
 from qgis.core import *
-from qgis.gui import  QgsMessageBar, QgsVertexMarker, QgsRubberBand
+from qgis.gui import  QgsMessageBar, QgsRubberBand
 import geopunt, os, json, webbrowser
 from geometryhelper import geometryHelper
 from parcelHelper import parcelHelper
+from settings import settings
 
 class geopunt4QgisParcelDlg(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self, None)
         self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-        #self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.iface = iface
     
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "nl")
-        if not locale: locale == 'nl' 
+        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        if not locale: locale == 'en'
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
@@ -95,22 +95,19 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         if layerName :
            self.layerName= layerName   
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
-        if int( self.s.value("geopunt4qgis/useProxy" , 0)):
-            self.proxy = self.s.value("geopunt4qgis/proxyHost" ,"")
-            self.port = self.s.value("geopunt4qgis/proxyPort" ,"")
+        if settings().proxyUrl:
+            self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-            self.port = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))    
-        self.parcel = geopunt.parcel(self.timeout, self.proxy, self.port )
+        self.parcel = geopunt.parcel(self.timeout, self.proxy)
         
     def show(self):
         QtGui.QDialog.show(self)
         if self.firstShow:
-             inet =  geopunt.internet_on( proxyUrl=self.proxy, port=self.port, timeout=self.timeout )
+             inet =  geopunt.internet_on( proxyUrl=self.proxy, timeout=self.timeout )
              if inet:
                 self.firstShow = False
-                
                 self.municipalities = self.parcel.getMunicipalities()
                 self.ui.municipalityCbx.clear()
                 muniNames = [n['municipalityName'] for n in self.municipalities]
@@ -120,7 +117,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 self.bar.pushMessage(
                   QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", "Waarschuwing "), 
                   QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", 
-                    "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=5)
+                    "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=10)
 
     def saveParcel(self):
         if not self.layernameValid(): return

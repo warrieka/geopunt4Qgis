@@ -383,14 +383,15 @@ def getWCSlayerNames( url, proxyUrl='' ):
 
     return layerNames
 
-def makeWFSuri( url, name='', srsname="EPSG:31370", version='1.0.0' ):
+def makeWFSuri( url, name='', srsname="EPSG:31370", version='1.0.0', bbox=None ):
     params = {  'SERVICE': 'WFS',
                 'VERSION': version ,
                 'REQUEST': 'GetFeature',
                 'TYPENAME': name,
                 'SRSNAME': srsname }
-    
-    uri = url.split("?")[0] + '?' + urllib.unquote( urllib.urlencode(params) )
+    if bbox: params['BBOX'] = ",".join([str(s) for s in bbox])
+
+    uri = url.split('?')[0] + '?' + urllib.unquote( urllib.urlencode(params) )
     return uri
 
 def makeWMTSuri( url, layer, tileMatrixSet, srsname="EPSG:3857", styles='', format='image/png' ):

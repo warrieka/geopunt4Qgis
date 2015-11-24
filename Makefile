@@ -75,8 +75,8 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 	pyrcc4 -o $*_rc.py  $<
 
 %.py : %.ui
-	pyuic4 -o $@ $<
-#	python C:\OSGeo4W64\apps\Python27\lib\site-packages\PyQt4\uic\pyuic.py -o $@ $<
+#	pyuic4 -o $@ $<
+	python C:\OSGeo4W64\apps\Python27\lib\site-packages\PyQt4\uic\pyuic.py -o $@ $<
 
 # [KW]: extra command with my own python script, that I can also use on windows
 # workflow testPlugin.py: pack -> extract at QGISDIR -> start QGIS

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisDataCatalog.ui'
 #
-# Created: Mon Nov 24 18:00:09 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Tue Nov 24 12:27:48 2015
+#      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -243,6 +243,9 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.countLbl.setAlignment(QtCore.Qt.AlignCenter)
         self.countLbl.setObjectName(_fromUtf8("countLbl"))
         self.verticalLayout_2.addWidget(self.countLbl)
+        self.bboxChk = QtGui.QCheckBox(self.resultWgt)
+        self.bboxChk.setObjectName(_fromUtf8("bboxChk"))
+        self.verticalLayout_2.addWidget(self.bboxChk)
         self.modelFilter = QtGui.QFrame(self.resultWgt)
         self.modelFilter.setFrameShape(QtGui.QFrame.NoFrame)
         self.modelFilter.setFrameShadow(QtGui.QFrame.Sunken)
@@ -347,6 +350,7 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.INSPIREannexLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "INSPIRE-annex:", None))
         self.INSPIREserviceLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "INSPIRE-servicetype:", None))
         self.typeLbl.setText(_translate("geopunt4QgisDataCatalogDlg", "Type:", None))
+        self.bboxChk.setText(_translate("geopunt4QgisDataCatalogDlg", "WFS-lagen enkel laden binnen huidig kaartbeeld", None))
         self.label.setText(_translate("geopunt4QgisDataCatalogDlg", "Enkel resultaten met:", None))
         self.modelFilterCbx.setItemText(0, _translate("geopunt4QgisDataCatalogDlg", "Alle lagen", None))
         self.modelFilterCbx.setItemText(1, _translate("geopunt4QgisDataCatalogDlg", "WMS", None))

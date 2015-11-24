@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgisParcel.ui'
 #
-# Created: Sun Mar 22 20:01:58 2015
-#      by: PyQt4 UI code generator 4.11.2
+# Created: Tue Nov 24 11:49:53 2015
+#      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_geopunt4QgisParcelDlg(object):
     def setupUi(self, geopunt4QgisParcelDlg):
         geopunt4QgisParcelDlg.setObjectName(_fromUtf8("geopunt4QgisParcelDlg"))
-        geopunt4QgisParcelDlg.resize(468, 280)
+        geopunt4QgisParcelDlg.resize(397, 280)
         geopunt4QgisParcelDlg.setMinimumSize(QtCore.QSize(0, 280))
         geopunt4QgisParcelDlg.setMaximumSize(QtCore.QSize(900, 280))
         icon = QtGui.QIcon()
