@@ -310,7 +310,9 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
         crs = [n[2] for n in lyrs if n[1] == layerTitle][0]
         url = self.wfs.split('?')[0]
-
+        
+        print url
+        
         if self.ui.bboxChk.isChecked():
             extent = self.iface.mapCanvas().extent()
             minX, minY = self.gh.prjPtFromMapCrs([extent.xMinimum(), extent.yMinimum()], int(crs.split(":")[-1]))
@@ -321,12 +323,12 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
 
         wfsUri = metadataParser.makeWFSuri(url, layerName, crs, bbox=bbox)
 
-        try:
-            vlayer = QgsVectorLayer(wfsUri, layerTitle, "WFS")
-            QgsMapLayerRegistry.instance().addMapLayer(vlayer)
-        except:
-            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
-            return
+        # try:
+        vlayer = QgsVectorLayer(wfsUri, layerTitle, "WFS")
+        QgsMapLayerRegistry.instance().addMapLayer(vlayer)
+        # except:
+            # self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
+            # return
 
     def clean(self):
         self.model.clear()

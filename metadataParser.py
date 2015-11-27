@@ -71,7 +71,7 @@ class MDdata:
 class MDReader:
     def __init__(self, timeout=15, proxyUrl="" ):
         self.timeout = timeout
-        self.geoNetworkUrl = "http://geoservices.beta.informatievlaanderen.be/zoekdienst/srv/dut/"
+        self.geoNetworkUrl = "http://geoservices.informatievlaanderen.be/zoekdienst/srv/dut/"
 
         self.dataTypes = [["Dataset", "dataset"],["Datasetserie","series"],
                           ["Objectencatalogus","model"],["Service","service"]]
@@ -272,6 +272,7 @@ def getWFSLayerNames( url, proxyUrl=''):
           capability = url.split("?")[0] + "?request=GetCapabilities&version=1.0.0&service=wfs"
       else: 
           capability = url
+          
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
           proxy = urllib2.ProxyHandler({'http': proxyUrl ,'https': proxyUrl })
           opener = urllib2.build_opener(proxy)
@@ -392,6 +393,8 @@ def makeWFSuri( url, name='', srsname="EPSG:31370", version='1.0.0', bbox=None )
     if bbox: params['BBOX'] = ",".join([str(s) for s in bbox])
 
     uri = url.split('?')[0] + '?' + urllib.unquote( urllib.urlencode(params) )
+    
+    print uri
     return uri
 
 def makeWMTSuri( url, layer, tileMatrixSet, srsname="EPSG:3857", styles='', format='image/png' ):
