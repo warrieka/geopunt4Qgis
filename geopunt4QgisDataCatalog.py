@@ -36,11 +36,9 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.iface = iface
 
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "nl")
-        if not locale:
-            locale == 'en'
-        else:
-            locale = locale[0:2]
+        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        if not locale: locale == 'en'
+        else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
             self.translator = QtCore.QTranslator()
@@ -112,6 +110,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
 
     def _setModel(self, records):
         self.model.clear()
+        records = sorted(records, key=lambda k: k['title']) 
 
         for rec in records:
             title = QtGui.QStandardItem(rec['title'])  # 0
@@ -323,12 +322,12 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
 
         wfsUri = metadataParser.makeWFSuri(url, layerName, crs, bbox=bbox)
 
-        # try:
-        vlayer = QgsVectorLayer(wfsUri, layerTitle, "WFS")
-        QgsMapLayerRegistry.instance().addMapLayer(vlayer)
-        # except:
-            # self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
-            # return
+        try:
+          vlayer = QgsVectorLayer(wfsUri, layerTitle, "WFS")
+          QgsMapLayerRegistry.instance().addMapLayer(vlayer)
+        except:
+            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
+            return
 
     def clean(self):
         self.model.clear()

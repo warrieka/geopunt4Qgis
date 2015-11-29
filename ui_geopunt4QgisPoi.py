@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisPoi.ui'
 #
-# Created: Tue Apr 07 11:38:30 2015
-#      by: PyQt4 UI code generator 4.10.2
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -34,12 +33,16 @@ class Ui_geopunt4QgisPoiDlg(object):
         geopunt4QgisPoiDlg.setWindowIcon(icon)
         geopunt4QgisPoiDlg.setSizeGripEnabled(False)
         self.verticalLayout = QtGui.QVBoxLayout(geopunt4QgisPoiDlg)
+        self.verticalLayout.setMargin(4)
+        self.verticalLayout.setSpacing(4)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.filterBox = QtGui.QGroupBox(geopunt4QgisPoiDlg)
         self.filterBox.setFlat(False)
         self.filterBox.setCheckable(False)
         self.filterBox.setObjectName(_fromUtf8("filterBox"))
         self.gridLayout = QtGui.QGridLayout(self.filterBox)
+        self.gridLayout.setMargin(4)
+        self.gridLayout.setSpacing(4)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.currentBoundsVink = QtGui.QCheckBox(self.filterBox)
         self.currentBoundsVink.setEnabled(True)
@@ -49,7 +52,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.filterWgt = QtGui.QWidget(self.filterBox)
         self.filterWgt.setObjectName(_fromUtf8("filterWgt"))
         self.formLayout = QtGui.QFormLayout(self.filterWgt)
-        self.formLayout.setMargin(0)
+        self.formLayout.setMargin(4)
+        self.formLayout.setSpacing(4)
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
         self.filterLbl0 = QtGui.QLabel(self.filterWgt)
         self.filterLbl0.setObjectName(_fromUtf8("filterLbl0"))
@@ -105,6 +109,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.gridLayout.addWidget(self.filterWgt, 1, 1, 1, 1)
         self.verticalLayout.addWidget(self.filterBox)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setMargin(4)
+        self.horizontalLayout_3.setSpacing(4)
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem)
@@ -154,7 +160,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.buttonWgt = QtGui.QWidget(geopunt4QgisPoiDlg)
         self.buttonWgt.setObjectName(_fromUtf8("buttonWgt"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.buttonWgt)
-        self.horizontalLayout_2.setMargin(0)
+        self.horizontalLayout_2.setMargin(4)
+        self.horizontalLayout_2.setSpacing(4)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
@@ -174,6 +181,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.horizontalLayout_2.addWidget(self.zoomSelKnop)
         self.verticalLayout.addWidget(self.buttonWgt)
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
+        self.horizontalLayout_4.setMargin(4)
+        self.horizontalLayout_4.setSpacing(4)
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
         spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem2)
@@ -186,6 +195,8 @@ class Ui_geopunt4QgisPoiDlg(object):
         self.horizontalLayout_4.addWidget(self.addMinModelBtn)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.buttonBoxLayout = QtGui.QHBoxLayout()
+        self.buttonBoxLayout.setMargin(4)
+        self.buttonBoxLayout.setSpacing(4)
         self.buttonBoxLayout.setObjectName(_fromUtf8("buttonBoxLayout"))
         self.msgLbl = QtGui.QLabel(geopunt4QgisPoiDlg)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)

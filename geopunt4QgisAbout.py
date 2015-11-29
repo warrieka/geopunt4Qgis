@@ -30,8 +30,8 @@ class geopunt4QgisAboutDialog(QtGui.QDialog):
         self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
 
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "nl")
-        if not locale: locale == 'nl' 
+        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        if not locale: locale == 'en' 
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 
                   'geopunt4qgis_{}.qm'.format(locale))
@@ -47,7 +47,6 @@ class geopunt4QgisAboutDialog(QtGui.QDialog):
             #dutch is default
             self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-nl.html')   
         self._initGui()
-    
     
     
     def _initGui(self):

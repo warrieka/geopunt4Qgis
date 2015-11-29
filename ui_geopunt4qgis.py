@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4qgis.ui'
 #
-# Created: Sun Mar 22 21:59:40 2015
-#      by: PyQt4 UI code generator 4.11.2
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -90,11 +89,14 @@ class Ui_geopunt4Qgis(object):
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.laraLbl = QtGui.QLabel(geopunt4Qgis)
         self.laraLbl.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing)
-        self.laraLbl.setMargin(-1)
         self.laraLbl.setOpenExternalLinks(True)
         self.laraLbl.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse)
         self.laraLbl.setObjectName(_fromUtf8("laraLbl"))
         self.verticalLayout.addWidget(self.laraLbl)
+        self.inputBox.raise_()
+        self.resultLijst.raise_()
+        self.laraLbl.raise_()
+        self.label.raise_()
 
         self.retranslateUi(geopunt4Qgis)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), geopunt4Qgis.close)

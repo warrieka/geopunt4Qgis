@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisDataCatalog.ui'
 #
-# Created: Tue Nov 24 12:27:48 2015
-#      by: PyQt4 UI code generator 4.10.2
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -70,7 +69,6 @@ class Ui_geopunt4QgisDataCatalogDlg(object):
         self.filterWgt.setSizePolicy(sizePolicy)
         self.filterWgt.setObjectName(_fromUtf8("filterWgt"))
         self.gridLayout = QtGui.QGridLayout(self.filterWgt)
-        self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.bronLbl = QtGui.QLabel(self.filterWgt)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)

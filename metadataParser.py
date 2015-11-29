@@ -69,7 +69,7 @@ class MDdata:
 
 
 class MDReader:
-    def __init__(self, timeout=15, proxyUrl="" ):
+    def __init__(self, timeout=15, proxyUrl='' ):
         self.timeout = timeout
         self.geoNetworkUrl = "http://geoservices.informatievlaanderen.be/zoekdienst/srv/dut/"
 
@@ -84,7 +84,7 @@ class MDReader:
         else:
             self.opener = None
 
-    def _createFindUrl(self, q="", start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType=''):
+    def _createFindUrl(self, q='', start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType=''):
         geopuntUrl = self.geoNetworkUrl + "/q?fast=index&sortBy=changeDate&"
         data = {}
         data["any"] = "*" + unicode(q).encode('utf-8') + "*"
@@ -187,7 +187,6 @@ class MDReader:
             else:
                return []
                
-
     def list_bronnen(self):
         url = self.geoNetworkUrl + "/xml.info?type=sources"
         try:
@@ -205,7 +204,7 @@ class MDReader:
             bronnen.sort()
             return bronnen
 
-    def search(self, q="", start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType='' ):
+    def search(self, q='', start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType='' ):
         url = self._createFindUrl( q, start, to, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
         try:
             if self.opener: response = self.opener.open(url, timeout=self.timeout)
@@ -219,13 +218,13 @@ class MDReader:
             resultXML = result.getroot()
             return  resultXML
 
-    def searchAll(self, q="", themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType=''):
+    def searchAll(self, q='', themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType=''):
         start= 1
-        step= 100        
+        step= 1000       
         searchResult = self.search(q, start, step, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
         count = int( searchResult[0].attrib["count"] )
         start += step
-        while (start) <= count:  #https://metadata.geopunt.be/zoekdienst/srv/dut/q?fast=index&sortBy=changeDate&to=&from=Herbruikbaar&any=%2A%2A'
+        while (start) <= count:
            result = self.search(q, start, (start + step -1), themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
            mds= result.findall("metadata")
            for md in mds: searchResult.append( md )

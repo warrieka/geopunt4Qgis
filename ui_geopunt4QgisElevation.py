@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisElevation.ui'
 #
-# Created: Thu Nov 20 18:45:02 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -64,7 +63,6 @@ class Ui_elevationDlg(object):
         self.graphWgt.setSizePolicy(sizePolicy)
         self.graphWgt.setObjectName(_fromUtf8("graphWgt"))
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.graphWgt)
-        self.verticalLayout_3.setMargin(0)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
         self.verticalLayout.addWidget(self.graphWgt)
         self.toolbar = QtGui.QWidget(elevationDlg)
@@ -75,7 +73,6 @@ class Ui_elevationDlg(object):
         self.toolbar.setSizePolicy(sizePolicy)
         self.toolbar.setObjectName(_fromUtf8("toolbar"))
         self.horizontalLayout_4 = QtGui.QHBoxLayout(self.toolbar)
-        self.horizontalLayout_4.setMargin(0)
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
         self.toolCanvanHome = QtGui.QToolButton(self.toolbar)
         self.toolCanvanHome.setObjectName(_fromUtf8("toolCanvanHome"))
@@ -139,7 +136,6 @@ class Ui_elevationDlg(object):
         self.saveWgt.setEnabled(False)
         self.saveWgt.setObjectName(_fromUtf8("saveWgt"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.saveWgt)
-        self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.saveLineBtn = QtGui.QPushButton(self.saveWgt)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)

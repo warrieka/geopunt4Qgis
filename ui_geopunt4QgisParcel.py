@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui_geopunt4qgisParcel.ui'
+# Form implementation generated from reading ui file 'ui_geopunt4QgisParcel.ui'
 #
-# Created: Tue Nov 24 11:49:53 2015
-#      by: PyQt4 UI code generator 4.10.2
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -42,7 +41,6 @@ class Ui_geopunt4QgisParcelDlg(object):
         self.parcelWgt.setSizePolicy(sizePolicy)
         self.parcelWgt.setObjectName(_fromUtf8("parcelWgt"))
         self.formLayout = QtGui.QFormLayout(self.parcelWgt)
-        self.formLayout.setMargin(0)
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
         self.municipalityLbl = QtGui.QLabel(self.parcelWgt)
         self.municipalityLbl.setObjectName(_fromUtf8("municipalityLbl"))

@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisBatchGeoCode.ui'
 #
-# Created: Sun Mar 22 20:01:58 2015
-#      by: PyQt4 UI code generator 4.11.2
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -127,7 +126,6 @@ class Ui_batchGeocodeDlg(object):
         self.adresChooseWgt = QtGui.QWidget(self.adresWgt)
         self.adresChooseWgt.setObjectName(_fromUtf8("adresChooseWgt"))
         self.horizontalLayout_4 = QtGui.QHBoxLayout(self.adresChooseWgt)
-        self.horizontalLayout_4.setMargin(0)
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
         self.adresColLbl = QtGui.QLabel(self.adresChooseWgt)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -150,7 +148,6 @@ class Ui_batchGeocodeDlg(object):
         self.huisnrChooseWgt = QtGui.QWidget(self.adresWgt)
         self.huisnrChooseWgt.setObjectName(_fromUtf8("huisnrChooseWgt"))
         self.horizontalLayout_6 = QtGui.QHBoxLayout(self.huisnrChooseWgt)
-        self.horizontalLayout_6.setMargin(0)
         self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
         self.huisnrLbl = QtGui.QLabel(self.huisnrChooseWgt)
         self.huisnrLbl.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
@@ -163,7 +160,6 @@ class Ui_batchGeocodeDlg(object):
         self.gemeenteChooseWgt = QtGui.QWidget(self.adresWgt)
         self.gemeenteChooseWgt.setObjectName(_fromUtf8("gemeenteChooseWgt"))
         self.horizontalLayout_3 = QtGui.QHBoxLayout(self.gemeenteChooseWgt)
-        self.horizontalLayout_3.setMargin(0)
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.gemeenteColLbl = QtGui.QLabel(self.gemeenteChooseWgt)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)
@@ -306,7 +302,6 @@ class Ui_batchGeocodeDlg(object):
         self.verticalLayout_3.addWidget(self.statusBar)
         self.laraLbl = QtGui.QLabel(batchGeocodeDlg)
         self.laraLbl.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing)
-        self.laraLbl.setMargin(-1)
         self.laraLbl.setOpenExternalLinks(True)
         self.laraLbl.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse)
         self.laraLbl.setObjectName(_fromUtf8("laraLbl"))

@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_geopunt4QgisGIPOD.ui'
 #
-# Created: Sun Mar 22 20:01:58 2015
-#      by: PyQt4 UI code generator 4.11.2
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -68,7 +67,6 @@ class Ui_gipodDlg(object):
         self.queryWgt.setSizePolicy(sizePolicy)
         self.queryWgt.setObjectName(_fromUtf8("queryWgt"))
         self.gridLayout = QtGui.QGridLayout(self.queryWgt)
-        self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.startEdit = QtGui.QDateEdit(self.queryWgt)
         self.startEdit.setMinimumSize(QtCore.QSize(100, 0))
@@ -165,7 +163,6 @@ class Ui_gipodDlg(object):
         self.mgsBox.setFrameShape(QtGui.QFrame.NoFrame)
         self.mgsBox.setFrameShadow(QtGui.QFrame.Plain)
         self.mgsBox.setText(_fromUtf8(""))
-        self.mgsBox.setMargin(0)
         self.mgsBox.setObjectName(_fromUtf8("mgsBox"))
         self.verticalLayout.addWidget(self.mgsBox)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
