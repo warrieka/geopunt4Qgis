@@ -11,7 +11,7 @@ class settings:
         self.proxyEnabled = self.proxyHost = self.proxyPort = self.proxyUser = self.proxyPassword = None
         self.proxyUrl = ""
         proxyEnabled = self.s.value("proxy/proxyEnabled", "")
-        if proxyEnabled == 1 or self.proxyEnabled == "true":
+        if proxyEnabled == 1 or proxyEnabled == "true":
             self.proxyEnabled = True
             self.proxyHost = self.s.value("proxy/proxyHost", "" )
             self.proxyPort = self.s.value("proxy/proxyPort", "" )

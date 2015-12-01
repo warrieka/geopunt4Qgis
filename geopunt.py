@@ -24,11 +24,12 @@ import urllib2, urllib, json, sys, datetime
 class Adres:
   def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
-      self._locUrl = "http://loc.api.geopunt.be/geolocation/Location?"
-      self._sugUrl = "http://loc.api.geopunt.be/geolocation/Suggestion?"
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
-         proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
-         self.opener = urllib2.build_opener(proxy)
+      self._locUrl = "http://loc.api.geopunt.be/v2/Location?"
+      self._sugUrl = "http://loc.api.geopunt.be/v2/Suggestion?"
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+         proxy = urllib2.ProxyHandler({'http': proxyUrl })
+         auth = urllib2.HTTPBasicAuthHandler()
+         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
          self.opener = None
 
@@ -82,9 +83,10 @@ class Poi:
       self._poiUrl = "http://poi.api.geopunt.be/v1/core"
       self.resultCount = 0
       
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
-         proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
-         self.opener = urllib2.build_opener(proxy)
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+         proxy = urllib2.ProxyHandler({'http': proxyUrl })
+         auth = urllib2.HTTPBasicAuthHandler()
+         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
          self.opener = None
       
@@ -295,9 +297,10 @@ class gipod:
       self.timeout = timeout
       self.baseUri = 'http://gipod.api.agiv.be/ws/v1/'
       
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
-          proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
-          self.opener = urllib2.build_opener(proxy)
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+         proxy = urllib2.ProxyHandler({'http': proxyUrl })
+         auth = urllib2.HTTPBasicAuthHandler()
+         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
           self.opener = None
   
@@ -467,9 +470,10 @@ class elevation:
       self.timeout = timeout
       self.baseUri = 'http://dhm.agiv.be/api/elevation/v1/DHMVMIXED/request'
       
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
-        proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
-        self.opener = urllib2.build_opener(proxy)
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+          proxy = urllib2.ProxyHandler({'http': proxyUrl})
+          auth = urllib2.HTTPBasicAuthHandler()
+          self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
         self.opener = None
       
@@ -502,8 +506,9 @@ class parcel:
       self.timeout = timeout
       self.baseUrl = "http://geo.agiv.be/capakey/api/v0"
       if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )):
-         proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
-         self.opener = urllib2.build_opener(proxy)
+         proxy = urllib2.ProxyHandler({'http': proxyUrl})
+         auth = urllib2.HTTPBasicAuthHandler()
+         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
          self.opener = None
     
@@ -624,7 +629,6 @@ class parcel:
             else : return []       
           
     def getParcel(self, niscode, departmentCode, sectieCode, perceelnummer, srs=31370, geometryType="no"):
-      
         data = {}
         if srs in [31370, 4326, 3857]: data["srs"] = srs
         if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
@@ -649,17 +653,19 @@ class geopuntError(Exception):
     def __str__(self):
       return repr(self.message)
          
-def internet_on(timeout=15, proxyUrl="" ):
-    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
-        proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
-        opener = urllib2.build_opener(proxy)
+def internet_on( proxyUrl="", timeout=15 ):
+    opener = None
+    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+        proxy =  urllib2.ProxyHandler({'http': proxyUrl })
+        auth =   urllib2.HTTPBasicAuthHandler()
+        opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+    # try:
+    if opener:
+        opener.open( 'http://loc.api.geopunt.be/v2/Suggestion', timeout=timeout )
+        return True
     else:
-        opener = None
-    try:
-      if opener:
-          opener.open( 'http://loc.api.geopunt.be', timeout=timeout ) 
-      else:
-          urllib2.urlopen('http://loc.api.geopunt.be',timeout=timeout)
-      return True
-    except: 
-        return False
+        urllib2.urlopen('http://loc.api.geopunt.be/v2/Suggestion', timeout=timeout)
+        return True
+    # except urllib2.HTTPError as e:
+    #     print "http error "+ str(e.code) +": "+ e.reason
+    #     return False

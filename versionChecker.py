@@ -4,14 +4,14 @@ import xml.etree.ElementTree as ET
 import ConfigParser as cfg
 
 class versionChecker:
-    def __init__(self, timeout=3, proxyUrl="", port="" ):
+    def __init__(self, timeout=3, proxyUrl="" ):
         self.timeout = timeout
         self.url = 'http://plugins.qgis.org/plugins/plugins.xml?qgis=2.0'
         self.ini = os.path.join(os.path.dirname(__file__), "metadata.txt")
         if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-            netLoc = proxyUrl.strip() + ":" + port
-            proxy = urllib2.ProxyHandler({'http': netLoc })
-            self.opener = urllib2.build_opener(proxy)
+            proxy = urllib2.ProxyHandler({'http': proxyUrl })
+            auth = urllib2.HTTPBasicAuthHandler()
+            self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
         else:
             self.opener = None
         

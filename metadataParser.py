@@ -78,9 +78,10 @@ class MDReader:
         self.inspireServiceTypes =  ["Discovery","Transformation","View","Other","Invoke"]
         self.inspireannex =  ["i","ii","iii"]
 
-        if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
-            proxy = urllib2.ProxyHandler({'http': proxyUrl ,'https': proxyUrl })
-            self.opener = urllib2.build_opener(proxy)
+        if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+            auth = urllib2.HTTPBasicAuthHandler()
+            proxy = urllib2.ProxyHandler({'http': proxyUrl })
+            self.opener = urllib2.build_opener(proxy,  auth, urllib2.HTTPHandler)
         else:
             self.opener = None
 
@@ -245,9 +246,10 @@ def getWmsLayerNames( url, proxyUrl=''):
     else:
       capability = url
 
-    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
-      proxy = urllib2.ProxyHandler({'http': proxyUrl ,'https': proxyUrl })
-      opener = urllib2.build_opener(proxy)
+    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+      proxy = urllib2.ProxyHandler({'http': proxyUrl })
+      auth = urllib2.HTTPBasicAuthHandler()
+      opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       responseWMS =  opener.open(capability)
     else:
       responseWMS =  urllib2.urlopen(capability)
@@ -272,9 +274,10 @@ def getWFSLayerNames( url, proxyUrl=''):
       else: 
           capability = url
           
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
-          proxy = urllib2.ProxyHandler({'http': proxyUrl ,'https': proxyUrl })
-          opener = urllib2.build_opener(proxy)
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+          proxy = urllib2.ProxyHandler({'http': proxyUrl })
+          auth = urllib2.HTTPBasicAuthHandler()
+          opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
           responseWFS =  opener.open(capability)
       else:
           responseWFS =  urllib2.urlopen(capability)
@@ -298,8 +301,8 @@ def getWMTSlayersNames( url, proxyUrl='' ):
         capability = url.split("?")[0] + "?service=WMTS&request=Getcapabilities"
     else:
         capability = url
-    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
-        proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl })
+    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+        proxy = urllib2.ProxyHandler({'http': proxyUrl })
         auth = urllib2.HTTPBasicAuthHandler()
         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
         responseWMTS =  opener.open(capability)
@@ -337,7 +340,7 @@ def getWCSlayerNames( url, proxyUrl='' ):
       capability = url.split("?")[0] + "?request=GetCapabilities&version=1.1.0&service=wcs"
     else:
       capability = url
-    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
       proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl})
       auth = urllib2.HTTPBasicAuthHandler()
       opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
@@ -359,7 +362,7 @@ def getWCSlayerNames( url, proxyUrl='' ):
        title = lyr.find("{http://www.opengis.net/ows/1.1}Title")
 
        DescribeCoverage = url.split("?")[0] + "?request=DescribeCoverage&version=1.1.0&service=wcs&Identifiers=" + Identifier.text
-       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl:
+       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl})
          auth = urllib2.HTTPBasicAuthHandler()
          opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
@@ -392,8 +395,7 @@ def makeWFSuri( url, name='', srsname="EPSG:31370", version='1.0.0', bbox=None )
     if bbox: params['BBOX'] = ",".join([str(s) for s in bbox])
 
     uri = url.split('?')[0] + '?' + urllib.unquote( urllib.urlencode(params) )
-    
-    print uri
+
     return uri
 
 def makeWMTSuri( url, layer, tileMatrixSet, srsname="EPSG:3857", styles='', format='image/png' ):

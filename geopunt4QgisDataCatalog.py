@@ -37,7 +37,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
 
         # initialize locale
         locale = QtCore.QSettings().value("locale/userLocale", "en")
-        if not locale: locale == 'en'
+        if not locale: locale = 'en'
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
@@ -145,7 +145,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
                     QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "),
                     QtCore.QCoreApplication.translate("geopunt4QgisPoidialog",
                                                       "Kan geen verbing maken met het internet."),
-                    level=QgsMessageBar.WARNING, duration=3)
+                                                      level=QgsMessageBar.WARNING, duration=3)
 
     # eventhandlers
     def resultViewClicked(self):
@@ -160,9 +160,9 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
             abstract = self.proxyModel.data(self.proxyModel.index(row, 4))
 
             self.ui.descriptionText.setText(
-                """<h3>%s</h3><div>%s</div><br/><br/>
+                """<h3>%s</h3><div>%s</div><br/><div>
              <a href='https://metadata.geopunt.be/zoekdienst/apps/tabsearch/index.html?uuid=%s'>
-             Ga naar fiche</a>""" % (title, abstract, uuid))
+             Ga naar fiche</a></div>""" % (title, abstract, uuid))
 
             if self.wms:
                 self.ui.addWMSbtn.setEnabled(1)
