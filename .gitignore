@@ -1,6 +1,4 @@
-docs/*.pdf
-docs/*.docx
-docs/*.doc
+
 
 ###############
 ## Kdevelop  ##
@@ -59,6 +57,7 @@ local.properties
 [Dd]ebug/
 [Rr]elease/
 x64/
+Build/
 build/
 [Bb]in/
 [Oo]bj/

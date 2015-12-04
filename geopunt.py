@@ -505,7 +505,7 @@ class parcel:
     def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
       self.baseUrl = "http://geo.agiv.be/capakey/api/v0" 
-      if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) and  proxyUrl != "":
+      if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl})
          auth = urllib2.HTTPBasicAuthHandler()
          self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
