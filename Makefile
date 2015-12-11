@@ -80,7 +80,7 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 
 # [KW]: extra command with my own python script, that I can also use on windows
 # workflow testPlugin.py: pack -> extract at QGISDIR -> start QGIS
-runplugin: compile transup 
+runplugin: compile  
 	python $(CURDIR)/utils/testPlugin.py
 	
 # The deploy  target only works on unix like operating system where

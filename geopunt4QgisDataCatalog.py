@@ -268,11 +268,14 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
 
         layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
         style = [n[2] for n in lyrs if n[1] == layerTitle][0]
+        if not style: style = ""
+        
         url = self.wms.split('?')[0]
 
         if crs != 'EPSG:31370' or crs != 'EPSG:3857':
             crs = 'EPSG:31370'
-        wmsUrl = "url=%s&layers=%s&format=image/png&styles=%s&crs=%s" % (url, layerName, style, crs)
+        wmsUrl = "contextualWMSLegend=0&dpiMode=7&url=%s&layers=%s&format=image/png&styles=%s&crs=%s" % (
+                                                                         url, layerName, style, crs)
 
         try:
             rlayer = QgsRasterLayer(wmsUrl, layerTitle, 'wms')
