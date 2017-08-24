@@ -195,7 +195,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         "Portable Document Format (*.pdf) (*.pdf);;Tagged Image File Format (*.tif) (*.tif)"+
         ";;Encapsulated Postscript (*.eps) (*.eps)")
       
-        if not(sys.platform == 'win32' and matplotlib.__version__ == "1.3.1"):
+        if not(sys.platform == 'win32'):
            formats += ";;Portable Network Graphics  (*.png) (*.png)"
       
         fileName = QFileDialog.getSaveFileName( self , "Save File", self.startDir, formats);

@@ -1,4 +1,7 @@
 
+## special ##
+ui_*.py
+*_rc.py
 
 ###############
 ## Kdevelop  ##
@@ -223,8 +226,6 @@ pip-log.txt
 *.mo
 
 *.suo
-ui_*.py
-*_rc.py
 
 .idea/
 doc/*.pdf
