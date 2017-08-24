@@ -27,7 +27,7 @@ from PyQt4.QtGui import QFileDialog
 #mathplotlib
 try:
   from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-  from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
+  from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
   from matplotlib.figure import Figure
   import numpy as np
   mathplotlibWorks = True
@@ -301,8 +301,8 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         crs = self.gh.getGetMapCrs(self.iface).authid()
         if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
            crs = 'EPSG:31370' 
-        dhmUrl =  "url=http://geo.agiv.be/inspire/wms/Hoogte&layers=DHM&format=image/png&styles=default&crs="+ crs
-        
+        dhmUrl =  "url=https://geoservices.informatievlaanderen.be/raadpleegdiensten/DHMV/wms&layers=DHMVII_DTM_1m&&format=image/png&styles=default&crs="+ crs
+        print dhmUrl
         try:
             rlayer = QgsRasterLayer(dhmUrl, 'Hoogtemodel', 'wms') 
             if rlayer.isValid():

@@ -222,6 +222,9 @@ pip-log.txt
 #Translations
 *.mo
 
+*.suo
+ui_*.py
+*_rc.py
 
 .idea/
 doc/*.pdf

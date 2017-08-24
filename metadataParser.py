@@ -126,9 +126,11 @@ class MDReader:
             if self.opener: response = self.opener.open(url, timeout=self.timeout)
             else: response = urllib2.urlopen(url, timeout=self.timeout)
         except  (urllib2.HTTPError, urllib2.URLError) as e:
-            raise metaError( str( e.reason ))
+            #raise metaError( str( e.reason ))
+            return []
         except:
-            raise metaError( str( sys.exc_info()[1] ))
+            print metaError( str( sys.exc_info()[1] ))
+            return []
         else:
             result = ET.parse(response)
             r= result.getroot()
@@ -142,9 +144,11 @@ class MDReader:
             if self.opener: response = self.opener.open(url, timeout=self.timeout)
             else: response = urllib2.urlopen(url, timeout=self.timeout)
         except  (urllib2.HTTPError, urllib2.URLError) as e:
-            raise metaError( str( e.reason ))
+            #raise metaError( str( e.reason ))
+            return []
         except:
-            raise metaError( str( sys.exc_info()[1] ))
+            print metaError( str( sys.exc_info()[1] ))
+            return []
         else:
             result = ET.parse(response)
             r= result.getroot()
@@ -161,7 +165,8 @@ class MDReader:
             if self.opener: response = self.opener.open(url, timeout=self.timeout)
             else: response = urllib2.urlopen(url, timeout=self.timeout)
         except  (urllib2.HTTPError, urllib2.URLError) as e:
-            raise metaError( str( e.reason ))
+            print metaError( str( e.reason ))
+            return []
         except:
             raise metaError( str( sys.exc_info()[1] ))
         else:
@@ -176,7 +181,8 @@ class MDReader:
             if self.opener: response = self.opener.open(url, timeout=self.timeout)
             else: response = urllib2.urlopen(url, timeout=self.timeout)
         except  (urllib2.HTTPError, urllib2.URLError) as e:
-            raise metaError( str( e.reason ))
+            print metaError( str( e.reason ))
+            return []
         except:
             raise metaError( str( sys.exc_info()[1] ))
         else:
@@ -255,12 +261,14 @@ def getWmsLayerNames( url, proxyUrl=''):
       responseWMS =  urllib2.urlopen(capability)
 
     result = ET.parse(responseWMS)
-    layers =  result.findall( ".//{http://www.opengis.net/wms}Layer" )
+    layers =  result.findall( ".//{http://www.opengis.net/wms}Layer" ) + result.findall( ".//Layer" ) 
     layerNames=[]
 
     for lyr in layers:
       name= lyr.find("{http://www.opengis.net/wms}Name")
+      if name is None: name= lyr.find("Name")
       title = lyr.find("{http://www.opengis.net/wms}Title")
+      if title is None: title = lyr.find("Title")
       style = lyr.find("{http://www.opengis.net/wms}Style/{http://www.opengis.net/wms}Name")
       if ( name != None) and ( title != None ):
          if style == None: layerNames.append(( name.text, title.text, ''))

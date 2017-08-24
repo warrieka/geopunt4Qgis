@@ -37,14 +37,9 @@ class parcelHelper:
       
       
     def save_parcel_polygon(self, polygon, parcelInfo, layername="perceel", saveToFile=False, sender=None, startFolder=None ):
-        attributes =[ QgsField("macht", QVariant.Int),
-              QgsField("bisnummer", QVariant.Int) ,
-              QgsField("exponent", QVariant.String),
-              QgsField("adres", QVariant.String),
-              QgsField("capakey", QVariant.String),         
-              QgsField("grondnr", QVariant.Int),
-              QgsField("type", QVariant.String),
-              QgsField("perceelnr", QVariant.String) ]
+        attributes =[ QgsField("macht", QVariant.Int), QgsField("bisnummer", QVariant.Int) , QgsField("exponent", QVariant.String),
+                      QgsField("adres", QVariant.String), QgsField("capakey", QVariant.String), QgsField("grondnr", QVariant.Int),
+                      QgsField("type", QVariant.String), QgsField("perceelnr", QVariant.String) ]
   
         if not QgsMapLayerRegistry.instance().mapLayer(self.parcellayerid):
             self.parcellayer = QgsVectorLayer("MultiPolygon", layername, "memory")

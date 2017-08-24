@@ -28,9 +28,9 @@ def removeExisting(target):
       print "removing: %s ->" % target
       shutil.rmtree(target)
       if not os.path.exists(target): 
-	print "\t\t\t\t\t\t succes" 
+         print "\t\t\t\t\t\t succes" 
       else:  
-	raise Exception("could not remove: "+ target +", is qgis still running?")
+         raise Exception("could not remove: "+ target +", is qgis still running?")
 
 def main(targetZip, project=None, qgis_exe=None):
   if sys.platform.startswith('win') : 

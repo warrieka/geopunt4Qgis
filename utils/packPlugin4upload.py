@@ -13,6 +13,7 @@ def makeList( src ):
     fileList = fileList + glob.glob( os.path.join(  src , idir , "*" ))
     fileList = fileList + glob.glob( os.path.join(  src , idir , "*","*" ))
     fileList = fileList + glob.glob( os.path.join(  src , idir , "*","*","*" ))
+    fileList = fileList + glob.glob( os.path.join(  src , idir , "*","*","*","*" ))
   for incl in INCLUDEFILE: 
     fileList = fileList + glob.glob(os.path.join( src , incl )) 
   return fileList

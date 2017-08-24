@@ -100,7 +100,8 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         else:
             self.proxy = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))    
-        self.parcel = geopunt.parcel(self.timeout, self.proxy)
+        self.parcel = geopunt.capakey(self.timeout, self.proxy)
+        self.perc = geopunt.perc(self.timeout, self.proxy)
         
     def show(self):
         QtGui.QDialog.show(self)
@@ -116,8 +117,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
              else:
                 self.bar.pushMessage(
                   QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", "Waarschuwing "), 
-                  QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", 
-                    "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=10)
+                  QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=10)
 
     def saveParcel(self):
         if not self.layernameValid(): return
@@ -304,14 +304,14 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 shape = json.loads( sectInfo['geometry']['shape'])
                 for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
                 return
-            if sender is self.ui.ZoomKnop_parcel and municipality != '' and department != '' and section != '' and parcelNr != '':
-                parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
-                if parcelInfo == []: return
-                bbox= json.loads( parcelInfo['geometry']['boundingBox'])['coordinates'][0]
+            if sender is self.ui.ZoomKnop_parcel and niscode != '' and department != '' and section != '' and parcelNr != '':
+                #parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
+                capakey = "{}{}{}".format( departmentcode, section, parcelNr) 
+                shape = self.polygonFromESRI( self.perc.getPercGeom( capakey ) )
+                if len(shape) == 0: return
+                self.iface.mapCanvas().setExtent( shape[0].boundingBox() )
                 self.clearGraphics()
-                self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
-                shape = json.loads( parcelInfo['geometry']['shape'])
-                for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
+                for n in shape:  self.addGraphic(n)
                 return
         except geopunt.geopuntError as e:
           self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
@@ -334,6 +334,21 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
              self.layerName = layerName
         return True
 
+    def polygonFromESRI(self, esriJson):
+        if len(esriJson) == 0: return []
+        Polygons = []
+        mPolygon = [ esriJson[0]["geometry"]["rings"] ]
+        for rings in mPolygon:
+            prjPolygon = []
+            for ring in rings:
+               prjRing = self.gh.prjLineToMapCrs( ring, 31370 )
+               prjPolygon.append( prjRing.asPolyline() )
+            
+            gPolygon = QgsGeometry.fromPolygon( prjPolygon )
+            Polygons.append( gPolygon )
+        
+        return Polygons
+
     def PolygonsFromJson(self, geojson ):
         geoType= geojson['type']
         Polygons = []
@@ -343,7 +358,6 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
            mPolygon = [ rings ]
         if geoType == "MultiPolygon":
            mPolygon = geojson['coordinates']
-           print  len( mPolygon)
            
         for rings in mPolygon:
             prjPolygon = []

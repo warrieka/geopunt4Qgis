@@ -143,9 +143,7 @@ class elevationHelper:
 
     def _saveToFile( self, sender, startFolder=None ):
         filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
-        Fdlg = QFileDialog()
-        Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName = Fdlg.getSaveFileName( sender, "open file" , filter= filter, directory=startFolder)
+        fName = QFileDialog.getSaveFileName( sender, "open file" , filter= filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
           if "SHP" in ext.upper():

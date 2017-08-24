@@ -76,7 +76,6 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 
 %.py : %.ui
 	pyuic4 -o $@ $<
-# 	python C:\OSGeo4W64\apps\Python27\lib\site-packages\PyQt4\uic\pyuic.py -o $@ $<
 
 # [KW]: extra command with my own python script, that I can also use on windows
 # workflow testPlugin.py: pack -> extract at QGISDIR -> start QGIS
@@ -88,7 +87,7 @@ runplugin: compile
 # [KW]: use "make runplugin" instead on windows
 deploy: compile
 	if [ -d "$(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)" ]; then rm -r $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME); fi
-	mkdir -p $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+	mkdir $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(PY_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(UI_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(RESOURCE_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)

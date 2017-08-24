@@ -24,8 +24,8 @@ import urllib2, urllib, json, sys, datetime
 class Adres:
   def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
-      self._locUrl = "http://loc.api.geopunt.be/v2/Location?"
-      self._sugUrl = "http://loc.api.geopunt.be/v2/Suggestion?"
+      self._locUrl = "http://loc.api.geopunt.be/v3/Location?"
+      self._sugUrl = "http://loc.api.geopunt.be/v3/Suggestion?"
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
          auth = urllib2.HTTPBasicAuthHandler()
@@ -501,10 +501,11 @@ class elevation:
         elevationJson = json.load(response)
         return elevationJson
 
-class parcel:
+class capakey:
     def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
-      self.baseUrl = "http://geo.agiv.be/capakey/api/v0" 
+      self.baseUrl = "https://geoservices.informatievlaanderen.be/capakey/api/v1" 
+
       if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl})
          auth = urllib2.HTTPBasicAuthHandler()
@@ -646,13 +647,92 @@ class parcel:
         else:
             parcel = json.load(response)
             return parcel
-          
+
+class perc:
+   def __init__(self, timeout=15, proxyUrl=""):
+      self.timeout = timeout
+
+      self._esriCapaServer= "https://geoservices.informatievlaanderen.be/ArcGIS/rest/services/adp/MapServer/0/query?" 
+      self._locUrl = "http://perc.geopunt.be/Perceel/Location?"
+      self._sugUrl = "http://perc.geopunt.be/Perceel/Suggestion?"
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+         proxy = urllib2.ProxyHandler({'http': proxyUrl })
+         auth = urllib2.HTTPBasicAuthHandler()
+         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+      else:
+         self.opener = None
+
+   def _createLocationUrl(self, q, c=1):
+      geopuntUrl = self._locUrl
+      data = {}
+      data["q"] = unicode(q).encode('utf-8')
+      data["c"] = c
+      values = urllib.urlencode(data)
+      result = geopuntUrl + values 
+      return result
+
+   def fetchLocation(self, q, c=1):
+      url = self._createLocationUrl(q, c=1)
+      try:
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+            return str( e.reason )
+      except:
+            return  str( sys.exc_info()[1] )
+      else:
+            LocationResult = json.load(response)
+            return LocationResult["LocationResult"]
+
+   def _createSuggestionUrl(self, q, c=5):
+      geopuntUrl = self._sugUrl
+      data = {}
+      data["q"] = unicode(q).encode('utf-8')
+      data["c"] = c
+      values = urllib.urlencode(data)
+      result = geopuntUrl + values
+      return result
+
+   def fetchSuggestion(self, q, c=5):
+      url = self._createSuggestionUrl(q,c)
+      try:
+         if self.opener: response = self.opener.open(url, timeout=self.timeout)
+         else: response = urllib2.urlopen(url, timeout=self.timeout)
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+         return str( e.reason )
+      except:
+            return  str( sys.exc_info()[1] )
+      else:
+            suggestion = json.load(response)
+            return suggestion["SuggestionResult"]
+
+   def getPercGeom(self, capakey, srs=31370):
+      capaUrl = self._esriCapaServer
+      data = {"f": "json"}
+      data["where"] = unicode( "CAPAKEY LIKE '{}'".format( capakey ) ).encode('utf-8')
+      data["outSR"] = srs
+      values = urllib.urlencode(data)
+
+      url = capaUrl + values 
+      print url
+
+      try:
+            if self.opener: response = self.opener.open(url, timeout=self.timeout)
+            else: response = urllib2.urlopen(url, timeout=self.timeout)
+      except (urllib2.HTTPError, urllib2.URLError) as e:
+            return str( e.reason )
+      except:
+            return  str( sys.exc_info()[1] )
+      else:
+            LocationResult = json.load(response)
+            return LocationResult["features"]
+
 class geopuntError(Exception):
     def __init__(self, message):
       self.message = message
     def __str__(self):
       return repr(self.message)
-         
+
 def internet_on( proxyUrl="", timeout=15 ):
     opener = None
     if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
@@ -666,6 +746,3 @@ def internet_on( proxyUrl="", timeout=15 ):
     else:
         urllib2.urlopen('http://loc.api.geopunt.be/v2/Suggestion', timeout=timeout)
         return True
-    # except urllib2.HTTPError as e:
-    #     print "http error "+ str(e.code) +": "+ e.reason
-    #     return False

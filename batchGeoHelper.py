@@ -109,32 +109,30 @@ class batcGeoHelper:
       self.adresProvider = None
   
   def _saveToFile( self, sender , startFolder=None):
-      'save to file'
-      #filter = "Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
-      filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
-      Fdlg = QFileDialog()
-      Fdlg.setFileMode(QFileDialog.AnyFile)
-      fName = Fdlg.getSaveFileName( sender, "open file" , filter=filter, directory=startFolder)
-      if fName:
-	  ext = os.path.splitext( fName )[1]
-	  if "SHP" in ext.upper():
-	      flType = "ESRI Shapefile"
-	  elif "SQLITE" in ext.upper():
-	      flType = "SQLite" 
-	  elif "GEOJSON" in ext.upper():
-	      flType = "GeoJSON"
-	  elif "GML" in ext.upper():
-	      flType = "GML"
-	  elif "CSV" in ext.upper():
-	      ftType = "CSV"
-	  elif 'TAB' in ext.upper():
-		flType = 'MapInfo File'
-	  elif 'KML' in ext.upper():
-		flType = 'KML'
-	  else:
-	      fName = fName + ".shp"
-	      flType = "ESRI Shapefile"
-	  return (fName , flType )
-      else:
-	  return None
-	
+     'save to file'
+     #filter = "Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
+     filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
+     fName = QFileDialog.getSaveFileName( sender, "open file" , filter=filter, directory=startFolder)
+
+     if fName: ext = os.path.splitext( fName )[1]
+     else: return 
+
+     if "SHP" in ext.upper():
+         flType = "ESRI Shapefile"
+     elif "SQLITE" in ext.upper():
+         flType = "SQLite" 
+     elif "GEOJSON" in ext.upper():
+         flType = "GeoJSON"
+     elif "GML" in ext.upper():
+         flType = "GML"
+     elif "CSV" in ext.upper():
+         ftType = "CSV"
+     elif 'TAB' in ext.upper():
+         flType = 'MapInfo File'
+     elif 'KML' in ext.upper():
+         flType = 'KML'
+     else:
+         fName = fName + ".shp"
+         flType = "ESRI Shapefile"
+
+     return (fName , flType )
