@@ -295,7 +295,7 @@ class Poi:
 class gipod:
   def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
-      self.baseUri = 'http://gipod.api.agiv.be/ws/v1/'
+      self.baseUri = 'http://api.gipod.vlaanderen.be/ws/v1/'
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
@@ -506,12 +506,12 @@ class capakey:
       self.timeout = timeout
       self.baseUrl = "https://geoservices.informatievlaanderen.be/capakey/api/v1" 
 
-      if (isinstance( proxyUrl, unicode ) or isinstance( proxyUrl, str )) and proxyUrl != "":
-         proxy = urllib2.ProxyHandler({'http': proxyUrl})
-         auth = urllib2.HTTPBasicAuthHandler()
-         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+          proxy = urllib2.ProxyHandler({'http': proxyUrl})
+          auth = urllib2.HTTPBasicAuthHandler()
+          self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
-         self.opener = None
+          self.opener = None
     
     def getMunicipalities(self):
         url = self.baseUrl + "/municipality/"
@@ -712,9 +712,7 @@ class perc:
       data["where"] = unicode( "CAPAKEY LIKE '{}'".format( capakey ) ).encode('utf-8')
       data["outSR"] = srs
       values = urllib.urlencode(data)
-
       url = capaUrl + values 
-      print url
 
       try:
             if self.opener: response = self.opener.open(url, timeout=self.timeout)

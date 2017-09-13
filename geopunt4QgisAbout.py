@@ -45,7 +45,7 @@ class geopunt4QgisAboutDialog(QtGui.QDialog):
             self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-en.html')
         else:
             #dutch is default
-            self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-nl.html')   
+            self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-nl.html') 
         self._initGui()
     
     
@@ -54,6 +54,7 @@ class geopunt4QgisAboutDialog(QtGui.QDialog):
       self.ui = Ui_aboutDlg() 
       self.ui.setupUi(self)
       self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole  )
-      with codecs.open(self.htmlFile, 'r', encoding="utf-8") as html:
-           self.ui.aboutText.setHtml( html.read() )
-      
+      with codecs.open(self.htmlFile,'r', encoding="utf-8") as html:
+           htmlTxt =  html.read()
+           self.ui.aboutText.setHtml( htmlTxt )
+

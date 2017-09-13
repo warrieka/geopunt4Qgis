@@ -90,7 +90,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="departmentLbl">
         <property name="text">
-         <string>Departement:</string>
+         <string>Afdeling </string>
         </property>
        </widget>
       </item>

@@ -101,7 +101,6 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
             self.proxy = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))    
         self.parcel = geopunt.capakey(self.timeout, self.proxy)
-        self.perc = geopunt.perc(self.timeout, self.proxy)
         
     def show(self):
         QtGui.QDialog.show(self)
@@ -304,15 +303,17 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 shape = json.loads( sectInfo['geometry']['shape'])
                 for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
                 return
+             #TODO
             if sender is self.ui.ZoomKnop_parcel and niscode != '' and department != '' and section != '' and parcelNr != '':
-                #parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
-                capakey = "{}{}{}".format( departmentcode, section, parcelNr) 
-                shape = self.polygonFromESRI( self.perc.getPercGeom( capakey ) )
-                if len(shape) == 0: return
-                self.iface.mapCanvas().setExtent( shape[0].boundingBox() )
+                parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
+                if parcelInfo == []: return
+                bbox= json.loads( parcelInfo['geometry']['boundingBox'])['coordinates'][0]
                 self.clearGraphics()
-                for n in shape:  self.addGraphic(n)
+                self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
+                shape = json.loads( parcelInfo['geometry']['shape'])
+                for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
                 return
+        
         except geopunt.geopuntError as e:
           self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
           return

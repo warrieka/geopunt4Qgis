@@ -455,12 +455,12 @@
         <translation type="obsolete">Datacatalogus</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisParcel.py" line="328"/>
+        <location filename="geopunt4QgisParcel.py" line="330"/>
         <source>Laag toevoegen</source>
         <translation>Laag toevoegen</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisParcel.py" line="328"/>
+        <location filename="geopunt4QgisParcel.py" line="330"/>
         <source>Geef een naam voor de laag op:</source>
         <translation>Geef een naam voor de laag op:</translation>
     </message>
@@ -546,7 +546,7 @@
 <context>
     <name>geopunt4QgisDataCatalog</name>
     <message>
-        <location filename="geopunt4QgisDataCatalog.py" line="282"/>
+        <location filename="geopunt4QgisDataCatalog.py" line="285"/>
         <source>Kan WMS niet laden</source>
         <translation>Kan WMS niet laden</translation>
     </message>
@@ -799,7 +799,7 @@ Geopunt metadatacenter&lt;/a&gt; en
     <message>
         <location filename="ui_geopunt4QgisParcel.ui" line="93"/>
         <source>Departement:</source>
-        <translation>Departement:</translation>
+        <translation type="obsolete">Departement:</translation>
     </message>
     <message>
         <location filename="ui_geopunt4QgisParcel.ui" line="143"/>
@@ -817,12 +817,12 @@ Geopunt metadatacenter&lt;/a&gt; en
         <translation>Zoom naar</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisParcel.py" line="117"/>
+        <location filename="geopunt4QgisParcel.py" line="118"/>
         <source>Waarschuwing </source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="geopunt4QgisParcel.py" line="117"/>
+        <location filename="geopunt4QgisParcel.py" line="118"/>
         <source>Kan geen verbing maken met het internet.</source>
         <translation>Kan geen verbing maken met het internet.</translation>
     </message>
@@ -840,6 +840,11 @@ Geopunt metadatacenter&lt;/a&gt; en
         <location filename="ui_geopunt4QgisParcel.ui" line="253"/>
         <source>Adres:</source>
         <translation>Adres:</translation>
+    </message>
+    <message>
+        <location filename="ui_geopunt4QgisParcel.ui" line="93"/>
+        <source>Afdeling </source>
+        <translation>Afdeling</translation>
     </message>
 </context>
 <context>
