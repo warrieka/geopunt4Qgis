@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from PyQt4.QtCore import QSettings
-from qgis.core import QgsNetworkAccessManager
+try:
+   from qgis.core import QgsNetworkAccessManager
+   hasNetworkManager = True
+except ImportError:
+   hasNetworkManager = False
 import sys, os
 
 class settings:
@@ -21,7 +25,7 @@ class settings:
             self.proxyPassword = self.s.value("proxy/proxyPassword", "" )
 
             #https://github.com/nextgis/quickmapservices/blob/master/src/qgis_settings.py#L74L80
-            if self.proxy_type == "DefaultProxy": 
+            if self.proxy_type == "DefaultProxy" and hasNetworkManager: 
                  qgsNetMan = QgsNetworkAccessManager.instance() 
                  proxy = qgsNetMan.proxy().applicationProxy() 
                  self.proxyHost = proxy.hostName() 
