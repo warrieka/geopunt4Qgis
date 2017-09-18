@@ -246,14 +246,17 @@ class metaError(Exception):
         return repr(self.message)
 
       
-def getWmsLayerNames( url, proxyUrl=''):
+def getWmsLayerNames( url='', proxyUrl=''):
     if (not "request=GetCapabilities" in url.lower()) or (not "service=wms" in url.lower()):
       capability = url.split("?")[0] + "?request=GetCapabilities&version=1.3.0&service=wms"
     else:
       capability = url
 
-    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
-      proxy = urllib2.ProxyHandler({'http': proxyUrl })
+    if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+      if url.startswith("https"):
+         proxy = urllib2.ProxyHandler({'https': proxyUrl })
+      else:
+         proxy = urllib2.ProxyHandler({'http': proxyUrl })
       auth = urllib2.HTTPBasicAuthHandler()
       opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       responseWMS =  opener.open(capability)
@@ -282,11 +285,14 @@ def getWFSLayerNames( url, proxyUrl=''):
       else: 
           capability = url
           
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
-          proxy = urllib2.ProxyHandler({'http': proxyUrl })
-          auth = urllib2.HTTPBasicAuthHandler()
-          opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
-          responseWFS =  opener.open(capability)
+      if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+         if url.startswith("https"):
+            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+         else:
+            proxy = urllib2.ProxyHandler({'http': proxyUrl })
+         auth = urllib2.HTTPBasicAuthHandler()
+         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+         responseWFS =  opener.open(capability)
       else:
           responseWFS =  urllib2.urlopen(capability)
       
@@ -309,13 +315,16 @@ def getWMTSlayersNames( url, proxyUrl='' ):
         capability = url.split("?")[0] + "?service=WMTS&request=Getcapabilities"
     else:
         capability = url
-    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
-        proxy = urllib2.ProxyHandler({'http': proxyUrl })
-        auth = urllib2.HTTPBasicAuthHandler()
-        opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
-        responseWMTS =  opener.open(capability)
+    if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+       if url.startswith("https"):
+            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+       else:
+            proxy = urllib2.ProxyHandler({'http': proxyUrl })
+       auth = urllib2.HTTPBasicAuthHandler()
+       opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+       responseWMTS =  opener.open(capability)
     else:
-        responseWMTS =  urllib2.urlopen(capability)
+       responseWMTS =  urllib2.urlopen(capability)
 
     result = ET.parse(responseWMTS).getroot()
     content = result.find( "{http://www.opengis.net/wmts/1.0}Contents" )
@@ -348,11 +357,14 @@ def getWCSlayerNames( url, proxyUrl='' ):
       capability = url.split("?")[0] + "?request=GetCapabilities&version=1.1.0&service=wcs"
     else:
       capability = url
-    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
-      proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl})
-      auth = urllib2.HTTPBasicAuthHandler()
-      opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
-      responseWCS =  opener.open(capability)
+    if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+       if url.startswith("https"):
+            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+       else:
+            proxy = urllib2.ProxyHandler({'http': proxyUrl })
+       auth = urllib2.HTTPBasicAuthHandler()
+       opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+       responseWCS =  opener.open(capability)
     else:
       responseWCS =  urllib2.urlopen(capability)
 
@@ -370,11 +382,14 @@ def getWCSlayerNames( url, proxyUrl='' ):
        title = lyr.find("{http://www.opengis.net/ows/1.1}Title")
 
        DescribeCoverage = url.split("?")[0] + "?request=DescribeCoverage&version=1.1.0&service=wcs&Identifiers=" + Identifier.text
-       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
-         proxy = urllib2.ProxyHandler({'http': proxyUrl, 'https': proxyUrl})
-         auth = urllib2.HTTPBasicAuthHandler()
-         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
-         responseDC =  opener.open(DescribeCoverage)
+       if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+          if url.startswith("https"):
+               proxy = urllib2.ProxyHandler({'https': proxyUrl })
+          else:
+               proxy = urllib2.ProxyHandler({'http': proxyUrl })
+          auth = urllib2.HTTPBasicAuthHandler()
+          opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+          responseDC =  opener.open(DescribeCoverage)
        else:
          responseDC =  urllib2.urlopen(DescribeCoverage)
 

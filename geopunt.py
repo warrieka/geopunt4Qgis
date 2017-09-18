@@ -26,7 +26,7 @@ class Adres:
       self.timeout = timeout
       self._locUrl = "http://loc.api.geopunt.be/v3/Location?"
       self._sugUrl = "http://loc.api.geopunt.be/v3/Suggestion?"
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+      if isinstance(proxyUrl, (str, unicode))  and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
          auth = urllib2.HTTPBasicAuthHandler()
          self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
@@ -52,7 +52,8 @@ class Adres:
       except:
             return  str( sys.exc_info()[1] )
       else:
-            LocationResult = json.load(response)
+            resp= response.read()
+            LocationResult = json.loads(resp)
             return LocationResult["LocationResult"]
 
   def _createSuggestionUrl(self, q, c=5):
@@ -74,7 +75,8 @@ class Adres:
       except:
           return  str( sys.exc_info()[1] )
       else:
-          suggestion = json.load(response)
+          resp= response.read()
+          suggestion = json.loads(resp)
           return suggestion["SuggestionResult"]
 
 class Poi:
@@ -470,7 +472,7 @@ class elevation:
       self.timeout = timeout
       self.baseUri = 'http://dhm.agiv.be/api/elevation/v1/DHMVMIXED/request'
       
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+      if isinstance(proxyUrl, (str, unicode)) and proxyUrl != "":
           proxy = urllib2.ProxyHandler({'http': proxyUrl})
           auth = urllib2.HTTPBasicAuthHandler()
           self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
@@ -491,8 +493,10 @@ class elevation:
       "LineString= a serie of points in form [[4.2,51.27],[4.7,51.2],...], srs=ESPGcode, samples=nummer to return"
       req = self._createElevationRequest( LineString, srs, samples )
       try:
-        if self.opener: response = self.opener.open(req, timeout= self.timeout)
-        else: response = urllib2.urlopen(req, timeout= self.timeout)
+        if self.opener: 
+           response = self.opener.open(req, timeout= self.timeout)
+        else: 
+           response = urllib2.urlopen(req, timeout= self.timeout)
       except  (urllib2.HTTPError, urllib2.URLError) as e:
         raise geopuntError( str( e.reason ))
       except:
@@ -504,20 +508,23 @@ class elevation:
 class capakey:
     def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
-      self.baseUrl = "https://geoservices.informatievlaanderen.be/capakey/api/v1" 
+      self.baseUrl = "http://geoservices.informatievlaanderen.be/capakey/api/v1" 
 
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
-          proxy = urllib2.ProxyHandler({'http': proxyUrl})
-          auth = urllib2.HTTPBasicAuthHandler()
-          self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+      if isinstance(proxyUrl, (str, unicode))  and proxyUrl != "":
+         proxy = urllib2.ProxyHandler({'http': proxyUrl })
+         auth = urllib2.HTTPBasicAuthHandler()
+         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
-          self.opener = None
-    
+         self.opener = None
+
     def getMunicipalities(self):
         url = self.baseUrl + "/municipality/"
         try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+            if self.opener: 
+               print url +" proxy "+ str(self.opener)
+               response = self.opener.open(url, timeout=self.timeout)
+            else: 
+               response = urllib2.urlopen(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -652,7 +659,7 @@ class perc:
    def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
 
-      self._esriCapaServer= "https://geoservices.informatievlaanderen.be/ArcGIS/rest/services/adp/MapServer/0/query?" 
+      self._esriCapaServer= "http://geoservices.informatievlaanderen.be/ArcGIS/rest/services/adp/MapServer/0/query?" 
       self._locUrl = "http://perc.geopunt.be/Perceel/Location?"
       self._sugUrl = "http://perc.geopunt.be/Perceel/Suggestion?"
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
