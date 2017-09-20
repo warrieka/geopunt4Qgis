@@ -133,19 +133,12 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         
         if '' in (niscode, departmentcode, section, parcelNr): return
         
-        try:
-          parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
-          shape = json.loads( parcelInfo['geometry']['shape'])
-          pts = [n.asPolygon() for n in self.PolygonsFromJson( shape )]
-          mPolygon = QgsGeometry.fromMultiPolygon( pts )  
-          self.ph.save_parcel_polygon(mPolygon, parcelInfo, self.layerName, self.saveToFile,
-                                    self, os.path.join(self.startDir, self.layerName))
-        except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
-          return
-        except Exception as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
-          return
+        parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
+        shape = json.loads( parcelInfo['geometry']['shape'])
+        pts = [n.asPolygon() for n in self.PolygonsFromJson( shape )]
+        mPolygon = QgsGeometry.fromMultiPolygon( pts )  
+        self.ph.save_parcel_polygon(mPolygon, parcelInfo, self.layerName, self.saveToFile,
+                                 self, os.path.join(self.startDir, self.layerName))
         
         self.accept()
 

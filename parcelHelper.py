@@ -37,9 +37,11 @@ class parcelHelper:
       
       
     def save_parcel_polygon(self, polygon, parcelInfo, layername="perceel", saveToFile=False, sender=None, startFolder=None ):
-        attributes =[ QgsField("macht", QVariant.Int), QgsField("bisnummer", QVariant.Int) , QgsField("exponent", QVariant.String),
-                      QgsField("adres", QVariant.String), QgsField("capakey", QVariant.String), QgsField("grondnr", QVariant.Int),
-                      QgsField("type", QVariant.String), QgsField("perceelnr", QVariant.String) ]
+        attributes =[ QgsField("niscode", QVariant.String), QgsField("afdeling", QVariant.String), QgsField("afdcode", QVariant.String),
+                      QgsField("sectie", QVariant.String), QgsField("bisnummer", QVariant.Int) ,
+                      QgsField("exponent", QVariant.String), QgsField("macht", QVariant.Int),
+                      QgsField("grondnr", QVariant.Int), QgsField("capakey", QVariant.String),
+                      QgsField("perceelnr", QVariant.String),  QgsField("adres", QVariant.String) ]
   
         if not QgsMapLayerRegistry.instance().mapLayer(self.parcellayerid):
             self.parcellayer = QgsVectorLayer("MultiPolygon", layername, "memory")
@@ -55,14 +57,17 @@ class parcelHelper:
         fet.setGeometry(polygon)
 
         #populate fields
-        fet['macht'] = parcelInfo['macht']
+        fet['adres'] = ", ".join( parcelInfo['adres'] )
+        fet['sectie'] = parcelInfo['sectionCode']
         fet['bisnummer'] = parcelInfo['bisnummer']
         fet['exponent'] = parcelInfo['exponent']
         fet['adres'] = ", ".join( parcelInfo['adres'] )
         fet['capakey'] = parcelInfo['capakey']
         fet['grondnr'] = parcelInfo['grondnummer']
-        fet['type'] = parcelInfo['type']
-        fet['perceelnr'] = parcelInfo['perceelnummer']   
+        fet['NISCode'] = parcelInfo['municipalityCode']
+        fet['afdeling'] = parcelInfo['departmentName']
+        fet['perceelnr'] = parcelInfo['perceelnummer']
+        fet['afdcode'] = parcelInfo['departmentCode']    
         
         self.parcelProvider.addFeatures([ fet ])
         ""

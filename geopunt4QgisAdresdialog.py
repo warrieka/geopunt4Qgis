@@ -133,11 +133,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
             self.ui.resultLijst.addItems(suggesties)
             if len(suggesties) == 1:
               self.ui.resultLijst.setCurrentRow(0)
-          elif type( suggesties ) is str:
-            self.bar.pushMessage(
-              QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"),
-              suggesties, level=QgsMessageBar.WARNING)
-      
+
     def onItemActivated( self, item):
         txt = item.text()
         self._zoomLoc(txt)
@@ -209,15 +205,6 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
             self.gh.save_adres_point( pt, adres, typeAddress=LocationType, 
               layername=self.layerName, saveToFile=self.saveToFile, sender=self, 
               startFolder= os.path.join(self.startDir, self.layerName))
-        
-        elif type( locations ) is str:
-          self.bar.pushMessage(
-            QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"), 
-                locations, level=QgsMessageBar.WARNING)	
-        else:
-          self.bar.pushMessage("Error", 
-            QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","onbekende fout"),
-                level=QgsMessageBar.CRITICAL)
       
     def layernameValid(self):   
         if not hasattr(self, 'layerName'):

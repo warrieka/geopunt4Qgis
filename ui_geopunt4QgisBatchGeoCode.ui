@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>621</width>
-    <height>520</height>
+    <height>599</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -644,6 +644,38 @@
     <hint type="destinationlabel">
      <x>-1</x>
      <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>multipleColChk</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>huisnrLbl</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>170</x>
+     <y>248</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>multipleColChk</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>huisnrSelect</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>450</x>
+     <y>248</y>
     </hint>
    </hints>
   </connection>

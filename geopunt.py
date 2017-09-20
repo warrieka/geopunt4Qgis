@@ -28,10 +28,10 @@ class Adres:
       self._sugUrl = "http://loc.api.geopunt.be/v3/Suggestion?"
       if isinstance(proxyUrl, (str, unicode))  and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
-         auth = urllib2.HTTPBasicAuthHandler()
-         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
-         self.opener = None
+         proxy = urllib2.ProxyHandler()
+      auth = urllib2.HTTPBasicAuthHandler()
+      self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
 
   def _createLocationUrl(self, q, c=1):
       geopuntUrl = self._locUrl
@@ -45,15 +45,13 @@ class Adres:
   def fetchLocation(self, q, c=1):
       url = self._createLocationUrl(q, c=1)
       try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-            return str( e.reason )
+            raise geopuntError( str( e.reason ) )
       except:
-            return  str( sys.exc_info()[1] )
+            raise geopuntError( sys.exc_info()[1] )
       else:
-            resp= response.read()
-            LocationResult = json.loads(resp)
+            LocationResult = json.load(response)
             return LocationResult["LocationResult"]
 
   def _createSuggestionUrl(self, q, c=5):
@@ -68,15 +66,13 @@ class Adres:
   def fetchSuggestion(self, q, c=5):
       url = self._createSuggestionUrl(q,c)
       try:
-        if self.opener: response = self.opener.open(url, timeout=self.timeout)
-        else: response = urllib2.urlopen(url, timeout=self.timeout)
+          response = self.opener.open(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-        return str( e.reason )
+          raise geopuntError( str( e.reason ))
       except:
-          return  str( sys.exc_info()[1] )
+          raise geopuntError( sys.exc_info()[1] )
       else:
-          resp= response.read()
-          suggestion = json.loads(resp)
+          suggestion = json.load(response)
           return suggestion["SuggestionResult"]
 
 class Poi:
@@ -87,10 +83,10 @@ class Poi:
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
-         auth = urllib2.HTTPBasicAuthHandler()
-         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
-         self.opener = None
+         proxy = urllib2.ProxyHandler() 
+      auth= urllib2.HTTPBasicAuthHandler()
+      self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       
       #REMARK: WGS coordinates as input!
       self.maxBounds = [1.17, 49.77, 7.29, 52.35]  
@@ -104,8 +100,7 @@ class Poi:
       url = self._poiUrl + "/themes"
       poithemes = None
       try:
-         if self.opener: response = self.opener.open(url, timeout=self.timeout)
-         else: response = urllib2.urlopen(url, timeout=self.timeout)
+          response = self.opener.open(url, timeout=self.timeout)
       except urllib2.HTTPError as e:
          return json.load(e)["Message"]
       except urllib2.URLError as e:
@@ -126,8 +121,7 @@ class Poi:
       
       poicategories = None
       try:
-         if self.opener: response = self.opener.open(url, timeout=self.timeout)
-         else: response = urllib2.urlopen(url, timeout=self.timeout)
+         response = self.opener.open(url, timeout=self.timeout)
       except urllib2.HTTPError as e:
          return json.load(e)["Message"]
       except urllib2.URLError as e:
@@ -146,8 +140,7 @@ class Poi:
         url = self._poiUrl + "/poitypes"
 
       try:
-         if self.opener: response = self.opener.open(url, timeout=self.timeout)
-         else: response = urllib2.urlopen(url, timeout=self.timeout)
+         response = self.opener.open(url, timeout=self.timeout)
       except urllib2.HTTPError as e:
          return json.load(e)["Message"]
       except urllib2.URLError as e:
@@ -199,19 +192,18 @@ class Poi:
         url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region, clustering)
 
         try:
-          if self.opener: response = self.opener.open(url, timeout=self.timeout)
-          else: response = urllib2.urlopen(url, timeout=self.timeout)
+           response = self.opener.open(url, timeout=self.timeout)
         except urllib2.HTTPError as e:
-          error = e.read()
-          errorjs =  json.loads(error)
-          if "Message" in errorjs.keys():
-            return error["Message"]
-          else: 
-            return error
+           error = e.read()
+           errorjs =  json.loads(error)
+           if "Message" in errorjs.keys():
+              return error["Message"]
+           else: 
+              return error
         except urllib2.URLError as e:
-          return str( e.reason )
+           return str( e.reason )
         except:
-          return  str( sys.exc_info()[1] )
+           return  str( sys.exc_info()[1] )
         else:
           poi = json.load(response)
       
@@ -301,66 +293,62 @@ class gipod:
       
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
-         auth = urllib2.HTTPBasicAuthHandler()
-         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
-          self.opener = None
+         proxy = urllib2.ProxyHandler()
+      auth = urllib2.HTTPBasicAuthHandler() 
+      self.opener =  urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
   
   def getCity(self, q="" ):
       query = urllib.quote(q)
       url = self.baseUri + "referencedata/city/" + query 
       try:
-        if self.opener: response = self.opener.open(url, timeout=self.timeout)
-        else: response = urllib2.urlopen(url, timeout=self.timeout)
+         response = self.opener.open(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-        raise geopuntError(str( e.reason ))
+         raise geopuntError(str( e.reason ))
       except:
-        raise geopuntError( str( sys.exc_info()[1] ))
+         raise geopuntError( str( sys.exc_info()[1] ))
       else:
-        city = json.load(response)
-        return city
+         city = json.load(response)
+         return city
 
   def getProvince(self, q="" ):
       query = urllib.quote(q)
       url = self.baseUri + "referencedata/province/" + query
       try:
-        if self.opener: response = self.opener.open(url, timeout=self.timeout)
-        else: response = urllib2.urlopen(url, timeout=self.timeout)
+         response = self.opener.open(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-        raise geopuntError(str( e.reason ))
+         raise geopuntError(str( e.reason ))
       except:
-        raise geopuntError( str( sys.exc_info()[1] ))
+         raise geopuntError( str( sys.exc_info()[1] ))
       else:
-        province = json.load(response)
-        return province
+         province = json.load(response)
+         return province
 
   def getEventType(self, q="" ):
       query = urllib.quote(q)
       url = self.baseUri + "referencedata/eventtype/" + query
       try:
-        if self.opener: response = self.opener.open(url, timeout=self.timeout)
-        else: response = urllib2.urlopen(url, timeout=self.timeout)
+         response = self.opener.open(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-        raise geopuntError( str( e.reason ))
+         raise geopuntError( str( e.reason ))
       except:
-        raise geopuntError( str( sys.exc_info()[1] ))
+         raise geopuntError( str( sys.exc_info()[1] ))
       else:
-        eventtype = json.load(response)
-        return eventtype
+         eventtype = json.load(response)
+         return eventtype
 
   def getOwner(self, q=''):
       query = urllib.quote(q)
       url = self.baseUri + "referencedata/owner/" + query
       try:
-        if self.opener: response = self.opener.open(url, timeout=self.timeout)
-        else: response = urllib2.urlopen(url, timeout=self.timeout)
+         response = self.opener.open(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-        raise geopuntError( str( e.reason ))
+         raise geopuntError( str( e.reason ))
       except:
-        raise geopuntError( str( sys.exc_info()[1] )) 
+         raise geopuntError( str( sys.exc_info()[1] )) 
       else:
-        owner = json.load(response)
-        return owner
+         owner = json.load(response)
+         return owner
 
   def _createWorkassignmentUrl(self, owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
       "startdate and enddate are datetime.date\n bbox is [xmin,ymin,xmax,ymax]"
@@ -368,24 +356,24 @@ class gipod:
       data = {}
       data['limit'] = c
       if offset:
-        data["offset"] = offset
+         data["offset"] = offset
       if owner:
-        data['owner'] = owner
+         data['owner'] = owner
       if startdate and isinstance(startdate, datetime.date): 
-        data["startdate"] = startdate.__str__()
+         data["startdate"] = startdate.__str__()
       if enddate and isinstance(enddate, datetime.date): 
-        data["enddate"] = enddate.__str__()
+         data["enddate"] = enddate.__str__()
       if city:
-        data['city'] = city
+         data['city'] = city
       if province:
-        data['province'] = province
+         data['province'] = province
       if srs in [31370,4326,3857]:
-        data['CRS'] = srs
+         data['CRS'] = srs
       if bbox and isinstance(bbox,(list,tuple)) and len(bbox) == 4:
-        xmin,ymin,xmax,ymax = bbox
-        xymin = str(xmin) +','+ str(ymin)
-        xymax = str(xmax) +','+ str(ymax)
-        data["bbox"] = '|'.join([xymin,xymax])
+         xmin,ymin,xmax,ymax = bbox
+         xymin = str(xmin) +','+ str(ymin)
+         xymax = str(xmax) +','+ str(ymax)
+         data["bbox"] = '|'.join([xymin,xymax])
       values = urllib.urlencode(data)
       result = endpoint + values
       return result
@@ -393,15 +381,14 @@ class gipod:
   def fetchWorkassignment(self,owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
       url = self._createWorkassignmentUrl(owner, startdate, enddate, city, province, srs, bbox, c, offset )
       try:
-        if self.opener: response = self.opener.open(url, timeout=self.timeout)
-        else: response = urllib2.urlopen(url, timeout=self.timeout)
+         response = self.opener.open(url, timeout=self.timeout)
       except  (urllib2.HTTPError, urllib2.URLError) as e:
-        raise geopuntError( str( e.reason ))
+         raise geopuntError( str( e.reason ))
       except:
-        raise geopuntError( str( sys.exc_info()[1] ))
+         raise geopuntError( str( sys.exc_info()[1] ))
       else:
-        workassignment = json.load(response)
-        return workassignment
+         workassignment = json.load(response)
+         return workassignment
       
   def allWorkassignments(self, owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[]):
       counter = 0
@@ -446,8 +433,7 @@ class gipod:
   def fetchManifestation(self, owner="", eventtype="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
       url = self._createManifestationUrl(owner, eventtype, startdate, enddate, city, province, srs, bbox, c, offset )
       try:
-        if self.opener: response = self.opener.open(url, timeout=self.timeout)
-        else: response = urllib2.urlopen(url, timeout=self.timeout)
+        response = self.opener.open(url, timeout=self.timeout)
       except  (urllib2.HTTPError, urllib2.URLError) as e:
         raise geopuntError( str( e.reason ))
       except:
@@ -474,11 +460,11 @@ class elevation:
       
       if isinstance(proxyUrl, (str, unicode)) and proxyUrl != "":
           proxy = urllib2.ProxyHandler({'http': proxyUrl})
-          auth = urllib2.HTTPBasicAuthHandler()
-          self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
-        self.opener = None
-      
+          proxy = urllib2.ProxyHandler()
+      auth = urllib2.HTTPBasicAuthHandler()   
+      self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+
   def _createElevationRequest(self, LineString, srs=31370, samples=50 ):
       geojson = {}
       geojson["SrsIn"] = srs
@@ -493,17 +479,14 @@ class elevation:
       "LineString= a serie of points in form [[4.2,51.27],[4.7,51.2],...], srs=ESPGcode, samples=nummer to return"
       req = self._createElevationRequest( LineString, srs, samples )
       try:
-        if self.opener: 
-           response = self.opener.open(req, timeout= self.timeout)
-        else: 
-           response = urllib2.urlopen(req, timeout= self.timeout)
+         response = self.opener.open(req, timeout= self.timeout)
       except  (urllib2.HTTPError, urllib2.URLError) as e:
-        raise geopuntError( str( e.reason ))
+         raise geopuntError( str( e.reason ))
       except:
-        raise geopuntError( str( sys.exc_info()[1] ))
+         raise geopuntError( str( sys.exc_info()[1] ))
       else:
-        elevationJson = json.load(response)
-        return elevationJson
+         elevationJson = json.load(response)
+         return elevationJson
 
 class capakey:
     def __init__(self, timeout=15, proxyUrl=""):
@@ -512,19 +495,15 @@ class capakey:
 
       if isinstance(proxyUrl, (str, unicode))  and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
-         auth = urllib2.HTTPBasicAuthHandler()
-         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
-         self.opener = None
+         proxy = urllib2.ProxyHandler()
+      auth = urllib2.HTTPBasicAuthHandler()
+      self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
 
     def getMunicipalities(self):
         url = self.baseUrl + "/municipality/"
         try:
-            if self.opener: 
-               print url +" proxy "+ str(self.opener)
-               response = self.opener.open(url, timeout=self.timeout)
-            else: 
-               response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -543,8 +522,7 @@ class capakey:
         url = "{0}/municipality/{1}?{2}".format( self.baseUrl, niscode, values )
         
         try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
            raise geopuntError( e.reason )
         except:
@@ -557,8 +535,7 @@ class capakey:
         url = "{0}/municipality/{1}/department/".format( self.baseUrl, niscode)
 
         try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -577,8 +554,7 @@ class capakey:
         url = "{0}/municipality/{1}/department/{2}?{3}".format( 
                                     self.baseUrl, niscode, departmentCode, values)
         try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -591,8 +567,7 @@ class capakey:
         url = "{0}/municipality/{1}/department/{2}/section/".format( self.baseUrl, niscode, departmentCode)
 
         try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -611,8 +586,7 @@ class capakey:
         url = "{0}/municipality/{1}/department/{2}/section/{3}?{4}".format( 
                                   self.baseUrl, niscode, departmentCode, sectieCode, values)
         try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -625,8 +599,7 @@ class capakey:
         url = "{0}/municipality/{1}/department/{2}/section/{3}/parcel".format( 
                               self.baseUrl, niscode, departmentCode, sectieCode)
         try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -645,8 +618,7 @@ class capakey:
         url = "{0}/municipality/{1}/department/{2}/section/{3}/parcel/{4}?{5}".format( 
                               self.baseUrl, niscode, departmentCode, sectieCode, perceelnummer, values)
         try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
         except (urllib2.HTTPError, urllib2.URLError) as e:
             raise geopuntError( e.reason )
         except:
@@ -664,10 +636,10 @@ class perc:
       self._sugUrl = "http://perc.geopunt.be/Perceel/Suggestion?"
       if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
-         auth = urllib2.HTTPBasicAuthHandler()
-         self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
       else:
-         self.opener = None
+         proxy = urllib2.ProxyHandler()
+      auth = urllib2.HTTPBasicAuthHandler()
+      self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
 
    def _createLocationUrl(self, q, c=1):
       geopuntUrl = self._locUrl
@@ -681,15 +653,14 @@ class perc:
    def fetchLocation(self, q, c=1):
       url = self._createLocationUrl(q, c=1)
       try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+          response = self.opener.open(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
-            return str( e.reason )
+          return str( e.reason )
       except:
-            return  str( sys.exc_info()[1] )
+          return  str( sys.exc_info()[1] )
       else:
-            LocationResult = json.load(response)
-            return LocationResult["LocationResult"]
+          LocationResult = json.load(response)
+          return LocationResult["LocationResult"]
 
    def _createSuggestionUrl(self, q, c=5):
       geopuntUrl = self._sugUrl
@@ -703,15 +674,14 @@ class perc:
    def fetchSuggestion(self, q, c=5):
       url = self._createSuggestionUrl(q,c)
       try:
-         if self.opener: response = self.opener.open(url, timeout=self.timeout)
-         else: response = urllib2.urlopen(url, timeout=self.timeout)
+         response = self.opener.open(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
          return str( e.reason )
       except:
-            return  str( sys.exc_info()[1] )
+         return  str( sys.exc_info()[1] )
       else:
-            suggestion = json.load(response)
-            return suggestion["SuggestionResult"]
+         suggestion = json.load(response)
+         return suggestion["SuggestionResult"]
 
    def getPercGeom(self, capakey, srs=31370):
       capaUrl = self._esriCapaServer
@@ -722,8 +692,7 @@ class perc:
       url = capaUrl + values 
 
       try:
-            if self.opener: response = self.opener.open(url, timeout=self.timeout)
-            else: response = urllib2.urlopen(url, timeout=self.timeout)
+            response = self.opener.open(url, timeout=self.timeout)
       except (urllib2.HTTPError, urllib2.URLError) as e:
             return str( e.reason )
       except:
@@ -740,11 +709,15 @@ class geopuntError(Exception):
 
 def internet_on( proxyUrl="", timeout=15 ):
     opener = None
-    if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+    if isinstance(proxyUrl, (str, unicode)) and proxyUrl != "":
         proxy =  urllib2.ProxyHandler({'http': proxyUrl })
         auth =   urllib2.HTTPBasicAuthHandler()
         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
-    # try:
+    else: 
+       proxy =  urllib2.ProxyHandler()
+       auth =   urllib2.HTTPBasicAuthHandler()
+       opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+
     if opener:
         opener.open( 'http://loc.api.geopunt.be/v2/Suggestion', timeout=timeout )
         return True
