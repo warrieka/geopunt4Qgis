@@ -140,7 +140,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.ph.save_parcel_polygon(mPolygon, parcelInfo, self.layerName, self.saveToFile,
                                  self, os.path.join(self.startDir, self.layerName))
         
-        self.accept()
+        #self.accept()
 
     def municipalityChanged(self):
         municipality= self.ui.municipalityCbx.currentText()

@@ -81,7 +81,7 @@ class Poi:
       self._poiUrl = "http://poi.api.geopunt.be/v1/core"
       self.resultCount = 0
       
-      if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
+      if isinstance(proxyUrl,(str, unicode)) and proxyUrl != "":
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
       else:
          proxy = urllib2.ProxyHandler() 

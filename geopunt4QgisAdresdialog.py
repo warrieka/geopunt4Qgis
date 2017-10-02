@@ -61,8 +61,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.graphicsLayer = []
 
         #populate gemeenteBox
-        gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),
-                  "data/gemeentenVL.json")) )
+        gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),  "data/gemeentenVL.json")) )
         gemeenteNamen =  [str( n["Naam"]) for n in gemeentes]
         self.ui.gemeenteBox.addItems( gemeenteNamen )
         self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate(
@@ -221,8 +220,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.bar.clearWidgets()
         self.ui.resultLijst.clear()
         self.ui.zoekText.setText("")
-        self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate(
-                "geopunt4QgisAdresDialog","gemeente"))
+        self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog" ,"gemeente"))
         self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
         self._clearGraphicsLayer()
     

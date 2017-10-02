@@ -187,7 +187,7 @@ class geopunt4Qgis:
         else:
             self.proxy = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
-        self.adres = geopunt.Adres(self.timeout, self.proxy)
+        self.gp = geopunt.Adres(self.timeout, self.proxy)
         
     def runSettingsDlg(self):
         ' show the dialog'
@@ -328,7 +328,7 @@ class geopunt4Qgis:
         self.iface.messageBar().clearWidgets()
         
         #fetch Location from geopunt
-        adres = self.adres.fetchLocation( str( lam72clickt.x() ) + "," + str( lam72clickt.y() ), 1)
+        adres = self.gp.fetchLocation( str( lam72clickt.x() ) + "," + str( lam72clickt.y() ), 1)
         Timer( 3, self._clearGraphicLayer, ()).start()
     
         if len(adres) and type( adres ) is list:

@@ -71,7 +71,7 @@ class MDdata:
 class MDReader:
     def __init__(self, timeout=15, proxyUrl='' ):
         self.timeout = timeout
-        self.geoNetworkUrl = "http://geoservices.informatievlaanderen.be/zoekdienst/srv/dut/"
+        self.geoNetworkUrl = "https://geoservices.informatievlaanderen.be/zoekdienst/srv/dut/"
 
         self.dataTypes = [["Dataset", "dataset"],["Datasetserie","series"],
                           ["Objectencatalogus","model"],["Service","service"]]
@@ -79,7 +79,7 @@ class MDReader:
         self.inspireannex =  ["i","ii","iii"]
 
         if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
-            proxy = urllib2.ProxyHandler({'http': proxyUrl })
+            proxy = urllib2.ProxyHandler({'https': proxyUrl })
         else:
             proxy = urllib2.ProxyHandler()
         
