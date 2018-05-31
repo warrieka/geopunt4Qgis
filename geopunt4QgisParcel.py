@@ -19,30 +19,35 @@ geopunt4qgisdialog
 *                                                                         *
 ***************************************************************************/
 """
-from PyQt4 import QtCore, QtGui
-from ui_geopunt4QgisParcel import Ui_geopunt4QgisParcelDlg
-from qgis.core import *
-from qgis.gui import  QgsMessageBar, QgsRubberBand
-import geopunt, os, json, webbrowser
-from geometryhelper import geometryHelper
-from parcelHelper import parcelHelper
-from settings import settings
+from __future__ import absolute_import
+from builtins import str
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QCompleter
+from qgis.PyQt.QtGui import QColor
+from qgis.core import QgsGeometry
+from qgis.gui  import QgsMessageBar, QgsRubberBand
+from .ui_geopunt4QgisParcel import Ui_geopunt4QgisParcelDlg
+import os, json, webbrowser
+from .geopunt import capakey, internet_on
+from .geometryhelper import geometryHelper
+from .parcelHelper import parcelHelper
+from .settings import settings
 
-class geopunt4QgisParcelDlg(QtGui.QDialog):
+class geopunt4QgisParcelDlg(QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None)
-        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+        QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~Qt.WindowContextHelpButtonHint )
         self.iface = iface
     
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        locale = QSettings().value("locale/userLocale", "en")
         if not locale: locale == 'en'
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
-            self.translator = QtCore.QTranslator()
+            self.translator = QTranslator()
             self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
         
         self._initGui()
 
@@ -50,12 +55,12 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         """setup the user interface"""
         self.ui = Ui_geopunt4QgisParcelDlg()
         self.ui.setupUi(self)
-        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole  )
+        self.ui.buttonBox.addButton(QPushButton("Sluiten"), QDialogButtonBox.RejectRole  )
         for btn in self.ui.buttonBox.buttons():
             btn.setAutoDefault(0)
             
         #get settings
-        self.s = QtCore.QSettings()
+        self.s = QSettings()
         self.loadSettings()
 
         #setup geometryHelper object
@@ -72,7 +77,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         
         #setup a message bar
         self.bar = QgsMessageBar() 
-        self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
+        self.bar.setSizePolicy( QSizePolicy.Minimum, QSizePolicy.Fixed )
         self.ui.verticalLayout.addWidget(self.bar)
         
         #event handlers 
@@ -87,7 +92,7 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         self.ui.ZoomKnop_parcel.clicked.connect(self.zoomTo)
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.ui.saveBtn.clicked.connect(self.saveParcel)
-        self.finished.connect( self.clean)
+        self.finished.connect(self.clean)
         
     def loadSettings(self):
         self.saveToFile = int( self.s.value("geopunt4qgis/parcelSavetoFile" , 1))
@@ -100,12 +105,12 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         else:
             self.proxy = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))    
-        self.parcel = geopunt.capakey(self.timeout, self.proxy)
+        self.parcel = capakey(self.timeout, self.proxy)
         
     def show(self):
-        QtGui.QDialog.show(self)
+        QDialog.show(self)
         if self.firstShow:
-             inet =  geopunt.internet_on( proxyUrl=self.proxy, timeout=self.timeout )
+             inet = internet_on( proxyUrl=self.proxy, timeout=self.timeout )
              if inet:
                 self.firstShow = False
                 self.municipalities = self.parcel.getMunicipalities()
@@ -115,8 +120,8 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 self.setCompleter( muniNames, self.ui.municipalityCbx )
              else:
                 self.bar.pushMessage(
-                  QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", "Waarschuwing "), 
-                  QtCore.QCoreApplication.translate("geopunt4QgisParcelDlg", "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=10)
+                  QCoreApplication.translate("geopunt4QgisParcelDlg", "Waarschuwing "), 
+                  QCoreApplication.translate("geopunt4QgisParcelDlg", "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=10)
 
     def saveParcel(self):
         if not self.layernameValid(): return
@@ -139,8 +144,6 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         mPolygon = QgsGeometry.fromMultiPolygon( pts )  
         self.ph.save_parcel_polygon(mPolygon, parcelInfo, self.layerName, self.saveToFile,
                                  self, os.path.join(self.startDir, self.layerName))
-        
-        #self.accept()
 
     def municipalityChanged(self):
         municipality= self.ui.municipalityCbx.currentText()
@@ -296,7 +299,6 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
                 shape = json.loads( sectInfo['geometry']['shape'])
                 for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
                 return
-             #TODO
             if sender is self.ui.ZoomKnop_parcel and niscode != '' and department != '' and section != '' and parcelNr != '':
                 parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
                 if parcelInfo == []: return
@@ -319,9 +321,9 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
 
     def layernameValid(self):   
         if not hasattr(self, 'layerName'):
-          layerName, accept = QtGui.QInputDialog.getText(None,
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+          layerName, accept = QInputDialog.getText(None,
+              QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
           if accept == False: 
              return False
           else: 
@@ -369,19 +371,17 @@ class geopunt4QgisParcelDlg(QtGui.QDialog):
         rBand = QgsRubberBand(canvas, True) 
         self.graphics.append( rBand )
         rBand.setToGeometry( geom, None )
-        rBand.setColor(QtGui.QColor(0,0,255, 70))
-        if QGis.QGIS_VERSION_INT >= 20600:
-            rBand.setBorderColor( QtGui.QColor(0,0,250, 220) )
+        rBand.setColor(QColor(0,0,255, 70))
+        rBand.setBorderColor(QColor(0,0,250, 220) )
         rBand.setWidth(3)
 
     def clearGraphics(self):
         canvas = self.iface.mapCanvas()
-        for g in self.graphics:
-            canvas.scene().removeItem(g)
+        for g in self.graphics: canvas.scene().removeItem(g)
   
     def setCompleter(self, values, wgt):
-        completer = QtGui.QCompleter( self )
-        completerModel = QtGui.QStringListModel( self )
+        completer = QCompleter( self )
+        completerModel = QStringListModel( self )
         wgt.setCompleter( completer )
         completer.setModel( completerModel )
         completer.setCaseSensitivity(False)

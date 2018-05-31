@@ -19,14 +19,16 @@ elevationHelper
 *                                                                         *
 ***************************************************************************/
 """
+from __future__ import absolute_import
+from builtins import object
 import os.path
-from PyQt4.QtCore import *
-from PyQt4.QtGui import QFileDialog
-from qgis.core import *
 import numpy as np
-from geometryhelper import geometryHelper
+from qgis.PyQt.QtCore import QVariant
+from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.core import QgsProject, QgsField, QgsVectorLayer, QgsPoint, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter, QgsFeature
+from .geometryhelper import geometryHelper
 
-class elevationHelper:
+class elevationHelper(object):
     def __init__(self , iface, startFolder=None ):
         self.iface= iface
         self.sampleslayerid = ''
@@ -38,7 +40,7 @@ class elevationHelper:
         attributes = [ QgsField("name", QVariant.String),
           QgsField("Dist", QVariant.Double), QgsField("z_taw", QVariant.Double) ]
     
-        if not QgsMapLayerRegistry.instance().mapLayer(self.sampleslayerid) :
+        if not QgsProject.instance().mapLayer(self.sampleslayerid) :
             self.sampleslayer = QgsVectorLayer("Point", layername, "memory")
             self.samplesProvider = self.sampleslayer.dataProvider()
             self.samplesProvider.addAttributes(attributes)
@@ -66,7 +68,7 @@ class elevationHelper:
             self.samplesProvider.addFeatures([ fet ])
             self.sampleslayer.updateExtents()
     
-        if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.sampleslayerid):
+        if saveToFile and not QgsProject.instance().mapLayer(self.sampleslayerid):
             save = self._saveToFile( sender, os.path.join( self.startFolder, layername))
             if save:
               fpath, flType = save
@@ -82,7 +84,7 @@ class elevationHelper:
               return 
 
         # add layer if not already
-        QgsMapLayerRegistry.instance().addMapLayer(self.sampleslayer)
+        QgsProject.instance().addMapLayer(self.sampleslayer)
 
         # store layer id and refresh
         self.sampleslayerid = self.sampleslayer.id()
@@ -94,7 +96,7 @@ class elevationHelper:
                         QgsField("meanZ", QVariant.Double), 
                         QgsField("minZ", QVariant.Double) ]
     
-        if not QgsMapLayerRegistry.instance().mapLayer(self.profilelayerId) :
+        if not QgsProject.instance().mapLayer(self.profilelayerId) :
             self.profilelayer = QgsVectorLayer("LineString", layername, "memory")
             self.profileProvider = self.profilelayer.dataProvider()
             self.profileProvider.addAttributes(attributes)
@@ -119,7 +121,7 @@ class elevationHelper:
         self.profileProvider.addFeatures([ fet ])
         self.profilelayer.updateExtents()
     
-        if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.profilelayerId):
+        if saveToFile and not QgsProject.instance().mapLayer(self.profilelayerId):
             save = self._saveToFile( sender, os.path.join( self.startFolder, layername ))
             if save:
               fpath, flType = save
@@ -135,7 +137,7 @@ class elevationHelper:
               return 
 
         # add layer if not already
-        QgsMapLayerRegistry.instance().addMapLayer(self.profilelayer)
+        QgsProject.instance().addMapLayer(self.profilelayer)
 
         # store layer id and refresh
         self.profilelayerId = self.profilelayer.id()
@@ -143,7 +145,7 @@ class elevationHelper:
 
     def _saveToFile( self, sender, startFolder=None ):
         filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
-        fName = QFileDialog.getSaveFileName( sender, "open file" , filter= filter, directory=startFolder)
+        fName, __, __ = QFileDialog.getSaveFileName( sender, "open file" , filter= filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
           if "SHP" in ext.upper():

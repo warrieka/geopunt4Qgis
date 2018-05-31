@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
-import urllib2, urllib, json, sys
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
+from builtins import object
+import urllib.request, urllib.error, urllib.parse, urllib.request, urllib.parse, urllib.error, json, sys
 import xml.etree.ElementTree as ET
 
-class MDdata:
+class MDdata(object):
     def __init__(self, metadataXML): 
         self.start = int( metadataXML.attrib["from"] )
         self.to =    int( metadataXML.attrib["to"] )
@@ -68,7 +73,7 @@ class MDdata:
         return ""
 
 
-class MDReader:
+class MDReader(object):
     def __init__(self, timeout=15, proxyUrl='' ):
         self.timeout = timeout
         self.geoNetworkUrl = "https://geoservices.informatievlaanderen.be/zoekdienst/srv/dut/"
@@ -78,18 +83,18 @@ class MDReader:
         self.inspireServiceTypes =  ["Discovery","Transformation","View","Other","Invoke"]
         self.inspireannex =  ["i","ii","iii"]
 
-        if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) and proxyUrl != "":
-            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+        if (isinstance(proxyUrl, str) or isinstance(proxyUrl, str)) and proxyUrl != "":
+            proxy = urllib.request.ProxyHandler({'https': proxyUrl })
         else:
-            proxy = urllib2.ProxyHandler()
+            proxy = urllib.request.ProxyHandler()
         
-        auth = urllib2.HTTPBasicAuthHandler()
-        self.opener = urllib2.build_opener(proxy,  auth, urllib2.HTTPHandler)
+        auth = urllib.request.HTTPBasicAuthHandler()
+        self.opener = urllib.request.build_opener(proxy,  auth, urllib.request.HTTPHandler)
 
     def _createFindUrl(self, q='', start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType=''):
         geopuntUrl = self.geoNetworkUrl + "/q?fast=index&sortBy=changeDate&"
         data = {}
-        data["any"] = "*" + unicode(q).encode('utf-8') + "*"
+        data["any"] = "*" + str(q).encode('utf-8') + "*"
         data["to"] = to
         data["from"] = start
         
@@ -117,15 +122,15 @@ class MDReader:
         if inspireServiceType : 
             data["serviceType"] = inspireServiceType.lower() 
 
-        values = urllib.urlencode(data)
+        values = urllib.parse.urlencode(data)
         result = geopuntUrl + values
         return result
 
     def list_GDI_theme(self, q=''):
-        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.GDI-Vlaanderen-trefwoorden&pKeyword=*" + unicode(q).encode('utf-8') +"*"
+        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.GDI-Vlaanderen-trefwoorden&pKeyword=*" + str(q).encode('utf-8') +"*"
         try:
             response = self.opener.open(url, timeout=self.timeout)
-        except  (urllib2.HTTPError, urllib2.URLError) as e:
+        except  (urllib.error.HTTPError, urllib.error.URLError) as e:
             #raise metaError( str( e.reason ))
             return []
         except:
@@ -138,10 +143,10 @@ class MDReader:
             return themes
           
     def list_inspire_theme(self, q=''):
-        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.inspire-theme&pKeyword=*" + unicode(q).encode('utf-8') +"*"
+        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.inspire-theme&pKeyword=*" + str(q).encode('utf-8') +"*"
         try:
             response = self.opener.open(url, timeout=self.timeout)
-        except  (urllib2.HTTPError, urllib2.URLError) as e:
+        except  (urllib.error.HTTPError, urllib.error.URLError) as e:
             #raise metaError( str( e.reason ))
             return []
         except:
@@ -156,10 +161,10 @@ class MDReader:
     def list_suggestionKeyword(self, q=''):
         url = self.geoNetworkUrl + "/main.search.suggest?field=any" 
         if q:
-            url= url + "&q=" + unicode(q).encode('utf-8') 
+            url= url + "&q=" + str(q).encode('utf-8') 
         try:
             response = self.opener.open(url, timeout=self.timeout)
-        except  (urllib2.HTTPError, urllib2.URLError) as e:
+        except  (urllib.error.HTTPError, urllib.error.URLError) as e:
             #raise metaError( str( e.reason ))
             return []
         except:
@@ -171,10 +176,10 @@ class MDReader:
     def list_organisations(self, q=''):
         url = self.geoNetworkUrl + "/main.search.suggest?field=orgName" 
         if q:
-            url= url + "&q=" + unicode(q).encode('utf-8') 
+            url= url + "&q=" + str(q).encode('utf-8') 
         try:
             response = self.opener.open(url, timeout=self.timeout)
-        except  (urllib2.HTTPError, urllib2.URLError) as e:
+        except  (urllib.error.HTTPError, urllib.error.URLError) as e:
             #raise metaError( str( e.reason ))
             return []
         except:
@@ -192,7 +197,7 @@ class MDReader:
         url = self.geoNetworkUrl + "/xml.info?type=sources"
         try:
             response = self.opener.open(url, timeout=self.timeout)
-        except  (urllib2.HTTPError, urllib2.URLError) as e:
+        except  (urllib.error.HTTPError, urllib.error.URLError) as e:
             return []
         except:
             raise metaError( str( sys.exc_info()[1] ))
@@ -208,7 +213,7 @@ class MDReader:
         url = self._createFindUrl( q, start, to, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
         try:
             response = self.opener.open(url, timeout=self.timeout)
-        except  (urllib2.HTTPError, urllib2.URLError) as e:
+        except  (urllib.error.HTTPError, urllib.error.URLError) as e:
             return []
         except:
             raise metaError( str( sys.exc_info()[1] ))
@@ -244,17 +249,17 @@ def getWmsLayerNames( url='', proxyUrl=''):
     else:
       capability = url
 
-    auth = urllib2.HTTPBasicAuthHandler()
-    if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+    auth = urllib.request.HTTPBasicAuthHandler()
+    if isinstance(proxyUrl, str) and proxyUrl != "":
       if url.startswith("https"):
-         proxy = urllib2.ProxyHandler({'https': proxyUrl })
+         proxy = urllib.request.ProxyHandler({'https': proxyUrl })
       else:
-         proxy = urllib2.ProxyHandler({'http': proxyUrl })
-      opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+         proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+      opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
       responseWMS =  opener.open(capability)
     else:
-      proxy = urllib2.ProxyHandler()
-      opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+      proxy = urllib.request.ProxyHandler()
+      opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
       responseWMS =  opener.open(capability)
 
     result = ET.parse(responseWMS)
@@ -279,17 +284,17 @@ def getWFSLayerNames( url, proxyUrl=''):
       else: 
           capability = url
           
-      auth = urllib2.HTTPBasicAuthHandler()
-      if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+      auth = urllib.request.HTTPBasicAuthHandler()
+      if isinstance(proxyUrl, str) and proxyUrl != "":
          if url.startswith("https"):
-            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+            proxy = urllib.request.ProxyHandler({'https': proxyUrl })
          else:
-            proxy = urllib2.ProxyHandler({'http': proxyUrl })
-         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+            proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+         opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
          responseWFS =  opener.open(capability)
       else:
-         proxy = urllib2.ProxyHandler()
-         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+         proxy = urllib.request.ProxyHandler()
+         opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
          responseWFS =  opener.open(capability)
       
       result = ET.parse(responseWFS)
@@ -312,17 +317,17 @@ def getWMTSlayersNames( url, proxyUrl='' ):
     else:
         capability = url
 
-    auth = urllib2.HTTPBasicAuthHandler()
-    if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+    auth = urllib.request.HTTPBasicAuthHandler()
+    if isinstance(proxyUrl, str) and proxyUrl != "":
          if url.startswith("https"):
-            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+            proxy = urllib.request.ProxyHandler({'https': proxyUrl })
          else:
-            proxy = urllib2.ProxyHandler({'http': proxyUrl })
-         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+            proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+         opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
          responseWMTS =  opener.open(capability)
     else:
-         proxy = urllib2.ProxyHandler()
-         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+         proxy = urllib.request.ProxyHandler()
+         opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
          responseWMTS =  opener.open(capability)
 
     result = ET.parse(responseWMTS).getroot()
@@ -357,17 +362,17 @@ def getWCSlayerNames( url, proxyUrl='' ):
     else:
       capability = url
 
-    auth = urllib2.HTTPBasicAuthHandler()
-    if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+    auth = urllib.request.HTTPBasicAuthHandler()
+    if isinstance(proxyUrl, str) and proxyUrl != "":
          if url.startswith("https"):
-            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+            proxy = urllib.request.ProxyHandler({'https': proxyUrl })
          else:
-            proxy = urllib2.ProxyHandler({'http': proxyUrl })
-         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+            proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+         opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
          responseWCS =  opener.open(capability)
     else:
-         proxy = urllib2.ProxyHandler()
-         opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+         proxy = urllib.request.ProxyHandler()
+         opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
          responseWCS =  opener.open(capability)
 
     responseTxt = responseWCS.read()
@@ -384,16 +389,16 @@ def getWCSlayerNames( url, proxyUrl='' ):
        title = lyr.find("{http://www.opengis.net/ows/1.1}Title")
 
        DescribeCoverage = url.split("?")[0] + "?request=DescribeCoverage&version=1.1.0&service=wcs&Identifiers=" + Identifier.text
-       if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
+       if isinstance(proxyUrl, str) and proxyUrl != "":
           if url.startswith("https"):
-               proxy = urllib2.ProxyHandler({'https': proxyUrl })
+               proxy = urllib.request.ProxyHandler({'https': proxyUrl })
           else:
-               proxy = urllib2.ProxyHandler({'http': proxyUrl })
-          auth = urllib2.HTTPBasicAuthHandler()
-          opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+               proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+          auth = urllib.request.HTTPBasicAuthHandler()
+          opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
           responseDC =  opener.open(DescribeCoverage)
        else:
-          responseDC =  urllib2.urlopen(DescribeCoverage)
+          responseDC =  urllib.request.urlopen(DescribeCoverage)
 
        resultDC = ET.parse(responseDC).getroot()
        CoverageDescription = resultDC.find( "{%s}CoverageDescription" % wcsNS)
@@ -419,7 +424,7 @@ def makeWFSuri( url, name='', srsname="EPSG:31370", version='1.0.0', bbox=None )
                 'SRSNAME': srsname }
     if bbox: params['BBOX'] = ",".join([str(s) for s in bbox])
 
-    uri = url.split('?')[0] + '?' + urllib.unquote( urllib.urlencode(params) )
+    uri = url.split('?')[0] + '?' + urllib.parse.unquote( urllib.parse.urlencode(params) )
 
     return uri
 
@@ -431,7 +436,7 @@ def makeWMTSuri( url, layer, tileMatrixSet, srsname="EPSG:3857", styles='', form
                 'crs': srsname,
                 'url': url.split('?')[0]  + '?service=WMTS'}
 
-    uri = urllib.unquote( urllib.urlencode(params)  )
+    uri = urllib.parse.unquote( urllib.parse.urlencode(params)  )
     return uri
 
 def makeWCSuri( url, layer,srsname="EPSG:31370", format="GeoTIFF" ):
@@ -446,5 +451,5 @@ def makeWCSuri( url, layer,srsname="EPSG:31370", format="GeoTIFF" ):
                 'crs': srsname,
                 'url': url.split('?')[0]  } #+ '?version%3D1.0.0%26'
 
-    uri = urllib.unquote( urllib.urlencode(params)  )
+    uri = urllib.parse.unquote( urllib.parse.urlencode(params)  )
     return uri

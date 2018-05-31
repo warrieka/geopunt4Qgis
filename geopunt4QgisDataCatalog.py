@@ -19,31 +19,36 @@ geopunt4QgisDataCatalog
 *                                                                         *
 ***************************************************************************/
 """
-from PyQt4 import QtCore, QtGui
-from ui_geopunt4QgisDataCatalog import Ui_geopunt4QgisDataCatalogDlg
-from qgis.core import *
+from __future__ import absolute_import
+from builtins import str
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QRegExp
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog
+from qgis.PyQt.QtGui import QStandardItem
+from .ui_geopunt4QgisDataCatalog import Ui_geopunt4QgisDataCatalogDlg
+from qgis.core import QgsProject, QgsRasterLayer, QgsVectorLayer
 from qgis.gui import QgsMessageBar
-from geopunt import internet_on
-import metadataParser, os, webbrowser, sys
-import geometryhelper as gh
-from settings import settings
+import os, webbrowser, sys
+from .geopunt import internet_on
+from .metadataParser import MDReader, MDdata, getWmsLayerNames, getWFSLayerNames, makeWFSuri
+from .geometryhelper import geometryhelper
+from .settings import settings
 
 
-class geopunt4QgisDataCatalog(QtGui.QDialog):
+class geopunt4QgisDataCatalog(QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None)
-        self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
+        QDialog.__init__(self, None)
+        self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         self.iface = iface
 
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        locale = QSettings().value("locale/userLocale", "en")
         if not locale: locale = 'en'
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
-            self.translator = QtCore.QTranslator()
+            self.translator = QTranslator()
             self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
 
         self._initGui()
 
@@ -53,17 +58,17 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.ui.setupUi(self)
 
         # get settings
-        self.s = QtCore.QSettings()
+        self.s = QSettings()
         self.loadSettings()
 
-        self.gh = gh.geometryHelper(self.iface)
+        self.gh = geometryHelper(self.iface)
 
         # setup a message bar
         self.bar = QgsMessageBar()
-        self.bar.setSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
+        self.bar.setSizePolicy( QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.ui.verticalLayout.addWidget(self.bar)
 
-        self.ui.buttonBox.addButton(QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole)
+        self.ui.buttonBox.addButton(QPushButton("Sluiten"), QDialogButtonBox.RejectRole)
         for btn in self.ui.buttonBox.buttons():
             btn.setAutoDefault(0)
 
@@ -75,13 +80,13 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self.zoek = ''
         self.bronnen = None
 
-        self.model = QtGui.QStandardItemModel(self)
-        self.proxyModel = QtGui.QSortFilterProxyModel(self)
+        self.model = QStandardItemModel(self)
+        self.proxyModel = QSortFilterProxyModel(self)
         self.proxyModel.setSourceModel(self.model)
         self.ui.resultView.setModel(self.proxyModel)
 
-        self.completer = QtGui.QCompleter(self)
-        self.completerModel = QtGui.QStringListModel(self)
+        self.completer = QCompleter(self)
+        self.completerModel = QStringListModel(self)
         self.ui.zoekTxt.setCompleter(self.completer)
         self.completer.setModel(self.completerModel)
 
@@ -103,7 +108,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         else:
             self.proxy = ""
 
-        self.md = metadataParser.MDReader(self.timeout, self.proxy)
+        self.md = MDReader(self.timeout, self.proxy)
 
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/catalogus")
@@ -113,17 +118,17 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         records = sorted(records, key=lambda k: k['title']) 
 
         for rec in records:
-            title = QtGui.QStandardItem(rec['title'])  # 0
-            wms = QtGui.QStandardItem(rec['wms'])  # 1
-            downloadLink = QtGui.QStandardItem(rec['download'])  # 2
-            id = QtGui.QStandardItem(rec['uuid'])  # 3
-            abstract = QtGui.QStandardItem(rec['abstract'])  # 4
-            wfs = QtGui.QStandardItem(rec['wfs'])  # 5
+            title = QStandardItem(rec['title'])  # 0
+            wms = QStandardItem(rec['wms'])  # 1
+            downloadLink = QStandardItem(rec['download'])  # 2
+            id = QStandardItem(rec['uuid'])  # 3
+            abstract = QStandardItem(rec['abstract'])  # 4
+            wfs = QStandardItem(rec['wfs'])  # 5
             self.model.appendRow([title, wms, downloadLink, id, abstract, wfs])
 
     # overwrite
     def show(self):
-        QtGui.QDialog.show(self)
+        QDialog.show(self)
         self.setWindowModality(0)
         if self.firstShow:
             inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout)
@@ -142,8 +147,8 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
                 self.firstShow = False
             else:
                 self.bar.pushMessage(
-                    QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "),
-                    QtCore.QCoreApplication.translate("geopunt4QgisPoidialog",
+                    QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "),
+                    QCoreApplication.translate("geopunt4QgisPoidialog",
                                                       "Kan geen verbing maken met het internet."),
                                                       level=QgsMessageBar.WARNING, duration=3)
 
@@ -197,7 +202,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
     def filterModel(self, col=None):
         if col != None:
             self.proxyModel.setFilterKeyColumn(col)
-            expr = QtCore.QRegExp("?*", QtCore.Qt.CaseInsensitive, QtCore.QRegExp.Wildcard)
+            expr = QRegExp("?*", Qt.CaseInsensitive, QRegExp.Wildcard)
             self.proxyModel.setFilterRegExp(expr)
         else:
             self.proxyModel.setFilterRegExp(None)
@@ -220,10 +225,10 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
                 inspiretheme = self.ui.INSPIREthemaCbx.currentText()
                 inspireannex = self.ui.INSPIREannexCbx.currentText()
                 inspireServiceType = self.ui.INSPIREserviceCbx.currentText()
-                searchResult = metadataParser.MDdata(self.md.searchAll(
+                searchResult = MDdata(self.md.searchAll(
                     self.zoek, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType))
             else:
-                searchResult = metadataParser.MDdata(self.md.searchAll(self.zoek))
+                searchResult = MDdata(self.md.searchAll(self.zoek))
         except:
             self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=3)
             return
@@ -233,8 +238,8 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         self._setModel(searchResult.records)
         if searchResult.count == 0:
             self.bar.pushMessage(
-                QtCore.QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "),
-                QtCore.QCoreApplication.translate("geopunt4QgisPoidialog",
+                QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "),
+                QCoreApplication.translate("geopunt4QgisPoidialog",
                                                   "Er werden geen resultaten gevonde voor deze zoekopdracht"),
                 duration=5)
 
@@ -248,20 +253,20 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         if crs != 'EPSG:31370' or crs != 'EPSG:3857' or crs != 'EPSG:3043':
             crs = 'EPSG:31370'
         try:
-            lyrs = metadataParser.getWmsLayerNames(self.wms, self.proxy)
+            lyrs = getWmsLayerNames(self.wms, self.proxy)
         except:
             self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
             return
         if len(lyrs) == 0:
             self.bar.pushMessage("WMS",
-                                 QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog",
+                                 QCoreApplication.translate("geopunt4QgisDataCatalog",
                                                                    "Kan geen lagen vinden in: %s" % self.wms),
                                  level=QgsMessageBar.WARNING, duration=10)
             return
         elif len(lyrs) == 1:
             layerTitle = lyrs[0][1]
         else:
-            layerTitle, accept = QtGui.QInputDialog.getItem(self, "WMS toevoegen",
+            layerTitle, accept = QInputDialog.getItem(self, "WMS toevoegen",
                                                             "Kies een laag om toe te voegen", [n[1] for n in lyrs],
                                                             editable=0)
             if not accept: return
@@ -280,10 +285,10 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         try:
             rlayer = QgsRasterLayer(wmsUrl, layerTitle, 'wms')
             if rlayer.isValid():
-                QgsMapLayerRegistry.instance().addMapLayer(rlayer)
+                QgsProject.instance().addMapLayer(rlayer)
             else:
                 self.bar.pushMessage("Error",
-                                     QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog", "Kan WMS niet laden"),
+                                     QCoreApplication.translate("geopunt4QgisDataCatalog", "Kan WMS niet laden"),
                                      level=QgsMessageBar.CRITICAL, duration=10)
         except:
             self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
@@ -292,19 +297,19 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
     def addWFS(self):
         if self.wfs == None: return
         try:
-            lyrs = metadataParser.getWFSLayerNames(self.wfs, self.proxy)
+            lyrs = getWFSLayerNames(self.wfs, self.proxy)
         except:
             self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
             return
         if len(lyrs) == 0:
             self.bar.pushMessage("WFS",
-                 QtCore.QCoreApplication.translate("geopunt4QgisDataCatalog",
+                 QCoreApplication.translate("geopunt4QgisDataCatalog",
                  "Kan geen lagen vinden in: %s" % self.wfs), level=QgsMessageBar.WARNING, duration=10)
             return
         elif len(lyrs) == 1:
             layerTitle = lyrs[0][1]
         else:
-            layerTitle, accept = QtGui.QInputDialog.getItem(self, "WFS toevoegen",
+            layerTitle, accept = QInputDialog.getItem(self, "WFS toevoegen",
                                                             "Kies een laag om toe te voegen", [n[1] for n in lyrs],
                                                             editable=0)
             if not accept: return
@@ -312,8 +317,6 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
         crs = [n[2] for n in lyrs if n[1] == layerTitle][0]
         url = self.wfs.split('?')[0]
-        
-        print url
         
         if self.ui.bboxChk.isChecked():
             extent = self.iface.mapCanvas().extent()
@@ -323,11 +326,11 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         else:
             bbox = None
 
-        wfsUri = metadataParser.makeWFSuri(url, layerName, crs, bbox=bbox)
+        wfsUri = makeWFSuri(url, layerName, crs, bbox=bbox)
 
         try:
           vlayer = QgsVectorLayer(wfsUri, layerTitle, "WFS")
-          QgsMapLayerRegistry.instance().addMapLayer(vlayer)
+          QgsProject.instance().addMapLayer(vlayer)
         except:
             self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
             return

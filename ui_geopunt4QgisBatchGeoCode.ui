@@ -81,7 +81,12 @@
           </property>
           <item>
            <property name="text">
-            <string>ansi</string>
+            <string>default</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>latin</string>
            </property>
           </item>
           <item>

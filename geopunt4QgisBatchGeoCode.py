@@ -19,32 +19,38 @@ batcGeoCodedialog
 *                                                                         *
 ***************************************************************************/
 """
-import os.path
-from PyQt4 import QtCore, QtGui
-from ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
-import geopunt, geometryhelper, csv, unicodecsv, webbrowser
-from batchGeoHelper import batcGeoHelper
-from reverseAdresMapTool import reverseAdresMapTool
-from settings import settings
+from __future__ import absolute_import
+from builtins import next
+from builtins import str
+from builtins import range
+import csv, webbrowser, os.path
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
+from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox, QPushButton, QInputDialog, QComboBox, QMessageBox, QTableWidgetItem, QFileDialog
+from qgis.PyQt.QtGui import QColor
+from .ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
+from .batchGeoHelper import batcGeoHelper
+from .reverseAdresMapTool import reverseAdresMapTool
+from .settings import settings
+from .geopunt import internet_on, Adres
+from .geometryhelper import geometryhelper
 
-class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
+class geopunt4QgisBatcGeoCodeDialog(QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None)
-        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-        #self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+        QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~Qt.WindowContextHelpButtonHint )
+        #self.setWindowFlags( self.windowFlags() |Qt.WindowStaysOnTopHint)
         self.iface = iface
         
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "nl")
+        locale = QSettings().value("locale/userLocale", "nl")
         if not locale: locale == 'nl' 
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 
                       'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
-            self.translator = QtCore.QTranslator()
+            self.translator = QTranslator()
             self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': 
-               QtCore.QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
         #load gui
         self._initGui()
     
@@ -54,7 +60,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.ui.setupUi(self)
     
         #settings
-        self.s = QtCore.QSettings()
+        self.s = QSettings()
         self.loadSettings()
     
         #set vars
@@ -64,13 +70,13 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.graphicsLayer = []
         self.reverseAdresTool = None
         self.batcGeoHelper = batcGeoHelper(self.iface, self, startFolder=self.startDir )
-        self.gh = geometryhelper.geometryHelper(self.iface)
+        self.gh = geometryHelper(self.iface)
     
         self.ui.delimEdit.setEnabled(False)
         self.ui.addToMapKnop.setEnabled(False)
         self.ui.tlFrame.setEnabled(False)
         
-        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
+        self.ui.buttonBox.addButton( QPushButton("Sluiten"), QDialogButtonBox.RejectRole )
         for btn in self.ui.buttonBox.buttons():
             btn.setAutoDefault(0)
             
@@ -107,7 +113,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
             self.proxy = ""
         self.retrys = 3
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
-        self.gp = geopunt.Adres(self.timeout, self.proxy)
+        self.gp = Adres(self.timeout, self.proxy)
 
     #eventHandlers
     def openHelp(self):
@@ -134,7 +140,7 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
                 row  += 1
                 continue
 
-            for name, colIdx in self.headers.items():
+            for name, colIdx in list(self.headers.items()):
                 val= self.ui.outPutTbl.item(row, colIdx).text()
                 attributes[name] = val
         
@@ -173,9 +179,9 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
 
     def layernameValid(self):   
         if not hasattr(self, 'layerName'):
-          layerName, accept = QtGui.QInputDialog.getText(None,
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+          layerName, accept = QInputDialog.getText(None,
+              QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
           if accept == False: 
             return False
           else: 
@@ -191,9 +197,9 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
 
     def on_singleLineToggled(self, toggled):
        if toggled:
-         self.ui.adresColLbl.setText(QtCore.QCoreApplication.translate("batcGeoCodedialog", "Adres kolom:"))
+         self.ui.adresColLbl.setText(QCoreApplication.translate("batcGeoCodedialog", "Adres kolom:"))
        else:
-         self.ui.adresColLbl.setText(QtCore.QCoreApplication.translate("batcGeoCodedialog", "Straatnaam kolom:"))
+         self.ui.adresColLbl.setText(QCoreApplication.translate("batcGeoCodedialog", "Straatnaam kolom:"))
       
     def _reverseAdresCallback(self, point):
         'private callback for reverseAdresMapTool'
@@ -207,12 +213,12 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         validAdresCol = self.ui.outPutTbl.columnCount() -1
         rowIds= self.getSelectedRows()
         for rowIdx in rowIds:
-            validCombo = QtGui.QComboBox(self.ui.adresColSelect)
+            validCombo = QComboBox(self.ui.adresColSelect)
             validCombo.addItems([adres])
             validCombo.setEnabled(False)
             self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
             for col in range(validAdresCol):
-                self.ui.outPutTbl.item(rowIdx,col).setBackgroundColor(QtGui.QColor("#DDFFDD"))
+                self.ui.outPutTbl.item(rowIdx,col).setBackgroundColor(QColor("#DDFFDD"))
             self.ui.outPutTbl.clearSelection()
     
     def loadTable(self):
@@ -232,29 +238,23 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
             self.ui.adresWgt.setDisabled(True)
             return
         elif not os.path.exists(self.csv):
-            self.ui.statusMsg.setText(QtCore.QCoreApplication.translate("batcGeoCodedialog",
+            self.ui.statusMsg.setText(QCoreApplication.translate("batcGeoCodedialog",
                                         "<div style='color:red'>%s bestaat niet</div>") % self.csv)
             self.ui.adresWgt.setDisabled(True)
             return 
-      
-        if self.ui.codecBox.currentText() == 'utf-8' :
-           try: 
-             csvReader = unicodecsv.reader(open( self.csv, 'rb'), delimiter=self.delimiter)
-           except: 
-              QtGui.QMessageBox.warning(self, "Error", 
-              QtCore.QCoreApplication.translate("batcGeoCodedialog", 
-                "Deze file kon niet correct worden ingelezen, probeer "+
-                "eens in te laden als <strong>ANSI-file</strong>"))
-        else:
-            try: 
-               csvReader = csv.reader(open( self.csv, 'r'), delimiter=self.delimiter)
-            except: 
-              QtGui.QMessageBox.warning(self, "Error", 
-              QtCore.QCoreApplication.translate("batcGeoCodedialog", 
-                "Deze file kon niet correct worden ingelezen, probeer " +
-                " eens in te laden als <strong>UTF-8-file</strong>"))
         
-        header = csvReader.next()
+        enc = None
+        if self.ui.codecBox.currentText() == 'utf-8' : enc = 'utf-8'
+        elif self.ui.codecBox.currentText() == 'latin' : enc = 'latin-1'
+        
+        try: 
+            csvReader = csv.reader(open( self.csv, 'r', encoding=enc,  newline=''), delimiter=self.delimiter)
+        except: 
+            QMessageBox.warning(self, "Error", QCoreApplication.translate("batcGeoCodedialog", 
+            "Deze file kon niet correct worden ingelezen, probeer eens in te laden als een " +
+            "<strong>ANSI latin-file</strong> of een <strong>UTF-8-file</strong>"))
+        
+        header = next(csvReader)
         colCount = len(header)
       
         for i in range(colCount):
@@ -262,13 +262,13 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
       
         self.ui.outPutTbl.setColumnCount(colCount + 1)
         self.ui.outPutTbl.setColumnWidth(colCount, 250)
-        self.ui.outPutTbl.setHorizontalHeaderLabels(header + [QtCore.QCoreApplication.translate(
+        self.ui.outPutTbl.setHorizontalHeaderLabels(header + [QCoreApplication.translate(
                               "batcGeoCodedialog", "gevalideerd adres")])
         self.ui.adresColSelect.insertItems(0, header)
-        self.ui.gemeenteColSelect.insertItems(0, header + [QtCore.QCoreApplication.translate(
+        self.ui.gemeenteColSelect.insertItems(0, header + [QCoreApplication.translate(
                                     "batcGeoCodedialog", "<geen>")])
         self.ui.gemeenteColSelect.setCurrentIndex(colCount)
-        self.ui.huisnrSelect.insertItems(0, header + [QtCore.QCoreApplication.translate(
+        self.ui.huisnrSelect.insertItems(0, header + [QCoreApplication.translate(
                                     "batcGeoCodedialog", "<geen>")])
         self.ui.huisnrSelect.setCurrentIndex(colCount)
       
@@ -276,24 +276,24 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         for line in csvReader:
           self.ui.outPutTbl.insertRow(rowCount)
           for col in range(colCount):
-            self.ui.outPutTbl.setItem(rowCount, col, QtGui.QTableWidgetItem(line[col]))
+            self.ui.outPutTbl.setItem(rowCount, col, QTableWidgetItem(line[col]))
           rowCount += 1
           if rowCount > self.maxRows:
-              warnTitle = QtCore.QCoreApplication.translate("batcGeoCodedialog", 
+              warnTitle = QCoreApplication.translate("batcGeoCodedialog", 
               "%s heeft meer dan %s rijen") % (os.path.basename(self.csv), self.maxRows)
               warnMsg = "<div>" 
-              warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog", 
+              warnMsg += QCoreApplication.translate("batcGeoCodedialog", 
               "Je bestand heeft meer dan %s rijen.<br/>" ) % self.maxRows 
-              warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog",
+              warnMsg += QCoreApplication.translate("batcGeoCodedialog",
               "Om de servers van agiv niet te zwaar te belasten is de toepassing beperkt tot %s rijen.<br/>" ) % self.maxRows 
-              warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog",
+              warnMsg += QCoreApplication.translate("batcGeoCodedialog",
               "Deelnemers van GDI-vlaanderen kunnen gebruik maken van Crab Match om grote bestanden te valideren en geocoderen: <br/>" )
-              warnMsg += QtCore.QCoreApplication.translate("batcGeoCodedialog", 
+              warnMsg += QCoreApplication.translate("batcGeoCodedialog", 
               "<a href='https://help.agiv.be/Categories/Details/213-Crab_Match_valideer_en_verrijk_je_adressenbestand'>Meer info</a>")
               warnMsg += "</div>"
           
               self.ui.statusMsg.setText("<div style='color:red'>"+ warnTitle +"</div>")
-              QtGui.QMessageBox.warning(self, warnTitle, warnMsg )
+              QMessageBox.warning(self, warnTitle, warnMsg )
               break
       
         self.ui.adresWgt.setDisabled(False)
@@ -312,16 +312,16 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
             self.delimiter = '\t'
             self.loadTable()
         else:
-            delimiter, accept = QtGui.QInputDialog.getText(self, 
-                QtCore.QCoreApplication.translate("batcGeoCodedialog","Andere separator") , 
-                QtCore.QCoreApplication.translate("batcGeoCodedialog","Stel zelf een separator in: (Maximaal 1 karakter)"))
+            delimiter, accept = QInputDialog.getText(self, 
+                QCoreApplication.translate("batcGeoCodedialog","Andere separator") , 
+                QCoreApplication.translate("batcGeoCodedialog","Stel zelf een separator in: (Maximaal 1 karakter)"))
             if accept:
                 self.delimiter = str( delimiter.strip()[0])
                 self.ui.delimEdit.setText(self.delimiter)
                 self.loadTable()
 
     def validateSelection(self):
-        if self.internet_on() != True: return
+        if self.internet() != True: return
     
         rows = self.getSelectedRows()
     
@@ -329,10 +329,10 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.ui.addToMapKnop.setEnabled(True)
 
     def validateAll(self):
-        if self.internet_on() != True: return
+        if self.internet() != True: return
     
         rowCount = self.ui.outPutTbl.rowCount()
-        rows = range(rowCount)
+        rows = list(range(rowCount))
     
         self.validateRows(rows)
         self.ui.addToMapKnop.setEnabled(True)
@@ -346,9 +346,9 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
       
         validAdresCol = self.ui.outPutTbl.columnCount() -1
         adresCol = self.headers[adresTxt] 
-        if gemeenteTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
+        if gemeenteTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
               gemeenteCol = self.headers[gemeenteTxt] 
-        if huisnrTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
+        if huisnrTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
               huisnrCol = self.headers[huisnrTxt] 
     
         self.ui.statusProgress.setValue(0)
@@ -364,9 +364,9 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
 
               adres = self.ui.outPutTbl.item(rowIdx, adresCol).text()
     
-              if huisnrTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
+              if huisnrTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
                   adres += " " +  self.ui.outPutTbl.item(rowIdx, huisnrCol).text()
-              if gemeenteTxt != QtCore.QCoreApplication.translate("batcGeoCodedialog", "<geen>"): 
+              if gemeenteTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"): 
                   adres = ",".join([adres, self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()])
       
               adres = " ".join( adres.split())  #remove too many spaces
@@ -389,23 +389,23 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
                    if adresNR == resustNR:
                       validAdres = [validAdres[0]]
                    
-                validCombo = QtGui.QComboBox(self.ui.adresColSelect)
+                validCombo = QComboBox(self.ui.adresColSelect)
                 validCombo.addItems(validAdres)
                 self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
     
               if len(validAdres) == 1:
                   self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).setEnabled(0)
                   for col in range(len(self.headers)):
-                      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#CCFFCC"))
+                      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QColor("#CCFFCC"))
               elif len(validAdres) > 1:
                   self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).addItem("")
                   for col in range(len(self.headers)):
-                      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#FFFFC8"))
+                      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QColor("#FFFFC8"))
                       
               elif len(validAdres) == 0:
                   self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, None)
                   for col in range(len(self.headers)):
-                      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QtGui.QColor("#FFBEBE"))
+                      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QColor("#FFBEBE"))
               i += 1
               retry = self.retrys
 
@@ -449,21 +449,20 @@ class geopunt4QgisBatcGeoCodeDialog(QtGui.QDialog):
         self.gh.zoomtoRec2(bounds)
     
     def openInputCsv(self):
-        fd = QtGui.QFileDialog()
+        fd = QFileDialog()
         filter = "Comma separated value File (.csv) (*.csv);;Text Files (.txt) (*.txt);;Any File (*.*)"
-        fd.setFileMode(QtGui.QFileDialog.AnyFile)
+        fd.setFileMode(QFileDialog.AnyFile)
         #testdata:  /home/kay/projects/geopunt4Qgis/testData/vergunning2.csv
         fName = fd.getOpenFileName( self, "open file" , self.startDir, filter)
         if fName:
             self.ui.inputTxt.setText(fName)
             self.loadTable()
 
-    def internet_on(self):
-        inet_on = geopunt.internet_on( timeout= self.timeout , proxyUrl= self.proxy )
+    def internet(self):
+        inet_on = internet_on( timeout= self.timeout , proxyUrl= self.proxy )
         if True != inet_on:
             self.ui.statusMsg.setText(
-            QtCore.QCoreApplication.translate("batcGeoCodedialog", 
-                                 "<div style='color:red'>Kon geen connectie maken met geopunt</div>"))
+            QCoreApplication.translate("batcGeoCodedialog", "<div style='color:red'>Kon geen connectie maken met geopunt</div>"))
         return inet_on
 
     def getSelectedRows(self):

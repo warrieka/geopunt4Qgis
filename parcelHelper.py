@@ -19,13 +19,15 @@ geometryHelper
 *                                                                         *
 ***************************************************************************/
 """
-from PyQt4.QtCore import *
-from qgis.core import *
-from PyQt4.QtGui import QFileDialog, QColor
+from builtins import object
+from qgis.PyQt.QtCore import QVariant
+from qgis.core import QgsField, QgsProject, QgsVectorLayer, QgsVectorFileWriter, QgsFeature,
+from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.PyQt.QtGui import QColor  
 from qgis.gui import QgsVertexMarker
 import os
 
-class parcelHelper:
+class parcelHelper(object):
     def __init__(self, iface, parent= None, startFolder="" ):
         self.iface = iface
         self.parent = parent
@@ -43,7 +45,7 @@ class parcelHelper:
                       QgsField("grondnr", QVariant.Int), QgsField("capakey", QVariant.String),
                       QgsField("perceelnr", QVariant.String),  QgsField("adres", QVariant.String) ]
   
-        if not QgsMapLayerRegistry.instance().mapLayer(self.parcellayerid):
+        if not QgsProject.instance().mapLayer(self.parcellayerid):
             self.parcellayer = QgsVectorLayer("MultiPolygon", layername, "memory")
             self.parcelProvider = self.parcellayer.dataProvider()
             self.parcelProvider.addAttributes(attributes)
@@ -76,7 +78,7 @@ class parcelHelper:
         self.parcellayer.updateExtents()
 
         # save memoryLAYER to file and replace all references    
-        if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.parcellayerid): 
+        if saveToFile and not QgsProject.instance().mapLayer(self.parcellayerid): 
           save = self._saveToFile( sender, startFolder )
           if save:
             fpath, flType = save                
@@ -92,7 +94,7 @@ class parcelHelper:
             return
 
         #  add to map
-        QgsMapLayerRegistry.instance().addMapLayer(self.parcellayer)
+        QgsProject.instance().addMapLayer(self.parcellayer)
         
         # store layer id and refresh      
         self.parcellayerid = self.parcellayer.id()
@@ -102,7 +104,7 @@ class parcelHelper:
         filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
+        fName, __, __ = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
         if fName:
             ext = os.path.splitext( fName )[1]
             if "SHP" in ext.upper():

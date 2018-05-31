@@ -19,43 +19,49 @@ geopunt4QgisElevation
 *                                                                         *
 ***************************************************************************/
 """
-from PyQt4 import QtCore, QtGui
-from ui_geopunt4QgisElevation import Ui_elevationDlg
-from qgis.core import *
+from __future__ import absolute_import
+from builtins import str
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy, QToolButton
+from qgis.PyQt.QtGui import QIcon
+from qgis.core import QgsRasterLayer, QgsProject
 from qgis.gui import  QgsMessageBar, QgsVertexMarker 
-from PyQt4.QtGui import QFileDialog
+from .ui_geopunt4QgisElevation import Ui_elevationDlg
+
 #mathplotlib
 try:
-  from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-  from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+  from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+  from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
   from matplotlib.figure import Figure
   import numpy as np
   mathplotlibWorks = True
 except:
-  mathplotlibWorks = False          
+  mathplotlibWorks = False    
+  
 #other libs
-from geometryhelper import geometryHelper
-from elevationHelper import elevationHelper
-from elevationProfileMapTool import lineTool
-import geopunt, os, webbrowser, sys
-from settings import settings
+import os, webbrowser, sys
+from .geometryhelper import geometryHelper
+from .elevationHelper import elevationHelper
+from .elevationProfileMapTool import lineTool
+from .geopunt import geopuntError, elevation
+from .settings import settings
 
-class geopunt4QgisElevationDialog(QtGui.QDialog):
+class geopunt4QgisElevationDialog(QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None)
-        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+        QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~Qt.WindowContextHelpButtonHint )
 
         self.iface = iface
     
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        locale = QSettings().value("locale/userLocale", "en")
         if not locale: locale == 'en'
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
-            self.translator = QtCore.QTranslator()
+            self.translator = QTranslator()
             self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
     
         self._initGui()
 
@@ -65,7 +71,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         self.ui.setupUi(self)
                 
         #get settings
-        self.s = QtCore.QSettings()
+        self.s = QSettings()
         self.loadSettings()
 
         self.gh = geometryHelper( self.iface )
@@ -73,10 +79,10 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
         #setup a message bar
         self.bar = QgsMessageBar() 
-        self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
+        self.bar.setSizePolicy( QSizePolicy.Minimum, QSizePolicy.Fixed )
         self.ui.verticalLayout.addWidget(self.bar)
         
-        self.ui.buttonBox.addButton(QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
+        self.ui.buttonBox.addButton(QPushButton("Sluiten"), QDialogButtonBox.RejectRole )
         for btn in self.ui.buttonBox.buttons():
             btn.setAutoDefault(0)
                   
@@ -124,43 +130,33 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         7 Edit curves line and axes parameters
         '''
         self.toolbar.setVisible(False)
-        toolbarBtns = self.ui.toolbar.findChildren(QtGui.QToolButton)
-        self.ui.toolbar.setStyleSheet("""QToolButton {border-width: 2px; border-style:            
-                                                      outset; border-color: #fbd837; border-radius: 5px ;
-                                                      background-color: white }
-                                         QToolButton:pressed { border-style: inset; 
-                                                             background-color: grey } """)
-        toolbarBtns[0].setToolTip(QtCore.QCoreApplication.translate(
-                                            "geopunt4QgisElevationDialog", "Keer terug naar overzicht"))
-        toolbarBtns[0].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/full_extent.png"))
+        toolbarBtns = self.ui.toolbar.findChildren(QToolButton)
+        self.ui.toolbar.setStyleSheet("""QToolButton {border-width: 2px; border-style: outset; 
+                                                      border-color: #fbd837; border-radius: 5px ; background-color: white }
+                                         QToolButton:pressed { border-style: inset;   background-color: grey } """)
+        toolbarBtns[0].setToolTip(QCoreApplication.translate("geopunt4QgisElevationDialog", "Keer terug naar overzicht"))
+        toolbarBtns[0].setIcon( QIcon(":/plugins/geopunt4Qgis/images/full_extent.png"))
         toolbarBtns[0].clicked.connect( self.toolbar.home )
-        toolbarBtns[1].setToolTip(QtCore.QCoreApplication.translate(
-                                            "geopunt4QgisElevationDialog", "Vorige"))
-        toolbarBtns[1].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/previous.png")) 
+        toolbarBtns[1].setToolTip(QCoreApplication.translate("geopunt4QgisElevationDialog", "Vorige"))
+        toolbarBtns[1].setIcon( QIcon(":/plugins/geopunt4Qgis/images/previous.png")) 
         toolbarBtns[1].clicked.connect( self.toolbar.back )
-        toolbarBtns[2].setToolTip(QtCore.QCoreApplication.translate(
-                                            "geopunt4QgisElevationDialog", "Volgende"))
-        toolbarBtns[2].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/next.png"))
+        toolbarBtns[2].setToolTip(QCoreApplication.translate("geopunt4QgisElevationDialog", "Volgende"))
+        toolbarBtns[2].setIcon( QIcon(":/plugins/geopunt4Qgis/images/next.png"))
         toolbarBtns[2].clicked.connect( self.toolbar.forward )
-        toolbarBtns[3].setToolTip(QtCore.QCoreApplication.translate(
-                                            "geopunt4QgisElevationDialog", "Pannen"))
-        toolbarBtns[3].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/pan.png")) 
+        toolbarBtns[3].setToolTip(QCoreApplication.translate("geopunt4QgisElevationDialog", "Pannen"))
+        toolbarBtns[3].setIcon( QIcon(":/plugins/geopunt4Qgis/images/pan.png")) 
         toolbarBtns[3].clicked.connect( self.toolbar.pan )
-        toolbarBtns[4].setToolTip(QtCore.QCoreApplication.translate(
-                                            "geopunt4QgisElevationDialog", "Zoom naar rechthoek"))
-        toolbarBtns[4].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/rectangleZoom.png"))  
+        toolbarBtns[4].setToolTip(QCoreApplication.translate("geopunt4QgisElevationDialog", "Zoom naar rechthoek"))
+        toolbarBtns[4].setIcon( QIcon(":/plugins/geopunt4Qgis/images/rectangleZoom.png"))  
         toolbarBtns[4].clicked.connect( self.toolbar.zoom )
-        toolbarBtns[5].setToolTip(QtCore.QCoreApplication.translate(
-                                            "geopunt4QgisElevationDialog", "Opslaan als afbeelding"))
-        toolbarBtns[5].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/save.png"))
+        toolbarBtns[5].setToolTip(QCoreApplication.translate("geopunt4QgisElevationDialog", "Opslaan als afbeelding"))
+        toolbarBtns[5].setIcon( QIcon(":/plugins/geopunt4Qgis/images/save.png"))
         toolbarBtns[5].clicked.connect( self.save_fig ) #semf.toolbar.save_figure
-        toolbarBtns[6].setToolTip(QtCore.QCoreApplication.translate(
-                                            "geopunt4QgisElevationDialog", "Vorm grafiek aanpassen"))
-        toolbarBtns[6].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/wrench.png")) 
+        toolbarBtns[6].setToolTip(QCoreApplication.translate("geopunt4QgisElevationDialog", "Vorm grafiek aanpassen"))
+        toolbarBtns[6].setIcon( QIcon(":/plugins/geopunt4Qgis/images/wrench.png")) 
         toolbarBtns[6].clicked.connect( self.toolbar.edit_parameters)
-        toolbarBtns[7].setIcon( QtGui.QIcon(":/plugins/geopunt4Qgis/images/fill.png"))
-        toolbarBtns[7].setToolTip( QtCore.QCoreApplication.translate(
-                                            "geopunt4QgisElevationDialog", "Kies de vulkleur"))
+        toolbarBtns[7].setIcon( QIcon(":/plugins/geopunt4Qgis/images/fill.png"))
+        toolbarBtns[7].setToolTip( QCoreApplication.translate("geopunt4QgisElevationDialog", "Kies de vulkleur"))
         toolbarBtns[7].clicked.connect( self.setFill)
         
     def loadSettings(self):
@@ -178,15 +174,11 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         if profileLineLayer:
            self.profileLineLayerTxt = profileLineLayer
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))        
-        self.elevation = geopunt.elevation(self.timeout, self.proxy )
+        self.elevation = elevation(self.timeout, self.proxy )
 
     def resizeEvent(self, event):
-        QtGui.QDialog.resizeEvent(self, event)
-        if self.ax: 
-            try:
-                self.figure.tight_layout()
-            except: 
-                print str( sys.exc_info()[1] )
+        QDialog.resizeEvent(self, event)
+        if self.ax: self.figure.tight_layout()
 
     #eventhandlers
     def save_fig(self):
@@ -198,7 +190,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         if not(sys.platform == 'win32'):
            formats += ";;Portable Network Graphics  (*.png) (*.png)"
       
-        fileName = QFileDialog.getSaveFileName( self , "Save File", self.startDir, formats);
+        fileName, __ = QFileDialog.getSaveFileName( self , "Save File", self.startDir, formats);
         self.figure.savefig(fileName)
     
     def onRefresh(self):
@@ -258,9 +250,9 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
     def saveLineClicked(self):
         if not hasattr(self, 'profileLineLayerTxt'):
-           layerName, accept = QtGui.QInputDialog.getText(None,
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+           layerName, accept = QInputDialog.getText(None,
+              QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
            if accept == False: 
               return
            else:  
@@ -273,9 +265,9 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
     def savePntClicked(self):
         if not hasattr(self, 'sampleLayerTxt'):
-           layerName, accept = QtGui.QInputDialog.getText(None,
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+           layerName, accept = QInputDialog.getText(None,
+              QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
            if accept == False: 
               return
            else:  
@@ -290,7 +282,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         if self.profile == None: return
         if self.ax == None: return
         
-        clr = QtGui.QColorDialog.getColor( QtCore.Qt.white, self, QtCore.QCoreApplication.translate(
+        clr = QColorDialog.getColor( Qt.white, self, QCoreApplication.translate(
                   "geopunt4QgisElevationDialog", "Kies de vulkleur") )
         if clr.isValid():
           xdata = np.array( [n[0] for n in self.profile ] ) * self.xscaleUnit[0]
@@ -302,14 +294,14 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
            crs = 'EPSG:31370' 
         dhmUrl =  "url=https://geoservices.informatievlaanderen.be/raadpleegdiensten/DHMV/wms&layers=DHMVII_DTM_1m&&format=image/png&styles=default&crs="+ crs
-        print dhmUrl
+
         try:
             rlayer = QgsRasterLayer(dhmUrl, 'Hoogtemodel', 'wms') 
             if rlayer.isValid():
                rlayer.renderer().setOpacity(0.8)
-               QgsMapLayerRegistry.instance().addMapLayer(rlayer)
+               QgsProject.instance().addMapLayer(rlayer)
             else: self.bar.pushMessage("Error", 
-                QtCore.QCoreApplication.translate("geopunt4QgisElevationDialog", "Kan WMS niet laden"), 
+                QCoreApplication.translate("geopunt4QgisElevationDialog", "Kan WMS niet laden"), 
                 level=QgsMessageBar.CRITICAL, duration=10) 
         except: 
             self.bar.pushMessage("Error", str( sys.exc_info()[1] ), level=QgsMessageBar.CRITICAL, duration=10)
@@ -323,7 +315,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         nrSamples = self.ui.nrOfSampleSpin.value()
         try:
             self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
-        except geopunt.geopuntError as ge: 
+        except geopuntError as ge: 
             self.bar.pushMessage("Error", ge.message, level=QgsMessageBar.CRITICAL, duration=10)
             return 
         
@@ -336,7 +328,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         #need at least 3 values
         if len(xdata) <= 2 or len([n for n in self.profile if n[3] > -9999 ]) <= 2:
            self.bar.pushMessage("Error", 
-                QtCore.QCoreApplication.translate(
+                QCoreApplication.translate(
                   "geopunt4QgisElevationDialog", "Er werd geen of onvoldoende data gevonden"),
                 level=QgsMessageBar.WARNING, duration=5)
            self.profile = None
@@ -386,7 +378,7 @@ class geopunt4QgisElevationDialog(QtGui.QDialog):
         
         self.pt = QgsVertexMarker(self.iface.mapCanvas())
         self.pt.setCenter( pt )
-        self.pt.setColor(QtGui.QColor(0,255,250))
+        self.pt.setColor(QColor(0,255,250))
         self.pt.setIconSize(5)
         self.pt.setIconType(QgsVertexMarker.ICON_BOX ) # or ICON_CROSS, ICON_X
         self.pt.setPenWidth(7)

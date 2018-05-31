@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
-import sys, os, urllib2
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+import sys, os, urllib.request
 import xml.etree.ElementTree as ET
-import ConfigParser as cfg
+import configparser as cfg
 
-class versionChecker:
+class versionChecker(object):
     def __init__(self, timeout=3, proxyUrl="" ):
         self.timeout = timeout
-        self.url = 'http://plugins.qgis.org/plugins/plugins.xml?qgis=2.0'
+        self.url = 'http://plugins.qgis.org/plugins/plugins.xml?qgis=3.0'
         self.ini = os.path.join(os.path.dirname(__file__), "metadata.txt")
-        if (isinstance(proxyUrl, unicode) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
-            proxy = urllib2.ProxyHandler({'http': proxyUrl })
-            auth = urllib2.HTTPBasicAuthHandler()
-            self.opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
+        if (isinstance(proxyUrl, str) or isinstance(proxyUrl, str)) & proxyUrl.startswith("http://"):
+            proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+            auth = urllib.request.HTTPBasicAuthHandler()
+            self.opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
         else:
             self.opener = None
         
@@ -28,7 +31,7 @@ class versionChecker:
           if self.opener:
             response= self.opener.open( self.url , timeout=self.timeout)
           else:
-            response= urllib2.urlopen( self.url ,timeout=self.timeout)
+            response= urllib.request.urlopen( self.url ,timeout=self.timeout)
           
           pluginsXML = ET.parse(response)
           root = pluginsXML.getroot()
@@ -44,6 +47,6 @@ class versionChecker:
         cur = self.getCurrentversion()
         latest = self.findLatestVersion(False)
         if cur < latest: 
-          return False
+           return False
         else:
-          return True
+           return True

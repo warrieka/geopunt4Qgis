@@ -19,12 +19,17 @@ gipodeoHelper
 *                                                                         *
 ***************************************************************************/
 """
-import os.path, datetime, urllib2
-from PyQt4.QtCore import *
-from PyQt4.QtGui import QFileDialog, QColor
-from qgis.core import *
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
+import os.path 
+from qgis.PyQt.QtCore import QVariant
+from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.PyQt.QtGui import QColor
+from qgis.core import QgsField, QgsCoordinateReferenceSystem, QgsVectorLayer, QgsVectorFileWriter, QgsCoordinateTransform, QgsPoint, QgsFeature, QgsGeometry, QgsProject, QgsSymbol, QgsRendererCategory, QgsCategorizedSymbolRenderer
 
-class gipodeoHelper:
+class gipodHelper(object):
     @staticmethod
     def openOutput(sender=None, startFolder=None):
         fd = QFileDialog()
@@ -58,7 +63,7 @@ class gipodeoHelper:
             return None
 
 
-class gipodWriter:
+class gipodWriter(object):
     def __init__(self, iface, layername, CRS=31370, manifestation=False, KML="" ):
         self.iface = iface
         self.canvas = iface.mapCanvas()
@@ -157,9 +162,8 @@ class gipodWriter:
     def __exit__(self, type, value, traceback):
         ' add layer to map and clean up'
         render = gipodRender(self.gipodlayer, 'hinder' ).render
-        self.gipodlayer.setRendererV2(render)
-        #self.gipodlayer.setEditType( 8, QgsVectorLayer.WebView) 
-        QgsMapLayerRegistry.instance().addMapLayer(self.gipodlayer)
+        self.gipodlayer.setRenderer(render)
+        QgsProject.instance().addMapLayer(self.gipodlayer)
     
         # refresh and update extends
         self.gipodlayer.updateExtents()
@@ -167,17 +171,16 @@ class gipodWriter:
         del self.gipodlayer, self.gipodProvider, self.fields
  
  
-class gipodRender:
+class gipodRender(object):
       def __init__(self, Layer, hinderAttr='hinder'):
           '1: in hinderAttr is veel hinder, 0: in hinderAttr is weinig hinder'
-          hinderSymbol =  QgsSymbolV2.defaultSymbol( 0 ) #0=point
-          noHinderSymbol =  QgsSymbolV2.defaultSymbol( 0 ) #Layer.geometryType()
+          hinderSymbol =  QgsSymbol.defaultSymbol( 0 ) #0=point
+          noHinderSymbol =  QgsSymbol.defaultSymbol( 0 ) #Layer.geometryType()
           hinderSymbol.setColor(QColor('#FF0000'))
           noHinderSymbol.setColor(QColor('#FFFF00'))
-          noHinder= QgsRendererCategoryV2(0, noHinderSymbol ,'weinig hinder')
-          hinder= QgsRendererCategoryV2(1, hinderSymbol ,'veel hinder')
-          self.render =  QgsCategorizedSymbolRendererV2(hinderAttr,[noHinder,hinder])
-          print self.render
+          noHinder= QgsRendererCategory(0, noHinderSymbol ,'weinig hinder')
+          hinder= QgsRendererCategory(1, hinderSymbol ,'veel hinder')
+          self.render =  QgsCategorizedSymbolRenderer(hinderAttr,[noHinder,hinder])
 
 class gipodError(Exception):
     def __init__(self, message):

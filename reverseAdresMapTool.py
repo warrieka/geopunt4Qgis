@@ -19,9 +19,7 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.core import *
-from qgis.gui import *
-from PyQt4.QtCore import *
+from qgis.gui import QgsMapTool
 
 class reverseAdresMapTool(QgsMapTool):
     def __init__(self, iface, callback):

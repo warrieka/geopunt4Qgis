@@ -19,32 +19,35 @@ geopunt4QgisGipod
 *                                                                         *
 ***************************************************************************/
 """
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtGui import QFileDialog, QMessageBox
-from ui_geopunt4QgisGIPOD import Ui_gipodDlg
-import geopunt, geometryhelper, gipodHelper
+from __future__ import absolute_import
+from builtins import str
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QMessageBox
+from qgis.PyQt.QtGui import QIcon
+from .ui_geopunt4QgisGIPOD import Ui_gipodDlg
 import os, json, webbrowser, sys
-from  datetime import date, timedelta
-from settings import settings
+from .geopunt import  gipod, internet_on
+from .geometryHelper import geometryHelper
+from .gipodHelper import gipodHelper, gipodWriter
+from datetime import date, timedelta
+from .settings import settings
 
-class geopunt4QgisGipodDialog(QtGui.QDialog):
+class geopunt4QgisGipodDialog(QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None)
-        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+        QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~Qt.WindowContextHelpButtonHint )
 
         self.iface = iface
         
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        locale = QSettings().value("locale/userLocale", "en")
         if not locale: locale == 'en'
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
-            self.translator = QtCore.QTranslator()
+            self.translator = QTranslator()
             self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': 
-               QtCore.QCoreApplication.installTranslator(self.translator)
-        #load gui
+            QCoreApplication.installTranslator(self.translator)
         self._initGui()
     
     def _initGui(self):
@@ -53,17 +56,16 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         self.ui.setupUi(self)
             
         #get settings
-        self.s = QtCore.QSettings()
+        self.s = QSettings()
         self.loadSettings()
 
-        self.gh = geometryhelper.geometryHelper(self.iface)
+        self.gh = geometryHelper(self.iface)
         
         self.data = None
         
-        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
-        self.ui.buttonBox.addButton( QtGui.QPushButton(
-                                QtGui.QIcon(":/plugins/geopunt4Qgis/images/addPointLayer.png" ),
-                                "Voeg toe aan kaart"),  QtGui.QDialogButtonBox.AcceptRole )         
+        self.ui.buttonBox.addButton( QPushButton("Sluiten"), QDialogButtonBox.RejectRole )
+        self.ui.buttonBox.addButton( QPushButton( QIcon(":/plugins/geopunt4Qgis/images/addPointLayer.png" ),
+                                                  "Voeg toe aan kaart"),  QDialogButtonBox.AcceptRole )         
         self.firstShow = True
         
         #set calenders 
@@ -81,10 +83,10 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         self.rejected.connect(self.clean )
       
     def show(self):
-      QtGui.QDialog.show(self)
+      QDialog.show(self)
       if  self.firstShow:
         'exend show to load data'
-        internet = geopunt.internet_on( proxyUrl=self.proxy, timeout=self.timeout )
+        internet = internet_on( proxyUrl=self.proxy, timeout=self.timeout )
         if internet:
             self.gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
             #populate combo's
@@ -99,7 +101,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
             self.ui.mgsBox.setText('')
             self.firstShow = False
         elif not internet:
-            self.ui.mgsBox.setText( "<div style='color:red'>%s</div>" %  QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", 
+            self.ui.mgsBox.setText( "<div style='color:red'>%s</div>" %  QCoreApplication.translate("geopunt4QgisGIPOD", 
               "<strong>Waarschuwing: </strong>kan niet verbinden met internet"))
     
     def loadSettings(self):
@@ -110,7 +112,7 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         else:
             self.proxy = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))        
-        self.gp = geopunt.gipod(self.timeout, self.proxy)
+        self.gp = gipod(self.timeout, self.proxy)
     
     def endEditChanged(self, senderDate):
         self.ui.startEdit.setMaximumDate(senderDate)
@@ -123,17 +125,17 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
         if self.data:
            fname, ftype= None , None
            if self.saveToFile:
-              fname = gipodHelper.gipodeoHelper.openOutput(self.iface.mainWindow(), 
+              fname = gipodHelper.openOutput(self.iface.mainWindow(), 
                                                       os.path.join( self.startDir, name))
               if fname:
-                ftype = gipodHelper.gipodeoHelper.checkFtype(fname)
+                ftype = gipodHelper.checkFtype(fname)
                 if ftype == None:
                   ftype = "ESRI Shapefile"
               else:
                 self.clean()
                 return
               
-           with gipodHelper.gipodWriter( self.iface, name , 31370, manifestation, ftype ) as gipodWriter:
+           with gipodWriter( self.iface, name , 31370, manifestation, ftype ) as gipodWriter:
               for row in self.data:
                   xy = row['coordinate']["coordinates"]
                   gipodId = int( row["gipodId"] )
@@ -156,8 +158,8 @@ class geopunt4QgisGipodDialog(QtGui.QDialog):
                   gipodWriter.saveGipod2file(fname,ftype)
         else:
             QMessageBox.warning(self,
-                    QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", "Waarschuwing"), 
-                    QtCore.QCoreApplication.translate("geopunt4QgisGIPOD", 
+                    QCoreApplication.translate("geopunt4QgisGIPOD", "Waarschuwing"), 
+                    QCoreApplication.translate("geopunt4QgisGIPOD", 
                         "Deze bevraging had geen resultaten, er werd geen laag aangemaakt"))
         self.clean()
         

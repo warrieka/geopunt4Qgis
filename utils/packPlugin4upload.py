@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import os, glob
 import zipfile
 
@@ -14,6 +15,7 @@ def makeList( src ):
     fileList = fileList + glob.glob( os.path.join(  src , idir , "*","*" ))
     fileList = fileList + glob.glob( os.path.join(  src , idir , "*","*","*" ))
     fileList = fileList + glob.glob( os.path.join(  src , idir , "*","*","*","*" ))
+    fileList = fileList + glob.glob( os.path.join(  src , idir , "*","*","*","*","*" ))
   for incl in INCLUDEFILE: 
     fileList = fileList + glob.glob(os.path.join( src , incl )) 
   return fileList
@@ -28,12 +30,10 @@ def zipdir(path, zipf):
 def main(src, target):
     if os.path.exists( target ):
        os.remove(target)
-    zipf = zipfile.ZipFile( target , 'w')
-    zipdir( src , zipf)
-    print "zipped all deploy files in %s to %s" % ( src, target)
-    zipf.close() 
-
+    with zipfile.ZipFile( target , mode='w') as zipf:
+        zipdir( src , zipf)
+        
 if __name__ == '__main__':
-    SOURCE = os.path.abspath( os.path.dirname( __file__ ) + "/.." )
-    TARGET = os.path.join( SOURCE , "build/%s.zip" % PROJECT )
+    SOURCE = os.path.dirname( os.path.dirname(os.path.realpath(__file__)) )
+    TARGET = os.path.join( SOURCE , "build", "{}.zip".format( PROJECT ) )
     main(SOURCE, TARGET)

@@ -19,29 +19,33 @@ geopunt4qgisdialog
 *                                                                         *
 ***************************************************************************/
 """
-from PyQt4 import QtCore, QtGui
-from ui_geopunt4qgis import Ui_geopunt4Qgis
-from qgis.core import *
+from __future__ import absolute_import
+from builtins import str
+from qgis.PyQt.QtCore import Qt, QSettings, QCoreApplication, QTranslator
+from qgis.PyQt.QtWidgets import QDialog, QCompleter, QSizePolicy, QPushButton, QDialogButtonBox, QInputDialog
+from qgis.PyQt.QtGui import QColor
+from .ui_geopunt4qgis import Ui_geopunt4Qgis
 from qgis.gui import  QgsMessageBar, QgsVertexMarker
-import geopunt, os, json, webbrowser
-import geometryhelper as gh
-from settings import settings
+import os, json, webbrowser
+from .geopunt import Adres
+from .geometryhelper import geometryhelper
+from .settings import settings
 
-class geopunt4QgisAdresDialog(QtGui.QDialog):
+class geopunt4QgisAdresDialog(QDialog):
     def __init__(self, iface):
-        QtGui.QDialog.__init__(self, None)
-        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
+        QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~Qt.WindowContextHelpButtonHint )
         self.iface = iface
     
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "nl")
+        locale = QSettings().value("locale/userLocale", "nl")
         if not locale: locale == 'nl' 
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
-            self.translator = QtCore.QTranslator()
+            self.translator = QTranslator()
             self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
     
         self._initGui()
 
@@ -51,11 +55,11 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.ui.setupUi(self)
         
         #get settings
-        self.s = QtCore.QSettings()
+        self.s = QSettings()
         self.loadSettings()
         
         #setup geometryHelper object
-        self.gh = gh.geometryHelper(self.iface)
+        self.gh = geometryHelper(self.iface)
         
         #create graphicsLayer
         self.graphicsLayer = []
@@ -64,13 +68,13 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),  "data/gemeentenVL.json")) )
         gemeenteNamen =  [str( n["Naam"]) for n in gemeentes]
         self.ui.gemeenteBox.addItems( gemeenteNamen )
-        self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate(
+        self.ui.gemeenteBox.setEditText(QCoreApplication.translate(
                   "geopunt4QgisAdresDialog", "gemeente"))
         self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
         self.ui.gemeenteBox.setFocus()
         
-        self.completer = QtGui.QCompleter( self )
-        self.completerModel = QtGui.QStringListModel( self )
+        self.completer = QCompleter( self )
+        self.completerModel = QStringListModel( self )
         self.ui.gemeenteBox.setCompleter( self.completer )
         self.completer.setModel( self.completerModel )
         self.completer.setCaseSensitivity(False)
@@ -78,10 +82,10 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         
         #setup a message bar
         self.bar = QgsMessageBar() 
-        self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
+        self.bar.setSizePolicy( QSizePolicy.Minimum, QSizePolicy.Fixed )
         self.ui.verticalLayout.addWidget(self.bar)
         
-        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole )
+        self.ui.buttonBox.addButton( QPushButton("Sluiten"), QDialogButtonBox.RejectRole )
         for btn in self.ui.buttonBox.buttons():
             btn.setAutoDefault(0)
             
@@ -110,7 +114,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         else:
             self.proxy = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
-        self.gp = geopunt.Adres(self.timeout, self.proxy)
+        self.gp = Adres(self.timeout, self.proxy)
         
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-adres")
@@ -120,7 +124,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.bar.clearWidgets()
     
         gemeente = self.ui.gemeenteBox.currentText() 
-        if gemeente <> QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","gemeente"):
+        if gemeente != QCoreApplication.translate("geopunt4QgisAdresDialog","gemeente"):
           self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #000000}')
     
           txt = self.ui.zoekText.text() +", "+ gemeente
@@ -128,7 +132,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
           suggesties = self.gp.fetchSuggestion( txt , 25 )
       
           self.ui.resultLijst.clear()
-          if type( suggesties ) is list and len(suggesties) <> 0:
+          if type( suggesties ) is list and len(suggesties) != 0:
             self.ui.resultLijst.addItems(suggesties)
             if len(suggesties) == 1:
               self.ui.resultLijst.setCurrentRow(0)
@@ -176,18 +180,18 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
             m = QgsVertexMarker(self.iface.mapCanvas())
             self.graphicsLayer.append(m)
             m.setCenter(QgsPoint(x,y))
-            m.setColor(QtGui.QColor(255,255,0))
+            m.setColor(QColor(255,255,0))
             m.setIconSize(1)
             m.setIconType(QgsVertexMarker.ICON_BOX) 
             m.setPenWidth(9)
         
         elif type( locations ) is str:
           self.bar.pushMessage(
-            QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"), 
+            QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"), 
                 locations, level=QgsMessageBar.WARNING, duration=3)
         else:
           self.bar.pushMessage("Error", 
-            QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog","onbekende fout"),
+            QCoreApplication.translate("geopunt4QgisAdresDialog","onbekende fout"),
                 level=QgsMessageBar.CRITICAL, duration=3)
         
     def _addToMap(self, txt):
@@ -207,9 +211,9 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
       
     def layernameValid(self):   
         if not hasattr(self, 'layerName'):
-          layerName, accept = QtGui.QInputDialog.getText(None,
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
-              QtCore.QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
+          layerName, accept = QInputDialog.getText(None,
+              QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
+              QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
           if accept == False: 
              return False
           else: 
@@ -220,7 +224,7 @@ class geopunt4QgisAdresDialog(QtGui.QDialog):
         self.bar.clearWidgets()
         self.ui.resultLijst.clear()
         self.ui.zoekText.setText("")
-        self.ui.gemeenteBox.setEditText(QtCore.QCoreApplication.translate("geopunt4QgisAdresDialog" ,"gemeente"))
+        self.ui.gemeenteBox.setEditText(QCoreApplication.translate("geopunt4QgisAdresDialog" ,"gemeente"))
         self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
         self._clearGraphicsLayer()
     

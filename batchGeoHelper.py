@@ -19,13 +19,16 @@ batcGeoHelper
 *                                                                         *
 ***************************************************************************/
 """
-import os.path, codecs
-from PyQt4.QtCore import *
-from PyQt4.QtGui import QFileDialog
-from qgis.core import *
-from geometryhelper import geometryHelper
+from __future__ import absolute_import
+from builtins import object
+import os.path
+from .geometryhelper import geometryHelper
+from qgis.PyQt.QtCore import QVariant
+from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.core import QgsField, QgsVectorLayer, QgsProject, QgsFeature, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter 
 
-class batcGeoHelper:
+
+class batcGeoHelper(object):
   def __init__(self,iface, parent, startFolder="" ):
       self.iface = iface
       self.parent = parent
@@ -37,7 +40,7 @@ class batcGeoHelper:
     
   def _createAttributeTable(self, tableDict, allString=True):
       attributeTable = []
-      for name, var in tableDict.items():
+      for name, var in list(tableDict.items()):
         typeVar = QVariant.String
         if not allString and var.lstrip("-").isdigit():
              typeVar = QVariant.Int 
@@ -51,7 +54,7 @@ class batcGeoHelper:
     
     mapcrs = geometryHelper.getGetMapCrs( self.iface )
     
-    if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid):
+    if not QgsProject.instance().mapLayer(self.adreslayerid):
         attributes = self._createAttributeTable( attritableDict )
         attributes += [QgsField("crabAdres", QVariant.String), QgsField("crabtype", QVariant.String)]
         self.adreslayer = QgsVectorLayer("Point", layername, "memory")
@@ -71,7 +74,7 @@ class batcGeoHelper:
     #populate fields
     fet['crabAdres'] = address
     fet['crabtype'] = typeAddress
-    for name, var in attritableDict.items():
+    for name, var in list(attritableDict.items()):
        field = self.adresProvider.fieldNameMap()[name]
        fet.setAttribute(field,var)
     self.adresProvider.addFeatures([ fet ])
@@ -82,7 +85,7 @@ class batcGeoHelper:
     
     #  set id, add to map, refresh
     self.adreslayerid = self.adreslayer.id()
-    QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
+    QgsProject.instance().addMapLayer(self.adreslayer)
     self.canvas.refresh()
     
     
@@ -94,11 +97,11 @@ class batcGeoHelper:
         fpath, flType = save    
         error = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fpath, "utf-8", None, flType )
         if error == QgsVectorFileWriter.NoError:
-          QgsMapLayerRegistry.instance().removeMapLayer(self.adreslayerid)
+          QgsProject.instance().removeMapLayer(self.adreslayerid)
           self.adreslayer = QgsVectorLayer( fpath, layername, "ogr")
           self.adresProvider = self.adreslayer.dataProvider()
           self.adreslayerid = self.adreslayer.id()
-          QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
+          QgsProject.instance().addMapLayer(self.adreslayer)
           self.canvas.refresh()
         else: return
       else: return
@@ -112,7 +115,7 @@ class batcGeoHelper:
      'save to file'
      #filter = "Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
      filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
-     fName = QFileDialog.getSaveFileName( sender, "open file" , filter=filter, directory=startFolder)
+     fName, __, __ = QFileDialog.getSaveFileName( sender, "open file" , filter=filter, directory=startFolder)
 
      if fName: ext = os.path.splitext( fName )[1]
      else: return 

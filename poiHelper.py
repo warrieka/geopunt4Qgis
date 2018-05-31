@@ -19,12 +19,14 @@ poiHelper
 *                                                                         *
 ***************************************************************************/
 """
-from PyQt4.QtCore import *
-from qgis.core import *
-from PyQt4.QtGui import QFileDialog, QColor
+from builtins import object
+from qgis.PyQt.QtCore import QVariant
+from qgis.core import QgsField, QgsProject, QgsVectorLayer, QgsPoint, QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter, QgsPalLayerSettings
+from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.PyQt.QtGui import QColor
 import os
 
-class poiHelper:
+class poiHelper(object):
     def __init__(self , iface ):
         self.iface = iface
         self.canvas = iface.mapCanvas()
@@ -43,13 +45,13 @@ class poiHelper:
             QgsField("link", QVariant.String),
             QgsField("count", QVariant.Int) ]
     
-        if not QgsMapLayerRegistry.instance().mapLayer(self.minPoilayerid) :
+        if not QgsProject.instance().mapLayer(self.minPoilayerid) :
             self.minpoilayer = QgsVectorLayer("Point", layername, "memory")
             self.minpoiProvider = self.minpoilayer.dataProvider()
             self.minpoiProvider.addAttributes(attributes)
             self.minpoilayer.updateFields()    
         
-        fields=self.minpoilayer.pendingFields()
+        fields=self.minpoilayer.fields()
         
         for point in points["pois"]:
             pt = QgsPoint( point['location']['points'][0]['Point']['coordinates'][0], 
@@ -126,7 +128,7 @@ class poiHelper:
 
             self.minpoiProvider.addFeatures([ fet ])
         
-        if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.minPoilayerid):
+        if saveToFile and not QgsProject.instance().mapLayer(self.minPoilayerid):
             save = self._saveToFile( sender, startFolder )
             if save:
               fpath, flType = save
@@ -142,7 +144,7 @@ class poiHelper:
               return 
 
         # add layer if not already
-        QgsMapLayerRegistry.instance().addMapLayer(self.minpoilayer)
+        QgsProject.instance().addMapLayer(self.minpoilayer)
 
         # store layer id and refresh
         self.minPoilayerid = self.minpoilayer.id()
@@ -169,22 +171,22 @@ class poiHelper:
             QgsField("lastupdate", QVariant.String),
             QgsField("owner", QVariant.String) ]
     
-        if not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid) :
+        if not QgsProject.instance().mapLayer(self.poilayerid) :
             self.poilayer = QgsVectorLayer("Point", layername, "memory")
             self.poiProvider = self.poilayer.dataProvider()
             self.poiProvider.addAttributes(attributes)
             self.poilayer.updateFields()    
         
-        fields=self.poilayer.pendingFields()
+        fields=self.poilayer.fields()
         
         for point in points:
             pt = QgsPoint( point['location']['points'][0]['Point']['coordinates'][0], 
                            point['location']['points'][0]['Point']['coordinates'][1]  )
             poiId = point["id"]
-            if "categories" in point.keys() and len(point["categories"]) > 0: 
+            if "categories" in list(point.keys()) and len(point["categories"]) > 0: 
                theme = point["categories"][0]['value']
             else: theme = ''
-            if "categories" in  point.keys() and len(point["categories"]) > 1: 
+            if "categories" in  list(point.keys()) and len(point["categories"]) > 1: 
                category = point["categories"][1]['value']
             else: category = ''
             if "categories" in  point and len(point["categories"]) > 2: 
@@ -192,21 +194,21 @@ class poiHelper:
             else: poiType = ''
             
             name = point["labels"][0]["value"]
-            if "phone" in point.keys(): 
+            if "phone" in list(point.keys()): 
                phone = point["phone"]
             else: phone= ""
-            if "email" in point.keys(): 
+            if "email" in list(point.keys()): 
                email = point["email"]
             else: email= ""
             #address
-            if "address" in point['location'].keys(): 
-              if "street" in point['location']["address"].keys(): 
+            if "address" in list(point['location'].keys()): 
+              if "street" in list(point['location']["address"].keys()): 
                  straat = point['location']["address"]["street"]
               else:  straat = ''
-              if "streetnumber" in point['location']["address"].keys(): 
+              if "streetnumber" in list(point['location']["address"].keys()): 
                  huisnr = point['location']["address"]["streetnumber"]
               else:  huisnr = ''
-              if "boxnumber" in point['location']["address"].keys(): 
+              if "boxnumber" in list(point['location']["address"].keys()): 
                  busnr = point['location']["address"]["boxnumber"]
               else:  boxnr = ''
               postcode = point['location']["address"]["postalcode"]
@@ -256,7 +258,7 @@ class poiHelper:
             self.poiProvider.addFeatures([ fet ])
             self.poilayer.updateExtents()
     
-        if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.poilayerid):
+        if saveToFile and not QgsProject.instance().mapLayer(self.poilayerid):
             save = self._saveToFile( sender, startFolder )
             if save:
               fpath, flType = save
@@ -286,7 +288,7 @@ class poiHelper:
         self.poilayer.setEditType( 6, QgsVectorLayer.WebView) 
         
         # add layer if not already
-        QgsMapLayerRegistry.instance().addMapLayer(self.poilayer)
+        QgsProject.instance().addMapLayer(self.poilayer)
 
         # store layer id and refresh
         self.poilayerid = self.poilayer.id()
@@ -298,7 +300,7 @@ class poiHelper:
         filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
+        fName, __, __ = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
           if "SHP" in ext.upper():

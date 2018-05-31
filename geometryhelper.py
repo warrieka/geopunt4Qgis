@@ -19,13 +19,15 @@ geometryHelper
 *                                                                         *
 ***************************************************************************/
 """
-from PyQt4.QtCore import *
-from qgis.core import *
-from PyQt4.QtGui import QFileDialog, QColor
+from builtins import object
+import os.path
+from qgis.PyQt.QtCore import QVariant
+from qgis.core import QgsPoint, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsRectangle, QgsField, QgsProject, QgsVectorFileWriter, QgsVectorLayer, QgsFeature, QgsPalLayerSettings
+from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.PyQt.QtGui import QColor
 from qgis.gui import QgsVertexMarker
-import os
 
-class geometryHelper:
+class geometryHelper(object):
     def __init__(self , iface ):
         self.iface = iface
         self.canvas = iface.mapCanvas()
@@ -112,7 +114,7 @@ class geometryHelper:
         attributes = [QgsField("adres", QVariant.String), QgsField("type", QVariant.String)]
         mapcrs = self.getGetMapCrs(self.iface)
         
-        if not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid):
+        if not QgsProject.instance().mapLayer(self.adreslayerid):
             self.adreslayer = QgsVectorLayer("Point", layername, "memory")
             self.adresProvider = self.adreslayer.dataProvider()
             self.adresProvider.addAttributes(attributes)
@@ -137,7 +139,7 @@ class geometryHelper:
         self.adreslayer.updateExtents()
         
         # save memoryLAYER to file and replace all references    
-        if saveToFile and not QgsMapLayerRegistry.instance().mapLayer(self.adreslayerid): 
+        if saveToFile and not QgsProject.instance().mapLayer(self.adreslayerid): 
           save = self._saveToFile( sender, startFolder )
           if save:
             fpath, flType = save                
@@ -153,7 +155,7 @@ class geometryHelper:
             return
           
         #  add to map
-        QgsMapLayerRegistry.instance().addMapLayer(self.adreslayer)
+        QgsProject.instance().addMapLayer(self.adreslayer)
         
         #labels
         palyr = QgsPalLayerSettings() 
@@ -177,7 +179,7 @@ class geometryHelper:
         filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
+        fName, __, __ = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
           if "SHP" in ext.upper():

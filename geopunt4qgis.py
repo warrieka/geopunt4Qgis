@@ -19,28 +19,31 @@
  *                                                                         *
  ***************************************************************************/
 """
-# Import the PyQt and QGIS libraries
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-from qgis.gui import  QgsMessageBar, QgsVertexMarker
-from geopunt4QgisAdresdialog import geopunt4QgisAdresDialog
-from geopunt4QgisPoidialog import geopunt4QgisPoidialog
-from reverseAdresMapTool import reverseAdresMapTool
-from geopunt4QgisAbout import geopunt4QgisAboutDialog
-from geopunt4QgisSettingsdialog import geopunt4QgisSettingsDialog
-from geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
-from geopunt4QgisGipod import geopunt4QgisGipodDialog
-import geopunt4QgisElevation as elv
-from geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
-from geopunt4QgisParcel import geopunt4QgisParcelDlg
-from versionChecker import versionChecker
-import geopunt, geometryhelper
+from __future__ import absolute_import
+from builtins import str
+from builtins import object
+from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator 
+from qgis.PyQt.QtWidgets import QMessageBox, QAction, QPushButton, QInputDialog
+from qgis.PyQt.QtGui import QColor
+from qgis.core import QgsCoordinateReferenceSystem, QgsCoordinateTransform
+from qgis.gui  import QgsMessageBar, QgsVertexMarker
+from .geopunt4QgisAdresdialog import geopunt4QgisAdresDialog
+from .geopunt4QgisPoidialog import geopunt4QgisPoidialog
+from .reverseAdresMapTool import reverseAdresMapTool
+from .geopunt4QgisAbout import geopunt4QgisAboutDialog
+from .geopunt4QgisSettingsdialog import geopunt4QgisSettingsDialog
+from .geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
+from .geopunt4QgisGipod import geopunt4QgisGipodDialog
+from . import geopunt4QgisElevation as elv
+from .geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
+from .geopunt4QgisParcel import geopunt4QgisParcelDlg
+from .versionChecker import versionChecker
+from . import geopunt, geometryhelper
 import os.path, webbrowser
-from settings import settings
+from .settings import settings
 from threading import Timer
 
-class geopunt4Qgis:
+class geopunt4Qgis(object):
     def __init__(self, iface):
         'initialize'
         # Save reference to the QGIS interface

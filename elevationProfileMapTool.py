@@ -1,7 +1,7 @@
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-from qgis.gui import *
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtGui import QCursor
+from qgis.core import QgsGeometry
+from qgis.gui import QgsMapTool, QgsRubberBand
 
 class lineTool(QgsMapTool):
     def __init__(self, iface, callback):

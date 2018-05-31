@@ -19,27 +19,28 @@ geopunt4QgisAboutdialog
 *                                                                         *
 ***************************************************************************/
 """
-import os.path, codecs
-from PyQt4 import QtCore, QtGui
-from ui_geopunt4QgisAbout import Ui_aboutDlg
+from __future__ import absolute_import
+import os.path
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
+from qgis.PyQt.QtWidgets import QPushButton, QDialog, QDialogButtonBox
+from .ui_geopunt4QgisAbout import Ui_aboutDlg
 
-class geopunt4QgisAboutDialog(QtGui.QDialog):
+class geopunt4QgisAboutDialog(QDialog):
     def __init__(self):
-        QtGui.QDialog.__init__(self, None)
-        self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-        self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+        QDialog.__init__(self, None)
+        self.setWindowFlags( self.windowFlags() & ~Qt.WindowContextHelpButtonHint )
+        self.setWindowFlags( self.windowFlags() | Qt.WindowStaysOnTopHint)
 
         # initialize locale
-        locale = QtCore.QSettings().value("locale/userLocale", "en")
+        locale = QSettings().value("locale/userLocale", "en")
         if not locale: locale == 'en' 
         else: locale = locale[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 
                   'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
-            self.translator = QtCore.QTranslator()
+            self.translator = QTranslator()
             self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': 
-               QtCore.QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
             
         if 'en' in locale: 
             self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-en.html')
@@ -53,8 +54,8 @@ class geopunt4QgisAboutDialog(QtGui.QDialog):
       # Set up the user interface from Designer.
       self.ui = Ui_aboutDlg() 
       self.ui.setupUi(self)
-      self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole  )
-      with codecs.open(self.htmlFile,'r', encoding="utf-8") as html:
-           htmlTxt =  html.read()
-           self.ui.aboutText.setHtml( htmlTxt )
+      self.ui.buttonBox.addButton( QPushButton("Sluiten"), QDialogButtonBox.RejectRole  )
+      with open(self.htmlFile,'r', encoding="utf-8") as html:
+           self.ui.aboutText.setHtml( html.read() )
+
 

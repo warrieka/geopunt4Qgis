@@ -19,25 +19,27 @@ geopunt4QgisSettingsdialog
 *                                                                         *
 ***************************************************************************/
 """
-from PyQt4 import QtCore, QtGui
-from ui_geopunt4QgisSettings import Ui_settingsDlg
+from __future__ import absolute_import
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QFileDialog
+from .ui_geopunt4QgisSettings import Ui_settingsDlg
 import os
 
-class geopunt4QgisSettingsDialog(QtGui.QDialog):
+class geopunt4QgisSettingsDialog(QDialog):
     def __init__(self):
-      QtGui.QDialog.__init__(self, None)
-      self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
-      self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+      QDialog.__init__(self, None)
+      self.setWindowFlags( self.windowFlags() & ~Qt.WindowContextHelpButtonHint )
+      self.setWindowFlags( self.windowFlags() | Qt.WindowStaysOnTopHint)
         
       # initialize locale
-      locale = QtCore.QSettings().value("locale/userLocale", "nl")
+      locale = QSettings().value("locale/userLocale", "nl")
       if not locale: locale == 'en'
       else: locale = locale[0:2]
       localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
       if os.path.exists(localePath):
-          self.translator = QtCore.QTranslator()
+          self.translator = QTranslator()
           self.translator.load(localePath)
-          if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
+          QCoreApplication.installTranslator(self.translator)
 
       self._initGui()
   
@@ -47,11 +49,11 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.setupUi(self)
 
         #get and load settings
-        self.s = QtCore.QSettings()
+        self.s = QSettings()
         self.loadSettings()
         
-        self.ui.buttonBox.addButton( QtGui.QPushButton("Sluiten"), QtGui.QDialogButtonBox.RejectRole  )
-        self.ui.buttonBox.addButton( QtGui.QPushButton("Opslaan"), QtGui.QDialogButtonBox.AcceptRole  )
+        self.ui.buttonBox.addButton( QPushButton("Sluiten"), QDialogButtonBox.RejectRole  )
+        self.ui.buttonBox.addButton( QPushButton("Opslaan"), QDialogButtonBox.AcceptRole  )
             
         #event handlers, on accept:  save, on reject: return to previous 
         self.accepted.connect(self.saveSettings)
@@ -64,8 +66,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.timeOutBox.setValue(timeout)
         home = os.path.expanduser("~")
         startDir = self.s.value("geopunt4qgis/startDir", home)
-        if (isinstance(startDir, unicode) or isinstance(startDir, str)): 
-            self.ui.startDirTxt.setText( startDir)                                   
+        if isinstance(startDir, str): self.ui.startDirTxt.setText(startDir)                                   
         
         #geopunt4Qgis AdresDialog settings
         adresSearchOnEdit = int( self.s.value("geopunt4qgis/adresSearchOnEdit" , 1))
@@ -81,8 +82,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.adresSaveMemoryChk.setChecked(adresSaveMemory)
         
         adreslayerText =  self.s.value("geopunt4qgis/adreslayerText", "")
-        if (isinstance(adreslayerText, unicode) or isinstance(adreslayerText, str)): 
-            self.ui.adresLayerTxt.setText(adreslayerText)
+        if isinstance(adreslayerText, str): self.ui.adresLayerTxt.setText(adreslayerText)
         
         #geopunt4Qgis ReverseAdres Settings
         reverseSavetoFile = int( self.s.value("geopunt4qgis/reverseSavetoFile", 1))
@@ -92,8 +92,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.reverseSaveMemoryChk.setChecked(reverseSaveMemory)
         
         reverseLayerText =  self.s.value("geopunt4qgis/reverseLayerText", "")
-        if (isinstance(reverseLayerText, unicode) or isinstance(reverseLayerText, str)): 
-            self.ui.reverseLayerTxt.setText(reverseLayerText)
+        if isinstance(reverseLayerText, str): self.ui.reverseLayerTxt.setText(reverseLayerText)
         
         #geopunt4Qgis batchGeoCode settings
         batchGeoCodeSavetoFile = int( self.s.value("geopunt4qgis/batchGeoCodeSavetoFile" , 1))
@@ -103,8 +102,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.batchSaveMemoryChk.setChecked(batchGeoCodeSavetoMemory)
         
         batchLayerText = self.s.value("geopunt4qgis/batchLayerText", "")
-        if (isinstance(batchLayerText, unicode) or isinstance(batchLayerText, str)): 
-           self.ui.batchLayerTxt.setText(batchLayerText)
+        if isinstance(batchLayerText, str): self.ui.batchLayerTxt.setText(batchLayerText)
         
         batchMaxRows = int( self.s.value("geopunt4qgis/batchMaxRows", 500 ))
         self.ui.maxRowsSpinBox.setValue(batchMaxRows)	
@@ -117,8 +115,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.poiSaveMemoryChk.setChecked(poiSaveMemory)
         
         poilayerText =  self.s.value("geopunt4qgis/poilayerText", "")
-        if (isinstance(poilayerText, unicode) or isinstance(poilayerText, str)): 
-           self.ui.poiLayerTxt.setText(poilayerText)
+        if isinstance(poilayerText, str): self.ui.poiLayerTxt.setText(poilayerText)
         
         #geopunt4Qgis gipod settngs
         gipodSavetoFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
@@ -128,8 +125,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.gipodSaveMemoryChk.setChecked(poiSaveMemory)
         
         gipodLayerTxt = self.s.value("geopunt4qgis/gipodLayerTxt", "GIPOD")        
-        if (isinstance(gipodLayerTxt, unicode) or isinstance(gipodLayerTxt, str)): 
-            self.ui.gipodLayerTxt.setText(gipodLayerTxt)
+        if isinstance(gipodLayerTxt, str): self.ui.gipodLayerTxt.setText(gipodLayerTxt)
         
         #geopunt4Qgis Elevation settings
         samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
@@ -139,8 +135,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.samplesSaveMemoryChk.setChecked(samplesSaveMemory)
         
         sampleLayerTxt = self.s.value("geopunt4qgis/sampleLayerTxt", "")
-        if (isinstance(sampleLayerTxt, unicode) or isinstance(sampleLayerTxt, str)): 
-           self.ui.sampleLayerTxt.setText(sampleLayerTxt)
+        if isinstance(sampleLayerTxt, str): self.ui.sampleLayerTxt.setText(sampleLayerTxt)
         
         profileLineSavetoFile = int( self.s.value("geopunt4qgis/profileLineSavetoFile" , 1))
         self.ui.profileLineSavetoFileChk.setChecked(profileLineSavetoFile)
@@ -149,8 +144,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.profileLineSaveMemoryChk.setChecked(profileLineSaveMemory)
         
         profileLineLayerTxt = self.s.value("geopunt4qgis/profileLineLayerTxt", "")
-        if (isinstance(profileLineLayerTxt, unicode) or isinstance(profileLineLayerTxt, str)):
-            self.ui.profileLineLayerTxt.setText(profileLineLayerTxt)
+        if isinstance(profileLineLayerTxt, str): self.ui.profileLineLayerTxt.setText(profileLineLayerTxt)
         
         #geopunt4Qgis parcel settings
         parcelSavetoFile = int( self.s.value("geopunt4qgis/parcelSavetoFile", 1))
@@ -160,8 +154,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.ui.parcelSaveMemoryChk.setChecked(parcelSaveMemory)
         
         parcelLayerText =  self.s.value("geopunt4qgis/parcelLayerText", "")
-        if (isinstance(parcelLayerText, unicode) or isinstance(parcelLayerText, str)): 
-            self.ui.parcelLayerTxt.setText(parcelLayerText)
+        if isinstance(parcelLayerText, str): self.ui.parcelLayerTxt.setText(parcelLayerText)
             
  
     def saveSettings(self):
@@ -260,7 +253,7 @@ class geopunt4QgisSettingsDialog(QtGui.QDialog):
         self.s.setValue("geopunt4qgis/parcelLayerText",  parcelLayerText)
         
     def setDir(self):
-        dirpath = QtGui.QFileDialog.getExistingDirectory()
+        dirpath = QFileDialog.getExistingDirectory()
         if dirpath == None: return
         self.ui.startDirTxt.setText(dirpath)
 

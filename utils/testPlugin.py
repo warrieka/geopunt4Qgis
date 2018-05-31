@@ -20,15 +20,18 @@ testPlugin
 *                                                                         *
 ***************************************************************************/
 """
+from __future__ import print_function
 import os, shutil, zipfile, sys
 import packPlugin4upload as pack
 
 def removeExisting(target):
     if os.path.exists(target):
-      print "removing: %s ->" % target
+      # fix_print_with_import
+      print("removing: %s ->" % target)
       shutil.rmtree(target)
       if not os.path.exists(target): 
-         print "\t\t\t\t\t\t succes" 
+         # fix_print_with_import
+         print("\t\t\t\t\t\t succes") 
       else:  
          raise Exception("could not remove: "+ target +", is qgis still running?")
 
@@ -62,7 +65,8 @@ def main(targetZip, project=None, qgis_exe=None):
      removeExisting(os.path.join(targetDir,project))
   
   zf = zipfile.ZipFile( targetZip )
-  print "extracting from %s to: %s" % (targetZip, targetDir)
+  # fix_print_with_import
+  print("extracting from %s to: %s" % (targetZip, targetDir))
   zf.extractall( targetDir )
   zf.close()
   

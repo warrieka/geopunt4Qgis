@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-from PyQt4.QtCore import QSettings
-import urllib
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
+from qgis.PyQt.QtCore import QSettings
+from qgis.core import QgsNetworkAccessManager
+import sys, os, urllib.request
 
-try:
-   from qgis.core import QgsNetworkAccessManager
-   hasNetworkManager = True
-except ImportError:
-   hasNetworkManager = False
-import sys, os
-
-class settings:
+class settings(object):
     def __init__(self):
         self.s = QSettings()
         self._getProxySettings()
@@ -28,8 +26,8 @@ class settings:
 
             #https://github.com/nextgis/quickmapservices/blob/master/src/qgis_settings.py#L74L80
             if self.proxy_type == "DefaultProxy": 
-               proxies = urllib.getproxies()
-               if hasNetworkManager and len(proxies) == 0:
+               proxies = urllib.request.getproxies()
+               if len(proxies) == 0:
                   qgsNetMan = QgsNetworkAccessManager.instance() 
                   proxy = qgsNetMan.proxy().applicationProxy() 
                   self.proxyHost = proxy.hostName() 
@@ -37,7 +35,7 @@ class settings:
                   self.proxyUser = proxy.user() 
                   self.proxyPassword = proxy.password() 
 
-               elif len(proxies) > 0 and 'http' in proxies.keys():
+               elif len(proxies) > 0 and 'http' in list(proxies.keys()):
                   self.proxyUrl = proxies['http']
                   self.proxyUrlS = proxies['https']
 
