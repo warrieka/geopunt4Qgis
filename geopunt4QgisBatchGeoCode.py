@@ -32,7 +32,7 @@ from .batchGeoHelper import batcGeoHelper
 from .reverseAdresMapTool import reverseAdresMapTool
 from .settings import settings
 from .geopunt import internet_on, Adres
-from .geometryhelper import geometryhelper
+from .geometryhelper import geometryHelper
 
 class geopunt4QgisBatcGeoCodeDialog(QDialog):
     def __init__(self, iface):

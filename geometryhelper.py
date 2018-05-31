@@ -21,8 +21,9 @@ geometryHelper
 """
 from builtins import object
 import os.path
+from collections import Iterable
 from qgis.PyQt.QtCore import QVariant
-from qgis.core import QgsPoint, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsRectangle, QgsField, QgsProject, QgsVectorFileWriter, QgsVectorLayer, QgsFeature, QgsPalLayerSettings
+from qgis.core import QgsPoint, QgsPointXY, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsRectangle, QgsField, QgsProject, QgsVectorFileWriter, QgsVectorLayer, QgsFeature, QgsPalLayerSettings
 from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.PyQt.QtGui import QColor
 from qgis.gui import QgsVertexMarker
@@ -35,51 +36,53 @@ class geometryHelper(object):
     
     @staticmethod
     def getGetMapCrs(iface):
-        new24 = QGis.QGIS_VERSION_INT >= 20400
-        return ( iface.mapCanvas().mapSettings().destinationCrs() if new24
-                 else  iface.mapCanvas().mapRenderer().destinationCrs() )
+        return iface.mapCanvas().mapSettings().destinationCrs() 
         
     def prjPtToMapCrs( self, xy , fromCRS=4326 ):
-        point = QgsPoint( xy[0], xy[1] )
+        point = QgsPointXY( list(xy)[0], list(xy)[1] ) if isinstance( xy, Iterable) else QgsPointXY(xy)
         fromCrs = QgsCoordinateReferenceSystem(fromCRS)
         toCrs = self.getGetMapCrs(self.iface)
-        xform = QgsCoordinateTransform( fromCrs, toCrs )
+        xform = QgsCoordinateTransform( fromCrs, toCrs, QgsProject.instance() )
         return   xform.transform( point )
     
     def prjPtFromMapCrs( self, xy , toCRS=31370 ):
-        point = QgsPoint( xy[0], xy[1] )
+        point = QgsPointXY( list(xy)[0], list(xy)[1] ) if isinstance( xy, Iterable) else QgsPointXY(xy)
         toCrs = QgsCoordinateReferenceSystem(toCRS)
         fromCrs = self.getGetMapCrs(self.iface)
-        xform = QgsCoordinateTransform( fromCrs, toCrs )
+        xform = QgsCoordinateTransform( fromCrs, toCrs, QgsProject.instance() )
         return   xform.transform( point )
 
     def prjLineFromMapCrs(self, lineString, toCRS=4326 ):
         fromCrs = self.getGetMapCrs(self.iface)
         toCrs = QgsCoordinateReferenceSystem(toCRS)
-        xform = QgsCoordinateTransform(fromCrs, toCrs)
-        wgsLine = [ xform.transform( xy ) for xy in  lineString.asPolyline()]
+        xform = QgsCoordinateTransform(fromCrs, toCrs, QgsProject.instance() )
+        if isinstance(lineString, QgsGeometry):
+            wgsLine = [ xform.transform( QgsPointXY(xy) ) for xy in  lineString.asPolyline()]
+        if isinstance( lineString, Iterable ):
+            wgsLine = [ xform.transform( QgsPointXY(list(xy)[0], list(xy)[1]) ) for xy in  lineString]
         return QgsGeometry.fromPolyline( wgsLine )
 
     def prjLineToMapCrs(self, lineString, fromCRS=4326 ):
         fromCrs = QgsCoordinateReferenceSystem(fromCRS)
         toCrs = self.getGetMapCrs(self.iface)
-        xform = QgsCoordinateTransform(fromCrs, toCrs)
+        xform = QgsCoordinateTransform(fromCrs, toCrs, QgsProject.instance() )
         if isinstance(lineString, QgsGeometry):
-            wgsLine = [ xform.transform( xy ) for xy in  lineString.asPolyline()]
-        if hasattr(lineString, '__iter__'):
-            wgsLine = [ xform.transform( QgsPoint(xy[0], xy[1]) ) for xy in  lineString]
+            wgsLine = [ xform.transform( QgsPointXY(xy) ) for xy in  lineString.asPolyline()]
+        if isinstance( lineString, Iterable ):
+            wgsLine = [ xform.transform( QgsPointXY(list(xy)[0], list(xy)[1]) ) for xy in  lineString]
         return QgsGeometry.fromPolyline( wgsLine )
 
     def zoomtoRec(self, xyMin, xyMax , crs=None):
         """zoom to rectangle from 2 points with given crs, default= mapCRS"""
         if crs is None:
             crs = self.getGetMapCrs(self.iface)
-            
-        maxpoint = QgsPoint(xyMax[0], xyMax[1])
-        minpoint = QgsPoint(xyMin[0], xyMin[1])
         
-        pmaxpoint = self.prjPtToMapCrs(maxpoint, crs)
-        pminpoint = self.prjPtToMapCrs(minpoint, crs)
+        #convert list ed. to QgsPoint
+        if isinstance( xyMax, Iterable ): xyMax = QgsPoint( list(xyMax)[0], list(xyMax)[1])
+        if isinstance( xyMin, Iterable ): xyMin = QgsPoint( list(xyMin)[0], list(xyMin)[1])
+        
+        pmaxpoint = self.prjPtToMapCrs(xyMax, crs)
+        pminpoint = self.prjPtToMapCrs(xyMin, crs)
         
         # Create a rectangle to cover the new extent
         rect = QgsRectangle( pmaxpoint, pminpoint )
@@ -91,8 +94,6 @@ class geometryHelper(object):
     
     def zoomtoRec2(self, bounds, crs=None):
         "zoom to rectangle from a list containing: [xmin,ymin,xmax,ymax] with given crs, default= mapCRS"
-        if not bounds or len(bounds) != 4:
-            return
         if crs is None:
             crs = self.getGetMapCrs(self.iface)
             
@@ -125,7 +126,7 @@ class geometryHelper(object):
         fet = QgsFeature(fields)
 
         #set geometry and project from mapCRS
-        xform = QgsCoordinateTransform( mapcrs, self.adreslayer.crs() )
+        xform = QgsCoordinateTransform( mapcrs, self.adreslayer.crs(), QgsProject.instance() )
         prjPoint = xform.transform( point )
         fet.setGeometry(QgsGeometry.fromPoint(prjPoint))
 

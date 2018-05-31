@@ -31,7 +31,7 @@ class reverseAdresMapTool(QgsMapTool):
 
 
     def canvasReleaseEvent(self,e):
-	"""Raise the Callback to return point to sender"""
+        """Raise the Callback to return point to sender"""
         point = self.toMapCoordinates(e.pos())
         self.callback(point)
         return None

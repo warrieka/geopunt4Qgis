@@ -21,14 +21,15 @@ geopunt4qgisdialog
 """
 from __future__ import absolute_import
 from builtins import str
-from qgis.PyQt.QtCore import Qt, QSettings, QCoreApplication, QTranslator
+from qgis.PyQt.QtCore import Qt, QSettings, QCoreApplication, QTranslator, QStringListModel
 from qgis.PyQt.QtWidgets import QDialog, QCompleter, QSizePolicy, QPushButton, QDialogButtonBox, QInputDialog
 from qgis.PyQt.QtGui import QColor
 from .ui_geopunt4qgis import Ui_geopunt4Qgis
-from qgis.gui import  QgsMessageBar, QgsVertexMarker
+from qgis.gui import QgsMessageBar, QgsVertexMarker
+from qgis.core import QgsPointXY
 import os, json, webbrowser
 from .geopunt import Adres
-from .geometryhelper import geometryhelper
+from .geometryhelper import geometryHelper
 from .settings import settings
 
 class geopunt4QgisAdresDialog(QDialog):
@@ -172,14 +173,14 @@ class geopunt4QgisAdresDialog(QDialog):
             UpperRightX = loc['BoundingBox']['UpperRight']['X_Lambert72']
             UpperRightY = loc['BoundingBox']['UpperRight']['Y_Lambert72']
         
-            self.gh.zoomtoRec(QgsPoint(LowerLeftX,LowerLeftY),QgsPoint(UpperRightX, UpperRightY), 31370)
+            self.gh.zoomtoRec(QgsPointXY(LowerLeftX,LowerLeftY),QgsPointXY(UpperRightX, UpperRightY), 31370)
         
             xlb, ylb = loc["Location"]["X_Lambert72"], loc["Location"]["Y_Lambert72"]
-            x, y = self.gh.prjPtToMapCrs(QgsPoint( xlb , ylb), 31370)
+            x, y = self.gh.prjPtToMapCrs(QgsPointXY( xlb , ylb), 31370)
         
             m = QgsVertexMarker(self.iface.mapCanvas())
             self.graphicsLayer.append(m)
-            m.setCenter(QgsPoint(x,y))
+            m.setCenter(QgsPointXY(x,y))
             m.setColor(QColor(255,255,0))
             m.setIconSize(1)
             m.setIconType(QgsVertexMarker.ICON_BOX) 
@@ -203,7 +204,7 @@ class geopunt4QgisAdresDialog(QDialog):
             adres = loc["FormattedAddress"]
             LocationType = loc["LocationType"]
         
-            pt = self.gh.prjPtToMapCrs(QgsPoint( x, y), 31370)
+            pt = self.gh.prjPtToMapCrs(QgsPointXY( x, y), 31370)
         
             self.gh.save_adres_point( pt, adres, typeAddress=LocationType, 
               layername=self.layerName, saveToFile=self.saveToFile, sender=self, 

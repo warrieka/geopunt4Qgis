@@ -27,10 +27,10 @@ from qgis.PyQt.QtGui import QIcon
 from .ui_geopunt4QgisGIPOD import Ui_gipodDlg
 import os, json, webbrowser, sys
 from .geopunt import  gipod, internet_on
-from .geometryHelper import geometryHelper
+from .geometryhelper import geometryHelper
 from .gipodHelper import gipodHelper, gipodWriter
-from datetime import date, timedelta
 from .settings import settings
+from datetime import date, timedelta
 
 class geopunt4QgisGipodDialog(QDialog):
     def __init__(self, iface):

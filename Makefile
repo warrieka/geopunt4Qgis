@@ -72,10 +72,10 @@ default: compile
 compile: $(UI_FILES) $(RESOURCE_FILES) 
 
 %_rc.py : %.qrc
-	pyrcc5 -o $*_rc.py  $<
+	pyrcc5 -o  $*_rc.py  $<
 
 %.py : %.ui
-	pyuic5 -o $@ $<
+	pyuic5 --import-from=. -o $@ $<
 
 # [KW]: extra command with my own python script, that I can also use on windows
 # workflow testPlugin.py: pack -> extract at PROFILE -> start QGIS

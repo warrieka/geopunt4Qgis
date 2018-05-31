@@ -21,16 +21,16 @@ geopunt4QgisDataCatalog
 """
 from __future__ import absolute_import
 from builtins import str
-from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QRegExp
-from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog
-from qgis.PyQt.QtGui import QStandardItem
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QRegExp, QSortFilterProxyModel, QStringListModel
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog, QSizePolicy
+from qgis.PyQt.QtGui import QStandardItem, QStandardItemModel
 from .ui_geopunt4QgisDataCatalog import Ui_geopunt4QgisDataCatalogDlg
 from qgis.core import QgsProject, QgsRasterLayer, QgsVectorLayer
 from qgis.gui import QgsMessageBar
 import os, webbrowser, sys
 from .geopunt import internet_on
 from .metadataParser import MDReader, MDdata, getWmsLayerNames, getWFSLayerNames, makeWFSuri
-from .geometryhelper import geometryhelper
+from .geometryhelper import geometryHelper
 from .settings import settings
 
 

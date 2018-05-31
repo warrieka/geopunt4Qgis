@@ -24,7 +24,7 @@ from builtins import str
 from builtins import object
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator 
 from qgis.PyQt.QtWidgets import QMessageBox, QAction, QPushButton, QInputDialog
-from qgis.PyQt.QtGui import QColor
+from qgis.PyQt.QtGui import QColor, QIcon
 from qgis.core import QgsCoordinateReferenceSystem, QgsCoordinateTransform
 from qgis.gui  import QgsMessageBar, QgsVertexMarker
 from .geopunt4QgisAdresdialog import geopunt4QgisAdresDialog
@@ -34,13 +34,14 @@ from .geopunt4QgisAbout import geopunt4QgisAboutDialog
 from .geopunt4QgisSettingsdialog import geopunt4QgisSettingsDialog
 from .geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
 from .geopunt4QgisGipod import geopunt4QgisGipodDialog
-from . import geopunt4QgisElevation as elv
+from .geopunt4QgisElevation import mathplotlibWorks, geopunt4QgisElevationDialog
 from .geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
 from .geopunt4QgisParcel import geopunt4QgisParcelDlg
 from .versionChecker import versionChecker
-from . import geopunt, geometryhelper
-import os.path, webbrowser
+from .geopunt import Adres
+from .geometryhelper import geometryHelper
 from .settings import settings
+import os.path, webbrowser
 from threading import Timer
 
 class geopunt4Qgis(object):
@@ -59,7 +60,7 @@ class geopunt4Qgis(object):
         if os.path.exists(localePath):
             self.translator = QTranslator()
             self.translator.load(localePath)
-            if qVersion() > '4.3.3': QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
 
         #version check
         if locale == 'nl':  
@@ -78,7 +79,7 @@ class geopunt4Qgis(object):
         self.poiDlg = geopunt4QgisPoidialog(self.iface)        
         self.gipodDlg = geopunt4QgisGipodDialog(self.iface)
         self.settingsDlg = geopunt4QgisSettingsDialog()
-        if elv.mathplotlibWorks : self.elevationDlg = elv.geopunt4QgisElevationDialog(self.iface)
+        if mathplotlibWorks : self.elevationDlg = geopunt4QgisElevationDialog(self.iface)
         self.datacatalogusDlg = geopunt4QgisDataCatalog(self.iface)
         self.parcelDlg = geopunt4QgisParcelDlg(self.iface)
         self.aboutDlg = geopunt4QgisAboutDialog()
@@ -89,7 +90,7 @@ class geopunt4Qgis(object):
         self.s = QSettings()
         self.loadSettings()
         
-        self.gh = geometryhelper.geometryHelper(self.iface)
+        self.gh = geometryHelper(self.iface)
         self.graphicsLayer = []
 
         # Create actions that will start plugin configuration
@@ -190,7 +191,7 @@ class geopunt4Qgis(object):
         else:
             self.proxy = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
-        self.gp = geopunt.Adres(self.timeout, self.proxy)
+        self.gp = Adres(self.timeout, self.proxy)
         
     def runSettingsDlg(self):
         ' show the dialog'
@@ -255,7 +256,7 @@ class geopunt4Qgis(object):
 
     def runElevation(self):
 
-        if elv.mathplotlibWorks == False: 
+        if mathplotlibWorks == False: 
           QMessageBox.critical(None, "Error",
              QCoreApplication.translate("geopunt4Qgis" ,
             "Deze functie kan niet geladen worden door het ontbreken van of een fout in mathplotlib") )
