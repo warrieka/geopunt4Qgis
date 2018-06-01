@@ -33,8 +33,9 @@ class gipodHelper(object):
         fd = QFileDialog()
         filter = "ESRI Shape File (*.shp);;Comma separated value File (excel) (*.csv);;geojson (*.geojson);;GML File (*.gml);;MapInfo TAB (*.tab);;SpatiaLite (*.sqlite);;KML (google earth) (*.kml)"
         fName = fd.getSaveFileName( sender, "open file", filter=filter, directory=startFolder)
+
         if fName:
-            return fName
+            return fName[0]
         else:
             return None
       
@@ -96,7 +97,7 @@ class gipodWriter(object):
         self.gipodProvider = self.gipodlayer.dataProvider()
         self.gipodProvider.addAttributes(attributes)
         self.gipodlayer.updateFields()
-        self.fields= self.gipodlayer.pendingFields()
+        self.fields= self.gipodlayer.fields()
         return self
     
     def saveGipod2file(self, filename, ftype="ESRI Shapefile" ):
@@ -111,7 +112,7 @@ class gipodWriter(object):
         fpath, name = os.path.split(filename)
     
         if fpath and os.path.exists(fpath):          
-            error = QgsVectorFileWriter.writeAsVectorFormat(self.gipodlayer , filename, "utf-8", self.gipodlayer.crs(), ftype, layerOptions= layerOptions, datasourceOptions= datasourceOptions )
+            error, errormsg = QgsVectorFileWriter.writeAsVectorFormat(self.gipodlayer , filename, "utf-8", self.gipodlayer.crs(), ftype, layerOptions= layerOptions, datasourceOptions= datasourceOptions )
             if error == QgsVectorFileWriter.NoError:
                 if ftype == "CSV": 
                     uri =( "file:///%s?delimiter=%s&xField=%s&yField=%s&crs=%s" % ( 
@@ -121,7 +122,7 @@ class gipodWriter(object):
                     self.gipodlayer = QgsVectorLayer( filename, self.layername, "ogr")
                     self.gipodProvider = self.gipodlayer.dataProvider()
             else:
-                raise gipodError( str(error.hasError()) )
+                raise gipodError( str(error.hasError()) , errormsg )
         else:
             raise gipodError( fpath + " doesn't exist" )
 
@@ -153,7 +154,7 @@ class gipodWriter(object):
           fet['patroon'] = recurrencePattern
     
         prjPt = self._makeCRSpoint( xy )
-        fet.setGeometry(QgsGeometry.fromPoint(prjPt))
+        fet.setGeometry(QgsGeometry.fromPointXY(prjPt))
     
         self.gipodProvider.addFeatures([ fet ])
     
@@ -181,8 +182,8 @@ class gipodRender(object):
           self.render =  QgsCategorizedSymbolRenderer(hinderAttr,[noHinder,hinder])
 
 class gipodError(Exception):
-    def __init__(self, message):
-      self.message = message
+    def __init__(self, erro, message=''):
+      self.message =  erro +" "+ message
     def __str__(self):
       return repr(self.message)
     

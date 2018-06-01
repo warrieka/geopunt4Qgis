@@ -22,7 +22,10 @@ geometryHelper
 import os.path
 from collections import Iterable
 from qgis.PyQt.QtCore import QVariant
-from qgis.core import Qgis, QgsPoint, QgsPointXY, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsRectangle, QgsField, QgsProject, QgsVectorFileWriter, QgsVectorLayer, QgsFeature, QgsPalLayerSettings, QgsTextFormat, QgsTextBufferSettings
+from qgis.core import (Qgis, QgsPoint, QgsPointXY, QgsCoordinateReferenceSystem, QgsCoordinateTransform, 
+                       QgsGeometry, QgsRectangle, QgsField, QgsProject, QgsVectorFileWriter, QgsVectorLayer, 
+                       QgsFeature, QgsPalLayerSettings, QgsTextFormat, QgsTextBufferSettings, 
+                       QgsVectorLayerSimpleLabeling)
 from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.PyQt.QtGui import QColor
 from qgis.gui import QgsVertexMarker
@@ -174,7 +177,7 @@ class geometryHelper(object):
         palyr.placement = QgsPalLayerSettings.Free 
 
         self.adreslayer.setLabelsEnabled(True)
-        self.adreslayer.setLabeling(palyr)
+        self.adreslayer.setLabeling( QgsVectorLayerSimpleLabeling(palyr) )
        
         # store layer id and refresh      
         self.adreslayerid = self.adreslayer.id()

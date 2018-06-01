@@ -125,17 +125,16 @@ class geopunt4QgisGipodDialog(QDialog):
         if self.data:
            fname, ftype= None , None
            if self.saveToFile:
-              fname = gipodHelper.openOutput(self.iface.mainWindow(), 
-                                                      os.path.join( self.startDir, name))
+              fname = gipodHelper.openOutput(self.iface.mainWindow(), os.path.join( self.startDir, name))
               if fname:
                 ftype = gipodHelper.checkFtype(fname)
                 if ftype == None:
-                  ftype = "ESRI Shapefile"
+                   ftype = "ESRI Shapefile"
               else:
                 self.clean()
                 return
               
-           with gipodWriter( self.iface, name , 31370, manifestation, ftype ) as gipodWriter:
+           with gipodWriter( self.iface, name , 31370, manifestation, ftype ) as gipodOut:
               for row in self.data:
                   xy = row['coordinate']["coordinates"]
                   gipodId = int( row["gipodId"] )
@@ -152,10 +151,10 @@ class geopunt4QgisGipodDialog(QDialog):
                   else:
                      initiator, recurrencePattern = None, None
                     
-                  gipodWriter.writePoint(xy, gipodId, owner, description, startDateTime, endDateTime,
+                  gipodOut.writePoint(xy, gipodId, owner, description, startDateTime, endDateTime,
                       importantHindrance, detail, cities, initiator, recurrencePattern )
               if self.saveToFile:
-                  gipodWriter.saveGipod2file(fname,ftype)
+                  gipodOut.saveGipod2file(fname,ftype)
         else:
             QMessageBox.warning(self,
                     QCoreApplication.translate("geopunt4QgisGIPOD", "Waarschuwing"), 
