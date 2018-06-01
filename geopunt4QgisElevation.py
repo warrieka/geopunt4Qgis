@@ -20,11 +20,10 @@ geopunt4QgisElevation
 ***************************************************************************/
 """
 from __future__ import absolute_import
-from builtins import str
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy, QToolButton
 from qgis.PyQt.QtGui import QIcon
-from qgis.core import QgsRasterLayer, QgsProject
+from qgis.core import Qgis, QgsRasterLayer, QgsProject
 from qgis.gui import  QgsMessageBar, QgsVertexMarker 
 from .ui_geopunt4QgisElevation import Ui_elevationDlg
 
@@ -40,11 +39,11 @@ except:
   
 #other libs
 import os, webbrowser, sys
-from .geometryhelper import geometryHelper
-from .elevationHelper import elevationHelper
-from .elevationProfileMapTool import lineTool
+from .tools.geometry import geometryHelper
+from .tools.elevation import elevationHelper
+from .tools.settings import settings
+from .mapTools.elevationProfile import lineTool
 from .geopunt import geopuntError, elevation
-from .settings import settings
 
 class geopunt4QgisElevationDialog(QDialog):
     def __init__(self, iface):
@@ -302,9 +301,9 @@ class geopunt4QgisElevationDialog(QDialog):
                QgsProject.instance().addMapLayer(rlayer)
             else: self.bar.pushMessage("Error", 
                 QCoreApplication.translate("geopunt4QgisElevationDialog", "Kan WMS niet laden"), 
-                level=QgsMessageBar.CRITICAL, duration=10) 
+                level=Qgis.Critical, duration=10) 
         except: 
-            self.bar.pushMessage("Error", str( sys.exc_info()[1] ), level=QgsMessageBar.CRITICAL, duration=10)
+            self.bar.pushMessage("Error", str( sys.exc_info()[1] ), level=Qgis.Critical, duration=10)
             return 
         
     def plot(self):
@@ -316,7 +315,7 @@ class geopunt4QgisElevationDialog(QDialog):
         try:
             self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
         except geopuntError as ge: 
-            self.bar.pushMessage("Error", ge.message, level=QgsMessageBar.CRITICAL, duration=10)
+            self.bar.pushMessage("Error", ge.message, level=Qgis.Critical, duration=10)
             return 
         
         if np.max( [n[0] for n in self.profile ] ) > 1000: self.xscaleUnit = (0.001 , "km" )
@@ -330,7 +329,7 @@ class geopunt4QgisElevationDialog(QDialog):
            self.bar.pushMessage("Error", 
                 QCoreApplication.translate(
                   "geopunt4QgisElevationDialog", "Er werd geen of onvoldoende data gevonden"),
-                level=QgsMessageBar.WARNING, duration=5)
+                level=Qgis.Warning, duration=5)
            self.profile = None
            return 
         

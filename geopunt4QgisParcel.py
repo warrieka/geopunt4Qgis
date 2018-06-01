@@ -24,14 +24,14 @@ from builtins import str
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QStringListModel
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QCompleter
 from qgis.PyQt.QtGui import QColor
-from qgis.core import QgsGeometry
+from qgis.core import Qgis, QgsGeometry
 from qgis.gui  import QgsMessageBar, QgsRubberBand
 from .ui_geopunt4QgisParcel import Ui_geopunt4QgisParcelDlg
 import os, json, webbrowser
 from .geopunt import capakey, internet_on
-from .geometryhelper import geometryHelper
-from .parcelHelper import parcelHelper
-from .settings import settings
+from .tools.geometry import geometryHelper
+from .tools.parcel import parcelHelper
+from .tools.settings import settings
 
 class geopunt4QgisParcelDlg(QDialog):
     def __init__(self, iface):
@@ -121,7 +121,7 @@ class geopunt4QgisParcelDlg(QDialog):
              else:
                 self.bar.pushMessage(
                   QCoreApplication.translate("geopunt4QgisParcelDlg", "Waarschuwing "), 
-                  QCoreApplication.translate("geopunt4QgisParcelDlg", "Kan geen verbing maken met het internet."), level=QgsMessageBar.WARNING, duration=10)
+                  QCoreApplication.translate("geopunt4QgisParcelDlg", "Kan geen verbing maken met het internet."), level=Qgis.Warning, duration=10)
 
     def saveParcel(self):
         if not self.layernameValid(): return
@@ -157,10 +157,10 @@ class geopunt4QgisParcelDlg(QDialog):
         try:
           self.departments = self.parcel.getDepartments(niscode)
         except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
+          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
           return
         except Exception as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
+          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
           return
         self.ui.departmentCbx.setEnabled(1) 
         self.ui.departmentCbx.clear()
@@ -187,10 +187,10 @@ class geopunt4QgisParcelDlg(QDialog):
         try:
           self.sections = [n['sectionCode'] for n in self.parcel.getSections(niscode, departmentcode)]
         except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
+          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
           return
         except Exception as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
+          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
           return
 
         self.ui.sectionCbx.clear()
@@ -217,10 +217,10 @@ class geopunt4QgisParcelDlg(QDialog):
         try:
           self.parcels = self.parcel.getParcels( niscode, departmentcode, section )
         except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
+          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
           return
         except Exception as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
+          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
           return
         
         self.ui.parcelCbx.clear()
@@ -250,10 +250,10 @@ class geopunt4QgisParcelDlg(QDialog):
             self.ui.adresLine.setText(addresses)
 
         except geopunt.geopuntError as e:
-            self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
+            self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
             return
         except Exception as e:
-            self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
+            self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
             return
     
         self.ui.saveBtn.setEnabled( self.ui.parcelCbx.currentText() != '' )
@@ -310,10 +310,10 @@ class geopunt4QgisParcelDlg(QDialog):
                 return
         
         except geopunt.geopuntError as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.WARNING, duration=5)
+          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
           return
         except Exception as e:
-          self.bar.pushMessage("Error", str( e.message) , level=QgsMessageBar.CRITICAL)
+          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
           return
 
     def openHelp(self):

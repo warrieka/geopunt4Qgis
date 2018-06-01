@@ -24,7 +24,6 @@ class settings(object):
             self.proxyUser = self.s.value("proxy/proxyUser", "" )
             self.proxyPassword = self.s.value("proxy/proxyPassword", "" )
 
-            #https://github.com/nextgis/quickmapservices/blob/master/src/qgis_settings.py#L74L80
             if self.proxy_type == "DefaultProxy": 
                proxies = urllib.request.getproxies()
                if len(proxies) == 0:

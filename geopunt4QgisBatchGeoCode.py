@@ -20,19 +20,16 @@ batcGeoCodedialog
 ***************************************************************************/
 """
 from __future__ import absolute_import
-from builtins import next
-from builtins import str
-from builtins import range
 import csv, webbrowser, os.path
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox, QPushButton, QInputDialog, QComboBox, QMessageBox, QTableWidgetItem, QFileDialog
 from qgis.PyQt.QtGui import QColor
 from .ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
-from .batchGeoHelper import batcGeoHelper
-from .reverseAdresMapTool import reverseAdresMapTool
-from .settings import settings
+from .tools.batchGeo import batcGeoHelper
+from .mapTools.reverseAdres import reverseAdresMapTool
 from .geopunt import internet_on, Adres
-from .geometryhelper import geometryHelper
+from .tools.settings import settings
+from .tools.geometry import geometryHelper
 
 class geopunt4QgisBatcGeoCodeDialog(QDialog):
     def __init__(self, iface):

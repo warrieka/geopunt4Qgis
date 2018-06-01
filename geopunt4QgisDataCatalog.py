@@ -20,18 +20,17 @@ geopunt4QgisDataCatalog
 ***************************************************************************/
 """
 from __future__ import absolute_import
-from builtins import str
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QRegExp, QSortFilterProxyModel, QStringListModel
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog, QSizePolicy
 from qgis.PyQt.QtGui import QStandardItem, QStandardItemModel
 from .ui_geopunt4QgisDataCatalog import Ui_geopunt4QgisDataCatalogDlg
-from qgis.core import QgsProject, QgsRasterLayer, QgsVectorLayer
+from qgis.core import Qgis, QgsProject, QgsRasterLayer, QgsVectorLayer
 from qgis.gui import QgsMessageBar
 import os, webbrowser, sys
 from .geopunt import internet_on
-from .metadataParser import MDReader, MDdata, getWmsLayerNames, getWFSLayerNames, makeWFSuri
-from .geometryhelper import geometryHelper
-from .settings import settings
+from .geopunt.metadataParser import MDReader, MDdata, getWmsLayerNames, getWFSLayerNames, makeWFSuri
+from .tools.geometry import geometryHelper
+from .tools.settings import settings
 
 
 class geopunt4QgisDataCatalog(QDialog):
@@ -150,7 +149,7 @@ class geopunt4QgisDataCatalog(QDialog):
                     QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "),
                     QCoreApplication.translate("geopunt4QgisPoidialog",
                                                       "Kan geen verbing maken met het internet."),
-                                                      level=QgsMessageBar.WARNING, duration=3)
+                                                      level=Qgis.Warning, duration=3)
 
     # eventhandlers
     def resultViewClicked(self):
@@ -230,7 +229,7 @@ class geopunt4QgisDataCatalog(QDialog):
             else:
                 searchResult = MDdata(self.md.searchAll(self.zoek))
         except:
-            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=3)
+            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=Qgis.Critical, duration=3)
             return
 
         self.ui.countLbl.setText("Aantal gevonden: %s" % searchResult.count)
@@ -255,13 +254,13 @@ class geopunt4QgisDataCatalog(QDialog):
         try:
             lyrs = getWmsLayerNames(self.wms, self.proxy)
         except:
-            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
+            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=Qgis.Critical, duration=10)
             return
         if len(lyrs) == 0:
             self.bar.pushMessage("WMS",
                                  QCoreApplication.translate("geopunt4QgisDataCatalog",
                                                                    "Kan geen lagen vinden in: %s" % self.wms),
-                                 level=QgsMessageBar.WARNING, duration=10)
+                                 level=Qgis.Warning, duration=10)
             return
         elif len(lyrs) == 1:
             layerTitle = lyrs[0][1]
@@ -289,9 +288,9 @@ class geopunt4QgisDataCatalog(QDialog):
             else:
                 self.bar.pushMessage("Error",
                                      QCoreApplication.translate("geopunt4QgisDataCatalog", "Kan WMS niet laden"),
-                                     level=QgsMessageBar.CRITICAL, duration=10)
+                                     level=Qgis.Critical, duration=10)
         except:
-            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
+            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=Qgis.Critical, duration=10)
             return
 
     def addWFS(self):
@@ -299,12 +298,12 @@ class geopunt4QgisDataCatalog(QDialog):
         try:
             lyrs = getWFSLayerNames(self.wfs, self.proxy)
         except:
-            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
+            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=Qgis.Critical, duration=10)
             return
         if len(lyrs) == 0:
             self.bar.pushMessage("WFS",
                  QCoreApplication.translate("geopunt4QgisDataCatalog",
-                 "Kan geen lagen vinden in: %s" % self.wfs), level=QgsMessageBar.WARNING, duration=10)
+                 "Kan geen lagen vinden in: %s" % self.wfs), level=Qgis.Warning, duration=10)
             return
         elif len(lyrs) == 1:
             layerTitle = lyrs[0][1]
@@ -332,7 +331,7 @@ class geopunt4QgisDataCatalog(QDialog):
           vlayer = QgsVectorLayer(wfsUri, layerTitle, "WFS")
           QgsProject.instance().addMapLayer(vlayer)
         except:
-            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
+            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=Qgis.Critical, duration=10)
             return
 
     def clean(self):

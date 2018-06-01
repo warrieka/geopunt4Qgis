@@ -19,7 +19,6 @@ geometryHelper
 *                                                                         *
 ***************************************************************************/
 """
-from builtins import object
 from qgis.PyQt.QtCore import QVariant
 from qgis.core import QgsField, QgsProject, QgsVectorLayer, QgsVectorFileWriter, QgsFeature
 from qgis.PyQt.QtWidgets import QFileDialog

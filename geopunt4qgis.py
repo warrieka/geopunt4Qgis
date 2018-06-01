@@ -20,16 +20,13 @@
  ***************************************************************************/
 """
 from __future__ import absolute_import
-from builtins import str
-from builtins import object
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator 
 from qgis.PyQt.QtWidgets import QMessageBox, QAction, QPushButton, QInputDialog
 from qgis.PyQt.QtGui import QColor, QIcon
-from qgis.core import QgsCoordinateReferenceSystem, QgsCoordinateTransform
+from qgis.core import Qgis, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsProject
 from qgis.gui  import QgsMessageBar, QgsVertexMarker
 from .geopunt4QgisAdresdialog import geopunt4QgisAdresDialog
 from .geopunt4QgisPoidialog import geopunt4QgisPoidialog
-from .reverseAdresMapTool import reverseAdresMapTool
 from .geopunt4QgisAbout import geopunt4QgisAboutDialog
 from .geopunt4QgisSettingsdialog import geopunt4QgisSettingsDialog
 from .geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
@@ -37,10 +34,11 @@ from .geopunt4QgisGipod import geopunt4QgisGipodDialog
 from .geopunt4QgisElevation import mathplotlibWorks, geopunt4QgisElevationDialog
 from .geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
 from .geopunt4QgisParcel import geopunt4QgisParcelDlg
-from .versionChecker import versionChecker
 from .geopunt import Adres
-from .geometryhelper import geometryHelper
-from .settings import settings
+from .mapTools.reverseAdres import reverseAdresMapTool
+from .tools.versionChecker import versionChecker
+from .tools.geometry import geometryHelper
+from .tools.settings import settings
 import os.path, webbrowser
 from threading import Timer
 
@@ -66,7 +64,7 @@ class geopunt4Qgis(object):
         if locale == 'nl':  
            vc = versionChecker()
            if not vc.isUptoDate():
-              QMessageBox.warning(None, QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
+              QMessageBox.warning(self.iface.mainWindow(), QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
                   QCoreApplication.translate("geopunt4Qgis", 
           "Je versie van <a href='http://plugins.qgis.org/plugins/geopunt4Qgis' >geopunt4qgis</a> is niet meer "+
           "up to date. <br/>Je kunt deze upgraden via het menu:<br/> "+
@@ -316,7 +314,7 @@ class geopunt4Qgis(object):
         helpBtn.clicked.connect(self.openReverseHelp)
         widget.layout().addWidget(helpBtn)
         self.iface.messageBar().clearWidgets()
-        self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
+        self.iface.messageBar().pushWidget(widget, level=Qgis.Info)
 
         reverseAdresTool = reverseAdresMapTool(self.iface, self._reverseAdresCallback) 
         self.iface.mapCanvas().setMapTool(reverseAdresTool)
@@ -325,7 +323,7 @@ class geopunt4Qgis(object):
         self._addMarker( point )
         lam72 = QgsCoordinateReferenceSystem(31370)
         mapCrs = self.gh.getGetMapCrs(self.iface)
-        xform = QgsCoordinateTransform(mapCrs, lam72)
+        xform = QgsCoordinateTransform(mapCrs, lam72, QgsProject.instance())
         lam72clickt = xform.transform(point)
         
         #to clear or not clear that is the question
@@ -357,7 +355,7 @@ class geopunt4Qgis(object):
             widget.layout().addWidget(button)
             
             self.iface.messageBar().clearWidgets()
-            self.iface.messageBar().pushWidget(widget, level=QgsMessageBar.INFO)
+            self.iface.messageBar().pushWidget(widget, level=Qgis.Info)
     
         elif len(adres) == 0:
             self.iface.messageBar().pushMessage(QCoreApplication.translate("geopunt4Qgis","Waarschuwing"),
@@ -369,7 +367,7 @@ class geopunt4Qgis(object):
                 adres, level=QgsMessageBar.WARNING)
         else:
             self.iface.messageBar().pushMessage("Error", 
-            QCoreApplication.translate("geopunt4Qgis","onbekende fout"), level=QgsMessageBar.CRITICAL)
+            QCoreApplication.translate("geopunt4Qgis","onbekende fout"), level=Qgis.Critical)
       
     def _addReverse(self, adres):
         formattedAddress, locationType = adres["FormattedAddress"] , adres["LocationType"]

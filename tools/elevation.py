@@ -20,13 +20,12 @@ elevationHelper
 ***************************************************************************/
 """
 from __future__ import absolute_import
-from builtins import object
 import os.path
 import numpy as np
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.core import QgsProject, QgsField, QgsVectorLayer, QgsPoint, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter, QgsFeature
-from .geometryhelper import geometryHelper
+from .geometry import geometryHelper
 
 class elevationHelper(object):
     def __init__(self , iface, startFolder=None ):
@@ -57,7 +56,7 @@ class elevationHelper(object):
 
             #set geometry
             fromCrs = QgsCoordinateReferenceSystem(4326)
-            xform = QgsCoordinateTransform( fromCrs, self.sampleslayer.crs() )
+            xform = QgsCoordinateTransform( fromCrs, self.sampleslayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
             fet.setGeometry(QgsGeometry.fromPoint(prjPt))
       

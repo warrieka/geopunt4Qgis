@@ -19,11 +19,10 @@ geometryHelper
 *                                                                         *
 ***************************************************************************/
 """
-from builtins import object
 import os.path
 from collections import Iterable
 from qgis.PyQt.QtCore import QVariant
-from qgis.core import QgsPoint, QgsPointXY, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsRectangle, QgsField, QgsProject, QgsVectorFileWriter, QgsVectorLayer, QgsFeature, QgsPalLayerSettings
+from qgis.core import Qgis, QgsPoint, QgsPointXY, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsRectangle, QgsField, QgsProject, QgsVectorFileWriter, QgsVectorLayer, QgsFeature, QgsPalLayerSettings, QgsTextFormat, QgsTextBufferSettings
 from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.PyQt.QtGui import QColor
 from qgis.gui import QgsVertexMarker
@@ -77,9 +76,9 @@ class geometryHelper(object):
         if crs is None:
             crs = self.getGetMapCrs(self.iface)
         
-        #convert list ed. to QgsPoint
-        if isinstance( xyMax, Iterable ): xyMax = QgsPoint( list(xyMax)[0], list(xyMax)[1])
-        if isinstance( xyMin, Iterable ): xyMin = QgsPoint( list(xyMin)[0], list(xyMin)[1])
+        #convert list ed. to QgsPointXY
+        if isinstance( xyMax, Iterable ): xyMax = QgsPointXY( list(xyMax)[0], list(xyMax)[1])
+        if isinstance( xyMin, Iterable ): xyMin = QgsPointXY( list(xyMin)[0], list(xyMin)[1])
         
         pmaxpoint = self.prjPtToMapCrs(xyMax, crs)
         pminpoint = self.prjPtToMapCrs(xyMin, crs)
@@ -97,8 +96,8 @@ class geometryHelper(object):
         if crs is None:
             crs = self.getGetMapCrs(self.iface)
             
-        maxpoint = QgsPoint( bounds[0], bounds[1])
-        minpoint = QgsPoint( bounds[2], bounds[3])
+        maxpoint = QgsPointXY( bounds[0], bounds[1])
+        minpoint = QgsPointXY( bounds[2], bounds[3])
         
         pmaxpoint = self.prjPtToMapCrs(maxpoint, crs)
         pminpoint = self.prjPtToMapCrs(minpoint, crs)
@@ -122,13 +121,13 @@ class geometryHelper(object):
             self.adreslayer.updateFields()
 
         # add a feature
-        fields= self.adreslayer.pendingFields()
+        fields= self.adreslayer.fields()
         fet = QgsFeature(fields)
 
         #set geometry and project from mapCRS
         xform = QgsCoordinateTransform( mapcrs, self.adreslayer.crs(), QgsProject.instance() )
         prjPoint = xform.transform( point )
-        fet.setGeometry(QgsGeometry.fromPoint(prjPoint))
+        fet.setGeometry(QgsGeometry.fromPointXY(prjPoint))
 
         #populate fields
         fet['adres'] = address
@@ -159,16 +158,23 @@ class geometryHelper(object):
         QgsProject.instance().addMapLayer(self.adreslayer)
         
         #labels
+        text_format = QgsTextFormat()
+        text_format.setSize(12)
+        buffer_settings = QgsTextBufferSettings()
+        buffer_settings.setEnabled(True)
+        buffer_settings.setSize(1)
+        buffer_settings.setColor(QColor("white"))
+        
         palyr = QgsPalLayerSettings() 
-        palyr.readFromLayer( self.adreslayer ) 
+        text_format.setBuffer(buffer_settings)
+        palyr.setFormat(text_format)
+        
         palyr.enabled = True 
         palyr.fieldName = 'adres' 
         palyr.placement = QgsPalLayerSettings.Free 
-        palyr.setDataDefinedProperty(QgsPalLayerSettings.Size,True,True,'8','') 
-        palyr.dist = 1
-        palyr.bufferSize = 1
-        palyr.bufferDraw = 1
-        palyr.writeToLayer( self.adreslayer ) 
+
+        self.adreslayer.setLabelsEnabled(True)
+        self.adreslayer.setLabeling(palyr)
        
         # store layer id and refresh      
         self.adreslayerid = self.adreslayer.id()

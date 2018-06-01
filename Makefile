@@ -18,7 +18,7 @@
 # ***************************************************************************\
 
 # CONFIGURATION
-PLUGIN_UPLOAD = $(CURDIR)\utils\plugin_upload.py
+PLUGIN_UPLOAD = $(CURDIR)\script\plugin_upload.py
 
 PROFILE=D:\repo\devProfile\profiles\default
 
@@ -47,17 +47,19 @@ FORMS   = ui_geopunt4qgis.ui \
 
 TRANSLATIONS = i18n\geopunt4qgis_en.ts i18n\geopunt4qgis_nl.ts
 
-# plugin
 PLUGINNAME = geopunt4Qgis
 
-PY_FILES =  __init__.py geometryhelper.py geopunt.py \
-geopunt4qgis.py geopunt4QgisAbout.py geopunt4QgisAdresdialog.py \
-geopunt4QgisPoidialog.py geopunt4QgisSettingsdialog.py  \
-geopunt4QgisBatchGeoCode.py batchGeoHelper.py reverseAdresMapTool.py \
-geopunt4QgisGipod.py gipodHelper.py geopunt4QgisParcel.py \
-geopunt4QgisElevation.py elevationHelper.py elevationProfileMapTool.py \
-metadataParser.py geopunt4QgisDataCatalog.py versionChecker.py poiHelper.py \
-parcelHelper.py settings.py
+PY_FILES = __init__.py tools geopunt mapTools \
+		  geopunt4qgis.py \
+		  geopunt4QgisAbout.py \
+		  geopunt4QgisAdresdialog.py \
+		  geopunt4QgisPoidialog.py \
+		  geopunt4QgisSettingsdialog.py \
+		  geopunt4QgisBatchGeoCode.py  \
+		  geopunt4QgisGipod.py \
+		  geopunt4QgisParcel.py \
+		  geopunt4QgisElevation.py \
+		  geopunt4QgisDataCatalog.py 
 
 EXTRAS = images metadata.txt i18n\about-en.html i18n\about-nl.html data
 
@@ -80,17 +82,17 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 # [KW]: extra command with my own python script, that I can also use on windows
 # workflow testPlugin.py: pack -> extract at PROFILE -> start QGIS
 runplugin: compile  
-	python $(CURDIR)\utils\testPlugin.py
+	python $(CURDIR)\script\testPlugin.py
 	
 run: deploy
 	qgis --profiles-path D:\repo\devProfile
-    
+
 # The deploy  target only works on unix like operating system where
 # the Python plugin directory is located at: $HOME\$(PROFILE)\python\plugins
 # [KW]: use "make runplugin" instead on windows
 deploy: derase compile
 	mkdir $(PROFILE)\python\plugins\$(PLUGINNAME)
-	cp -vf $(PY_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
+	cp -vfr $(PY_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
 	cp -vf $(UI_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
 	cp -vf $(RESOURCE_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
 	cp -vfr $(EXTRAS) $(PROFILE)\python\plugins\$(PLUGINNAME)
@@ -110,7 +112,7 @@ derase:
 # content. You can then upload the zip file on http:\\plugins.qgis.org
 # [KW]: replaced by my own python script, that I can use on windows
 zip:
-	python $(CURDIR)\utils\packPlugin4upload.py
+	python $(CURDIR)\script\packPlugin4upload.py
 
 
 # Create a zip package of the plugin named $(PLUGINNAME).zip. 
@@ -119,9 +121,9 @@ zip:
 # To use, pass a valid commit or tag as follows:
 #   make package VERSION=v0.3
 package: clean transclean dclean
-		rm -f build\$(PLUGINNAME)-$(VERSION).zip
-		git archive --prefix=$(PLUGINNAME)\ -o build\$(PLUGINNAME)-$(VERSION).zip $(VERSION)
-		echo "Created package: $(PLUGINNAME)-$(VERSION).zip"
+	rm -f build\$(PLUGINNAME)-$(VERSION).zip
+	git archive --prefix=$(PLUGINNAME)\ -o build\$(PLUGINNAME)-$(VERSION).zip $(VERSION)
+	echo "Created package: $(PLUGINNAME)-$(VERSION).zip"
 
 upload: zip
 	$(PLUGIN_UPLOAD) build\$(PLUGINNAME).zip
@@ -132,7 +134,7 @@ upload: zip
 transup: 
 	pylupdate Makefile
 	lrelease i18n\*.ts
-	utils\compile_html_translations.sh
+	script\compile_html_translations.ps1
 
 # transclean
 # deletes all .qm (form .ts) and html (from .mk) files

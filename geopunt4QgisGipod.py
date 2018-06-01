@@ -27,9 +27,9 @@ from qgis.PyQt.QtGui import QIcon
 from .ui_geopunt4QgisGIPOD import Ui_gipodDlg
 import os, json, webbrowser, sys
 from .geopunt import  gipod, internet_on
-from .geometryhelper import geometryHelper
-from .gipodHelper import gipodHelper, gipodWriter
-from .settings import settings
+from .tools.geometry import geometryHelper
+from .tools.gipod import gipodHelper, gipodWriter
+from .tools.settings import settings
 from datetime import date, timedelta
 
 class geopunt4QgisGipodDialog(QDialog):

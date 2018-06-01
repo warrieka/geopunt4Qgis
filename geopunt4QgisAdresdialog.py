@@ -20,17 +20,16 @@ geopunt4qgisdialog
 ***************************************************************************/
 """
 from __future__ import absolute_import
-from builtins import str
 from qgis.PyQt.QtCore import Qt, QSettings, QCoreApplication, QTranslator, QStringListModel
 from qgis.PyQt.QtWidgets import QDialog, QCompleter, QSizePolicy, QPushButton, QDialogButtonBox, QInputDialog
 from qgis.PyQt.QtGui import QColor
 from .ui_geopunt4qgis import Ui_geopunt4Qgis
 from qgis.gui import QgsMessageBar, QgsVertexMarker
-from qgis.core import QgsPointXY
+from qgis.core import Qgis, QgsPointXY
 import os, json, webbrowser
 from .geopunt import Adres
-from .geometryhelper import geometryHelper
-from .settings import settings
+from .tools.geometry import geometryHelper
+from .tools.settings import settings
 
 class geopunt4QgisAdresDialog(QDialog):
     def __init__(self, iface):
@@ -189,11 +188,11 @@ class geopunt4QgisAdresDialog(QDialog):
         elif type( locations ) is str:
           self.bar.pushMessage(
             QCoreApplication.translate("geopunt4QgisAdresDialog","Waarschuwing"), 
-                locations, level=QgsMessageBar.WARNING, duration=3)
+                locations, level=Qgis.Warning, duration=3)
         else:
           self.bar.pushMessage("Error", 
             QCoreApplication.translate("geopunt4QgisAdresDialog","onbekende fout"),
-                level=QgsMessageBar.CRITICAL, duration=3)
+                level=Qgis.Critical, duration=3)
         
     def _addToMap(self, txt):
         if not self.layernameValid(): return

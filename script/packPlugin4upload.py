@@ -3,10 +3,9 @@ from __future__ import print_function
 import os, glob
 import zipfile
 
-
 PROJECT = "geopunt4Qgis"
 INCLUDEFILE = ["*.py", "*.txt", "*.qrc", "*.md", "*.gif", "*.jpg", "*.png", "*.html", "*.qm", "*.json", "*.xml" ] 
-INCLUDEDIR = ["images","i18n","data","ext-libs"]
+INCLUDEDIR = ["images","i18n","data","tools","geopunt","mapTools"]
 
 def makeList( src ):
   fileList = []    
@@ -30,10 +29,12 @@ def zipdir(path, zipf):
 def main(src, target):
     if os.path.exists( target ):
        os.remove(target)
+    if not os.path.exists( os.path.dirname(target) ):
+        os.path.mkdir( os.path.dirname(target) )
     with zipfile.ZipFile( target , mode='w') as zipf:
         zipdir( src , zipf)
         
 if __name__ == '__main__':
     SOURCE = os.path.dirname( os.path.dirname(os.path.realpath(__file__)) )
-    TARGET = os.path.join( SOURCE , "build", "{}.zip".format( PROJECT ) )
+    TARGET = os.path.join( SOURCE , "build" , "{}.zip".format( PROJECT ) )
     main(SOURCE, TARGET)

@@ -21,13 +21,11 @@ gipodeoHelper
 """
 from future import standard_library
 standard_library.install_aliases()
-from builtins import str
-from builtins import object
 import os.path 
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.PyQt.QtGui import QColor
-from qgis.core import QgsField, QgsCoordinateReferenceSystem, QgsVectorLayer, QgsVectorFileWriter, QgsCoordinateTransform, QgsPoint, QgsFeature, QgsGeometry, QgsProject, QgsSymbol, QgsRendererCategory, QgsCategorizedSymbolRenderer
+from qgis.core import QgsField, QgsCoordinateReferenceSystem, QgsVectorLayer, QgsVectorFileWriter, QgsCoordinateTransform, QgsPointXY, QgsFeature, QgsGeometry, QgsProject, QgsSymbol, QgsRendererCategory, QgsCategorizedSymbolRenderer
 
 class gipodHelper(object):
     @staticmethod
@@ -130,8 +128,8 @@ class gipodWriter(object):
     def _makeCRSpoint(self, xy):
         x,y = xy
         fromCrs = QgsCoordinateReferenceSystem(self.CRS)
-        xform =   QgsCoordinateTransform( fromCrs, self.gipodlayer.crs() )
-        return    xform.transform( QgsPoint( x,y ))
+        xform =   QgsCoordinateTransform( fromCrs, self.gipodlayer.crs(), QgsProject.instance() )
+        return    xform.transform( QgsPointXY( x,y ))
 
     def writePoint(self, xy, gipodId, owner, description, startDateTime, endDateTime, importantHindrance, detail, cities=[], initiator=None, recurrencePattern=None):
         fet = QgsFeature(self.fields)
@@ -141,8 +139,8 @@ class gipodWriter(object):
         if self.KML:
           fet['begin'] = startDateTime.split("T")[0]
           fet['end'] = endDateTime.split("T")[0]
-          if importantHindrance: fet['icon'] = "http://gipod.api.agiv.be/ws/v1/icon/workassignment?important=true"
-          else: fet['icon'] = "http://gipod.api.agiv.be/ws/v1/icon/workassignment?important=false"
+          if importantHindrance: fet['icon'] = "http://api.gipod.vlaanderen.be/ws/v1/icon/workassignment?important=true"
+          else: fet['icon'] = "http://api.gipod.vlaanderen.be/ws/v1/icon/workassignment?important=false"
 
         fet['beginDate'] = startDateTime
         fet['endDate'] = endDateTime

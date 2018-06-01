@@ -19,7 +19,6 @@ poiHelper
 *                                                                         *
 ***************************************************************************/
 """
-from builtins import object
 from qgis.PyQt.QtCore import QVariant
 from qgis.core import QgsField, QgsProject, QgsVectorLayer, QgsPoint, QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter, QgsPalLayerSettings
 from qgis.PyQt.QtWidgets import QFileDialog
@@ -92,7 +91,7 @@ class poiHelper(object):
 
             #set geometry
             fromCrs = QgsCoordinateReferenceSystem(4326)
-            xform = QgsCoordinateTransform( fromCrs, self.minpoilayer.crs() )
+            xform = QgsCoordinateTransform( fromCrs, self.minpoilayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
             fet.setGeometry(QgsGeometry.fromPoint(prjPt))
       
@@ -119,7 +118,7 @@ class poiHelper(object):
 
             #set geometry
             fromCrs = QgsCoordinateReferenceSystem(4326)
-            xform = QgsCoordinateTransform( fromCrs, self.minpoilayer.crs() )
+            xform = QgsCoordinateTransform( fromCrs, self.minpoilayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
             fet.setGeometry(QgsGeometry.fromPoint(prjPt))
 
@@ -233,7 +232,7 @@ class poiHelper(object):
 
             #set geometry
             fromCrs = QgsCoordinateReferenceSystem(4326)
-            xform = QgsCoordinateTransform( fromCrs, self.poilayer.crs() )
+            xform = QgsCoordinateTransform( fromCrs, self.poilayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
             fet.setGeometry(QgsGeometry.fromPoint(prjPt))
       

@@ -23,14 +23,14 @@ from __future__ import absolute_import
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QTableWidgetItem
 from qgis.PyQt.QtGui import QColor
-from qgis.core import QgsPoint
+from qgis.core import Qgis, QgsPoint
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 import os, webbrowser, json
 from .ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
-from .geometryhelper import geometryHelper
-from .poiHelper import poiHelper
+from .tools.geometry import geometryHelper
+from .tools.poi import poiHelper
 from .geopunt import Poi, internet_on
-from .settings import settings
+from .tools.settings import settings
 
 class geopunt4QgisPoidialog(QDialog):
     def __init__(self, iface):
@@ -118,7 +118,7 @@ class geopunt4QgisPoidialog(QDialog):
         QDialog.show(self)
         self.setWindowModality(0)
         if self.firstShow:
-             inet = internet_on( proxyUrl=self.proxy, timeout=self.timeout )
+             inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout)
              #filters
              if inet:
                 self.poiThemes = dict( self.poi.listPoiThemes() )
@@ -147,7 +147,7 @@ class geopunt4QgisPoidialog(QDialog):
                 self.bar.pushMessage(
                   QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "), 
                   QCoreApplication.translate("geopunt4QgisPoidialog", "Kan geen verbing maken met het internet."), 
-                  level=QgsMessageBar.WARNING, duration=3)
+                  level=Qgis.Warning, duration=3)
       
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/poi")
@@ -219,35 +219,35 @@ class geopunt4QgisPoidialog(QDialog):
             "Aantal getoond: %s gevonden: %s" % ( self.ui.resultLijst.rowCount() , self.poi.resultCount ) ))
           elif self.poi.resultCount == 0:
             self.bar.pushMessage( QCoreApplication.translate("geopunt4QgisPoidialog", 
-            "Geen resultaten gevonden voor deze zoekopdracht"), "", level=QgsMessageBar.INFO, duration=10)
+            "Geen resultaten gevonden voor deze zoekopdracht"), "", level=Qgis.Info, duration=10)
           elif self.poi.resultCount < 0:
             self.bar.pushMessage(QCoreApplication.translate("geopunt4QgisPoidialog", 
             "Het aantal gevonden kon niet worden bepaald, te complexe zoekopdracht"), 
-            "", level=QgsMessageBar.INFO, duration=10)
+            "", level=Qgis.Info, duration=10)
             self.ui.msgLbl.setText(QCoreApplication.translate("geopunt4QgisPoidialog", 
             "Aantal getoond: %s, aantal gevonden niet bepaald" % self.ui.resultLijst.rowCount() ) )
 
         elif type( suggesties ) is str:
           self.bar.pushMessage(
             QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"), 
-            suggesties, level=QgsMessageBar.WARNING)
+            suggesties, level=Qgis.Warning)
         else:
           self.bar.pushMessage("Error",
             QCoreApplication.translate("geopunt4QgisPoidialog","onbekende fout"),
-            level=QgsMessageBar.CRITICAL)
+            level=Qgis.Critical)
     
     def onZoomSelClicked(self):
         if not len( self.ui.resultLijst.selectedIndexes() ):
             self.bar.pushMessage("",
                QCoreApplication.translate("geopunt4QgisPoidialog", 
-               "Er zijn geen records geselecteerd"), level=QgsMessageBar.WARNING )
+               "Er zijn geen records geselecteerd"), level=Qgis.Warning )
             return
         
         selPois = self._getSelectedPois()
         if len(selPois) <= 0 :
           self.bar.pushMessage( QCoreApplication.translate("geopunt4QgisPoidialog", "Merk op"), 
                 QCoreApplication.translate("geopunt4QgisPoidialog", "Er niets om naar te zoomen"),
-                level=QgsMessageBar.INFO, duration=3)
+                level=Qgis.Info, duration=3)
         elif len(selPois) >= 2:
             pts = [n['location']['points'][0]['Point']['coordinates'] for n in selPois ] 
             bounds = self.gh.getBoundsOfPointArray(pts)
@@ -277,7 +277,7 @@ class geopunt4QgisPoidialog(QDialog):
     def onAddSelClicked(self):
         if not len( self.ui.resultLijst.selectedIndexes() ):
             self.bar.pushMessage("",
-               QCoreApplication.translate("geopunt4QgisPoidialog", "Er zijn geen records geselecteerd"), level=QgsMessageBar.WARNING )
+               QCoreApplication.translate("geopunt4QgisPoidialog", "Er zijn geen records geselecteerd"), level=Qgis.Warning )
             return
         
         if not self.layernameValid(): return        
@@ -348,7 +348,7 @@ class geopunt4QgisPoidialog(QDialog):
 
         if type( pts ) == str:
             self.bar.pushMessage( QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"),
-                                  pts, level=QgsMessageBar.WARNING, duration=5)
+                                  pts, level=Qgis.Warning, duration=5)
         elif type( pts ) == list or type( pts )  == dict:            
             self.ph.save_minPois_points(pts, layername=self.layerName, startFolder= os.path.join(self.startDir, self.layerName), saveToFile=self.saveToFile, sender=self )
             self.close()

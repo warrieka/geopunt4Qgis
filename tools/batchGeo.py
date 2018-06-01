@@ -20,13 +20,11 @@ batcGeoHelper
 ***************************************************************************/
 """
 from __future__ import absolute_import
-from builtins import object
 import os.path
-from .geometryhelper import geometryHelper
+from .geometry import geometryHelper
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.core import QgsField, QgsVectorLayer, QgsProject, QgsFeature, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter 
-
 
 class batcGeoHelper(object):
   def __init__(self,iface, parent, startFolder="" ):
@@ -67,7 +65,7 @@ class batcGeoHelper(object):
     fet = QgsFeature(fields)
 
     #set geometry and project from mapCRS
-    xform = QgsCoordinateTransform( mapcrs, self.adreslayer.crs() )
+    xform = QgsCoordinateTransform( mapcrs, self.adreslayer.crs(), QgsProject.instance() )
     prjPoint = xform.transform( point )
     fet.setGeometry(QgsGeometry.fromPoint(prjPoint))
 
