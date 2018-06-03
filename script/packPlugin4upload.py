@@ -30,7 +30,7 @@ def main(src, target):
     if os.path.exists( target ):
        os.remove(target)
     if not os.path.exists( os.path.dirname(target) ):
-        os.path.mkdir( os.path.dirname(target) )
+        os.mkdir( os.path.dirname(target) )
     with zipfile.ZipFile( target , mode='w') as zipf:
         zipdir( src , zipf)
         

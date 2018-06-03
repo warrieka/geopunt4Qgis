@@ -18,9 +18,7 @@
 # ***************************************************************************\
 
 # CONFIGURATION
-PLUGIN_UPLOAD = $(CURDIR)\script\plugin_upload.py
-
-PROFILE=D:\repo\devProfile\profiles\default
+PROFILE=D:\profile\
 
 # translation
 SOURCES = geopunt4qgis.py \
@@ -33,7 +31,7 @@ SOURCES = geopunt4qgis.py \
 		  geopunt4QgisElevation.py \
 		  geopunt4QgisDataCatalog.py \
 		  geopunt4QgisParcel.py   \
-		  versionChecker.py
+		  tools/versionChecker.py
 
 FORMS   = ui_geopunt4qgis.ui \
 		  ui_geopunt4QgisPoi.ui \
@@ -61,7 +59,7 @@ PY_FILES = __init__.py tools geopunt mapTools \
 		  geopunt4QgisElevation.py \
 		  geopunt4QgisDataCatalog.py 
 
-EXTRAS = images metadata.txt i18n\about-en.html i18n\about-nl.html data
+EXTRAS = images metadata.txt i18n data
 
 UI_FILES = ui_geopunt4qgis.py ui_geopunt4QgisPoi.py ui_geopunt4QgisAbout.py \
 ui_geopunt4QgisSettings.py ui_geopunt4QgisBatchGeoCode.py ui_geopunt4QgisGIPOD.py \
@@ -85,28 +83,27 @@ runplugin: compile
 	python $(CURDIR)\script\testPlugin.py
 	
 run: deploy
-	qgis --profiles-path D:\repo\devProfile
+	qgis --profiles-path $(PROFILE)
 
 # The deploy  target only works on unix like operating system where
-# the Python plugin directory is located at: $HOME\$(PROFILE)\python\plugins
 # [KW]: use "make runplugin" instead on windows
 deploy: derase compile
-	mkdir $(PROFILE)\python\plugins\$(PLUGINNAME)
-	cp -vfr $(PY_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
-	cp -vf $(UI_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
-	cp -vf $(RESOURCE_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
-	cp -vfr $(EXTRAS) $(PROFILE)\python\plugins\$(PLUGINNAME)
-	cp -vfr i18n $(PROFILE)\python\plugins\$(PLUGINNAME)
+	mkdir $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vfr $(PY_FILES) $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vf $(UI_FILES) $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vf $(RESOURCE_FILES) $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vfr $(EXTRAS) $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vfr i18n $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
 
 # The dclean target removes compiled python files from plugin directory
 # also delets any .svn entry
 dclean:
-	find $(PROFILE)\python\plugins\$(PLUGINNAME) -iname "*.pyc" -delete
-	find $(PROFILE)\python\plugins\$(PLUGINNAME) -iname ".svn" -prune -exec rm -Rf {} \;
+	find $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME) -iname "*.pyc" -delete
+	find $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME) -iname ".svn" -prune -exec rm -Rf {} \;
 
 # The derase deletes deployed plugin
 derase:
-	rm -Rf $(PROFILE)\python\plugins\$(PLUGINNAME)
+	rm -Rf $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
 
 # The zip target deploys the plugin and creates a zip file with the deployed
 # content. You can then upload the zip file on http:\\plugins.qgis.org
@@ -125,22 +122,19 @@ package: clean transclean dclean
 	git archive --prefix=$(PLUGINNAME)\ -o build\$(PLUGINNAME)-$(VERSION).zip $(VERSION)
 	echo "Created package: $(PLUGINNAME)-$(VERSION).zip"
 
-upload: zip
-	$(PLUGIN_UPLOAD) build\$(PLUGINNAME).zip
-
 # transup
 # update .ts translation files, compile to .qm and .mk to .html
 # [KW]: added custom compile_translations for html
 transup: 
-	pylupdate Makefile
-	lrelease i18n\*.ts
-	script\compile_html_translations.ps1
+	pylupdate5 Makefile
+	lrelease i18n/*.ts
+	script/compile_html_translations.sh
 
 # transclean
 # deletes all .qm (form .ts) and html (from .mk) files
 transclean:
-	rm -f i18n\*.qm
-	rm -f i18n\*.html
+	rm -f i18n/*.qm
+	rm -f i18n/*.html
 
 clean:
 	rm $(UI_FILES) $(RESOURCE_FILES)

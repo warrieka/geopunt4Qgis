@@ -21,8 +21,6 @@ geopunt
 """
 from future import standard_library
 standard_library.install_aliases()
-from builtins import str
-from builtins import object
 import urllib.request, urllib.error, urllib.parse, json, sys, datetime
 
 class Adres(object):
@@ -476,7 +474,7 @@ class elevation(object):
       geojson["LineString"] = {"coordinates": LineString , "type":"LineString" }
       geojson["Samples"] = samples
       data =  json.dumps(geojson)
-      req = urllib.request.Request(self.baseUri , data, {'Content-Type': 'application/json'})
+      req = urllib.request.Request(self.baseUri , data.encode('utf-8'), {'Content-Type': 'application/json'})
       return req
   
   def fetchElevaton(self, LineString, srs=31370, samples=50 ):

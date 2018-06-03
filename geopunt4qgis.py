@@ -253,7 +253,6 @@ class geopunt4Qgis(object):
         self.batchgeoDlg.exec_()
 
     def runElevation(self):
-
         if mathplotlibWorks == False: 
           QMessageBox.critical(None, "Error",
              QCoreApplication.translate("geopunt4Qgis" ,

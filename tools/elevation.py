@@ -24,7 +24,8 @@ import os.path
 import numpy as np
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QFileDialog
-from qgis.core import QgsProject, QgsField, QgsVectorLayer, QgsPoint, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter, QgsFeature
+from qgis.core import (QgsProject, QgsField, QgsVectorLayer, QgsPoint, QgsCoordinateReferenceSystem,
+                       QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter, QgsFeature, QgsPointXY)
 from .geometry import geometryHelper
 
 class elevationHelper(object):
@@ -45,11 +46,11 @@ class elevationHelper(object):
             self.samplesProvider.addAttributes(attributes)
             self.sampleslayer.updateFields()    
         
-        fields= self.sampleslayer.pendingFields()
+        fields= self.sampleslayer.fields()
         
         for point in pointData:
             #create the geometry
-            pt = QgsPoint( point[1], point[2] )
+            pt = QgsPointXY( point[1], point[2] )
 
             # add a feature
             fet = QgsFeature(fields)
@@ -58,7 +59,7 @@ class elevationHelper(object):
             fromCrs = QgsCoordinateReferenceSystem(4326)
             xform = QgsCoordinateTransform( fromCrs, self.sampleslayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
-            fet.setGeometry(QgsGeometry.fromPoint(prjPt))
+            fet.setGeometry(QgsGeometry.fromPointXY(prjPt))
       
             fet['name'] = profileName
             fet['dist'] =  point[0]
@@ -71,7 +72,8 @@ class elevationHelper(object):
             save = self._saveToFile( sender, os.path.join( self.startFolder, layername))
             if save:
               fpath, flType = save
-              error = QgsVectorFileWriter.writeAsVectorFormat(self.sampleslayer, fpath, "utf-8", None, flType, )
+              error, msg = QgsVectorFileWriter.writeAsVectorFormat(layer=self.sampleslayer, 
+                                              fileName=fpath, fileEncoding="utf-8", driverName=flType ) 
               if error == QgsVectorFileWriter.NoError:
                   self.sampleslayer = QgsVectorLayer( fpath , layername, "ogr")
                   self.samplesProvider = self.sampleslayer.dataProvider()
@@ -83,7 +85,7 @@ class elevationHelper(object):
               return 
 
         # add layer if not already
-        QgsProject.instance().addMapLayer(self.sampleslayer)
+        print( QgsProject.instance().addMapLayer(self.sampleslayer) )
 
         # store layer id and refresh
         self.sampleslayerid = self.sampleslayer.id()
@@ -101,7 +103,7 @@ class elevationHelper(object):
             self.profileProvider.addAttributes(attributes)
             self.profilelayer.updateFields()    
         
-        fields= self.profilelayer.pendingFields()
+        fields= self.profilelayer.fields()
 
         # add the feature
         fet = QgsFeature(fields)
@@ -124,7 +126,8 @@ class elevationHelper(object):
             save = self._saveToFile( sender, os.path.join( self.startFolder, layername ))
             if save:
               fpath, flType = save
-              error = QgsVectorFileWriter.writeAsVectorFormat(self.profilelayer, fpath, "utf-8", None, flType, )
+              error, msg = QgsVectorFileWriter.writeAsVectorFormat(layer=self.profilelayer, 
+                                    fileName=fpath, fileEncoding="utf-8", driverName=flType )
               if error == QgsVectorFileWriter.NoError:
                   self.profilelayer = QgsVectorLayer( fpath , layername, "ogr")
                   self.profileProvider = self.profilelayer.dataProvider()
@@ -144,7 +147,7 @@ class elevationHelper(object):
 
     def _saveToFile( self, sender, startFolder=None ):
         filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
-        fName, __, __ = QFileDialog.getSaveFileName( sender, "open file" , filter= filter, directory=startFolder)
+        fName, __ = QFileDialog.getSaveFileName( sender, "open file" , filter= filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
           if "SHP" in ext.upper():

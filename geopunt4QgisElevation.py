@@ -21,8 +21,9 @@ geopunt4QgisElevation
 """
 from __future__ import absolute_import
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
-from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy, QToolButton
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy,
+                                 QToolButton, QColorDialog, QInputDialog)
+from qgis.PyQt.QtGui import QIcon, QColor
 from qgis.core import Qgis, QgsRasterLayer, QgsProject
 from qgis.gui import  QgsMessageBar, QgsVertexMarker 
 from .ui_geopunt4QgisElevation import Ui_elevationDlg
@@ -312,11 +313,11 @@ class geopunt4QgisElevationDialog(QDialog):
         wgsLine = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() )
         lineString = [ list(n) for n in wgsLine.asPolyline()]
         nrSamples = self.ui.nrOfSampleSpin.value()
-        try:
-            self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
-        except geopuntError as ge: 
-            self.bar.pushMessage("Error", ge.message, level=Qgis.Critical, duration=10)
-            return 
+        #try:
+        self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
+        #except geopuntError as ge: 
+        #    self.bar.pushMessage("Error", ge.message, level=Qgis.Critical, duration=10)
+        #    return 
         
         if np.max( [n[0] for n in self.profile ] ) > 1000: self.xscaleUnit = (0.001 , "km" )
         else: self.xscaleUnit = (1 , "m" )

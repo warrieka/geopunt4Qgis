@@ -1,6 +1,6 @@
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QCursor
-from qgis.core import QgsGeometry
+from qgis.core import QgsGeometry, QgsPoint
 from qgis.gui import QgsMapTool, QgsRubberBand
 
 class lineTool(QgsMapTool):
@@ -18,20 +18,19 @@ class lineTool(QgsMapTool):
 
     def canvasReleaseEvent(self,event):
         if event.button() == Qt.RightButton:
-          self.points.append( self.toMapCoordinates(event.pos()) )
+          self.points.append(QgsPoint( self.toMapCoordinates( event.pos()) ) )
           if len(self.points) <= 1 :return
         
           self.rubberBand.setToGeometry( QgsGeometry.fromPolyline(self.points), None )
           self.callback( self.rubberBand )
           QgsMapTool.deactivate(self)
         else:
-          self.points.append( self.toMapCoordinates(event.pos()) )
+          self.points.append(QgsPoint( self.toMapCoordinates(event.pos()) ) )
           if len(self.points) <= 1 : return
-          
           self.rubberBand.setToGeometry( QgsGeometry.fromPolyline(self.points), None )
 
     def canvasDoubleClickEvent(self,event):
-        self.points.append( self.toMapCoordinates(event.pos()) )
+        self.points.append(QgsPoint( self.toMapCoordinates( event.pos()) ))
         if len(self.points) <= 1 : return
       
         self.rubberBand.setToGeometry( QgsGeometry.fromPolyline(self.points), None )

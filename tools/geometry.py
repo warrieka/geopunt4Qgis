@@ -59,9 +59,9 @@ class geometryHelper(object):
         toCrs = QgsCoordinateReferenceSystem(toCRS)
         xform = QgsCoordinateTransform(fromCrs, toCrs, QgsProject.instance() )
         if isinstance(lineString, QgsGeometry):
-            wgsLine = [ xform.transform( QgsPointXY(xy) ) for xy in  lineString.asPolyline()]
+            wgsLine = [ QgsPoint( xform.transform( QgsPointXY(xy) ) ) for xy in  lineString.asPolyline()]
         if isinstance( lineString, Iterable ):
-            wgsLine = [ xform.transform( QgsPointXY(list(xy)[0], list(xy)[1]) ) for xy in  lineString]
+            wgsLine = [ QgsPoint( xform.transform( QgsPointXY(list(xy)[0], list(xy)[1]) ) ) for xy in  lineString]
         return QgsGeometry.fromPolyline( wgsLine )
 
     def prjLineToMapCrs(self, lineString, fromCRS=4326 ):
@@ -69,9 +69,9 @@ class geometryHelper(object):
         toCrs = self.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform(fromCrs, toCrs, QgsProject.instance() )
         if isinstance(lineString, QgsGeometry):
-            wgsLine = [ xform.transform( QgsPointXY(xy) ) for xy in  lineString.asPolyline()]
+            wgsLine = [ QgsPoint( xform.transform( QgsPointXY(xy) ) ) for xy in  lineString.asPolyline()]
         if isinstance( lineString, Iterable ):
-            wgsLine = [ xform.transform( QgsPointXY(list(xy)[0], list(xy)[1]) ) for xy in  lineString]
+            wgsLine = [ QgsPoint( xform.transform( QgsPointXY(list(xy)[0], list(xy)[1]) ) ) for xy in  lineString]
         return QgsGeometry.fromPolyline( wgsLine )
 
     def zoomtoRec(self, xyMin, xyMax , crs=None):
@@ -146,7 +146,7 @@ class geometryHelper(object):
           save = self._saveToFile( sender, startFolder )
           if save:
             fpath, flType = save                
-            error = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fpath, "utf-8", None, flType)
+            error, msg = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fileName=fpath, fileEncoding="utf-8", driverName=flType)
             if error == QgsVectorFileWriter.NoError:
               self.adreslayer = QgsVectorLayer( fpath, layername, "ogr")
               self.adresProvider = self.adreslayer.dataProvider()
@@ -213,9 +213,9 @@ class geometryHelper(object):
       
     def addPointGraphic(self, xy, color="#FFFF00", size=1, pen=10, markerType=QgsVertexMarker.ICON_BOX ):
         "create a point Graphic at location xy and return it"
-        x, y = list( xy )[:2]
+        pt = QgsPoint( xy[0], xy[1] ) if isinstance( xy, Iterable) else QgsPoint(xy)
         m = QgsVertexMarker(self.canvas)
-        m.setCenter(QgsPoint(x,y))
+        m.setCenter(pt)
         m.setColor(QColor(color))
         m.setIconSize(size)
         m.setIconType(markerType) 
