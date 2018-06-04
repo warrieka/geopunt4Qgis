@@ -238,7 +238,7 @@ class metaError(Exception):
         return repr(self.message)
 
       
-def getWmsLayerNames( url='', proxyUrl=''):
+def getWmsLayerNames( url='', proxyUrl='', proxyUrlS=''):
     if (not "request=GetCapabilities" in url.lower()) or (not "service=wms" in url.lower()):
       capability = url.split("?")[0] + "?request=GetCapabilities&version=1.3.0&service=wms"
     else:
@@ -247,7 +247,7 @@ def getWmsLayerNames( url='', proxyUrl=''):
     auth = urllib2.HTTPBasicAuthHandler()
     if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
       if url.startswith("https"):
-         proxy = urllib2.ProxyHandler({'https': proxyUrl })
+         proxy = urllib2.ProxyHandler({'https': proxyUrlS })
       else:
          proxy = urllib2.ProxyHandler({'http': proxyUrl })
       opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
@@ -273,7 +273,7 @@ def getWmsLayerNames( url='', proxyUrl=''):
 
     return layerNames
 
-def getWFSLayerNames( url, proxyUrl=''):
+def getWFSLayerNames( url, proxyUrl='', proxyUrlS=''):
       if (not "request=GetCapabilities" in url.lower()) or (not "service=wfs" in url.lower()):
           capability = url.split("?")[0] + "?request=GetCapabilities&version=1.0.0&service=wfs"
       else: 
@@ -282,7 +282,7 @@ def getWFSLayerNames( url, proxyUrl=''):
       auth = urllib2.HTTPBasicAuthHandler()
       if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
          if url.startswith("https"):
-            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+            proxy = urllib2.ProxyHandler({'https': proxyUrlS })
          else:
             proxy = urllib2.ProxyHandler({'http': proxyUrl })
          opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
@@ -306,7 +306,7 @@ def getWFSLayerNames( url, proxyUrl=''):
 
       return layerNames
 
-def getWMTSlayersNames( url, proxyUrl='' ):
+def getWMTSlayersNames( url, proxyUrl='', proxyUrlS='' ):
     if (not "request=getcapabilities" in url.lower()) or (not "service=wmts" in url.lower()):
         capability = url.split("?")[0] + "?service=WMTS&request=Getcapabilities"
     else:
@@ -315,7 +315,7 @@ def getWMTSlayersNames( url, proxyUrl='' ):
     auth = urllib2.HTTPBasicAuthHandler()
     if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
          if url.startswith("https"):
-            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+            proxy = urllib2.ProxyHandler({'https': proxyUrlS })
          else:
             proxy = urllib2.ProxyHandler({'http': proxyUrl })
          opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
@@ -349,7 +349,7 @@ def getWMTSlayersNames( url, proxyUrl='' ):
 
     return layerNames
 
-def getWCSlayerNames( url, proxyUrl='' ):
+def getWCSlayerNames( url, proxyUrl='', proxyUrlS='' ):
     wcsNS = "http://www.opengis.net/wcs/1.1"
 
     if (not "request=getcapabilities" in url.lower()) or (not "service=wcs" in url.lower()):
@@ -360,7 +360,7 @@ def getWCSlayerNames( url, proxyUrl='' ):
     auth = urllib2.HTTPBasicAuthHandler()
     if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
          if url.startswith("https"):
-            proxy = urllib2.ProxyHandler({'https': proxyUrl })
+            proxy = urllib2.ProxyHandler({'https': proxyUrlS })
          else:
             proxy = urllib2.ProxyHandler({'http': proxyUrl })
          opener = urllib2.build_opener(proxy, auth, urllib2.HTTPHandler)
@@ -386,7 +386,7 @@ def getWCSlayerNames( url, proxyUrl='' ):
        DescribeCoverage = url.split("?")[0] + "?request=DescribeCoverage&version=1.1.0&service=wcs&Identifiers=" + Identifier.text
        if isinstance(proxyUrl, (unicode, str)) and proxyUrl != "":
           if url.startswith("https"):
-               proxy = urllib2.ProxyHandler({'https': proxyUrl })
+               proxy = urllib2.ProxyHandler({'https': proxyUrlS })
           else:
                proxy = urllib2.ProxyHandler({'http': proxyUrl })
           auth = urllib2.HTTPBasicAuthHandler()

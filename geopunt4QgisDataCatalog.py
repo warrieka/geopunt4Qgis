@@ -98,10 +98,13 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
 
     def loadSettings(self):
         self.timeout = int(self.s.value("geopunt4qgis/timeout", 15))
-        if settings().proxyUrl:
-            self.proxy = settings().proxyUrl
+        s = settings()
+        if s.proxyUrl:
+            self.proxy = s.proxyUrl
+            self.proxyS = s.proxyUtlS
         else:
             self.proxy = ""
+            self.proxyS = ""
 
         self.md = metadataParser.MDReader(self.timeout, self.proxy)
 
@@ -248,7 +251,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
         if crs != 'EPSG:31370' or crs != 'EPSG:3857' or crs != 'EPSG:3043':
             crs = 'EPSG:31370'
         try:
-            lyrs = metadataParser.getWmsLayerNames(self.wms, self.proxy)
+            lyrs = metadataParser.getWmsLayerNames(self.wms, self.proxy, self.proxyS)
         except:
             self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
             return
@@ -292,7 +295,7 @@ class geopunt4QgisDataCatalog(QtGui.QDialog):
     def addWFS(self):
         if self.wfs == None: return
         try:
-            lyrs = metadataParser.getWFSLayerNames(self.wfs, self.proxy)
+            lyrs = metadataParser.getWFSLayerNames(self.wfs, self.proxy, self.proxyS)
         except:
             self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=QgsMessageBar.CRITICAL, duration=10)
             return
