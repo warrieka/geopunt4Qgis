@@ -24,6 +24,8 @@ from __future__ import print_function
 import os, shutil, zipfile, sys
 import packPlugin4upload as pack
 
+PROFILE=r'E:\work\devProfile'
+
 def removeExisting(target):
     if os.path.exists(target):
       # fix_print_with_import
@@ -41,11 +43,11 @@ def main(targetZip, project=None, qgis_exe=None):
     # default: assume OSGeo4W is installed under C:\
     # try first variable qgis_exe then 32bit then 64bit
     if qgis_exe:
-      run =  lambda: os.startfile(qgis_exe)
+      run =  lambda: os.system(qgis_exe +'  --profiles-path '+ PROFILE )
     elif os.path.exists( r'C:\OSGeo4W\bin\qgis.bat' ):
-      run =  lambda: os.startfile(r'C:\OSGeo4W\bin\qgis.bat')
+      run =  lambda: os.system(r'C:\OSGeo4W\bin\qgis.bat --profiles-path '+ PROFILE )
     elif os.path.exists( r'C:\OSGeo4W64\bin\qgis.bat' ): 
-      run =  lambda: os.startfile(r'C:\OSGeo4W64\bin\qgis.bat')
+      run =  lambda: os.system(r'C:\OSGeo4W64\bin\qgis.bat --profiles-path '+ PROFILE )
     else:
       raise Exception("could not find a qgis executable")
   elif sys.platform.startswith('linux'): 
@@ -59,7 +61,7 @@ def main(targetZip, project=None, qgis_exe=None):
   else:
     raise Exception('wrong os')
   
-  targetDir = os.path.join( home , '.qgis2/python/plugins/' )
+  targetDir = PROFILE + r'\profiles\default\python\plugins'
   
   if project:
      removeExisting(os.path.join(targetDir,project))

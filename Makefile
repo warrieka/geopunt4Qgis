@@ -18,7 +18,7 @@
 # ***************************************************************************\
 
 # CONFIGURATION
-PROFILE=D:\profile\
+PROFILE=E:\work\devProfile
 
 # translation
 SOURCES = geopunt4qgis.py \
@@ -88,22 +88,22 @@ run: deploy
 # The deploy  target only works on unix like operating system where
 # [KW]: use "make runplugin" instead on windows
 deploy: derase compile
-	mkdir $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vfr $(PY_FILES) $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vf $(UI_FILES) $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vf $(RESOURCE_FILES) $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vfr $(EXTRAS) $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vfr i18n $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
+	mkdir $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vfr $(PY_FILES) $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vf $(UI_FILES) $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vf $(RESOURCE_FILES) $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vfr $(EXTRAS) $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
+	cp -vfr i18n $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
 
 # The dclean target removes compiled python files from plugin directory
 # also delets any .svn entry
 dclean:
-	find $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME) -iname "*.pyc" -delete
-	find $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME) -iname ".svn" -prune -exec rm -Rf {} \;
+	find $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME) -iname "*.pyc" -delete
+	find $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME) -iname ".svn" -prune -exec rm -Rf {} \;
 
 # The derase deletes deployed plugin
 derase:
-	rm -Rf $(PROFILE)profiles\default\python\plugins\$(PLUGINNAME)
+	rm -rf $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
 
 # The zip target deploys the plugin and creates a zip file with the deployed
 # content. You can then upload the zip file on http:\\plugins.qgis.org
