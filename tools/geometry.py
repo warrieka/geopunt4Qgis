@@ -185,14 +185,15 @@ class geometryHelper(object):
       
     def _saveToFile( self, sender, startFolder=None ):
         'save to file'
-        #"Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
-        filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
+        filter = "OGC GeoPackage (*.gpkg);;ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)" 
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName, __, __ = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
+        fName, __ = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
-          if "SHP" in ext.upper():
+          if "GPKG" in ext.upper():
+            flType = "GPKG"
+          elif "SHP" in ext.upper():
             flType = "ESRI Shapefile"
           elif "SQLITE" in ext.upper():
             flType = "SQLite" 
@@ -202,8 +203,8 @@ class geometryHelper(object):
             flType = "GML"
           elif 'TAB' in ext.upper():
             flType = 'MapInfo File'
-          elif 'KML' in ext.upper():
-            flType = 'KML'
+          elif 'CSV' in ext.upper():
+            flType = 'CSV'
           else:
             fName = fName + ".shp"
             flType = "ESRI Shapefile"
@@ -213,7 +214,7 @@ class geometryHelper(object):
       
     def addPointGraphic(self, xy, color="#FFFF00", size=1, pen=10, markerType=QgsVertexMarker.ICON_BOX ):
         "create a point Graphic at location xy and return it"
-        pt = QgsPoint( xy[0], xy[1] ) if isinstance( xy, Iterable) else QgsPoint(xy)
+        pt = QgsPoint(xy[0], xy[1]) if isinstance( xy, Iterable) else QgsPoint(xy)
         m = QgsVertexMarker(self.canvas)
         m.setCenter(pt)
         m.setColor(QColor(color))

@@ -20,7 +20,9 @@ poiHelper
 ***************************************************************************/
 """
 from qgis.PyQt.QtCore import QVariant
-from qgis.core import QgsField, QgsProject, QgsVectorLayer, QgsPoint, QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter, QgsPalLayerSettings
+from qgis.core import (QgsField, QgsProject, QgsVectorLayer, QgsPoint, QgsPointXY, 
+                       QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsVectorLayerSimpleLabeling,
+                       QgsGeometry, QgsVectorFileWriter, QgsPalLayerSettings, QgsTextBufferSettings, QgsTextFormat )
 from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.PyQt.QtGui import QColor
 import os
@@ -53,7 +55,7 @@ class poiHelper(object):
         fields=self.minpoilayer.fields()
         
         for point in points["pois"]:
-            pt = QgsPoint( point['location']['points'][0]['Point']['coordinates'][0], 
+            pt = QgsPointXY( point['location']['points'][0]['Point']['coordinates'][0], 
                            point['location']['points'][0]['Point']['coordinates'][1]  )
             poiId = point["id"]
             
@@ -93,7 +95,7 @@ class poiHelper(object):
             fromCrs = QgsCoordinateReferenceSystem(4326)
             xform = QgsCoordinateTransform( fromCrs, self.minpoilayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
-            fet.setGeometry(QgsGeometry.fromPoint(prjPt))
+            fet.setGeometry(QgsGeometry.fromPointXY(prjPt))
       
             fet['id'] = int( poiId )
             fet['straat'] = straat
@@ -108,7 +110,7 @@ class poiHelper(object):
             self.minpoiProvider.addFeatures([ fet ])
             
         for point in points["clusters"]:
-            pt = QgsPoint( point['point']['Point']['coordinates'][0], 
+            pt = QgsPointXY( point['point']['Point']['coordinates'][0], 
                            point['point']['Point']['coordinates'][1]  )
             poiType = point['point']['type']
             count = point['count']
@@ -120,7 +122,7 @@ class poiHelper(object):
             fromCrs = QgsCoordinateReferenceSystem(4326)
             xform = QgsCoordinateTransform( fromCrs, self.minpoilayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
-            fet.setGeometry(QgsGeometry.fromPoint(prjPt))
+            fet.setGeometry(QgsGeometry.fromPointXY(prjPt))
 
             fet['type'] = poiType
             fet['count'] = count
@@ -131,13 +133,13 @@ class poiHelper(object):
             save = self._saveToFile( sender, startFolder )
             if save:
               fpath, flType = save
-              error = QgsVectorFileWriter.writeAsVectorFormat(self.minpoilayer, fpath, "utf-8", None, flType, )
+              error, msg = QgsVectorFileWriter.writeAsVectorFormat(self.minpoilayer, fileName=fpath, fileEncoding="utf-8", driverName=flType ) 
               if error == QgsVectorFileWriter.NoError:
                   self.minpoilayer = QgsVectorLayer( fpath , layername, "ogr")
                   self.minpoiProvider = self.minpoilayer.dataProvider()
               else: 
                   del self.minpoilayer, self.minpoiProvider 
-                  return 
+                  raise Exception(msg) 
             else:
               del self.minpoilayer, self.minpoiProvider 
               return 
@@ -179,7 +181,7 @@ class poiHelper(object):
         fields=self.poilayer.fields()
         
         for point in points:
-            pt = QgsPoint( point['location']['points'][0]['Point']['coordinates'][0], 
+            pt = QgsPointXY( point['location']['points'][0]['Point']['coordinates'][0], 
                            point['location']['points'][0]['Point']['coordinates'][1]  )
             poiId = point["id"]
             if "categories" in list(point.keys()) and len(point["categories"]) > 0: 
@@ -234,7 +236,7 @@ class poiHelper(object):
             fromCrs = QgsCoordinateReferenceSystem(4326)
             xform = QgsCoordinateTransform( fromCrs, self.poilayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
-            fet.setGeometry(QgsGeometry.fromPoint(prjPt))
+            fet.setGeometry(QgsGeometry.fromPointXY(prjPt))
       
             fet['id'] = int( poiId )
             fet['thema'] = theme
@@ -261,31 +263,36 @@ class poiHelper(object):
             save = self._saveToFile( sender, startFolder )
             if save:
               fpath, flType = save
-              error = QgsVectorFileWriter.writeAsVectorFormat(self.poilayer, fpath, "utf-8", None, flType, )
+              error, msg = QgsVectorFileWriter.writeAsVectorFormat(self.poilayer,fileName=fpath, fileEncoding="utf-8", driverName=flType ) 
               if error == QgsVectorFileWriter.NoError:
                   self.poilayer = QgsVectorLayer( fpath , layername, "ogr")
                   self.poiProvider = self.poilayer.dataProvider()
               else: 
                   del self.poilayer, self.poiProvider 
-                  return 
+                  raise Exception( msg )
             else:
               del self.poilayer, self.poiProvider 
               return 
 
         # add Labels
+        text_format = QgsTextFormat()
+        text_format.setSize(12)
+        buffer_settings = QgsTextBufferSettings()
+        buffer_settings.setEnabled(True)
+        buffer_settings.setSize(1)
+        buffer_settings.setColor(QColor("white"))
+        
         palyr = QgsPalLayerSettings() 
-        palyr.readFromLayer( self.poilayer ) 
+        text_format.setBuffer(buffer_settings)
+        palyr.setFormat(text_format)
+        
         palyr.enabled = True 
-        palyr.fieldName = 'name' 
-        palyr.placement= QgsPalLayerSettings.Free 
-        palyr.dist = 1
-        palyr.bufferSize = 1
-        palyr.bufferDraw = 1
-        palyr.setDataDefinedProperty(QgsPalLayerSettings.Size,True,True,'8','') 
-        palyr.writeToLayer( self.poilayer ) 
-        
-        self.poilayer.setEditType( 6, QgsVectorLayer.WebView) 
-        
+        palyr.fieldName = 'naam' 
+        palyr.placement = QgsPalLayerSettings.Free 
+
+        self.poilayer.setLabelsEnabled(True)
+        self.poilayer.setLabeling( QgsVectorLayerSimpleLabeling(palyr) )
+
         # add layer if not already
         QgsProject.instance().addMapLayer(self.poilayer)
 
@@ -295,14 +302,16 @@ class poiHelper(object):
     
     def _saveToFile( self, sender, startFolder=None ):
         'save to file'
-        #"Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
-        filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
+        filter = "OGC GeoPackage (*.gpkg);;ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)" 
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName, __, __ = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
+        fName, __ = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
-          if "SHP" in ext.upper():
+          
+          if "GPKG" in ext.upper():
+            flType = "GPKG"
+          elif "SHP" in ext.upper():
             flType = "ESRI Shapefile"
           elif "SQLITE" in ext.upper():
             flType = "SQLite" 
@@ -312,8 +321,8 @@ class poiHelper(object):
             flType = "GML"
           elif 'TAB' in ext.upper():
             flType = 'MapInfo File'
-          elif 'KML' in ext.upper():
-            flType = 'KML'
+          elif 'CSV' in ext.upper():
+            flType = 'CSV'
           else:
             fName = fName + ".shp"
             flType = "ESRI Shapefile"

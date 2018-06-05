@@ -146,11 +146,13 @@ class elevationHelper(object):
         self.iface.mapCanvas().refresh()
 
     def _saveToFile( self, sender, startFolder=None ):
-        filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
+        filter = "OGC GeoPackage (*.gpkg);;ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)" 
         fName, __ = QFileDialog.getSaveFileName( sender, "open file" , filter= filter, directory=startFolder)
         if fName:
           ext = os.path.splitext( fName )[1]
-          if "SHP" in ext.upper():
+          if "GPKG" in ext.upper():
+            flType = "GPKG"
+          elif "SHP" in ext.upper():
             flType = "ESRI Shapefile"
           elif "SQLITE" in ext.upper():
             flType = "SQLite" 
@@ -160,8 +162,8 @@ class elevationHelper(object):
             flType = "GML"
           elif 'TAB' in ext.upper():    #no update possible -> hidden
             flType = 'MapInfo File'
-          elif 'KML' in ext.upper():    #no update possible -> hidden
-            flType = 'KML'
+          elif 'CSV' in ext.upper():    #no update possible -> hidden
+            flType = 'CSV'
           else:
             fName = fName + ".shp"
             flType = "ESRI Shapefile"

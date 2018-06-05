@@ -23,7 +23,7 @@ from __future__ import absolute_import
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QTableWidgetItem
 from qgis.PyQt.QtGui import QColor
-from qgis.core import Qgis, QgsPoint
+from qgis.core import Qgis, QgsPointXY
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 import os, webbrowser, json
 from .ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
@@ -268,7 +268,7 @@ class geopunt4QgisPoidialog(QDialog):
             x,y = pt
             m = QgsVertexMarker(canvas)
             self.graphicsLayer.append(m)
-            m.setCenter(QgsPoint(x,y))
+            m.setCenter(QgsPointXY(x,y))
             m.setColor(QColor(255,255,0))
             m.setIconSize(1)
             m.setIconType(QgsVertexMarker.ICON_BOX) 

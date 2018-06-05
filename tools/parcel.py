@@ -51,7 +51,7 @@ class parcelHelper(object):
             self.parcellayer.updateFields()
         
         # add a feature
-        fields= self.parcellayer.pendingFields()
+        fields= self.parcellayer.fields()
         fet = QgsFeature(fields)
 
         #set geometry and project from mapCRS
@@ -81,13 +81,13 @@ class parcelHelper(object):
           save = self._saveToFile( sender, startFolder )
           if save:
             fpath, flType = save                
-            error = QgsVectorFileWriter.writeAsVectorFormat(self.parcellayer, fpath, "utf-8", None, flType)
+            error, msg = QgsVectorFileWriter.writeAsVectorFormat(self.parcellayer,fileName=fpath, fileEncoding="utf-8", driverName=flType )
             if error == QgsVectorFileWriter.NoError:
               self.parcellayer = QgsVectorLayer( fpath, layername, "ogr")
               self.parcelProvider = self.parcellayer.dataProvider()
             else: 
               del self.parcellayer, self.parcelProvider 
-              return
+              raise Exception(msg)
           else: 
             del self.parcellayer, self.parcelProvider 
             return
@@ -100,13 +100,15 @@ class parcelHelper(object):
         self.canvas.refresh()
         
     def _saveToFile( self, sender, startFolder=None ):
-        filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
+        filter =  "OGC GeoPackage (*.gpkg);;ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)" 
         Fdlg = QFileDialog()
         Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName, __, __ = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
+        fName, __ = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
         if fName:
             ext = os.path.splitext( fName )[1]
-            if "SHP" in ext.upper():
+            if "GPKG" in ext.upper():
+              flType = "GPKG"
+            elif "SHP" in ext.upper():
               flType = "ESRI Shapefile"
             elif "SQLITE" in ext.upper():
               flType = "SQLite" 
@@ -116,8 +118,8 @@ class parcelHelper(object):
               flType = "GML"
             elif 'TAB' in ext.upper():
               flType = 'MapInfo File'
-            elif 'KML' in ext.upper():
-              flType = 'KML'
+            elif 'CSV' in ext.upper():
+              flType = 'CSV'
             else:
               fName = fName + ".shp"
               flType = "ESRI Shapefile"

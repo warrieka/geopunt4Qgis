@@ -28,7 +28,7 @@ from qgis.core import Qgis, QgsGeometry
 from qgis.gui  import QgsMessageBar, QgsRubberBand
 from .ui_geopunt4QgisParcel import Ui_geopunt4QgisParcelDlg
 import os, json, webbrowser
-from .geopunt import capakey, internet_on
+from .geopunt import capakey, internet_on, geopuntError
 from .tools.geometry import geometryHelper
 from .tools.parcel import parcelHelper
 from .tools.settings import settings
@@ -141,7 +141,7 @@ class geopunt4QgisParcelDlg(QDialog):
         parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
         shape = json.loads( parcelInfo['geometry']['shape'])
         pts = [n.asPolygon() for n in self.PolygonsFromJson( shape )]
-        mPolygon = QgsGeometry.fromMultiPolygon( pts )  
+        mPolygon = QgsGeometry.fromMultiPolygonXY( pts )  
         self.ph.save_parcel_polygon(mPolygon, parcelInfo, self.layerName, self.saveToFile,
                                  self, os.path.join(self.startDir, self.layerName))
 
@@ -156,7 +156,7 @@ class geopunt4QgisParcelDlg(QDialog):
         
         try:
           self.departments = self.parcel.getDepartments(niscode)
-        except geopunt.geopuntError as e:
+        except geopuntError as e:
           self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
           return
         except Exception as e:
@@ -186,7 +186,7 @@ class geopunt4QgisParcelDlg(QDialog):
 
         try:
           self.sections = [n['sectionCode'] for n in self.parcel.getSections(niscode, departmentcode)]
-        except geopunt.geopuntError as e:
+        except geopuntError as e:
           self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
           return
         except Exception as e:
@@ -216,7 +216,7 @@ class geopunt4QgisParcelDlg(QDialog):
       
         try:
           self.parcels = self.parcel.getParcels( niscode, departmentcode, section )
-        except geopunt.geopuntError as e:
+        except geopuntError as e:
           self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
           return
         except Exception as e:
@@ -249,7 +249,7 @@ class geopunt4QgisParcelDlg(QDialog):
             addresses = "; ".join(parcelInfo['adres'])
             self.ui.adresLine.setText(addresses)
 
-        except geopunt.geopuntError as e:
+        except geopuntError as e:
             self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
             return
         except Exception as e:
@@ -309,7 +309,7 @@ class geopunt4QgisParcelDlg(QDialog):
                 for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
                 return
         
-        except geopunt.geopuntError as e:
+        except geopuntError as e:
           self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
           return
         except Exception as e:
@@ -340,7 +340,7 @@ class geopunt4QgisParcelDlg(QDialog):
                prjRing = self.gh.prjLineToMapCrs( ring, 31370 )
                prjPolygon.append( prjRing.asPolyline() )
             
-            gPolygon = QgsGeometry.fromPolygon( prjPolygon )
+            gPolygon = QgsGeometry.fromPolygonXY( prjPolygon )
             Polygons.append( gPolygon )
         
         return Polygons
@@ -361,7 +361,7 @@ class geopunt4QgisParcelDlg(QDialog):
               prjRing = self.gh.prjLineToMapCrs( ring, 31370 )
               prjPolygon.append( prjRing.asPolyline() )
             
-            gPolygon = QgsGeometry.fromPolygon( prjPolygon )
+            gPolygon = QgsGeometry.fromPolygonXY( prjPolygon )
             Polygons.append( gPolygon )
         
         return Polygons
@@ -372,7 +372,7 @@ class geopunt4QgisParcelDlg(QDialog):
         self.graphics.append( rBand )
         rBand.setToGeometry( geom, None )
         rBand.setColor(QColor(0,0,255, 70))
-        rBand.setBorderColor(QColor(0,0,250, 220) )
+        rBand.setStrokeColor(QColor(0,0,250, 220) )
         rBand.setWidth(3)
 
     def clearGraphics(self):
