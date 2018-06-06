@@ -104,7 +104,7 @@ class geopunt4QgisParcelDlg(QDialog):
             self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))    
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )    
         self.parcel = capakey(self.timeout, self.proxy)
         
     def show(self):

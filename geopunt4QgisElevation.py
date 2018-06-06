@@ -173,7 +173,7 @@ class geopunt4QgisElevationDialog(QDialog):
         profileLineLayer= self.s.value("geopunt4qgis/profileLineLayerTxt", "")
         if profileLineLayer:
            self.profileLineLayerTxt = profileLineLayer
-        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))        
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~"))        
         self.elevation = elevation(self.timeout, self.proxy )
 
     def resizeEvent(self, event):

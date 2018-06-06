@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
-    <height>599</height>
+    <width>693</width>
+    <height>669</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -34,6 +34,9 @@
       <string>CSV-instellingen</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -86,7 +89,7 @@
           </item>
           <item>
            <property name="text">
-            <string>latin</string>
+            <string>ansi latin1</string>
            </property>
           </item>
           <item>
@@ -188,37 +191,60 @@
       <string>Adres-instellingen</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
       <item>
-       <layout class="QHBoxLayout" name="chooseWgt">
-        <item>
-         <widget class="QRadioButton" name="multipleColChk">
-          <property name="text">
-           <string>Adres in meerdere kolommen</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="singleLineChk">
-          <property name="text">
-           <string>Volledig adres in 1 kolom</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QWidget" name="adresColWgt" native="true">
+        <layout class="QHBoxLayout" name="chooseWgt">
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QRadioButton" name="multipleColChk">
+           <property name="text">
+            <string>Adres in meerdere kolommen</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="singleLineChk">
+           <property name="text">
+            <string>Volledig adres in 1 kolom</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
        <widget class="QWidget" name="adresChooseWgt" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
+        <layout class="QFormLayout" name="formLayout">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
           <widget class="QLabel" name="adresColLbl">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
            </property>
            <property name="text">
             <string>Straatnaam kolom:</string>
@@ -228,13 +254,19 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item row="0" column="1">
           <widget class="QComboBox" name="adresColSelect">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -243,33 +275,76 @@
       </item>
       <item>
        <widget class="QWidget" name="huisnrChooseWgt" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
+        <layout class="QFormLayout" name="formLayout_3">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
           <widget class="QLabel" name="huisnrLbl">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
-            <string>(Optioneel) Huisnummer kolom: </string>
+            <string>(Optioneel) Huisnummer kolom:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QComboBox" name="huisnrSelect"/>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="huisnrSelect">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
       </item>
       <item>
        <widget class="QWidget" name="gemeenteChooseWgt" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
+        <layout class="QFormLayout" name="formLayout_2">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
           <widget class="QLabel" name="gemeenteColLbl">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
            </property>
            <property name="text">
             <string>Gemeente of postcode kolom:</string>
@@ -279,13 +354,19 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item row="0" column="1">
           <widget class="QComboBox" name="gemeenteColSelect">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -298,95 +379,157 @@
    <item>
     <widget class="QFrame" name="tlFrame">
      <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+      <enum>QFrame::StyledPanel</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <property name="margin">
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <property name="spacing">
        <number>0</number>
       </property>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="zoomToSelBtn">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="toolFrame">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
         </property>
-        <property name="toolTip">
-         <string>Zoom naar selectie</string>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
         </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</iconset>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>true</bool>
-        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <property name="spacing">
+          <number>1</number>
+         </property>
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="validateBtn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Valideer alle adressen</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/plugins/geopunt4Qgis/images/validAll.png</normaloff>:/plugins/geopunt4Qgis/images/validAll.png</iconset>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="validateSelBtn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Valideer selectie</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/plugins/geopunt4Qgis/images/select.png</normaloff>:/plugins/geopunt4Qgis/images/select.png</iconset>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="zoomToSelBtn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Zoom naar selectie</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/binocularsSmall.png</iconset>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+           <property name="default">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="adresFromMapBtn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Prik locatie op kaart</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/plugins/geopunt4Qgis/images/prik.png</normaloff>:/plugins/geopunt4Qgis/images/prik.png</iconset>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </widget>
       </item>
-      <item row="4" column="1">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="validateSelBtn">
-        <property name="toolTip">
-         <string>Valideer selectie</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/plugins/geopunt4Qgis/images/select.png</normaloff>:/plugins/geopunt4Qgis/images/select.png</iconset>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="validateBtn">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Valideer alle adressen</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/plugins/geopunt4Qgis/images/validAll.png</normaloff>:/plugins/geopunt4Qgis/images/validAll.png</iconset>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" rowspan="6">
+      <item>
        <widget class="QTableWidget" name="outPutTbl">
         <property name="contextMenuPolicy">
          <enum>Qt::ActionsContextMenu</enum>
@@ -402,28 +545,11 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="adresFromMapBtn">
-        <property name="toolTip">
-         <string>Prik locatie op kaart</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/plugins/geopunt4Qgis/images/prik.png</normaloff>:/plugins/geopunt4Qgis/images/prik.png</iconset>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_9">
+    <layout class="QHBoxLayout" name="bottomBtns">
      <item>
       <widget class="QPushButton" name="addToMapKnop">
        <property name="enabled">
@@ -494,7 +620,16 @@
       <bool>false</bool>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_8">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
@@ -570,7 +705,7 @@
   <action name="actionAddValidToMap">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/plugins/geopunt4Qgis/images/qgis-icon-16x16.png</normaloff>:/plugins/geopunt4Qgis/images/qgis-icon-16x16.png</iconset>
+     <normaloff>:/plugins/geopunt4Qgis/images/addPointLayer.png</normaloff>:/plugins/geopunt4Qgis/images/addPointLayer.png</iconset>
    </property>
    <property name="text">
     <string>Voeg alle valide adressen toe aan de kaart</string>
@@ -643,8 +778,8 @@
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>409</x>
-     <y>228</y>
+     <x>107</x>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
@@ -653,34 +788,34 @@
    </hints>
   </connection>
   <connection>
-   <sender>multipleColChk</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>huisnrLbl</receiver>
-   <slot>setVisible(bool)</slot>
+   <sender>validateSelBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>actionValidateSelection</receiver>
+   <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>165</x>
-     <y>157</y>
+     <x>73</x>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
-     <x>170</x>
-     <y>248</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>multipleColChk</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>huisnrSelect</receiver>
-   <slot>setVisible(bool)</slot>
+   <sender>adresFromMapBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>adresFromMapAction</receiver>
+   <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>165</x>
-     <y>157</y>
+     <x>141</x>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
-     <x>450</x>
-     <y>248</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>

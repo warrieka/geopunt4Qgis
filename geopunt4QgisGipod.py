@@ -111,7 +111,7 @@ class geopunt4QgisGipodDialog(QDialog):
             self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))        
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )        
         self.gp = gipod(self.timeout, self.proxy)
     
     def endEditChanged(self, senderDate):

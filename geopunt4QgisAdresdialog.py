@@ -113,7 +113,7 @@ class geopunt4QgisAdresDialog(QDialog):
             self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.gp = Adres(self.timeout, self.proxy)
         
     def openHelp(self):

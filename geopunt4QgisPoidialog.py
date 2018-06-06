@@ -111,7 +111,7 @@ class geopunt4QgisPoidialog(QDialog):
             self.proxy = settings().proxyUrl
         else:
             self.proxy = ""
-        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.poi = Poi(self.timeout, self.proxy)
     
     def show(self):

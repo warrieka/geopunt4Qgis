@@ -23,7 +23,7 @@ from __future__ import absolute_import
 import csv, webbrowser, os.path
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox, QPushButton, QInputDialog, QComboBox, QMessageBox, QTableWidgetItem, QFileDialog
-from qgis.PyQt.QtGui import QColor
+from qgis.PyQt.QtGui import QColor, QBrush
 from .ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
 from .tools.batchGeo import batcGeoHelper
 from .mapTools.reverseAdres import reverseAdresMapTool
@@ -42,8 +42,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         locale = QSettings().value("locale/userLocale", "nl")
         if not locale: locale == 'nl' 
         else: locale = locale[0:2]
-        localePath = os.path.join(os.path.dirname(__file__), 'i18n', 
-                      'geopunt4qgis_{}.qm'.format(locale))
+        localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
             self.translator = QTranslator()
             self.translator.load(localePath)
@@ -89,10 +88,11 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.ui.inputBtn.clicked.connect(self.openInputCsv)
         self.ui.inputTxt.returnPressed.connect(self.loadTable)
         self.ui.delimSelect.activated.connect(self.setDelim) 
+        self.ui.codecBox.currentIndexChanged.connect(self.loadTable)
         self.ui.validateBtn.clicked.connect(self.validateAll)
-        self.ui.validateSelBtn.clicked.connect(self.validateSelection)
+        # self.ui.validateSelBtn.clicked.connect(self.validateSelection)
+        # self.ui.adresFromMapBtn.clicked.connect(self.adresFromMap)
         self.ui.addToMapKnop.clicked.connect(self.addToMap)
-        self.ui.adresFromMapBtn.clicked.connect(self.adresFromMap)
         self.ui.singleLineChk.toggled.connect(self.on_singleLineToggled)
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.finished.connect(self.clean)
@@ -109,7 +109,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         else:
             self.proxy = ""
         self.retrys = 3
-        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.dirname(__file__))
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.gp = Adres(self.timeout, self.proxy)
 
     #eventHandlers
@@ -193,6 +193,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.showMinimized()
 
     def on_singleLineToggled(self, toggled):
+       self.ui.huisnrChooseWgt.setVisible(not toggled)
        if toggled:
          self.ui.adresColLbl.setText(QCoreApplication.translate("batcGeoCodedialog", "Adres kolom:"))
        else:
@@ -215,7 +216,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
             validCombo.setEnabled(False)
             self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
             for col in range(validAdresCol):
-                self.ui.outPutTbl.item(rowIdx,col).setBackgroundColor(QColor("#DDFFDD"))
+                self.ui.outPutTbl.item(rowIdx,col).setBackground( QBrush( QColor("#DDFFDD")) )
             self.ui.outPutTbl.clearSelection()
     
     def loadTable(self):
@@ -242,7 +243,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         
         enc = None
         if self.ui.codecBox.currentText() == 'utf-8' : enc = 'utf-8'
-        elif self.ui.codecBox.currentText() == 'latin' : enc = 'latin-1'
+        elif self.ui.codecBox.currentText() == 'ansi latin1' : enc = 'latin-1'
         
         try: 
             csvReader = csv.reader(open( self.csv, 'r', encoding=enc,  newline=''), delimiter=self.delimiter)
@@ -371,20 +372,20 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
           
               if validAdres and type( validAdres ) is str: 
                 if (validAdres == 'time out') & (retry > 0): 
-                  retry -= 1                        #minus 1 retry
-                  continue
+                    retry -= 1                        #minus 1 retry
+                    continue
                 elif retry == 0:
-                  self.ui.statusMsg.setText("<div style='color:red'>timeout na %s seconden and %s pogingen</div>" % (self.timeout , self.retrys))
-                  return
+                    self.ui.statusMsg.setText("<div style='color:red'>timeout na %s seconden and %s pogingen</div>" % (self.timeout , self.retrys))
+                    return
                 self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
                 return
         
               elif validAdres and type( validAdres ) is list: 
-                if len(validAdres) > 1 and len( validAdres[0].split(',')) == 2 and len(adres.strip()): 
-                   resustNR =  validAdres[0].split(',')[0].split()[-1]
-                   adresNR = adres.split(',')[0].split()[-1]
-                   if adresNR == resustNR:
-                      validAdres = [validAdres[0]]
+                if len(validAdres) > 1 and len( validAdres[0].split(',')) >= 2 and len(adres.strip()): 
+                   print( validAdres[0] + " " + adres )
+                   resultNR =  validAdres[0].split(',')[0].split()[-1] if len(validAdres[0].split(',')[0].split()) > 0 else validAdres[0]
+                   adresNR = adres.split(',')[0].split()[-1] if len(adres.split(',')[0].split()) > 0 else adres
+                   if adresNR == resultNR: validAdres = [validAdres[0]]
                    
                 validCombo = QComboBox(self.ui.adresColSelect)
                 validCombo.addItems(validAdres)
@@ -393,16 +394,16 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
               if len(validAdres) == 1:
                   self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).setEnabled(0)
                   for col in range(len(self.headers)):
-                      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QColor("#CCFFCC"))
+                      self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#CCFFCC")) )
               elif len(validAdres) > 1:
                   self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).addItem("")
                   for col in range(len(self.headers)):
-                      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QColor("#FFFFC8"))
+                      self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#FFFFC8")) )
                       
               elif len(validAdres) == 0:
                   self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, None)
                   for col in range(len(self.headers)):
-                      self.ui.outPutTbl.item(rowIdx, col).setBackgroundColor(QColor("#FFBEBE"))
+                      self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#FFBEBE")) )
               i += 1
               retry = self.retrys
 
@@ -423,9 +424,9 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
           if self.ui.outPutTbl.cellWidget(row,adresCol):
             adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
           if adres:
-            loc = self.gp.fetchLocation(adres,1)
+            loc = self.gp.fetchLocZation(adres,1)
             if loc and type( loc ) is list:
-                xylb = ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"])
+                xylb = loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"]
                 xyMap = self.gh.prjPtToMapCrs(xylb, 31370)
                 pts.append(xyMap)
                 graphic = self.gh.addPointGraphic(xyMap)
@@ -433,7 +434,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
             elif type(loc ) is str:
                 self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
                 self.clearGraphicsLayer()
-            
           i += 1
       
         bounds = None
@@ -446,11 +446,8 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.gh.zoomtoRec2(bounds)
     
     def openInputCsv(self):
-        fd = QFileDialog()
-        filter = "Comma separated value File (.csv) (*.csv);;Text Files (.txt) (*.txt);;Any File (*.*)"
-        fd.setFileMode(QFileDialog.AnyFile)
-        #testdata:  /home/kay/projects/geopunt4Qgis/testData/vergunning2.csv
-        fName = fd.getOpenFileName( self, "open file" , self.startDir, filter)
+        filter = "Comma separated value File (*.csv) (*.csv);;Text Files (*.txt) (*.txt);;Any File (*.*)"
+        fName, _ = QFileDialog.getOpenFileName( self, "open file" , self.startDir, filter)
         if fName:
             self.ui.inputTxt.setText(fName)
             self.loadTable()

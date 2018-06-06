@@ -24,7 +24,7 @@ import os.path
 from .geometry import geometryHelper
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QFileDialog
-from qgis.core import QgsField, QgsVectorLayer, QgsProject, QgsFeature, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter 
+from qgis.core import QgsField, QgsVectorLayer, QgsProject, QgsFeature, QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter
 
 class batcGeoHelper(object):
   def __init__(self,iface, parent, startFolder="" ):
@@ -61,13 +61,13 @@ class batcGeoHelper(object):
         self.adreslayer.updateFields()
 
     # add a feature
-    fields= self.adreslayer.pendingFields()
+    fields= self.adreslayer.fields()
     fet = QgsFeature(fields)
 
     #set geometry and project from mapCRS
     xform = QgsCoordinateTransform( mapcrs, self.adreslayer.crs(), QgsProject.instance() )
     prjPoint = xform.transform( point )
-    fet.setGeometry(QgsGeometry.fromPoint(prjPoint))
+    fet.setGeometry(QgsGeometry.fromPointXY(prjPoint))
 
     #populate fields
     fet['crabAdres'] = address
@@ -93,7 +93,7 @@ class batcGeoHelper(object):
       save = self._saveToFile( self.parent, os.path.join( self.startFolder, layername ))
       if save:
         fpath, flType = save    
-        error = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fpath, "utf-8", None, flType )
+        error, msg = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fileName=fpath, fileEncoding="utf-8", driverName=flType)
         if error == QgsVectorFileWriter.NoError:
           QgsProject.instance().removeMapLayer(self.adreslayerid)
           self.adreslayer = QgsVectorLayer( fpath, layername, "ogr")
@@ -101,7 +101,8 @@ class batcGeoHelper(object):
           self.adreslayerid = self.adreslayer.id()
           QgsProject.instance().addMapLayer(self.adreslayer)
           self.canvas.refresh()
-        else: return
+        else: 
+            raise Exception(msg)
       else: return
   
   def clear(self):
@@ -112,7 +113,7 @@ class batcGeoHelper(object):
   def _saveToFile( self, sender , startFolder=None):
      'save to file'
      filter = "OGC GeoPackage (*.gpkg);;ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)" 
-     fName, __, __ = QFileDialog.getSaveFileName( sender, "open file" , filter=filter, directory=startFolder)
+     fName, __ = QFileDialog.getSaveFileName( sender, "open file" , filter=filter, directory=startFolder)
 
      if fName: ext = os.path.splitext( fName )[1]
      else: return 
