@@ -28,7 +28,7 @@ from qgis.core import Qgis, QgsGeometry
 from qgis.gui  import QgsMessageBar, QgsRubberBand
 from .ui_geopunt4QgisParcel import Ui_geopunt4QgisParcelDlg
 import os, json, webbrowser
-from .geopunt import capakey, internet_on, geopuntError
+from .geopunt import capakey, internet_on, geopuntError, perc
 from .tools.geometry import geometryHelper
 from .tools.parcel import parcelHelper
 from .tools.settings import settings
@@ -106,6 +106,7 @@ class geopunt4QgisParcelDlg(QDialog):
             self.proxy = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )    
         self.parcel = capakey(self.timeout, self.proxy)
+        self.perc = perc(self.timeout, self.proxy)
         
     def show(self):
         QDialog.show(self)
@@ -139,7 +140,11 @@ class geopunt4QgisParcelDlg(QDialog):
         if '' in (niscode, departmentcode, section, parcelNr): return
         
         parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
-        shape = json.loads( parcelInfo['geometry']['shape'])
+        
+        geojson = self.perc.getPercGeom( parcelInfo['capakey'] ) 
+        if len(geojson['features']) > 0: shape = geojson['features'][0]['geometry']
+        else: shape = json.loads( parcelInfo['geometry']['shape'])
+        
         pts = [n.asPolygon() for n in self.PolygonsFromJson( shape )]
         mPolygon = QgsGeometry.fromMultiPolygonXY( pts )  
         self.ph.save_parcel_polygon(mPolygon, parcelInfo, self.layerName, self.saveToFile,
@@ -248,7 +253,6 @@ class geopunt4QgisParcelDlg(QDialog):
             parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr)
             addresses = "; ".join(parcelInfo['adres'])
             self.ui.adresLine.setText(addresses)
-
         except geopuntError as e:
             self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
             return
@@ -305,15 +309,17 @@ class geopunt4QgisParcelDlg(QDialog):
                 bbox= json.loads( parcelInfo['geometry']['boundingBox'])['coordinates'][0]
                 self.clearGraphics()
                 self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
-                shape = json.loads( parcelInfo['geometry']['shape'])
-                for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
+                
+                geojson = self.perc.getPercGeom( parcelInfo['capakey'] ) 
+                if len(geojson['features']) > 0: shape = geojson['features'][0]['geometry']
+                else: shape = json.loads( parcelInfo['geometry']['shape'])
+
+                for n in self.PolygonsFromJson( shape ):  
+                    self.addGraphic(n)
                 return
         
         except geopuntError as e:
           self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
-          return
-        except Exception as e:
-          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
           return
 
     def openHelp(self):

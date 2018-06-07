@@ -18,7 +18,7 @@
 # ***************************************************************************\
 
 # CONFIGURATION
-PROFILE=E:\work\devProfile
+PROFILE=D:\repo\devProfile
 
 # translation
 SOURCES = geopunt4qgis.py \

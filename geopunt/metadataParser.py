@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 from future import standard_library
 standard_library.install_aliases()
-from builtins import str
-from builtins import range
-from builtins import object
 import urllib.request, urllib.error, urllib.parse, urllib.request, urllib.parse, urllib.error, json, sys
 import xml.etree.ElementTree as ET
 
@@ -94,7 +91,7 @@ class MDReader(object):
     def _createFindUrl(self, q='', start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType=''):
         geopuntUrl = self.geoNetworkUrl + "/q?fast=index&sortBy=changeDate&"
         data = {}
-        data["any"] = "*" + str(q).encode('utf-8') + "*"
+        data["any"] = "*" + str(q) + "*"
         data["to"] = to
         data["from"] = start
         
@@ -127,7 +124,7 @@ class MDReader(object):
         return result
 
     def list_GDI_theme(self, q=''):
-        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.GDI-Vlaanderen-trefwoorden&pKeyword=*" + str(q).encode('utf-8') +"*"
+        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.GDI-Vlaanderen-trefwoorden&pKeyword=*" + str(q) +"*"
         try:
             response = self.opener.open(url, timeout=self.timeout)
         except  (urllib.error.HTTPError, urllib.error.URLError) as e:
@@ -143,7 +140,7 @@ class MDReader(object):
             return themes
           
     def list_inspire_theme(self, q=''):
-        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.inspire-theme&pKeyword=*" + str(q).encode('utf-8') +"*"
+        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.inspire-theme&pKeyword=*" + str(q) +"*"
         try:
             response = self.opener.open(url, timeout=self.timeout)
         except  (urllib.error.HTTPError, urllib.error.URLError) as e:
@@ -161,7 +158,7 @@ class MDReader(object):
     def list_suggestionKeyword(self, q=''):
         url = self.geoNetworkUrl + "/main.search.suggest?field=any" 
         if q:
-            url= url + "&q=" + str(q).encode('utf-8') 
+            url= url + "&q=" + str(q) 
         try:
             response = self.opener.open(url, timeout=self.timeout)
         except  (urllib.error.HTTPError, urllib.error.URLError) as e:
@@ -176,7 +173,7 @@ class MDReader(object):
     def list_organisations(self, q=''):
         url = self.geoNetworkUrl + "/main.search.suggest?field=orgName" 
         if q:
-            url= url + "&q=" + str(q).encode('utf-8') 
+            url= url + "&q=" + str(q) 
         try:
             response = self.opener.open(url, timeout=self.timeout)
         except  (urllib.error.HTTPError, urllib.error.URLError) as e:

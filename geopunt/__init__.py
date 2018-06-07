@@ -642,66 +642,42 @@ class perc(object):
          proxy = urllib.request.ProxyHandler()
       auth = urllib.request.HTTPBasicAuthHandler()
       self.opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
-
-   def _createLocationUrl(self, q, c=1):
-      geopuntUrl = self._locUrl
-      data = {}
-      data["q"] = str(q).encode('utf-8')
-      data["c"] = c
-      values = urllib.parse.urlencode(data)
-      result = geopuntUrl + values 
-      return result
-
+      
    def fetchLocation(self, q, c=1):
-      url = self._createLocationUrl(q, c=1)
-      try:
-          response = self.opener.open(url, timeout=self.timeout)
-      except (urllib.error.HTTPError, urllib.error.URLError) as e:
-          return str( e.reason )
-      except:
-          return  str( sys.exc_info()[1] )
-      else:
-          LocationResult = json.load(response)
-          return LocationResult["LocationResult"]
-
-   def _createSuggestionUrl(self, q, c=5):
-      geopuntUrl = self._sugUrl
-      data = {}
-      data["q"] = str(q).encode('utf-8')
-      data["c"] = c
-      values = urllib.parse.urlencode(data)
-      result = geopuntUrl + values
-      return result
+      geopuntUrl = self._locUrl
+      data = {"q": q, "c":c}
+      values = urllib.parse.urlencode(data).encode('utf-8')
+      response = self.opener.open(geopuntUrl, values, timeout=self.timeout)
+      LocationResult = json.load(response)
+      return LocationResult["LocationResult"]
 
    def fetchSuggestion(self, q, c=5):
-      url = self._createSuggestionUrl(q,c)
-      try:
-         response = self.opener.open(url, timeout=self.timeout)
-      except (urllib.error.HTTPError, urllib.error.URLError) as e:
-         return str( e.reason )
-      except:
-         return  str( sys.exc_info()[1] )
-      else:
-         suggestion = json.load(response)
-         return suggestion["SuggestionResult"]
-
+      geopuntUrl = self._sugUrl
+      data = {"q": q, "c": c}
+      values = urllib.parse.urlencode(data).encode('utf-8')
+      response = self.opener.open(geopuntUrl, values, timeout=self.timeout)
+      suggestion = json.load(response)
+      return suggestion["SuggestionResult"]
+         
    def getPercGeom(self, capakey, srs=31370):
       capaUrl = self._esriCapaServer
-      data = {"f": "json"}
-      data["where"] = str( "CAPAKEY LIKE '{}'".format( capakey ) ).encode('utf-8')
+      data = {"f": "geojson"}
+      data["where"] = str( "CAPAKEY LIKE '{}'".format( capakey ) )
       data["outSR"] = srs
-      values = urllib.parse.urlencode(data)
-      url = capaUrl + values 
+      values = urllib.parse.urlencode(data).encode('utf-8')
+      response = self.opener.open(capaUrl, values, timeout=self.timeout)
+      return json.load(response)
+         
+   def getPercAtXY(self, x, y, srs=31370):
+      capaUrl = self._esriCapaServer
+      data = {"f": "geojson", "geometryType":"esriGeometryPoint"}
+      data["geometry"] = str(x), +","+ str(y)
+      data["inSR"] = srs
+      data["outSR"] = srs
+      values = urllib.parse.urlencode(data).encode('utf-8')
+      response = self.opener.open(capaUrl, values, timeout=self.timeout)
+      return json.load(response)
 
-      try:
-            response = self.opener.open(url, timeout=self.timeout)
-      except (urllib.error.HTTPError, urllib.error.URLError) as e:
-            return str( e.reason )
-      except:
-            return  str( sys.exc_info()[1] )
-      else:
-            LocationResult = json.load(response)
-            return LocationResult["features"]
 
 class geopuntError(Exception):
     def __init__(self, message):

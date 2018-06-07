@@ -64,12 +64,9 @@ class geopunt4Qgis(object):
         if locale == 'nl':  
            vc = versionChecker()
            if not vc.isUptoDate():
-              QMessageBox.warning(self.iface.mainWindow(), QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"),
-                  QCoreApplication.translate("geopunt4Qgis", 
-          "Je versie van <a href='http://plugins.qgis.org/plugins/geopunt4Qgis' >geopunt4qgis</a> is niet meer "+
-          "up to date. <br/>Je kunt deze upgraden via het menu:<br/> "+
-          "<strong>Plugins > Beheer en installeer Plugins > Op te waarderen.</strong>"+
-          "<br/>Klik daarna op <strong>Plugin opwaarderen</strong>"))
+              QMessageBox.warning(self.iface.mainWindow(), QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"), QCoreApplication.translate("geopunt4Qgis", 
+          "Je versie van <a href='http://plugins.qgis.org/plugins/geopunt4Qgis' >geopunt4qgis</a> is niet meer up to date. <br/>Je kunt deze upgraden via het menu:<br/> "+
+          "<strong>Plugins > Beheer en installeer Plugins > Op te waarderen.</strong><br/>Klik daarna op <strong>Plugin opwaarderen</strong>"))
 
         # Create the dialogs (after translation) and keep reference
         self.adresdlg = geopunt4QgisAdresDialog(self.iface)
