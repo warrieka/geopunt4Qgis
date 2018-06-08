@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from future import standard_library
-standard_library.install_aliases()
 import sys, os, urllib.request
 import xml.etree.ElementTree as ET
 import configparser as cfg

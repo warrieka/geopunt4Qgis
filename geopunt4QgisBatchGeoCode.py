@@ -22,12 +22,13 @@ batcGeoCodedialog
 from __future__ import absolute_import
 import csv, webbrowser, os.path
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
-from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox, QPushButton, QInputDialog, QComboBox, QMessageBox, QTableWidgetItem, QFileDialog
+from qgis.PyQt.QtWidgets import (QDialog, QDialogButtonBox, QPushButton, QInputDialog, 
+                                 QComboBox, QMessageBox, QTableWidgetItem, QFileDialog)
 from qgis.PyQt.QtGui import QColor, QBrush
 from .ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
 from .tools.batchGeo import batcGeoHelper
 from .mapTools.reverseAdres import reverseAdresMapTool
-from .geopunt import internet_on, Adres
+from .geopunt import internet_on, Adres, adresMatch
 from .tools.settings import settings
 from .tools.geometry import geometryHelper
 
@@ -110,7 +111,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
             self.proxy = ""
         self.retrys = 3
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
-        self.gp = Adres(self.timeout, self.proxy)
+        self.am = adresMatch(self.timeout, self.proxy)
 
     #eventHandlers
     def openHelp(self):
@@ -124,50 +125,35 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
     
         self.ui.statusProgress.setValue(0)
         self.ui.statusProgress.setMaximum(rowCount)
-    
-        retry = self.retrys
+
         row= 0
         while row < rowCount:
+            
             attributes = {}
             self.ui.statusProgress.setValue(row)
             if self.ui.outPutTbl.cellWidget(row,adresCol):
                 adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
-                if not adres: continue
-            else: 
+            else:
                 row  += 1
                 continue
 
             for name, colIdx in list(self.headers.items()):
                 val= self.ui.outPutTbl.item(row, colIdx).text()
                 attributes[name] = val
-        
-            if adres.split(",")[0].replace('.','').isdigit() and len(adres.split(","))==2:
-                x,y = [float(n) for n in adres.split(",")]
-                fakecrab = {"Location":{"X_Lambert72":x ,"Y_Lambert72":y }}
-                fakecrab["LocationType"] = "manuele aanduiding"
-                loc = [fakecrab]
-            else:
-                loc = self.gp.fetchLocation(adres,1)
-        
-            if loc and type( loc ) is list:
-                xylb =  ( loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"] )
-                xyType = loc[0]["LocationType"]
-                xymap = self.gh.prjPtToMapCrs(xylb, 31370)
-                self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, 
-                                layername=self.layerName )
-            elif type( loc ) is str:
-                if (loc == 'time out') & (retry > 0): 
-                  retry -= 1                        #minus 1 retry
-                  continue
-                else:
-                  self.ui.statusMsg.setText("<div style='color:red'>timeout after %s seconds</div>" 
-                    % (self.timeout))
-                  return
-                self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
-                return
-          
-            retry = self.retrys
+                
             row  += 1
+            if adres.split(",")[0].replace('.','').isdigit() and len(adres.split(","))==2:
+                xylb = [float(n) for n in adres.split(",")]
+                xyType = "manuele aanduiding||0"
+            else:
+                loc = self.am.findMatchFromSingleLine(adres)
+                if len(loc) == 0: continue
+                xylb =  loc[0]["adresPositie"]["point"]["coordinates"]
+                xyType = loc[0]["positieSpecificatie"] +"|"+ loc[0]["PositieGeometrieMethode"] +"|"+ loc[0]["score"]
+
+            xymap = self.gh.prjPtToMapCrs(xylb, 31370)
+            self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, layername=self.layerName )
+
         
         if self.saveToFile:
               self.batcGeoHelper.saveMem2file(self.layerName)
@@ -368,7 +354,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
                   adres = ",".join([adres, self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()])
       
               adres = " ".join( adres.split())  #remove too many spaces
-              validAdres = self.gp.fetchSuggestion(adres, 5)
+              validAdres = self.am.findAdresSuggestions(adres)
           
               if validAdres and type( validAdres ) is str: 
                 if (validAdres == 'time out') & (retry > 0): 
@@ -382,7 +368,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         
               elif validAdres and type( validAdres ) is list: 
                 if len(validAdres) > 1 and len( validAdres[0].split(',')) >= 2 and len(adres.strip()): 
-                   print( validAdres[0] + " " + adres )
                    resultNR =  validAdres[0].split(',')[0].split()[-1] if len(validAdres[0].split(',')[0].split()) > 0 else validAdres[0]
                    adresNR = adres.split(',')[0].split()[-1] if len(adres.split(',')[0].split()) > 0 else adres
                    if adresNR == resultNR: validAdres = [validAdres[0]]
@@ -424,16 +409,13 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
           if self.ui.outPutTbl.cellWidget(row,adresCol):
             adres = self.ui.outPutTbl.cellWidget(row,adresCol).currentText()
           if adres:
-            loc = self.gp.fetchLocZation(adres,1)
-            if loc and type( loc ) is list:
-                xylb = loc[0]["Location"]["X_Lambert72"], loc[0]["Location"]["Y_Lambert72"]
+            loc = self.am.findMatchFromSingleLine(adres)
+            if len(loc):
+                xylb = loc[0]["adresPositie"]["point"]["coordinates"]
                 xyMap = self.gh.prjPtToMapCrs(xylb, 31370)
                 pts.append(xyMap)
                 graphic = self.gh.addPointGraphic(xyMap)
                 self.graphicsLayer.append(graphic)
-            elif type(loc ) is str:
-                self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % loc)
-                self.clearGraphicsLayer()
           i += 1
       
         bounds = None
