@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
-from builtins import object
 from qgis.PyQt.QtCore import QSettings
 from qgis.core import QgsNetworkAccessManager
 import sys, os, urllib.request

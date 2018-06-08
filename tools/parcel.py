@@ -38,10 +38,10 @@ class parcelHelper(object):
       
       
     def save_parcel_polygon(self, polygon, parcelInfo, layername="perceel", saveToFile=False, sender=None, startFolder=None ):
-        attributes =[ QgsField("niscode", QVariant.String), QgsField("afdeling", QVariant.String), QgsField("afdcode", QVariant.String),
-                      QgsField("sectie", QVariant.String), QgsField("bisnummer", QVariant.Int) ,
-                      QgsField("exponent", QVariant.String), QgsField("macht", QVariant.Int),
-                      QgsField("grondnr", QVariant.Int), QgsField("capakey", QVariant.String),
+        attributes =[ QgsField("niscode", QVariant.String), QgsField("afdeling", QVariant.String), 
+                      QgsField("afdcode", QVariant.String), QgsField("sectie", QVariant.String), 
+                      QgsField("bisnummer", QVariant.Int) ,QgsField("exponent", QVariant.String), 
+                      QgsField("macht", QVariant.Int), QgsField("grondnr", QVariant.Int), QgsField("capakey", QVariant.String), 
                       QgsField("perceelnr", QVariant.String),  QgsField("adres", QVariant.String) ]
   
         if not QgsProject.instance().mapLayer(self.parcellayerid):
