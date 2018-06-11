@@ -54,7 +54,7 @@ class batcGeoHelper(object):
     
     if not QgsProject.instance().mapLayer(self.adreslayerid):
         attributes = self._createAttributeTable( attritableDict )
-        attributes += [QgsField("crabAdres", QVariant.String), QgsField("crabtype", QVariant.String)]
+        attributes += [QgsField("fullAdres", QVariant.String), QgsField("quality", QVariant.String)]
         self.adreslayer = QgsVectorLayer("Point", layername, "memory")
         self.adresProvider = self.adreslayer.dataProvider()
         self.adresProvider.addAttributes(attributes)
@@ -70,8 +70,8 @@ class batcGeoHelper(object):
     fet.setGeometry(QgsGeometry.fromPointXY(prjPoint))
 
     #populate fields
-    fet['crabAdres'] = address
-    fet['crabtype'] = typeAddress
+    fet['fullAdres'] = address
+    fet['quality'] = typeAddress
     for name, var in list(attritableDict.items()):
        field = self.adresProvider.fieldNameMap()[name]
        fet.setAttribute(field,var)

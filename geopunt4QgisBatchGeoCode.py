@@ -91,8 +91,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.ui.delimSelect.activated.connect(self.setDelim) 
         self.ui.codecBox.currentIndexChanged.connect(self.loadTable)
         self.ui.validateBtn.clicked.connect(self.validateAll)
-        # self.ui.validateSelBtn.clicked.connect(self.validateSelection)
-        # self.ui.adresFromMapBtn.clicked.connect(self.adresFromMap)
         self.ui.addToMapKnop.clicked.connect(self.addToMap)
         self.ui.singleLineChk.toggled.connect(self.on_singleLineToggled)
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
@@ -149,7 +147,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
                 loc = self.am.findMatchFromSingleLine(adres)
                 if len(loc) == 0: continue
                 xylb =  loc[0]["adresPositie"]["point"]["coordinates"]
-                xyType = loc[0]["positieSpecificatie"] +"|"+ loc[0]["PositieGeometrieMethode"] +"|"+ loc[0]["score"]
+                xyType = "|".join([ loc[0]["positieSpecificatie"], loc[0]["positieGeometrieMethode"], str(loc[0]["score"]) ])
 
             xymap = self.gh.prjPtToMapCrs(xylb, 31370)
             self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, layername=self.layerName )
@@ -179,9 +177,11 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.showMinimized()
 
     def on_singleLineToggled(self, toggled):
-       self.ui.huisnrChooseWgt.setVisible(not toggled)
+       self.ui.gemeenteChooseWgt.setVisible(not toggled)
+       self.ui.huisnrLbl.setVisible(not toggled)
+       self.ui.huisnrSelect.setVisible(not toggled)
        if toggled:
-         self.ui.adresColLbl.setText(QCoreApplication.translate("batcGeoCodedialog", "Adres kolom:"))
+         self.ui.adresColLbl.setText(QCoreApplication.translate("batcGeoCodedialog", "Adres kolom [<straat>, <huisnr>, <postcode> <gemeente>]:"))
        else:
          self.ui.adresColLbl.setText(QCoreApplication.translate("batcGeoCodedialog", "Straatnaam kolom:"))
       
@@ -211,6 +211,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.ui.outPutTbl.setRowCount(0)
         self.ui.adresColSelect.clear()
         self.ui.huisnrSelect.clear()
+        self.ui.pcColSelect.clear()
         self.ui.gemeenteColSelect.clear()
         self.ui.statusMsg.clear()
         self.clearGraphicsLayer()
@@ -246,16 +247,17 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
       
         self.ui.outPutTbl.setColumnCount(colCount + 1)
         self.ui.outPutTbl.setColumnWidth(colCount, 250)
-        self.ui.outPutTbl.setHorizontalHeaderLabels(header + [QCoreApplication.translate(
-                              "batcGeoCodedialog", "gevalideerd adres")])
+        
+        self.ui.outPutTbl.setHorizontalHeaderLabels(header + [QCoreApplication.translate("batcGeoCodedialog", "gevalideerd adres")])
+        
         self.ui.adresColSelect.insertItems(0, header)
-        self.ui.gemeenteColSelect.insertItems(0, header + [QCoreApplication.translate(
-                                    "batcGeoCodedialog", "<geen>")])
+        self.ui.huisnrSelect.insertItems(0, header )
+        
+        self.ui.pcColSelect.insertItems(0, header + [QCoreApplication.translate("batcGeoCodedialog", "<geen>")])
+        self.ui.pcColSelect.setCurrentIndex(colCount)
+        self.ui.gemeenteColSelect.insertItems(0, header + [QCoreApplication.translate("batcGeoCodedialog", "<geen>")])
         self.ui.gemeenteColSelect.setCurrentIndex(colCount)
-        self.ui.huisnrSelect.insertItems(0, header + [QCoreApplication.translate(
-                                    "batcGeoCodedialog", "<geen>")])
-        self.ui.huisnrSelect.setCurrentIndex(colCount)
-      
+        
         rowCount = 0
         for line in csvReader:
           self.ui.outPutTbl.insertRow(rowCount)
@@ -326,15 +328,17 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.clearGraphicsLayer()
         adresTxt = self.ui.adresColSelect.currentText()
         huisnrTxt = self.ui.huisnrSelect.currentText()
+        pcTxt = self.ui.pcColSelect.currentText()
         gemeenteTxt = self.ui.gemeenteColSelect.currentText()
       
         validAdresCol = self.ui.outPutTbl.columnCount() -1
         adresCol = self.headers[adresTxt] 
+        huisnrCol =  self.headers[huisnrTxt] 
         if gemeenteTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
               gemeenteCol = self.headers[gemeenteTxt] 
-        if huisnrTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
-              huisnrCol = self.headers[huisnrTxt] 
-    
+        if pcTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
+              pcCol = self.headers[pcTxt] 
+        
         self.ui.statusProgress.setValue(0)
         self.ui.statusProgress.setMaximum(len(rowIds))
         self.ui.statusMsg.setText("vooruitgang: ")
@@ -347,14 +351,12 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
               self.ui.statusProgress.setValue(i)
 
               adres = self.ui.outPutTbl.item(rowIdx, adresCol).text()
-    
-              if huisnrTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
-                  adres += " " +  self.ui.outPutTbl.item(rowIdx, huisnrCol).text()
-              if gemeenteTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"): 
-                  adres = ",".join([adres, self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()])
+              huisNr = self.ui.outPutTbl.item(rowIdx, huisnrCol).text()
+              pc, muni = ('', '')
+              if pcTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"): pc = self.ui.outPutTbl.item(rowIdx, pcCol).text() 
+              if gemeenteTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"): muni = self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()
       
-              adres = " ".join( adres.split())  #remove too many spaces
-              validAdres = self.am.findAdresSuggestions(adres)
+              validAdres = self.am.findAdresSuggestions(municipality=muni, postalcode=pc, housenr=huisNr, streetname=adres)
           
               if validAdres and type( validAdres ) is str: 
                 if (validAdres == 'time out') & (retry > 0): 

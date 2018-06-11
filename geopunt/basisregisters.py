@@ -13,8 +13,7 @@ class adresMatch(object):
       auth = urllib.request.HTTPBasicAuthHandler()
       self.opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
 
-  def findMatches(self, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", 
-                      streetname="", housenr="", rrindex="", boxnr=""):
+  def findMatches(self, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr=""):
       data = {}
       data["Gemeentenaam"] = municipality if municipality else ""
       data["Niscode"]      = niscode if niscode else ""
@@ -32,41 +31,39 @@ class adresMatch(object):
     
   def findMatchFromSingleLine(self, adres):
       adr = [n.strip() for n in adres.split(",")]
-      
       if len(adr) != 2: return []
       if len(adr[0].split() ) < 2: return []
       
       street = " ".join(adr[0].split()[:-1])
       housenr = adr[0].split()[-1]
 
-      if adr[1].split() ==2:
+      if len(adr[1].split()) ==2:
             post = adr[1].split()[0]
             muni = " ".join(adr[1].split()[1:])
       else:
             post = ""
             muni = adr[1]
-      
+
       data = {}
       data["Gemeentenaam"] = muni
       data["Postcode"]     = post
       data["Straatnaam"]   = street
       data["Huisnummer"]   = housenr
       values = urllib.parse.urlencode(data)
+      url = self._amUrl + values
       
-      response = self.opener.open(self._amUrl + values, timeout=self.timeout)
+      response = self.opener.open( url, timeout=self.timeout)
       return json.load(response)['adresMatches']
 
     
-  def findAdresSuggestions(self, single=None, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", 
-                      streetname="", housenr="", rrindex="", boxnr="", ):
+  def findAdresSuggestions(self, single=None, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr="" ):
        if single is None:
-            matches = self.findMatches(self, municipality, niscode, postalcode, kadstreetcode, rrstreetcode, 
-                      streetname, housenr, rrindex, boxnr)
+            matches = self.findMatches(municipality, niscode, postalcode, kadstreetcode, rrstreetcode, streetname, housenr, rrindex, boxnr)
        else:
             matches = self.findMatchFromSingleLine(single)
        
        results = []          
        for match in matches:
-            if "volledigAdres" in match.keys():
+            if "volledigAdres" in match.keys() and not 'busnummer' in match.keys():
                 results.append( match['volledigAdres']['geografischeNaam']['spelling'] )
        return results
