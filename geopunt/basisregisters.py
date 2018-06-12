@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import urllib.request, urllib.error, urllib.parse, json, sys
-
+from .geopuntError import geopuntError
 
 class adresMatch(object):
   def __init__(self, timeout=15, proxyUrl=""):
@@ -52,8 +52,14 @@ class adresMatch(object):
       values = urllib.parse.urlencode(data)
       url = self._amUrl + values
       
-      response = self.opener.open( url, timeout=self.timeout)
-      return json.load(response)['adresMatches']
+      try:
+         response = self.opener.open( url, timeout=self.timeout)
+      except (urllib.error.HTTPError, urllib.error.URLError) as e:
+         raise geopuntError( str( e.reason ) )
+      except:
+         raise geopuntError( sys.exc_info()[1] )
+      else:
+         return json.load(response)['adresMatches']
 
     
   def findAdresSuggestions(self, single=None, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr="" ):

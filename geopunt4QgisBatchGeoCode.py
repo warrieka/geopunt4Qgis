@@ -308,7 +308,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
 
     def validateSelection(self):
         if self.internet() != True: return
-    
         rows = self.getSelectedRows()
     
         self.validateRows(rows)
@@ -316,7 +315,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
 
     def validateAll(self):
         if self.internet() != True: return
-    
         rowCount = self.ui.outPutTbl.rowCount()
         rows = list(range(rowCount))
     
@@ -325,12 +323,19 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
     
     def validateRows(self , rowIds):
         if len(rowIds) == 0: return
+    
         self.clearGraphicsLayer()
         adresTxt = self.ui.adresColSelect.currentText()
         huisnrTxt = self.ui.huisnrSelect.currentText()
         pcTxt = self.ui.pcColSelect.currentText()
         gemeenteTxt = self.ui.gemeenteColSelect.currentText()
-      
+        
+        
+        if gemeenteTxt == QCoreApplication.translate("batcGeoCodedialog", "<geen>") and pcTxt == QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
+             msg = QCoreApplication.translate("batcGeoCodedialog", "Je moet een postcode of gemeente kolom opgeven.")
+             QMessageBox.warning(self, 'Warning', msg)
+             return
+
         validAdresCol = self.ui.outPutTbl.columnCount() -1
         adresCol = self.headers[adresTxt] 
         huisnrCol =  self.headers[huisnrTxt] 
