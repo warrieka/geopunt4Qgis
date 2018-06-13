@@ -139,16 +139,16 @@ class geopunt4Qgis(object):
         self.toolbar.addAction(self.datacatalogusAction)
         
         # Add to Menu
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.adresAction)
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.reverseAction)
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.batchAction)
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.poiAction)        
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.gipodAction)
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.elevationAction)
-        self.iface.addPluginToMenu(u'&geopunt4Qgis' ,self.parcelAction)
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.datacatalogusAction)
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.settingsAction)
-        self.iface.addPluginToMenu(u"&geopunt4Qgis", self.aboutAction)
+        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.adresAction)
+        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.reverseAction)
+        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.batchAction)
+        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.poiAction)        
+        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.gipodAction)
+        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.elevationAction)
+        self.iface.addPluginToWebMenu(u'&geopunt4Qgis' ,self.parcelAction)
+        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.datacatalogusAction)
+        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.settingsAction)
+        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.aboutAction)
         
     def unload(self):
         ' Remove the plugin menu items and icons'
