@@ -88,7 +88,8 @@ class batcGeoHelper(object):
     
     
   def saveMem2file(self, layername ):
-      if self.adresProvider is None or not self.adresProvider.name() == u'memory': return
+      print( self.adresProvider.name() )
+      if self.adresProvider is None or not self.adresProvider.name() == 'memory': return
       
       save = self._saveToFile( self.parent, os.path.join( self.startFolder, layername ))
       if save:

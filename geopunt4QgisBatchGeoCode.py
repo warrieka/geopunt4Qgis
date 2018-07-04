@@ -346,7 +346,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         
         self.ui.statusProgress.setValue(0)
         self.ui.statusProgress.setMaximum(len(rowIds))
-        self.ui.statusMsg.setText("vooruitgang: ")
+        self.ui.statusMsg.setText("")
     
         retry = self.retrys
         i= 0
@@ -360,9 +360,11 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
               pc, muni = ('', '')
               if pcTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"): pc = self.ui.outPutTbl.item(rowIdx, pcCol).text() 
               if gemeenteTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"): muni = self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()
-      
-              validAdres = self.am.findAdresSuggestions(municipality=muni, postalcode=pc, housenr=huisNr, streetname=adres)
-          
+              try:  
+                validAdres = self.am.findAdresSuggestions(municipality=muni, postalcode=pc, housenr=huisNr, streetname=adres)
+              except:
+                validAdres = None
+                
               if validAdres and type( validAdres ) is str: 
                 if (validAdres == 'time out') & (retry > 0): 
                     retry -= 1                        #minus 1 retry

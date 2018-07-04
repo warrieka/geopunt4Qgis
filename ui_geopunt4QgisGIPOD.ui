@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>517</width>
-    <height>350</height>
+    <height>370</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,7 +26,7 @@
   <property name="maximumSize">
    <size>
     <width>16777215</width>
-    <height>370</height>
+    <height>900</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -98,18 +98,18 @@
           <height>0</height>
          </size>
         </property>
+        <property name="displayFormat">
+         <string>dd/MM/yyyy</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
         <property name="date">
          <date>
           <year>2013</year>
           <month>1</month>
           <day>1</day>
          </date>
-        </property>
-        <property name="displayFormat">
-         <string>dd/MM/yyyy</string>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -121,18 +121,18 @@
           <height>0</height>
          </size>
         </property>
+        <property name="displayFormat">
+         <string>dd/MM/yyyy</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
         <property name="date">
          <date>
           <year>2014</year>
           <month>1</month>
           <day>1</day>
          </date>
-        </property>
-        <property name="displayFormat">
-         <string>dd/MM/yyyy</string>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
         </property>
        </widget>
       </item>
