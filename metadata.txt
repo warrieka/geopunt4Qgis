@@ -22,7 +22,7 @@ about="Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS, di
     - Search for Parcels 
     - Search for layers in the geopunt catalog
 
-version=2.0.0
+version=2.0.1
 author=Kay Warrie
 email=kaywarrie@gmail.be
 
