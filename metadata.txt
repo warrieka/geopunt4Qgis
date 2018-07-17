@@ -41,7 +41,7 @@ repository=https://github.com/warrieka/geopunt4Qgis
 icon=images/geopunt.png
 category=Web
 # experimental flag
-experimental=False
+experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version
 deprecated=False

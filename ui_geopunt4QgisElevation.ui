@@ -108,12 +108,20 @@
         <property name="text">
          <string>...</string>
         </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/full_extent.png</normaloff>:/plugins/geopunt4Qgis/images/full_extent.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QToolButton" name="toolCanvanPrev">
         <property name="text">
          <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/previous.png</normaloff>:/plugins/geopunt4Qgis/images/previous.png</iconset>
         </property>
        </widget>
       </item>
@@ -122,12 +130,20 @@
         <property name="text">
          <string>...</string>
         </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/next.png</normaloff>:/plugins/geopunt4Qgis/images/next.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QToolButton" name="toolCanvanPan">
         <property name="text">
          <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/pan.png</normaloff>:/plugins/geopunt4Qgis/images/pan.png</iconset>
         </property>
        </widget>
       </item>
@@ -136,12 +152,20 @@
         <property name="text">
          <string>...</string>
         </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/rectangleZoom.png</normaloff>:/plugins/geopunt4Qgis/images/rectangleZoom.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QToolButton" name="toolCanvanSave">
         <property name="text">
          <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/save.png</normaloff>:/plugins/geopunt4Qgis/images/save.png</iconset>
         </property>
        </widget>
       </item>
@@ -150,12 +174,20 @@
         <property name="text">
          <string>...</string>
         </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/wrench.png</normaloff>:/plugins/geopunt4Qgis/images/wrench.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QToolButton" name="toolCanvasFill">
         <property name="text">
          <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/plugins/geopunt4Qgis/images/fill.png</normaloff>:/plugins/geopunt4Qgis/images/fill.png</iconset>
         </property>
        </widget>
       </item>
