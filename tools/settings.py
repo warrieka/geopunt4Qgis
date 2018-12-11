@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from qgis.PyQt.QtCore import QSettings
 from qgis.core import QgsNetworkAccessManager
-import sys, os, urllib.request
+import urllib.request 
 
 class settings(object):
     def __init__(self):

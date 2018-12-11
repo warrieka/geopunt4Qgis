@@ -27,7 +27,7 @@ from .ui_geopunt4qgis import Ui_geopunt4Qgis
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 from qgis.core import Qgis, QgsPointXY
 import os, json, webbrowser
-from .geopunt import Adres
+from .geopunt import Adres, basisregisters
 from .tools.geometry import geometryHelper
 from .tools.settings import settings
 
@@ -65,20 +65,20 @@ class geopunt4QgisAdresDialog(QDialog):
         self.graphicsLayer = []
 
         #populate gemeenteBox
-        gemeentes = json.load( open(os.path.join(os.path.dirname(__file__),  "data/gemeentenVL.json")) )
-        gemeenteNamen =  [str( n["Naam"]) for n in gemeentes]
+        am =  basisregisters.adresMatch(self.timeout, self.proxy)
+        gemeenteNamen = [n["Naam"] for n in am.gemeenten()]
         self.ui.gemeenteBox.addItems( gemeenteNamen )
         self.ui.gemeenteBox.setEditText(QCoreApplication.translate(
                   "geopunt4QgisAdresDialog", "gemeente"))
         self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
         self.ui.gemeenteBox.setFocus()
         
-        self.completer = QCompleter( self )
-        self.completerModel = QStringListModel( self )
-        self.ui.gemeenteBox.setCompleter( self.completer )
-        self.completer.setModel( self.completerModel )
+        self.completer = QCompleter(self)
+        self.completerModel = QStringListModel(self)
+        self.ui.gemeenteBox.setCompleter(self.completer )
+        self.completer.setModel(self.completerModel )
         self.completer.setCaseSensitivity(False)
-        self.completerModel.setStringList( gemeenteNamen )
+        self.completerModel.setStringList(gemeenteNamen )
         
         #setup a message bar
         self.bar = QgsMessageBar() 

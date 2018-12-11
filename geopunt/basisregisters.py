@@ -5,6 +5,7 @@ from .geopuntError import geopuntError
 class adresMatch(object):
   def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
+      self._gemUrl = "https://basisregisters.vlaanderen.be/api/v1/gemeenten/"
       self._amUrl = "https://basisregisters.vlaanderen.be/api/v1/adresmatch?"
       if isinstance(proxyUrl, str)  and proxyUrl != "":
          proxy = urllib.request.ProxyHandler({'http': proxyUrl })
@@ -12,6 +13,15 @@ class adresMatch(object):
          proxy = urllib.request.ProxyHandler()
       auth = urllib.request.HTTPBasicAuthHandler()
       self.opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
+
+
+  def gemeenten(self, niscode=""):
+      url = self._gemUrl + str(niscode)
+      response = self.opener.open(url, timeout=self.timeout)
+      result = json.load(response)
+      gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
+                                for n in result["gemeenten"]]
+      return gemeenten
 
   def findMatches(self, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr=""):
       data = {}
