@@ -21,13 +21,13 @@ geopunt4qgisdialog
 """
 from __future__ import absolute_import
 from qgis.PyQt.QtCore import Qt, QSettings, QCoreApplication, QTranslator, QStringListModel
-from qgis.PyQt.QtWidgets import QDialog, QCompleter, QSizePolicy, QPushButton, QDialogButtonBox, QInputDialog
+from qgis.PyQt.QtWidgets import QDialog, QCompleter, QSizePolicy, QPushButton, QDialogButtonBox, QInputDialog, QMessageBox
 from qgis.PyQt.QtGui import QColor
 from .ui_geopunt4qgis import Ui_geopunt4Qgis
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 from qgis.core import Qgis, QgsPointXY
 import os, json, webbrowser
-from .geopunt import Adres, basisregisters
+from .geopunt import Adres, basisregisters, internet_on
 from .tools.geometry import geometryHelper
 from .tools.settings import settings
 
@@ -64,22 +64,14 @@ class geopunt4QgisAdresDialog(QDialog):
         #create graphicsLayer
         self.graphicsLayer = []
 
-        #populate gemeenteBox
-        am =  basisregisters.adresMatch(self.timeout, self.proxy)
-        gemeenteNamen = [n["Naam"] for n in am.gemeenten()]
-        self.ui.gemeenteBox.addItems( gemeenteNamen )
-        self.ui.gemeenteBox.setEditText(QCoreApplication.translate(
-                  "geopunt4QgisAdresDialog", "gemeente"))
-        self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
-        self.ui.gemeenteBox.setFocus()
+        self.firstShow = True
         
         self.completer = QCompleter(self)
         self.completerModel = QStringListModel(self)
         self.ui.gemeenteBox.setCompleter(self.completer )
         self.completer.setModel(self.completerModel )
         self.completer.setCaseSensitivity(False)
-        self.completerModel.setStringList(gemeenteNamen )
-        
+
         #setup a message bar
         self.bar = QgsMessageBar() 
         self.bar.setSizePolicy( QSizePolicy.Minimum, QSizePolicy.Fixed )
@@ -115,6 +107,30 @@ class geopunt4QgisAdresDialog(QDialog):
             self.proxy = ""
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.gp = Adres(self.timeout, self.proxy)
+        
+    # overwrite
+    def show(self):
+        QDialog.show(self)
+        self.setWindowModality(0)
+        arUrl = "http://loc.api.geopunt.be/"
+        inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout, testSite= arUrl)
+            
+        if not inet:
+            msg = "Kan geen verbing maken met de site van Geopunt: {} \nMogelijke is deze site niet bereikbaar, dan zal deze tool ook niet werken.\nProbeer later opnieuw. Indien dit probleem zich blijft voordoen contacteer informatie Vlaanderen.".format(arUrl)
+            QMessageBox.warning(self.iface.mainWindow(),  "Waarschuwing: kan geen verbinding maken", msg)
+            self.bar.pushMessage( QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"),  msg, level=Qgis.Warning, duration=3)  
+            return 
+        
+           
+        if self.firstShow: 
+            am =  basisregisters.adresMatch(self.timeout, self.proxy)
+            gemeenteNamen =  [n["Naam"] for n in am.gemeenten()]
+            self.ui.gemeenteBox.addItems( gemeenteNamen )  
+            self.completerModel.setStringList(gemeenteNamen )
+            self.ui.gemeenteBox.setEditText(QCoreApplication.translate("geopunt4QgisAdresDialog", "gemeente"))
+            self.ui.gemeenteBox.setStyleSheet('QComboBox {color: #808080}')
+            self.ui.gemeenteBox.setFocus()
+            self.firstShow = False
         
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-adres")

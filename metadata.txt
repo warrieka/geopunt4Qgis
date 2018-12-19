@@ -22,7 +22,7 @@ about="Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS, di
     - Search for Parcels 
     - Search for layers in the geopunt catalog
 
-version=2.0.2
+version=2.0.3
 author=Kay Warrie
 email=kaywarrie@gmail.be
 
@@ -30,7 +30,7 @@ email=kaywarrie@gmail.be
 
 # Optional items:
 # Uncomment the following line and add your changelog entries:
-changelog=Migratie naar QGIS 3, Python 3, Qt5 en Adressenregister
+changelog=Gemeentefusies 2019, waarschuwing indien metadata site niet bereikbaar. 
 
 # tags are comma separated with spaces allowed
 tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS, GIPOD

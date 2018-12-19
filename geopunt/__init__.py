@@ -28,7 +28,7 @@ from .gipod import gipod
 from .perc import perc
 from .Poi import Poi
 
-def internet_on( proxyUrl="", timeout=15 ):
+def internet_on( proxyUrl="", timeout=15, testSite='http://loc.api.geopunt.be/v2/Suggestion' ):
     opener = None
     if isinstance(proxyUrl, str) and proxyUrl != "":
         proxy =  urllib.request.ProxyHandler({'http': proxyUrl })
@@ -40,8 +40,14 @@ def internet_on( proxyUrl="", timeout=15 ):
        opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
 
     if opener:
-        opener.open( 'http://loc.api.geopunt.be/v2/Suggestion', timeout=timeout )
+        try:
+            opener.open( testSite , timeout=timeout )
+        except:
+            return False
         return True
     else:
-        urllib.request.urlopen('http://loc.api.geopunt.be/v2/Suggestion', timeout=timeout)
+        try:
+            urllib.request.urlopen( testSite, timeout=timeout)
+        except:
+            return False
         return True

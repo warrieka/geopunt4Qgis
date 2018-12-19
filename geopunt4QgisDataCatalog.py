@@ -21,7 +21,7 @@ geopunt4QgisDataCatalog
 """
 from __future__ import absolute_import
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QRegExp, QSortFilterProxyModel, QStringListModel
-from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog, QSizePolicy
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog, QSizePolicy, QMessageBox
 from qgis.PyQt.QtGui import QStandardItem, QStandardItemModel
 from .ui_geopunt4QgisDataCatalog import Ui_geopunt4QgisDataCatalogDlg
 from qgis.core import Qgis, QgsProject, QgsRasterLayer, QgsVectorLayer
@@ -129,27 +129,28 @@ class geopunt4QgisDataCatalog(QDialog):
     def show(self):
         QDialog.show(self)
         self.setWindowModality(0)
+        metadataUrl = "https://metadata.geopunt.be"
+        inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout, testSite= metadataUrl)
+        if not inet:
+            msg = "Kan geen verbing maken met de metadata van Geopunt: {} \nMogelijke is deze site niet bereikbaar, dan zal deze tool ook niet werken.\nProbeer later opnieuw. Indien dit probleem zich blijft voordoen contacteer informatie Vlaanderen.".format(metadataUrl)
+            QMessageBox.warning(self.iface.mainWindow(),  "Waarschuwing: kan geen verbinding maken", msg)
+            self.bar.pushMessage( QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"),  msg, level=Qgis.Warning, duration=3)  
+            return 
+        
         if self.firstShow:
-            inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout)
-            if inet:
-                self.ui.GDIThemaCbx.addItems([''] + self.md.list_GDI_theme())
-                self.ui.organisatiesCbx.addItems([''] + self.md.list_organisations())
-                keywords = sorted(self.md.list_suggestionKeyword())
-                self.completerModel.setStringList(keywords)
-                self.bronnen = self.md.list_bronnen()
-                self.ui.bronCbx.addItems([''] + [n[1] for n in self.bronnen])
-                self.ui.typeCbx.addItems([''] + [n[0] for n in self.md.dataTypes])
+            self.ui.GDIThemaCbx.addItems([''] + self.md.list_GDI_theme())
+            self.ui.organisatiesCbx.addItems([''] + self.md.list_organisations())
+            keywords = sorted(self.md.list_suggestionKeyword())
+            self.completerModel.setStringList(keywords)
+            self.bronnen = self.md.list_bronnen()
+            self.ui.bronCbx.addItems([''] + [n[1] for n in self.bronnen])
+            self.ui.typeCbx.addItems([''] + [n[0] for n in self.md.dataTypes])
 
-                self.ui.INSPIREannexCbx.addItems([''] + self.md.inspireannex)
-                self.ui.INSPIREserviceCbx.addItems([''] + self.md.inspireServiceTypes)
-                self.ui.INSPIREthemaCbx.addItems([''] + self.md.list_inspire_theme())
-                self.firstShow = False
-            else:
-                self.bar.pushMessage(
-                    QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "),
-                    QCoreApplication.translate("geopunt4QgisPoidialog",
-                                                      "Kan geen verbing maken met het internet."),
-                                                      level=Qgis.Warning, duration=3)
+            self.ui.INSPIREannexCbx.addItems([''] + self.md.inspireannex)
+            self.ui.INSPIREserviceCbx.addItems([''] + self.md.inspireServiceTypes)
+            self.ui.INSPIREthemaCbx.addItems([''] + self.md.list_inspire_theme())
+            self.firstShow = False
+
 
     # eventhandlers
     def resultViewClicked(self):

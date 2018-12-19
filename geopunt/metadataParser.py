@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from future import standard_library
-standard_library.install_aliases()
 import urllib.request, urllib.error, urllib.parse, urllib.request, urllib.parse, urllib.error, json, sys
 import xml.etree.ElementTree as ET
 
@@ -127,9 +125,10 @@ class MDReader(object):
         url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.GDI-Vlaanderen-trefwoorden&pKeyword=*" + str(q) +"*"
         try:
             response = self.opener.open(url, timeout=self.timeout)
+
         except  (urllib.error.HTTPError, urllib.error.URLError) as e:
-            #raise metaError( str( e.reason ))
-            return []
+            raise metaError( str( e.reason ))
+            #return []
         except:
             raise metaError( str( e.reason ))
         else:
@@ -144,8 +143,8 @@ class MDReader(object):
         try:
             response = self.opener.open(url, timeout=self.timeout)
         except  (urllib.error.HTTPError, urllib.error.URLError) as e:
-            #raise metaError( str( e.reason ))
-            return []
+            raise metaError( str( e.reason ))
+            #return []
         except:
             raise metaError( str( e.reason ))
         else:
@@ -162,8 +161,8 @@ class MDReader(object):
         try:
             response = self.opener.open(url, timeout=self.timeout)
         except  (urllib.error.HTTPError, urllib.error.URLError) as e:
-            #raise metaError( str( e.reason ))
-            return []
+            raise metaError( str( e.reason ))
+            #return []
         except:
             raise metaError( str( sys.exc_info()[1] ))
         else:
@@ -177,8 +176,8 @@ class MDReader(object):
         try:
             response = self.opener.open(url, timeout=self.timeout)
         except  (urllib.error.HTTPError, urllib.error.URLError) as e:
-            #raise metaError( str( e.reason ))
-            return []
+            raise metaError( str( e.reason ))
+            #return []
         except:
             raise metaError( str( sys.exc_info()[1] ))
         else:
@@ -195,7 +194,8 @@ class MDReader(object):
         try:
             response = self.opener.open(url, timeout=self.timeout)
         except  (urllib.error.HTTPError, urllib.error.URLError) as e:
-            return []
+            raise metaError( str( e.reason ))
+            #return []
         except:
             raise metaError( str( sys.exc_info()[1] ))
         else:

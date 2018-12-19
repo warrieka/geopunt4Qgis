@@ -415,13 +415,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="bboxChk">
-         <property name="text">
-          <string>WFS-lagen enkel laden binnen huidig kaartbeeld</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QFrame" name="modelFilter">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
@@ -430,7 +423,16 @@
           <enum>QFrame::Sunken</enum>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <property name="margin">
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
            <number>1</number>
           </property>
           <item>
