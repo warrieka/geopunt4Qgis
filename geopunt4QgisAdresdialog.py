@@ -123,8 +123,8 @@ class geopunt4QgisAdresDialog(QDialog):
         
            
         if self.firstShow: 
-            am =  basisregisters.adresMatch(self.timeout, self.proxy)
-            gemeenteNamen =  [n["Naam"] for n in am.gemeenten()]
+            self.am =  basisregisters.adresMatch(self.timeout, self.proxy)
+            gemeenteNamen =  [n["Naam"] for n in self.am.gemeenten()]
             self.ui.gemeenteBox.addItems( gemeenteNamen )  
             self.completerModel.setStringList(gemeenteNamen )
             self.ui.gemeenteBox.setEditText(QCoreApplication.translate("geopunt4QgisAdresDialog", "gemeente"))

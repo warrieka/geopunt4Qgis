@@ -16,8 +16,11 @@ class adresMatch(object):
 
 
   def gemeenten(self, niscode=""):
-      url = self._gemUrl + str(niscode)
-      response = self.opener.open(url, timeout=self.timeout)
+      "Return all Flemish gemeenten (Municipalities)" 
+      data = urllib.parse.urlencode( {'Limit' : '2000' } )
+      if not niscode:  url = self._gemUrl +"?"+ data
+      else: url = self._gemUrl + str(niscode)
+      response = self.opener.open(url,  timeout=self.timeout)
       result = json.load(response)
       gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
                                 for n in result["gemeenten"]]

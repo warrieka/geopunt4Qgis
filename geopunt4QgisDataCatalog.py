@@ -317,16 +317,8 @@ class geopunt4QgisDataCatalog(QDialog):
         layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
         crs = [n[2] for n in lyrs if n[1] == layerTitle][0]
         url = self.wfs.split('?')[0]
-        
-        if self.ui.bboxChk.isChecked():
-            extent = self.iface.mapCanvas().extent()
-            minX, minY = self.gh.prjPtFromMapCrs([extent.xMinimum(), extent.yMinimum()], int(crs.split(":")[-1]))
-            maxX, maxY = self.gh.prjPtFromMapCrs([extent.xMaximum(), extent.yMaximum()], int(crs.split(":")[-1]))
-            bbox = [minX, minY, maxX, maxY]
-        else:
-            bbox = None
 
-        wfsUri = makeWFSuri(url, layerName, crs, bbox=bbox)
+        wfsUri = makeWFSuri(url, layerName, crs )
 
         try:
           vlayer = QgsVectorLayer(wfsUri, layerTitle, "WFS")

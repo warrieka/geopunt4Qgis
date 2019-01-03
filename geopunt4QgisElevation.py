@@ -86,7 +86,7 @@ class geopunt4QgisElevationDialog(QDialog):
         for btn in self.ui.buttonBox.buttons():
             btn.setAutoDefault(0)
                   
-        ##graph global vars
+        # graph global vars
         self.Rubberline =  None
         self.profile = None
         self.pt = None
@@ -102,9 +102,6 @@ class geopunt4QgisElevationDialog(QDialog):
         #create the Canvas widget and toolbar and set graphWgt as parent
         self.canvas = FigureCanvas(self.figure)
         self.toolbar = NavigationToolbar(self.canvas, self)
-
-        ###
-        #self.ui.toolbar.layout().insertWidget(0, self.toolbar)
         self.ui.graphWgt.layout().addWidget(self.canvas)
         self.createCanvasToolbar()
         
@@ -339,9 +336,6 @@ class geopunt4QgisElevationDialog(QDialog):
      
         # create an axis
         self.ax = self.figure.add_subplot(111)
-        
-        # discards the old graph
-        self.ax.hold(False)
 
         # plot data
         self.ax.plot( xdata, ydata,'r*')
@@ -403,7 +397,6 @@ class geopunt4QgisElevationDialog(QDialog):
            self.anoLbl.remove()
            self.anoLbl = None 
         if self.ax:  
-           self.ax.hold(False)
            self.ax.clear()
            self.ax = None
         
