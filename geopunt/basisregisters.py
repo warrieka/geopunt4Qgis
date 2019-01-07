@@ -15,16 +15,22 @@ class adresMatch(object):
       self.opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
 
 
-  def gemeenten(self, niscode=""):
-      "Return all Flemish gemeenten (Municipalities)" 
+  def gemeenten(self, niscode="", langcode=None):
+      'Return all Flemish gemeenten (Municipalities), langcode= "FR", "NL", "DE"' 
       data = urllib.parse.urlencode( {'Limit' : '2000' } )
-      if not niscode:  url = self._gemUrl +"?"+ data
-      else: url = self._gemUrl + str(niscode)
+      if not niscode:  
+          url = self._gemUrl +"?"+ data
+      else: 
+          url = self._gemUrl + str(niscode)
       response = self.opener.open(url,  timeout=self.timeout)
       result = json.load(response)
-      gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
+      if langcode in ["FR", "NL", "DE"]:
+        gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
+                                for n in result["gemeenten"] if n['gemeentenaam']['geografischeNaam']['taal'] == langcode ]
+      else:
+        gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
                                 for n in result["gemeenten"]]
-      return gemeenten
+      return sorted(gemeenten, key=lambda k: k['Naam']) 
 
   def findMatches(self, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr=""):
       data = {}
