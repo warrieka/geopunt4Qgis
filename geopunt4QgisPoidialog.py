@@ -29,7 +29,7 @@ import os, webbrowser, json
 from .ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
 from .tools.geometry import geometryHelper
 from .tools.poi import poiHelper
-from .geopunt import Poi, internet_on
+from .geopunt import Poi, internet_on, basisregisters
 from .tools.settings import settings
 
 class geopunt4QgisPoidialog(QDialog):
@@ -121,6 +121,7 @@ class geopunt4QgisPoidialog(QDialog):
              inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout)
              #filters
              if inet:
+                self.am =  basisregisters.adresMatch(self.timeout, self.proxy)
                 self.poiThemes = dict( self.poi.listPoiThemes() )
                 poiThemes = [""] + list(self.poiThemes.keys())
                 poiThemes.sort()
@@ -133,7 +134,7 @@ class geopunt4QgisPoidialog(QDialog):
                 poiTypes = [""] + list(self.poiTypes.keys())
                 poiTypes.sort()
                 self.ui.filterPoiTypeCombo.addItems(  poiTypes )
-                gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
+                gemeentes =  self.am.gemeenten(langcode="NL")
                 self.NIScodes= { n["Naam"] : n["Niscode"] for n in gemeentes }
                 gemeenteNamen = [n["Naam"] for n in gemeentes]
                 gemeenteNamen.sort()
