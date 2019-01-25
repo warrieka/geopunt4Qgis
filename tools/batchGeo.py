@@ -19,7 +19,6 @@ batcGeoHelper
 *                                                                         *
 ***************************************************************************/
 """
-from __future__ import absolute_import
 import os.path
 from .geometry import geometryHelper
 from qgis.PyQt.QtCore import QVariant

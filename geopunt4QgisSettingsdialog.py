@@ -19,7 +19,6 @@ geopunt4QgisSettingsdialog
 *                                                                         *
 ***************************************************************************/
 """
-from __future__ import absolute_import
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QFileDialog
 from .ui_geopunt4QgisSettings import Ui_settingsDlg

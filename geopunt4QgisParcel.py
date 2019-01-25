@@ -19,7 +19,6 @@ geopunt4qgisdialog
 *                                                                         *
 ***************************************************************************/
 """
-from __future__ import absolute_import
 from builtins import str
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QStringListModel
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QCompleter

@@ -19,8 +19,6 @@ gipodeoHelper
 *                                                                         *
 ***************************************************************************/
 """
-from future import standard_library
-standard_library.install_aliases()
 import os.path 
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QFileDialog

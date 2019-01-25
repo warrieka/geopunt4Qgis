@@ -19,7 +19,6 @@ geopunt4QgisPoiDialog
 *                                                                         *
 ***************************************************************************/
 """
-from __future__ import absolute_import
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QTableWidgetItem
 from qgis.PyQt.QtGui import QColor

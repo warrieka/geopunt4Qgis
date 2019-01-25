@@ -19,7 +19,6 @@ batcGeoCodedialog
 *                                                                         *
 ***************************************************************************/
 """
-from __future__ import absolute_import
 import csv, webbrowser, os.path
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtWidgets import (QDialog, QDialogButtonBox, QPushButton, QInputDialog, 
@@ -363,19 +362,9 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
               try:  
                 validAdres = self.am.findAdresSuggestions(municipality=muni, postalcode=pc, housenr=huisNr, streetname=adres)
               except:
-                validAdres = None
+                validAdres = []
                 
-              if validAdres and type( validAdres ) is str: 
-                if (validAdres == 'time out') & (retry > 0): 
-                    retry -= 1                        #minus 1 retry
-                    continue
-                elif retry == 0:
-                    self.ui.statusMsg.setText("<div style='color:red'>timeout na %s seconden and %s pogingen</div>" % (self.timeout , self.retrys))
-                    return
-                self.ui.statusMsg.setText("<div style='color:red'>%s</div>" % validAdres)
-                return
-        
-              elif validAdres and type( validAdres ) is list: 
+              if type( validAdres ) is list: 
                 if len(validAdres) > 1 and len( validAdres[0].split(',')) >= 2 and len(adres.strip()): 
                    resultNR =  validAdres[0].split(',')[0].split()[-1] if len(validAdres[0].split(',')[0].split()) > 0 else validAdres[0]
                    adresNR = adres.split(',')[0].split()[-1] if len(adres.split(',')[0].split()) > 0 else adres

@@ -19,7 +19,6 @@ elevationHelper
 *                                                                         *
 ***************************************************************************/
 """
-from __future__ import absolute_import
 import os.path
 import numpy as np
 from qgis.PyQt.QtCore import QVariant

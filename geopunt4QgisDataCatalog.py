@@ -19,7 +19,6 @@ geopunt4QgisDataCatalog
 *                                                                         *
 ***************************************************************************/
 """
-from __future__ import absolute_import
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QRegExp, QSortFilterProxyModel, QStringListModel
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog, QSizePolicy, QMessageBox
 from qgis.PyQt.QtGui import QStandardItem, QStandardItemModel

@@ -19,7 +19,6 @@
  *                                                                         *
  ***************************************************************************/
 """
-from __future__ import absolute_import
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator 
 from qgis.PyQt.QtWidgets import QMessageBox, QAction, QPushButton, QInputDialog
 from qgis.PyQt.QtGui import QColor, QIcon
