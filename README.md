@@ -20,8 +20,8 @@ Functions
 System requirements
 -------------------
 
-- QGIS 2.0 or above
-- Python 2.7 (installed with qgis)
+- QGIS 3.0 or above
+- Python 3 (installed with qgis)
 - Any OS capable of running QGIS with python plug-ins: ao. MS Windows, Mac OSX and Linux
 - The python modules mathplotlib and numpy, installed with the Windows and Linux version of QGIS, but on MacOSX you have to install them separately. 
 - Requires internet connection, restrictive firewalls may block connection
