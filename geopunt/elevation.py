@@ -8,7 +8,8 @@ class elevation(object):
       self.baseUri = 'http://dhm.agiv.be/api/elevation/v1/DHMVMIXED/request'
       
       if isinstance(proxyUrl, str) and proxyUrl != "":
-          proxy = urllib.request.ProxyHandler({'http': proxyUrl})
+        if proxyUrl.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl})
+        else: proxy = urllib.request.ProxyHandler({'http': proxyUrl})
       else:
           proxy = urllib.request.ProxyHandler()
       auth = urllib.request.HTTPBasicAuthHandler()   

@@ -8,7 +8,8 @@ class Adres(object):
       self._locUrl = "http://loc.api.geopunt.be/v3/Location?"
       self._sugUrl = "http://loc.api.geopunt.be/v3/Suggestion?"
       if isinstance(proxyUrl, str)  and proxyUrl != "":
-         proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+        if proxyUrl.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl})
+        else: proxy = urllib.request.ProxyHandler({'http': proxyUrl})
       else:
          proxy = urllib.request.ProxyHandler()
       auth = urllib.request.HTTPBasicAuthHandler()

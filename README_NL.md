@@ -18,8 +18,8 @@ Functies
 Systeem vereisten
 -----------------
 
-- QGIS 2.0 of hoger
-- Python 2.7 (wordt geïnstalleerd met qgis)
+- QGIS 3.0 of hoger
+- Python 3 (wordt geïnstalleerd met qgis)
 - De python modules numpy en matplotlib (worden op Windows en Linux samen met QGIS geïnstalleerd, op Mac OSX dien je die zelf nog te installeren.)
 - Elk besturingssysteem dat QGIS met python plug-ins ondersteund: ea. MS Windows, Mac OSX en Linux
 - Vereist internet connectie, restrictieve firewalls kunnen mogelijk de connectie blokkeren.

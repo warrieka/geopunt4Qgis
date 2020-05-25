@@ -252,7 +252,7 @@ class geopunt4Qgis(object):
         if mathplotlibWorks == False: 
           QMessageBox.critical(None, "Error",
              QCoreApplication.translate("geopunt4Qgis" ,
-            "Deze functie kan niet geladen worden door het ontbreken van of een fout in mathplotlib") )
+            "Deze functie kan niet geladen worden door het ontbreken van of een fout in matplotlib") )
           return
         'show the dialog'
         if self.elevationDlg.isVisible():

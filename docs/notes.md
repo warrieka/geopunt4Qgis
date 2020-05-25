@@ -1,6 +1,19 @@
 Notities
 -------
  
+Fake proxy-firewall
+------------------
+
+- Download and run Fiddler proxy (it's free). 
+-> It will automatically set itself as a system proxy in Windows on each run. Also click Rules
+-> Require Proxy Authentication in the top menu if you want to test authentication to the proxy (username and password are "1").
+- Open Windows Firewall, then Advanced settings > Windows Firewall Properties. 
+-> Block all outbound connections for all profiles you need (domain, private, public) and click OK.
+- Add new outbound firewall rule to allow all access for 8888 port (default Fiddler port) 
+or "%ProgramFiles% (x86)\Fiddler2\Fiddler.exe" app.
+ 
+    http://1:1@127.0.0.1:8888
+ 
 parse metadata
 ---------
 

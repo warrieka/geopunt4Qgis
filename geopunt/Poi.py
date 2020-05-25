@@ -9,7 +9,8 @@ class Poi(object):
       self.resultCount = 0
       
       if isinstance(proxyUrl,str) and proxyUrl != "":
-         proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+        if proxyUrl.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl})
+        else: proxy = urllib.request.ProxyHandler({'http': proxyUrl})
       else:
          proxy = urllib.request.ProxyHandler() 
       auth= urllib.request.HTTPBasicAuthHandler()
@@ -40,7 +41,6 @@ class Poi(object):
       return themes
      
   def listPoiCategories(self, themeid=""):
-      "http://{base}/{path}/themes/{themeid}/categories"
       if themeid:
         url = self._poiUrl + "/themes/" + themeid +"/categories"
       else:

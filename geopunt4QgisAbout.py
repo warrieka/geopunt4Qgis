@@ -41,7 +41,7 @@ class geopunt4QgisAboutDialog(QDialog):
             self.translator.load(localePath)
             QCoreApplication.installTranslator(self.translator)
             
-        if 'en' in locale: 
+        if locale == 'en': 
             self.htmlFile = os.path.join(os.path.dirname(__file__), 'i18n', 'about-en.html')
         else:
             #dutch is default

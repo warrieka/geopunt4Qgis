@@ -8,7 +8,8 @@ class gipod(object):
       self.baseUri = 'http://api.gipod.vlaanderen.be/ws/v1/'
       
       if (isinstance(proxyUrl, str) or isinstance(proxyUrl, str)) and proxyUrl != "":
-         proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+        if proxyUrl.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl})
+        else: proxy = urllib.request.ProxyHandler({'http': proxyUrl})
       else:
          proxy = urllib.request.ProxyHandler()
       auth = urllib.request.HTTPBasicAuthHandler() 

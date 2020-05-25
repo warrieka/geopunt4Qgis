@@ -27,7 +27,7 @@ from qgis.core import Qgis, QgsRasterLayer, QgsProject
 from qgis.gui import  QgsMessageBar, QgsVertexMarker 
 from .ui_geopunt4QgisElevation import Ui_elevationDlg
 
-#mathplotlib
+#matplotlib
 try:
   from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
   from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar

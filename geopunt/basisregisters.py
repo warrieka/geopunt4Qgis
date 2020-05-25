@@ -8,14 +8,15 @@ class adresMatch(object):
       self._gemUrl = "https://basisregisters.vlaanderen.be/api/v1/gemeenten/"
       self._amUrl = "https://basisregisters.vlaanderen.be/api/v1/adresmatch?"
       if isinstance(proxyUrl, str)  and proxyUrl != "":
-         proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+        if proxyUrl.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl})
+        else: proxy = urllib.request.ProxyHandler({'http': proxyUrl})
       else:
          proxy = urllib.request.ProxyHandler()
       auth = urllib.request.HTTPBasicAuthHandler()
       self.opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
 
 
-  def gemeenten(self, niscode="", langcode=None):
+  def gemeenten(self, niscode="", langcode="nl"):
       'Return all Flemish gemeenten (Municipalities), langcode= "FR", "NL", "DE"' 
       data = urllib.parse.urlencode( {'Limit' : '2000' } )
       if not niscode:  
@@ -24,15 +25,16 @@ class adresMatch(object):
           url = self._gemUrl + str(niscode)
       response = self.opener.open(url,  timeout=self.timeout)
       result = json.load(response)
-      if langcode in ["FR", "NL", "DE"]:
-        gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
-                                for n in result["gemeenten"] if n['gemeentenaam']['geografischeNaam']['taal'] == langcode ]
-      else:
-        gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
-                                for n in result["gemeenten"]]
+
+      gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
+                  for n in result["gemeenten"] 
+                      if  n['gemeentenaam']['geografischeNaam']['taal'] == langcode
+                      and n["gemeenteStatus"] ==  "inGebruik"]
+
       return sorted(gemeenten, key=lambda k: k['Naam']) 
 
-  def findMatches(self, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr=""):
+  def findMatches(self, municipality="", niscode="", postalcode="", kadstreetcode="", 
+                    rrstreetcode="", streetname="", housenr="", rrindex="", boxnr=""):
       data = {}
       data["Gemeentenaam"] = municipality if municipality else ""
       data["Niscode"]      = niscode if niscode else ""

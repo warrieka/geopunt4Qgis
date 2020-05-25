@@ -78,8 +78,9 @@ class MDReader(object):
         self.inspireServiceTypes =  ["Discovery","Transformation","View","Other","Invoke"]
         self.inspireannex =  ["i","ii","iii"]
 
-        if (isinstance(proxyUrl, str) or isinstance(proxyUrl, str)) and proxyUrl != "":
-            proxy = urllib.request.ProxyHandler({'https': proxyUrl })
+        if isinstance(proxyUrl, str) and proxyUrl != "":
+            if proxyUrl.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl})
+            else: proxy = urllib.request.ProxyHandler({'http': proxyUrl})
         else:
             proxy = urllib.request.ProxyHandler()
         
@@ -248,10 +249,8 @@ def getWmsLayerNames( url='', proxyUrl=''):
 
     auth = urllib.request.HTTPBasicAuthHandler()
     if isinstance(proxyUrl, str) and proxyUrl != "":
-      if url.startswith("https"):
-         proxy = urllib.request.ProxyHandler({'https': proxyUrl })
-      else:
-         proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+      if url.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl })
+      else: proxy = urllib.request.ProxyHandler({'http': proxyUrl })
       opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
       responseWMS =  opener.open(capability)
     else:
@@ -283,10 +282,8 @@ def getWFSLayerNames( url, proxyUrl=''):
           
       auth = urllib.request.HTTPBasicAuthHandler()
       if isinstance(proxyUrl, str) and proxyUrl != "":
-         if url.startswith("https"):
-            proxy = urllib.request.ProxyHandler({'https': proxyUrl })
-         else:
-            proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+         if url.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl })
+         else: proxy = urllib.request.ProxyHandler({'http': proxyUrl })
          opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
          responseWFS =  opener.open(capability)
       else:
@@ -316,10 +313,8 @@ def getWMTSlayersNames( url, proxyUrl='' ):
 
     auth = urllib.request.HTTPBasicAuthHandler()
     if isinstance(proxyUrl, str) and proxyUrl != "":
-         if url.startswith("https"):
-            proxy = urllib.request.ProxyHandler({'https': proxyUrl })
-         else:
-            proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+         if url.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl })
+         else: proxy = urllib.request.ProxyHandler({'http': proxyUrl })
          opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
          responseWMTS =  opener.open(capability)
     else:
@@ -361,10 +356,8 @@ def getWCSlayerNames( url, proxyUrl='' ):
 
     auth = urllib.request.HTTPBasicAuthHandler()
     if isinstance(proxyUrl, str) and proxyUrl != "":
-         if url.startswith("https"):
-            proxy = urllib.request.ProxyHandler({'https': proxyUrl })
-         else:
-            proxy = urllib.request.ProxyHandler({'http': proxyUrl })
+         if url.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl })
+         else: proxy = urllib.request.ProxyHandler({'http': proxyUrl })
          opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
          responseWCS =  opener.open(capability)
     else:
