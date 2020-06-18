@@ -10,7 +10,7 @@ class settings(object):
 
     def _getProxySettings(self):
         self.proxyEnabled = proxyHost = proxyPort = proxyUser = proxyPassword = None
-        self.proxyUrl = ""
+        self.proxyUrl = None
 
         self.proxyEnabled = self.s.value("proxy/proxyEnabled", "")
         self.proxy_type = "DefaultProxy"
@@ -33,5 +33,5 @@ class settings(object):
         if len(proxies) > 0 and 'http' in list(proxies.keys()):
            self.proxyUrl = proxies['http']
         if len(proxies) > 0 and 'https' in list(proxies.keys()):
-           self.proxyUrlS = proxies['https']
+           self.proxyUrl = proxies['https']
 

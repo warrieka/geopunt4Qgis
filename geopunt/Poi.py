@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
 from .geopuntError import geopuntError
 import urllib.request, urllib.error, urllib.parse, json, sys, datetime
+import ssl
 
 class Poi(object):
   def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
-      self._poiUrl = "http://poi.api.geopunt.be/v1/core"
+      self._poiUrl = "https://poi.api.geopunt.be/v1/core"
       self.resultCount = 0
       
-      if isinstance(proxyUrl,str) and proxyUrl != "":
-        if proxyUrl.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl})
-        else: proxy = urllib.request.ProxyHandler({'http': proxyUrl})
-      else:
-         proxy = urllib.request.ProxyHandler() 
-      auth= urllib.request.HTTPBasicAuthHandler()
-      self.opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
+      self.ctx = ssl.create_default_context()
+      self.ctx.check_hostname = False
+      self.ctx.verify_mode = ssl.CERT_NONE
+
+      if isinstance(proxyUrl, str)  and proxyUrl != "":
+         if proxyUrl.startswith("https"): 
+            proxy = urllib.request.ProxyHandler({'https': proxyUrl})
+         else: 
+            proxy = urllib.request.ProxyHandler({'http': proxyUrl})
+         opener = urllib.request.build_opener(proxy, urllib.request.HTTPSHandler, urllib.request.HTTPHandler)
+         urllib.request.install_opener(opener)
       
       #REMARK: WGS coordinates as input!
       self.maxBounds = [1.17, 49.77, 7.29, 52.35]  
@@ -27,16 +32,8 @@ class Poi(object):
   def listPoiThemes(self):
       url = self._poiUrl + "/themes"
       poithemes = None
-      try:
-          response = self.opener.open(url, timeout=self.timeout)
-      except urllib.error.HTTPError as e:
-         return json.load(e)["Message"]
-      except urllib.error.URLError as e:
-         return str( e.reason )
-      except:
-         return  str( sys.exc_info()[1] )
-      else:
-         poithemes = json.load(response)
+      response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
+      poithemes = json.load(response)
       themes = [(  n["value"], n["term"]) for n in poithemes["categories"] ] #only need value and  term
       return themes
      
@@ -48,7 +45,7 @@ class Poi(object):
       
       poicategories = None
       try:
-         response = self.opener.open(url, timeout=self.timeout)
+         response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
       except urllib.error.HTTPError as e:
          return json.load(e)["Message"]
       except urllib.error.URLError as e:
@@ -67,7 +64,7 @@ class Poi(object):
         url = self._poiUrl + "/poitypes"
 
       try:
-         response = self.opener.open(url, timeout=self.timeout)
+         response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
       except urllib.error.HTTPError as e:
          return json.load(e)["Message"]
       except urllib.error.URLError as e:
@@ -119,7 +116,7 @@ class Poi(object):
         url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region, clustering)
 
         try:
-           response = self.opener.open(url, timeout=self.timeout)
+           response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
         except urllib.error.HTTPError as e:
            error = e.read()
            errorjs =  json.loads(error)

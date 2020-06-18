@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import urllib.request, urllib.error, urllib.parse, json, sys
+import urllib.request, urllib.error, urllib.parse, json, sys, ssl
 from .geopuntError import geopuntError
 
 class adresMatch(object):
@@ -7,14 +7,18 @@ class adresMatch(object):
       self.timeout = timeout
       self._gemUrl = "https://basisregisters.vlaanderen.be/api/v1/gemeenten/"
       self._amUrl = "https://basisregisters.vlaanderen.be/api/v1/adresmatch?"
+      
+      self.ctx = ssl.create_default_context()
+      self.ctx.check_hostname = False
+      self.ctx.verify_mode = ssl.CERT_NONE
+      
       if isinstance(proxyUrl, str)  and proxyUrl != "":
-        if proxyUrl.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl})
-        else: proxy = urllib.request.ProxyHandler({'http': proxyUrl})
-      else:
-         proxy = urllib.request.ProxyHandler()
-      auth = urllib.request.HTTPBasicAuthHandler()
-      self.opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
-
+         if proxyUrl.startswith("https"): 
+            proxy = urllib.request.ProxyHandler({'https': proxyUrl})
+         else: 
+            proxy = urllib.request.ProxyHandler({'http': proxyUrl})
+         opener = urllib.request.build_opener(proxy, urllib.request.HTTPSHandler, urllib.request.HTTPHandler)
+         urllib.request.install_opener(opener)
 
   def gemeenten(self, niscode="", langcode="nl"):
       'Return all Flemish gemeenten (Municipalities), langcode= "FR", "NL", "DE"' 
@@ -23,7 +27,7 @@ class adresMatch(object):
           url = self._gemUrl +"?"+ data
       else: 
           url = self._gemUrl + str(niscode)
-      response = self.opener.open(url,  timeout=self.timeout)
+      response = urllib.request.urlopen(url,  timeout=self.timeout, context=self.ctx)
       result = json.load(response)
 
       gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
@@ -47,7 +51,7 @@ class adresMatch(object):
       data["Busnummer"]    = boxnr if boxnr else ""
       values = urllib.parse.urlencode(data)
       
-      response = self.opener.open(self._amUrl + values, timeout=self.timeout)
+      response = urllib.request.urlopen(self._amUrl + values, timeout=self.timeout, context=self.ctx)
       return json.load(response)['adresMatches']
     
   def findMatchFromSingleLine(self, adres):
@@ -73,14 +77,8 @@ class adresMatch(object):
       values = urllib.parse.urlencode(data)
       url = self._amUrl + values
       
-      try:
-         response = self.opener.open( url, timeout=self.timeout)
-      except (urllib.error.HTTPError, urllib.error.URLError) as e:
-         raise geopuntError( str( e.reason ) )
-      except:
-         raise geopuntError( sys.exc_info()[1] )
-      else:
-         return json.load(response)['adresMatches']
+      response = urllib.request.urlopen( url, timeout=self.timeout, context=self.ctx)
+      return json.load(response)['adresMatches']
 
     
   def findAdresSuggestions(self, single=None, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr="" ):
