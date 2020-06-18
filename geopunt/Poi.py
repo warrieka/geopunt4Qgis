@@ -3,11 +3,15 @@ from .geopuntError import geopuntError
 import urllib.request, urllib.error, urllib.parse, json, sys, datetime
 import ssl
 
+from qgis.PyQt.QtWidgets import QMessageBox 
+
 class Poi(object):
   def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
       self._poiUrl = "https://poi.api.geopunt.be/v1/core"
       self.resultCount = 0
+      
+      QMessageBox.warning( None , "poi" , proxyUrl)
       
       self.ctx = ssl.create_default_context()
       self.ctx.check_hostname = False

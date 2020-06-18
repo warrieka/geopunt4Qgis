@@ -2,11 +2,15 @@
 from .geopuntError import geopuntError
 import urllib.request, urllib.error, urllib.parse, json, sys, datetime, ssl
 
+from qgis.PyQt.QtWidgets import QMessageBox 
+
 class Adres(object):
   def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
       self._locUrl = "https://loc.api.geopunt.be/v3/Location?"
       self._sugUrl = "https://loc.api.geopunt.be/v3/Suggestion?"
+      
+      QMessageBox.warning( None , "Geolocation" , proxyUrl)
       
       self.ctx = ssl.create_default_context()
       self.ctx.check_hostname = False

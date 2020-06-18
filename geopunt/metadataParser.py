@@ -3,6 +3,8 @@ import urllib.request, urllib.error, urllib.parse, urllib.request, urllib.parse,
 import ssl
 import xml.etree.ElementTree as ET
 
+from qgis.PyQt.QtWidgets import QMessageBox 
+
 class MDdata(object):
     def __init__(self, metadataXML): 
         self.start = int( metadataXML.attrib["from"] )
@@ -78,6 +80,8 @@ class MDReader(object):
                           ["Objectencatalogus","model"],["Service","service"]]
         self.inspireServiceTypes =  ["Discovery","Transformation","View","Other","Invoke"]
         self.inspireannex =  ["i","ii","iii"]
+
+        QMessageBox.warning( None , "catalog" , proxyUrl)
 
         self.ctx = ssl.create_default_context()
         self.ctx.check_hostname = False

@@ -2,10 +2,14 @@
 from .geopuntError import geopuntError
 import urllib.request, urllib.error, urllib.parse, json, sys, datetime, ssl
 
+from qgis.PyQt.QtWidgets import QMessageBox 
+
 class gipod(object):
   def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
       self.baseUri = 'https://api.gipod.vlaanderen.be/ws/v1/'
+            
+      QMessageBox.warning( None , "gipod" , proxyUrl)
       
       self.ctx = ssl.create_default_context()
       self.ctx.check_hostname = False

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from qgis.PyQt.QtCore import QSettings
 from qgis.core import QgsNetworkAccessManager
+from qgis.PyQt.QtWidgets import QMessageBox 
 import urllib.request 
 
 class settings(object):
@@ -10,11 +11,12 @@ class settings(object):
 
     def _getProxySettings(self):
         self.proxyEnabled = proxyHost = proxyPort = proxyUser = proxyPassword = None
-        self.proxyUrl = None
+        self.proxyUrl = ""
 
         self.proxyEnabled = self.s.value("proxy/proxyEnabled", "")
         self.proxy_type = "DefaultProxy"
         proxies = urllib.request.getproxies()
+        
         if len(proxies) == 0:
             qgsNetMan = QgsNetworkAccessManager.instance() 
             self.proxy = qgsNetMan.proxy().applicationProxy() 
@@ -28,7 +30,6 @@ class settings(object):
                 if proxyUser and proxyPassword:
                     self.proxyUrl += proxyUser + ':' + proxyPassword + '@'
                 self.proxyUrl += proxyHost + ':' + proxyPort
-                self.proxyUrlS = self.proxyUrl.replace("http://", "https://")
 
         if len(proxies) > 0 and 'http' in list(proxies.keys()):
            self.proxyUrl = proxies['http']

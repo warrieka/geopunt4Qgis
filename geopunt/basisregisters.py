@@ -2,6 +2,8 @@
 import urllib.request, urllib.error, urllib.parse, json, sys, ssl
 from .geopuntError import geopuntError
 
+from qgis.PyQt.QtWidgets import QMessageBox 
+
 class adresMatch(object):
   def __init__(self, timeout=15, proxyUrl=""):
       self.timeout = timeout
@@ -11,6 +13,8 @@ class adresMatch(object):
       self.ctx = ssl.create_default_context()
       self.ctx.check_hostname = False
       self.ctx.verify_mode = ssl.CERT_NONE
+      
+      QMessageBox.warning( None , "AR adresMatch+gemeentenaam" , proxyUrl)
       
       if isinstance(proxyUrl, str)  and proxyUrl != "":
          if proxyUrl.startswith("https"): 
