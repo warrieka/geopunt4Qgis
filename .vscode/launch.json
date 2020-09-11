@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "name": "RUN",
+            "type": "python",
+            "preLaunchTask": "run",
+            "request": "launch",
+            "program": "script/packPlugin4upload.py",
+            "console": "integratedTerminal"
+        }
+    ] 
+
+}
