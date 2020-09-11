@@ -101,10 +101,11 @@ class geopunt4QgisAdresDialog(QDialog):
            self.layerName= layerName
         self.adresSearchOnEnter = int( self.s.value("geopunt4qgis/adresSearchOnEnter" , 0))
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        if settings().proxyUrl:
-            self.proxy = settings().proxyUrl
-        else:
-            self.proxy = ""
+
+        s = settings()
+        self.proxy = s.proxyUrl
+        self.proxyInfo = s.proxyInfo
+
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.gp = Adres(self.timeout, self.proxy)
         
@@ -112,15 +113,8 @@ class geopunt4QgisAdresDialog(QDialog):
     def show(self):
         QDialog.show(self)
         self.setWindowModality(0)
-        arUrl = "http://loc.api.geopunt.be/"
-        inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout, testSite= arUrl)
-            
-        if not inet:
-            msg = "Kan geen verbing maken met de site van Geopunt: {} \nMogelijke is deze site niet bereikbaar, dan zal deze tool ook niet werken.\nProbeer later opnieuw. Indien dit probleem zich blijft voordoen contacteer informatie Vlaanderen.".format(arUrl)
-            QMessageBox.warning(self.iface.mainWindow(),  "Waarschuwing: kan geen verbinding maken", msg)
-            self.bar.pushMessage( QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"),  msg, level=Qgis.Warning, duration=3)  
-            return 
-        
+
+        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok )    
            
         if self.firstShow: 
             self.am =  basisregisters.adresMatch(self.timeout, self.proxy)

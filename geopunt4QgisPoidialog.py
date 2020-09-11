@@ -20,7 +20,7 @@ geopunt4QgisPoiDialog
 ***************************************************************************/
 """
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
-from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QTableWidgetItem
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QTableWidgetItem, QMessageBox
 from qgis.PyQt.QtGui import QColor
 from qgis.core import Qgis, QgsPointXY
 from qgis.gui import QgsMessageBar, QgsVertexMarker
@@ -106,16 +106,19 @@ class geopunt4QgisPoidialog(QDialog):
         layerName =  self.s.value("geopunt4qgis/poilayerText", "")
         if layerName: self.layerName= layerName
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
-        if settings().proxyUrl:
-            self.proxy = settings().proxyUrl
-        else:
-            self.proxy = ""
+
+        s = settings()
+        self.proxy = s.proxyUrl
+        self.proxyInfo = s.proxyInfo
+        
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.poi = Poi(self.timeout, self.proxy)
     
     def show(self):
         QDialog.show(self)
         self.setWindowModality(0)
+        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
+
         if self.firstShow:
              inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout)
              #filters

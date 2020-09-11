@@ -21,7 +21,7 @@ geopunt4qgisdialog
 """
 from builtins import str
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QStringListModel
-from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QCompleter
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QCompleter, QMessageBox
 from qgis.PyQt.QtGui import QColor
 from qgis.core import Qgis, QgsGeometry
 from qgis.gui  import QgsMessageBar, QgsRubberBand
@@ -99,16 +99,19 @@ class geopunt4QgisParcelDlg(QDialog):
         if layerName :
            self.layerName= layerName   
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
-        if settings().proxyUrl:
-            self.proxy = settings().proxyUrl
-        else:
-            self.proxy = ""
+        
+        s = settings()
+        self.proxy = s.proxyUrl
+        self.proxyInfo = s.proxyInfo
+
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )    
         self.parcel = capakey(self.timeout, self.proxy)
         self.perc = perc(self.timeout, self.proxy)
         
     def show(self):
         QDialog.show(self)
+        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
+
         if self.firstShow:
              inet = internet_on( proxyUrl=self.proxy, timeout=self.timeout )
              if inet:

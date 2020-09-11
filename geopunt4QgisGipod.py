@@ -30,6 +30,7 @@ from .tools.geometry import geometryHelper
 from .tools.gipod import gipodHelper, gipodWriter
 from .tools.settings import settings
 from datetime import date, timedelta
+from urllib.error import HTTPError
 
 class geopunt4QgisGipodDialog(QDialog):
     def __init__(self, iface):
@@ -80,13 +81,25 @@ class geopunt4QgisGipodDialog(QDialog):
         self.ui.provinceCbx.currentIndexChanged.connect(self.provinceChanged)
         self.accepted.connect(self.okClicked )
         self.rejected.connect(self.clean )
-      
+    
+    def loadSettings(self):
+        self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
+        self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
+
+        s = settings()
+        self.proxy = s.proxyUrl
+        self.proxyInfo = s.proxyInfo
+
+        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )        
+        self.gp = gipod(self.timeout, self.proxy)
+    
+
     def show(self):
       QDialog.show(self)
+      QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
+
       if  self.firstShow:
-        'exend show to load data'
-        internet = internet_on( proxyUrl=self.proxy, timeout=self.timeout )
-        if internet:
+        try:
             self.gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
             #populate combo's
             self.ui.provinceCbx.clear()
@@ -99,20 +112,10 @@ class geopunt4QgisGipodDialog(QDialog):
             self.ui.eventCbx.addItems([""] + self.gp.getEventType())
             self.ui.mgsBox.setText('')
             self.firstShow = False
-        elif not internet:
+        except HTTPError:
             self.ui.mgsBox.setText( "<div style='color:red'>%s</div>" %  QCoreApplication.translate("geopunt4QgisGIPOD", 
               "<strong>Waarschuwing: </strong>kan niet verbinden met internet"))
-    
-    def loadSettings(self):
-        self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
-        if settings().proxyUrl:
-            self.proxy = settings().proxyUrl
-        else:
-            self.proxy = ""
-        self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )        
-        self.gp = gipod(self.timeout, self.proxy)
-    
+
     def endEditChanged(self, senderDate):
         self.ui.startEdit.setMaximumDate(senderDate)
     

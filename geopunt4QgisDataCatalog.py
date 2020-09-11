@@ -101,10 +101,10 @@ class geopunt4QgisDataCatalog(QDialog):
 
     def loadSettings(self):
         self.timeout = int(self.s.value("geopunt4qgis/timeout", 15))
-        if settings().proxyUrl:
-            self.proxy = settings().proxyUrl
-        else:
-            self.proxy = ""
+
+        s = settings()
+        self.proxy = s.proxyUrl
+        self.proxyInfo = s.proxyInfo
 
         self.md = MDReader(self.timeout, self.proxy)
 
@@ -129,13 +129,9 @@ class geopunt4QgisDataCatalog(QDialog):
         QDialog.show(self)
         self.setWindowModality(0)
         metadataUrl = "https://metadata.geopunt.be"
-        inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout, testSite= metadataUrl)
-        if not inet:
-            msg = "Kan geen verbing maken met de metadata van Geopunt: {} \nMogelijke is deze site niet bereikbaar, dan zal deze tool ook niet werken.\nProbeer later opnieuw. Indien dit probleem zich blijft voordoen contacteer informatie Vlaanderen.".format(metadataUrl)
-            QMessageBox.warning(self.iface.mainWindow(),  "Waarschuwing: kan geen verbinding maken", msg)
-            self.bar.pushMessage( QCoreApplication.translate("geopunt4QgisPoidialog","Waarschuwing"),  msg, level=Qgis.Warning, duration=3)  
-            return 
-        
+
+        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
+
         if self.firstShow:
             self.ui.GDIThemaCbx.addItems([''] + self.md.list_GDI_theme())
             self.ui.organisatiesCbx.addItems([''] + self.md.list_organisations())

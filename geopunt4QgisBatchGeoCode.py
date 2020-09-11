@@ -102,13 +102,18 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         if layerName :
            self.layerName= layerName
         self.timeout =  int(self.s.value("geopunt4qgis/timeout" ,15))
-        if settings().proxyUrl:
-            self.proxy = settings().proxyUrl
-        else:
-            self.proxy = ""
+
+        s = settings()
+        self.proxy = s.proxyUrl
+        self.proxyInfo = s.proxyInfo
+
         self.retrys = 3
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.am = adresMatch(self.timeout, self.proxy)
+
+    def show(self):
+        QDialog.show(self)
+        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
 
     #eventHandlers
     def openHelp(self):
@@ -431,13 +436,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         if fName:
             self.ui.inputTxt.setText(fName)
             self.loadTable()
-
-    def internet(self):
-        inet_on = internet_on( timeout= self.timeout , proxyUrl= self.proxy )
-        if True != inet_on:
-            self.ui.statusMsg.setText(
-            QCoreApplication.translate("batcGeoCodedialog", "<div style='color:red'>Kon geen connectie maken met geopunt</div>"))
-        return inet_on
 
     def getSelectedRows(self):
         selected = set( [sel.row() for sel in self.ui.outPutTbl.selectedIndexes()] )

@@ -21,7 +21,7 @@ geopunt4QgisElevation
 """
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy,
-                                 QToolButton, QColorDialog, QInputDialog)
+                                 QToolButton, QColorDialog, QInputDialog, QMessageBox)
 from qgis.PyQt.QtGui import QIcon, QColor
 from qgis.core import Qgis, QgsRasterLayer, QgsProject
 from qgis.gui import  QgsMessageBar, QgsVertexMarker 
@@ -157,10 +157,11 @@ class geopunt4QgisElevationDialog(QDialog):
         
     def loadSettings(self):
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
-        if settings().proxyUrl:
-            self.proxy = settings().proxyUrl
-        else:
-            self.proxy = ""
+
+        s = settings()
+        self.proxy = s.proxyUrl
+        self.proxyInfo = s.proxyInfo
+
         self.samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
         sampleLayer = self.s.value("geopunt4qgis/sampleLayerTxt", "")
         if sampleLayer:  
@@ -171,6 +172,10 @@ class geopunt4QgisElevationDialog(QDialog):
            self.profileLineLayerTxt = profileLineLayer
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~"))        
         self.elevation = elevation(self.timeout, self.proxy )
+
+    def show(self):
+        QDialog.show(self)
+        QMessageBox.question(self.iface.mainWindow(), "DEBUG",str(self.proxyInfo), QMessageBox.Ok ) 
 
     def resizeEvent(self, event):
         QDialog.resizeEvent(self, event)
