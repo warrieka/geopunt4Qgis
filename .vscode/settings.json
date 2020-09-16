@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "python.pythonPath": "C:\\Program Files\\Python38\\python.exe",
+=======
+    "python.pythonPath": "C:\\OSGEO4~1\\apps\\Python37\\python.exe",
+>>>>>>> master
     "python.envFile": "${workspaceFolder}/.vscode/.env",
     "python.terminal.activateEnvironment": false
 }
