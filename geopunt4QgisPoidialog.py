@@ -1,26 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-geopunt4QgisPoiDialog
-                A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-                -------------------
-    begin                : 2013-12-08
-    copyright            : (C) 2013 by Kay Warrie
-    email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
-from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QTableWidgetItem, QMessageBox
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QTableWidgetItem
 from qgis.PyQt.QtGui import QColor
 from qgis.core import Qgis, QgsPointXY
 from qgis.gui import QgsMessageBar, QgsVertexMarker
@@ -28,7 +7,7 @@ import os, webbrowser, json
 from .ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
 from .tools.geometry import geometryHelper
 from .tools.poi import poiHelper
-from .geopunt import Poi, internet_on, basisregisters
+from .geopunt import Poi, basisregisters
 from .tools.settings import settings
 
 class geopunt4QgisPoidialog(QDialog):
@@ -108,49 +87,40 @@ class geopunt4QgisPoidialog(QDialog):
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
 
         s = settings()
-        self.proxy = s.proxyUrl
-        self.proxyInfo = s.proxyInfo
-        
+        self.proxy = s.proxy
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.poi = Poi(self.timeout, self.proxy)
     
     def show(self):
         QDialog.show(self)
-        self.setWindowModality(0)
-        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
+        self.setWindowModality(0) 
 
         if self.firstShow:
-             inet = internet_on(proxyUrl=self.proxy, timeout=self.timeout)
-             #filters
-             if inet:
-                self.am =  basisregisters.adresMatch(self.timeout, self.proxy)
-                self.poiThemes = dict( self.poi.listPoiThemes() )
-                poiThemes = [""] + list(self.poiThemes.keys())
-                poiThemes.sort()
-                self.ui.filterPoiThemeCombo.addItems( poiThemes )
-                self.poiCategories = dict( self.poi.listPoiCategories() )
-                poiCategories = [""] + list(self.poiCategories.keys())
-                poiCategories.sort()
-                self.ui.filterPoiCategoryCombo.addItems( poiCategories )
-                self.poiTypes = dict( self.poi.listPoitypes() )
-                poiTypes = [""] + list(self.poiTypes.keys())
-                poiTypes.sort()
-                self.ui.filterPoiTypeCombo.addItems(  poiTypes )
-                gemeentes =  self.am.gemeenten(langcode="NL")
-                self.NIScodes= { n["Naam"] : n["Niscode"] for n in gemeentes }
-                gemeenteNamen = [n["Naam"] for n in gemeentes]
-                gemeenteNamen.sort()
-                self.ui.filterPoiNIS.addItems( gemeenteNamen )            
-                #connect when inet on
-                self.ui.filterPoiThemeCombo.activated.connect(self.onThemeFilterChange)
-                self.ui.filterPoiCategoryCombo.activated.connect(self.onCategorieFilterChange)
-                
-                self.firstShow = False      
-             else:
-                self.bar.pushMessage(
-                  QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "), 
-                  QCoreApplication.translate("geopunt4QgisPoidialog", "Kan geen verbing maken met het internet."), 
-                  level=Qgis.Warning, duration=3)
+            am =  basisregisters.adresMatch(self.timeout, self.proxy)
+            gemeentes = am.gemeenten()
+
+            self.poiThemes = dict( self.poi.listPoiThemes() )
+            poiThemes = [""] + list(self.poiThemes.keys())
+            poiThemes.sort()
+            self.ui.filterPoiThemeCombo.addItems( poiThemes )
+            self.poiCategories = dict( self.poi.listPoiCategories() )
+            poiCategories = [""] + list(self.poiCategories.keys())
+            poiCategories.sort()
+            self.ui.filterPoiCategoryCombo.addItems( poiCategories )
+            self.poiTypes = dict( self.poi.listPoitypes() )
+            poiTypes = [""] + list(self.poiTypes.keys())
+            poiTypes.sort()
+            self.ui.filterPoiTypeCombo.addItems(  poiTypes )
+            
+            self.NIScodes= { n["Naam"] : n["Niscode"] for n in gemeentes }
+            gemeenteNamen = [""] + [n["Naam"] for n in gemeentes]
+            gemeenteNamen.sort()
+            self.ui.filterPoiNIS.addItems( gemeenteNamen )            
+            #connect when inet on
+            self.ui.filterPoiThemeCombo.activated.connect(self.onThemeFilterChange)
+            self.ui.filterPoiCategoryCombo.activated.connect(self.onCategorieFilterChange)
+            
+            self.firstShow = False      
       
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/poi")

@@ -1,43 +1,28 @@
 # -*- coding: utf-8 -*-
-from .geopuntError import geopuntError
-import urllib.request, urllib.error, urllib.parse, json, sys, datetime
-import ssl
-
-from qgis.PyQt.QtWidgets import QMessageBox 
+import json, sys, datetime, urllib.parse
+from urllib.request import getproxies
+import requests
 
 class Poi(object):
-  def __init__(self, timeout=15, proxyUrl=""):
+  _poiUrl = "https://poi.api.geopunt.be/v1/core"
+  def __init__(self, timeout=15,  proxies=None):
       self.timeout = timeout
-      self._poiUrl = "https://poi.api.geopunt.be/v1/core"
+      self.proxy = proxies if proxies else getproxies()
       self.resultCount = 0
-      
-      QMessageBox.warning( None , "poi" , proxyUrl)
-      
-      self.ctx = ssl.create_default_context()
-      self.ctx.check_hostname = False
-      self.ctx.verify_mode = ssl.CERT_NONE
-
-      if isinstance(proxyUrl, str)  and proxyUrl != "":
-         if proxyUrl.startswith("https"): 
-            proxy = urllib.request.ProxyHandler({'https': proxyUrl})
-         else: 
-            proxy = urllib.request.ProxyHandler({'http': proxyUrl})
-         opener = urllib.request.build_opener(proxy, urllib.request.HTTPSHandler, urllib.request.HTTPHandler)
-         urllib.request.install_opener(opener)
       
       #REMARK: WGS coordinates as input!
       self.maxBounds = [1.17, 49.77, 7.29, 52.35]  
       self.resultBounds =  [1.17, 49.77, 7.29, 52.35]  
       self.PoiResult = []
-      self.qeury = ""
+      self.qry = ""
       self.srs = 31370
       self.maxModel=True
      
   def listPoiThemes(self):
       url = self._poiUrl + "/themes"
       poithemes = None
-      response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
-      poithemes = json.load(response)
+      response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
+      poithemes = response.json()
       themes = [(  n["value"], n["term"]) for n in poithemes["categories"] ] #only need value and  term
       return themes
      
@@ -46,19 +31,10 @@ class Poi(object):
         url = self._poiUrl + "/themes/" + themeid +"/categories"
       else:
         url = self._poiUrl + "/categories"
-      
-      poicategories = None
-      try:
-         response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
-      except urllib.error.HTTPError as e:
-         return json.load(e)["Message"]
-      except urllib.error.URLError as e:
-         return str( e.reason )
-      except:
-         return  str( sys.exc_info()[1] )
-      else:
-         poicategories = json.load(response)
-      categories = [(  n["value"], n["term"]) for n in poicategories["categories"] ]
+
+      response =  requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
+      poicategories = response.json()
+      categories = [(n["value"], n["term"]) for n in poicategories["categories"] ]
       return categories
     
   def listPoitypes(self, themeid="", categoriename=""):
@@ -67,20 +43,13 @@ class Poi(object):
       else:
         url = self._poiUrl + "/poitypes"
 
-      try:
-         response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
-      except urllib.error.HTTPError as e:
-         return json.load(e)["Message"]
-      except urllib.error.URLError as e:
-         return str( e.reason )
-      except:
-         return  str( sys.exc_info()[1] )
-      else:
-         poitypes = json.load(response)
+      response =  requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
+      poitypes =  response.json()
       types = [(  n["value"], n["term"]) for n in poitypes["categories"] ]
       return types
     
-  def _createPoiUrl(self, q, c=30, srs=31370, maxModel=False, bbox=None, theme='', category='', POItype='', region='', clustering=True):
+  def _createPoiUrl(self, q, c=30, srs=31370, maxModel=False, bbox=None, theme='', category='',
+                                                              POItype='', region='', clustering=True):
       poiUrl = self._poiUrl
       data = {}
       if q : data["keyword"] = str(q).encode('utf-8')
@@ -119,33 +88,20 @@ class Poi(object):
                bbox=None,  theme='', category='', POItype='', region='', clustering=True):
         url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region, clustering)
 
-        try:
-           response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
-        except urllib.error.HTTPError as e:
-           error = e.read()
-           errorjs =  json.loads(error)
-           if "Message" in list(errorjs.keys()):
-              return error["Message"]
-           else: 
-              return error
-        except urllib.error.URLError as e:
-           return str( e.reason )
-        except:
-           return  str( sys.exc_info()[1] )
-        else:
-          poi = json.load(response)
+        response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
+        poi =  response.json()
       
-          if updateResults:
-              self.resultCount =  int( poi["labels"][0]["value"] )
-              if bbox:
-                  self.resultBounds = bbox
-              else:
-                  self.resultBounds = self._getBounds(poi["pois"])
-              self.PoiResult = poi["pois"]
-              self.qeury = q
-              self.srs = srs
-              self.maxModel = maxModel           
-          return poi
+        if updateResults:
+            self.resultCount =  int( poi["labels"][0]["value"] )
+            if bbox:
+                self.resultBounds = bbox
+            else:
+                self.resultBounds = self._getBounds(poi["pois"])
+            self.PoiResult = poi["pois"]
+            self.qry = q
+            self.srs = srs
+            self.maxModel = maxModel           
+        return poi
   
   def poiSuggestion(self):
       if self.PoiResult: 

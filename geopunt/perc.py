@@ -1,61 +1,43 @@
 # -*- coding: utf-8 -*-
-from .geopuntError import geopuntError
-import urllib.request, urllib.error, urllib.parse, json, sys, datetime, ssl
-
+import json, sys, datetime
+from urllib.request import getproxies
+import requests
 
 class perc(object):
-   def __init__(self, timeout=15, proxyUrl=""):
+   _esriCapaServer= "https://geoservices.informatievlaanderen.be/ArcGIS/rest/services/adp/MapServer/0/query?" 
+   _locUrl = "https://perc.geopunt.be/Perceel/Location?"
+   _sugUrl = "https://perc.geopunt.be/Perceel/Suggestion?"
+
+   def __init__(self, timeout=15,  proxies=None):
       self.timeout = timeout
-
-      self._esriCapaServer= "https://geoservices.informatievlaanderen.be/ArcGIS/rest/services/adp/MapServer/0/query?" 
-      self._locUrl = "https://perc.geopunt.be/Perceel/Location?"
-      self._sugUrl = "https://perc.geopunt.be/Perceel/Suggestion?"
-
-      self.ctx = ssl.create_default_context()
-      self.ctx.check_hostname = False
-      self.ctx.verify_mode = ssl.CERT_NONE
-      
-      if isinstance(proxyUrl, str)  and proxyUrl != "":
-         if proxyUrl.startswith("https"): 
-            proxy = urllib.request.ProxyHandler({'https': proxyUrl})
-         else: 
-            proxy = urllib.request.ProxyHandler({'http': proxyUrl})
-         opener = urllib.request.build_opener(proxy, urllib.request.HTTPSHandler, urllib.request.HTTPHandler)
-         urllib.request.install_opener(opener)
-
+      self.proxy = proxies if proxies else getproxies()
       
    def fetchLocation(self, q, c=1):
       geopuntUrl = self._locUrl
       data = {"q": q, "c":c}
-      values = urllib.parse.urlencode(data).encode('utf-8')
-      response = urllib.request.urlopen(geopuntUrl, values, timeout=self.timeout, context=self.ctx)
-      LocationResult = json.load(response)
-      return LocationResult["LocationResult"]
+      LocationResult = requests.get(geopuntUrl, params=data, timeout=self.timeout , verify=False, proxies=self.proxy )
+      return LocationResult.json()["LocationResult"]
 
    def fetchSuggestion(self, q, c=5):
       geopuntUrl = self._sugUrl
       data = {"q": q, "c": c}
-      values = urllib.parse.urlencode(data).encode('utf-8')
-      response = urllib.request.urlopen(geopuntUrl, values, timeout=self.timeout, context=self.ctx)
-      suggestion = json.load(response)
-      return suggestion["SuggestionResult"]
+      suggestion = requests.get(geopuntUrl, params=data, timeout=self.timeout , verify=False, proxies=self.proxy )
+      return suggestion.json()["SuggestionResult"]
          
    def getPercGeom(self, capakey, srs=31370):
       capaUrl = self._esriCapaServer
       data = {"f": "geojson"}
       data["where"] = str( "CAPAKEY LIKE '{}'".format( capakey ) )
       data["outSR"] = srs
-      values = urllib.parse.urlencode(data).encode('utf-8')
-      response = urllib.request.urlopen(capaUrl, values, timeout=self.timeout, context=self.ctx)
-      return json.load(response)
+      response = requests.get(capaUrl, params=data, timeout=self.timeout , verify=False, proxies=self.proxy )
+      return response.json()
          
    def getPercAtXY(self, x, y, srs=31370):
       capaUrl = self._esriCapaServer
       data = {"f": "geojson", "geometryType":"esriGeometryPoint"}
-      data["geometry"] = str(x), +","+ str(y)
+      data["geometry"] = str(x) +","+ str(y)
       data["inSR"] = srs
       data["outSR"] = srs
-      values = urllib.parse.urlencode(data).encode('utf-8')
-      response = urllib.request.urlopen(capaUrl, values, timeout=self.timeout, context=self.ctx)
-      return json.load(response)
+      response = requests.get(capaUrl, params=data, timeout=self.timeout , verify=False, proxies=self.proxy )
+      return response.json() 
 

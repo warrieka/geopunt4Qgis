@@ -1,24 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-batcGeoCodedialog 
-                
-"Tool om geopunt in QGIS te gebruiken"
-                -------------------
-    begin                : 2013-12-08
-    copyright            : (C) 2013 by Kay Warrie
-    email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 import csv, webbrowser, os.path
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtWidgets import (QDialog, QDialogButtonBox, QPushButton, QInputDialog, 
@@ -27,7 +7,7 @@ from qgis.PyQt.QtGui import QColor, QBrush
 from .ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
 from .tools.batchGeo import batcGeoHelper
 from .mapTools.reverseAdres import reverseAdresMapTool
-from .geopunt import internet_on, Adres, adresMatch
+from .geopunt import Adres, adresMatch
 from .tools.settings import settings
 from .tools.geometry import geometryHelper
 
@@ -104,16 +84,9 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.timeout =  int(self.s.value("geopunt4qgis/timeout" ,15))
 
         s = settings()
-        self.proxy = s.proxyUrl
-        self.proxyInfo = s.proxyInfo
-
-        self.retrys = 3
+        self.proxy = s.proxy  
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.am = adresMatch(self.timeout, self.proxy)
-
-    def show(self):
-        QDialog.show(self)
-        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
 
     #eventHandlers
     def openHelp(self):
@@ -352,7 +325,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.ui.statusProgress.setMaximum(len(rowIds))
         self.ui.statusMsg.setText("")
     
-        retry = self.retrys
         i= 0
         while i < len( rowIds):
               rowIdx = rowIds[i]
@@ -393,7 +365,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
                   for col in range(len(self.headers)):
                       self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#FFBEBE")) )
               i += 1
-              retry = self.retrys
 
         #reset statusbar
         self.ui.statusMsg.setText("")

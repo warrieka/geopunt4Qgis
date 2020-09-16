@@ -4,10 +4,10 @@
 
 [general]
 name=geopunt4Qgis
-qgisMinimumVersion=3.0
+qgisMinimumVersion=3.4
 description=DEBUG VERSIE
 
-version=2.1.1debug
+version=2.1.3debug
 author=Kay Warrie
 email=kaywarrie@gmail.be
 

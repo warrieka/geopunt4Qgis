@@ -1,32 +1,11 @@
 # -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-geopunt4QgisDataCatalog
-                A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-                -------------------
-    begin                : 2014-07-15
-    copyright            : (C) 2014 by Kay Warrie
-    email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QRegExp, QSortFilterProxyModel, QStringListModel
-from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog, QSizePolicy, QMessageBox
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog, QSizePolicy
 from qgis.PyQt.QtGui import QStandardItem, QStandardItemModel
 from .ui_geopunt4QgisDataCatalog import Ui_geopunt4QgisDataCatalogDlg
 from qgis.core import Qgis, QgsProject, QgsRasterLayer, QgsVectorLayer
 from qgis.gui import QgsMessageBar
 import os, webbrowser, sys
-from .geopunt import internet_on
 from .geopunt.metadataParser import MDReader, MDdata, getWmsLayerNames, getWFSLayerNames, makeWFSuri
 from .tools.geometry import geometryHelper
 from .tools.settings import settings
@@ -103,9 +82,7 @@ class geopunt4QgisDataCatalog(QDialog):
         self.timeout = int(self.s.value("geopunt4qgis/timeout", 15))
 
         s = settings()
-        self.proxy = s.proxyUrl
-        self.proxyInfo = s.proxyInfo
-
+        self.proxy = s.proxy
         self.md = MDReader(self.timeout, self.proxy)
 
     def openHelp(self):
@@ -129,8 +106,6 @@ class geopunt4QgisDataCatalog(QDialog):
         QDialog.show(self)
         self.setWindowModality(0)
         metadataUrl = "https://metadata.geopunt.be"
-
-        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
 
         if self.firstShow:
             self.ui.GDIThemaCbx.addItems([''] + self.md.list_GDI_theme())

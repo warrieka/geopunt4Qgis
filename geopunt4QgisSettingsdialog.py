@@ -1,24 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-geopunt4QgisSettingsdialog
-                A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-                -------------------
-    begin                : 2013-12-08
-    copyright            : (C) 2013 by Kay Warrie
-    email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QFileDialog
 from .ui_geopunt4QgisSettings import Ui_settingsDlg
@@ -65,7 +45,16 @@ class geopunt4QgisSettingsDialog(QDialog):
         self.ui.timeOutBox.setValue(timeout)
         home = os.path.expanduser("~")
         startDir = self.s.value("geopunt4qgis/startDir", home)
-        if isinstance(startDir, str): self.ui.startDirTxt.setText(startDir)                                   
+        
+        if isinstance(startDir, str): 
+            self.ui.startDirTxt.setText(startDir)                                   
+        
+        #proxysettings
+        proxyOverwiteEnabled = int( self.s.value("geopunt4qgis/proxyOverwiteEnabled" , 0))
+        self.ui.proxyChk.setChecked(proxyOverwiteEnabled)
+
+        proxyText = self.s.value("geopunt4qgis/proxyUrl", "")
+        if isinstance(proxyText, str): self.ui.proxyText.setText(proxyText)
         
         #geopunt4Qgis AdresDialog settings
         adresSearchOnEdit = int( self.s.value("geopunt4qgis/adresSearchOnEdit" , 1))
@@ -163,6 +152,14 @@ class geopunt4QgisSettingsDialog(QDialog):
         startDir = self.ui.startDirTxt.text()
         self.s.setValue("geopunt4qgis/startDir", startDir)           
         
+        #proxysettings
+        proxyOverwiteEnabled = int( self.ui.proxyChk.isChecked() )
+        self.s.setValue("geopunt4qgis/proxyOverwiteEnabled" , proxyOverwiteEnabled)
+
+        if proxyOverwiteEnabled:
+            proxyText = self.ui.proxyText.text()
+            self.s.setValue("geopunt4qgis/proxyUrl" , proxyText)
+
         #'save geopunt4QgisAdresDialog settings'
         adresSearchOnEdit = int( self.ui.adresSearchOnEditChk.isChecked())
         self.s.setValue("geopunt4qgis/adresSearchOnEdit" , adresSearchOnEdit)

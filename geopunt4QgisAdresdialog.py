@@ -1,24 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-geopunt4qgisdialog
-				A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-			    -------------------
-	begin                : 2013-12-05
-	copyright            : (C) 2013 by Kay Warrie
-	email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 from __future__ import absolute_import
 from qgis.PyQt.QtCore import Qt, QSettings, QCoreApplication, QTranslator, QStringListModel
 from qgis.PyQt.QtWidgets import QDialog, QCompleter, QSizePolicy, QPushButton, QDialogButtonBox, QInputDialog, QMessageBox
@@ -27,7 +7,7 @@ from .ui_geopunt4qgis import Ui_geopunt4Qgis
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 from qgis.core import Qgis, QgsPointXY
 import os, json, webbrowser
-from .geopunt import Adres, basisregisters, internet_on
+from .geopunt import Adres, basisregisters
 from .tools.geometry import geometryHelper
 from .tools.settings import settings
 
@@ -103,8 +83,7 @@ class geopunt4QgisAdresDialog(QDialog):
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
 
         s = settings()
-        self.proxy = s.proxyUrl
-        self.proxyInfo = s.proxyInfo
+        self.proxy = s.proxy
 
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
         self.gp = Adres(self.timeout, self.proxy)
@@ -114,8 +93,6 @@ class geopunt4QgisAdresDialog(QDialog):
         QDialog.show(self)
         self.setWindowModality(0)
 
-        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok )    
-           
         if self.firstShow: 
             self.am =  basisregisters.adresMatch(self.timeout, self.proxy)
             gemeenteNamen =  [n["Naam"] for n in self.am.gemeenten()]

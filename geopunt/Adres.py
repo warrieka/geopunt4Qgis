@@ -1,30 +1,16 @@
 # -*- coding: utf-8 -*-
-from .geopuntError import geopuntError
-import urllib.request, urllib.error, urllib.parse, json, sys, datetime, ssl
-
-from qgis.PyQt.QtWidgets import QMessageBox 
+import json, sys, datetime, urllib.parse
+from urllib.request import getproxies
+import requests
 
 class Adres(object):
-  def __init__(self, timeout=15, proxyUrl=""):
-      self.timeout = timeout
-      self._locUrl = "https://loc.api.geopunt.be/v3/Location?"
-      self._sugUrl = "https://loc.api.geopunt.be/v3/Suggestion?"
-      
-      QMessageBox.warning( None , "Geolocation" , proxyUrl)
-      
-      self.ctx = ssl.create_default_context()
-      self.ctx.check_hostname = False
-      self.ctx.verify_mode = ssl.CERT_NONE
-      
-      if isinstance(proxyUrl, str)  and proxyUrl != "":
-         if proxyUrl.startswith("https"): 
-            proxy = urllib.request.ProxyHandler({'https': proxyUrl})
-         else: 
-            proxy = urllib.request.ProxyHandler({'http': proxyUrl})
-         opener = urllib.request.build_opener(proxy, urllib.request.HTTPSHandler, urllib.request.HTTPHandler)
-         urllib.request.install_opener(opener)
-      
+  _locUrl = "https://loc.api.geopunt.be/v4/Location?"
+  _sugUrl = "https://loc.api.geopunt.be/v4/Suggestion?"
 
+  def __init__(self, timeout=15, proxies=None):
+      self.timeout = timeout
+      self.proxy = proxies if proxies else getproxies()
+      
   def _createLocationUrl(self, q, c=1):
       geopuntUrl = self._locUrl
       data = {}
@@ -36,8 +22,8 @@ class Adres(object):
 
   def fetchLocation(self, q, c=1):
       url = self._createLocationUrl(q, c=1)
-      response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
-      LocationResult = json.load(response)
+      response = requests.get(url, timeout=self.timeout, verify=False, proxies=self.proxy )
+      LocationResult = response.json()
       return LocationResult["LocationResult"]
 
   def _createSuggestionUrl(self, q, c=5):
@@ -51,12 +37,6 @@ class Adres(object):
 
   def fetchSuggestion(self, q, c=5):
       url = self._createSuggestionUrl(q,c)
-      try:
-          response = urllib.request.urlopen(url, timeout=self.timeout, context=self.ctx)
-      except (urllib.error.HTTPError, urllib.error.URLError) as e:
-          raise geopuntError( str( e.reason ))
-      except:
-          raise geopuntError( sys.exc_info()[1] )
-      else:
-          suggestion = json.load(response)
-          return suggestion["SuggestionResult"]
+      response = requests.get(url, timeout=self.timeout, verify=False, proxies=self.proxy )
+      suggestion = response.json()
+      return suggestion["SuggestionResult"]

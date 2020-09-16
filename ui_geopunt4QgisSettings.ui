@@ -34,8 +34,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>302</height>
+        <width>478</width>
+        <height>257</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -120,6 +120,32 @@
         </layout>
        </item>
        <item>
+        <widget class="QGroupBox" name="proxyBox">
+         <property name="title">
+          <string>Proxy instellen</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_19">
+          <item>
+           <widget class="QCheckBox" name="proxyChk">
+            <property name="text">
+             <string>Systeem-proxy overrulen (vorm &lt;HOST&gt;:&lt;PORT&gt;):</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="proxyText">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="placeholderText">
+             <string>bijvoorbeeld: http://proxy.vlaanderen.be:8080</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_5">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -127,7 +153,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>44</height>
+           <height>40</height>
           </size>
          </property>
         </spacer>
@@ -139,8 +165,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>482</width>
-        <height>302</height>
+        <width>457</width>
+        <height>262</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -239,8 +265,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>216</width>
-        <height>142</height>
+        <width>478</width>
+        <height>257</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -310,8 +336,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>344</width>
-        <height>176</height>
+        <width>478</width>
+        <height>257</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -415,8 +441,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>216</width>
-        <height>142</height>
+        <width>478</width>
+        <height>257</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -486,8 +512,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>244</width>
-        <height>142</height>
+        <width>478</width>
+        <height>257</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -560,8 +586,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>242</width>
-        <height>266</height>
+        <width>457</width>
+        <height>314</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -676,8 +702,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>219</width>
-        <height>142</height>
+        <width>478</width>
+        <height>257</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -773,8 +799,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>259</x>
+     <y>554</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -789,12 +815,28 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>327</x>
+     <y>554</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>proxyChk</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>proxyText</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>58</x>
+     <y>164</y>
     </hint>
    </hints>
   </connection>

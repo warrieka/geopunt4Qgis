@@ -1,45 +1,24 @@
 # -*- coding: utf-8 -*-
-"""
-/***************************************************************************
- geopunt4Qgis
-                                 A QGIS plugin
- "Tool om geopunt in QGIS te gebruiken"
-                              -------------------
-        begin                : 2013-12-05
-        copyright            : (C) 2013 by Kay Warrie
-        email                : kaywarrie@gmail.com
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-"""
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator 
 from qgis.PyQt.QtWidgets import QMessageBox, QAction, QPushButton, QInputDialog
 from qgis.PyQt.QtGui import QColor, QIcon
-from qgis.core import Qgis, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsProject
-from qgis.gui  import QgsMessageBar, QgsVertexMarker
+from qgis.core       import Qgis, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsProject
+from qgis.gui        import QgsMessageBar, QgsVertexMarker
 from .geopunt4QgisAdresdialog import geopunt4QgisAdresDialog
 from .geopunt4QgisPoidialog import geopunt4QgisPoidialog
-from .geopunt4QgisAbout import geopunt4QgisAboutDialog
 from .geopunt4QgisSettingsdialog import geopunt4QgisSettingsDialog
 from .geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
 from .geopunt4QgisGipod import geopunt4QgisGipodDialog
 from .geopunt4QgisElevation import mathplotlibWorks, geopunt4QgisElevationDialog
 from .geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
 from .geopunt4QgisParcel import geopunt4QgisParcelDlg
-from .geopunt import Adres
+from .geopunt        import Adres
 from .mapTools.reverseAdres import reverseAdresMapTool
 from .tools.versionChecker import versionChecker
 from .tools.geometry import geometryHelper
 from .tools.settings import settings
 import os.path, webbrowser
-from threading import Timer
+from threading       import Timer
 
 class geopunt4Qgis(object):
     def __init__(self, iface):
@@ -76,7 +55,6 @@ class geopunt4Qgis(object):
         if mathplotlibWorks : self.elevationDlg = geopunt4QgisElevationDialog(self.iface)
         self.datacatalogusDlg = geopunt4QgisDataCatalog(self.iface)
         self.parcelDlg = geopunt4QgisParcelDlg(self.iface)
-        self.aboutDlg = geopunt4QgisAboutDialog()
         
     def initGui(self):
         'intialize UI'
@@ -122,7 +100,7 @@ class geopunt4Qgis(object):
         self.datacatalogusAction.triggered.connect(self.rundatacatalog)
         self.parcelAction.triggered.connect(self.runParcel)
         self.settingsAction.triggered.connect(self.runSettingsDlg)
-        self.aboutAction.triggered.connect(self.runAbout)
+        self.aboutAction.triggered.connect(lambda: webbrowser.open_new_tab("https://www.geopunt.be/voor-experts/geopunt-plug-ins") )
         
         #Create toolbar
         self.toolbar = self.iface.addToolBar("Geopunt toolbar")
@@ -180,10 +158,8 @@ class geopunt4Qgis(object):
         if layerName_reverse:
            self.layerName_reverse = layerName_reverse
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        if  settings().proxyUrl:
-            self.proxy = settings().proxyUrl
-        else:
-            self.proxy = ""
+        
+        self.proxy = settings().proxy
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~"))
         self.gp = Adres(self.timeout, self.proxy)
         
@@ -289,17 +265,6 @@ class geopunt4Qgis(object):
         # Run the dialog event loop
         self.parcelDlg.exec_()
 
-    def runAbout(self):
-        'show the dialog'
-        if self.aboutDlg.isVisible():
-           self.aboutDlg.showNormal()
-           self.aboutDlg.activateWindow()
-           return 
-        
-        self.aboutDlg.show()
-        # Run the dialog event loop
-        self.aboutDlg.exec_()
-        
     def reverse(self):
         widget = self.iface.messageBar().createMessage(
                 QCoreApplication.translate("geopunt4Qgis" ,"Zoek een Adres: "), 

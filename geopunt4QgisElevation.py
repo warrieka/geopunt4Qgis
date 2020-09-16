@@ -1,27 +1,7 @@
 # -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-geopunt4QgisElevation
-                A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-                -------------------
-    begin                : 2014-07-02
-    copyright            : (C) 2014 by Kay Warrie
-    email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy,
-                                 QToolButton, QColorDialog, QInputDialog, QMessageBox)
+                                 QToolButton, QColorDialog, QInputDialog)
 from qgis.PyQt.QtGui import QIcon, QColor
 from qgis.core import Qgis, QgsRasterLayer, QgsProject
 from qgis.gui import  QgsMessageBar, QgsVertexMarker 
@@ -43,7 +23,7 @@ from .tools.geometry import geometryHelper
 from .tools.elevation import elevationHelper
 from .tools.settings import settings
 from .mapTools.elevationProfile import lineTool
-from .geopunt import geopuntError, elevation
+from .geopunt import elevation
 
 class geopunt4QgisElevationDialog(QDialog):
     def __init__(self, iface):
@@ -159,8 +139,7 @@ class geopunt4QgisElevationDialog(QDialog):
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
 
         s = settings()
-        self.proxy = s.proxyUrl
-        self.proxyInfo = s.proxyInfo
+        self.proxy = s.proxy
 
         self.samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
         sampleLayer = self.s.value("geopunt4qgis/sampleLayerTxt", "")
@@ -175,7 +154,6 @@ class geopunt4QgisElevationDialog(QDialog):
 
     def show(self):
         QDialog.show(self)
-        QMessageBox.question(self.iface.mainWindow(), "DEBUG",str(self.proxyInfo), QMessageBox.Ok ) 
 
     def resizeEvent(self, event):
         QDialog.resizeEvent(self, event)
@@ -314,12 +292,9 @@ class geopunt4QgisElevationDialog(QDialog):
         wgsLine = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() )
         lineString = [ list(n) for n in wgsLine.asPolyline()]
         nrSamples = self.ui.nrOfSampleSpin.value()
-        #try:
-        self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
-        #except geopuntError as ge: 
-        #    self.bar.pushMessage("Error", ge.message, level=Qgis.Critical, duration=10)
-        #    return 
         
+        self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
+
         if np.max( [n[0] for n in self.profile ] ) > 1000: self.xscaleUnit = (0.001 , "km" )
         else: self.xscaleUnit = (1 , "m" )
         

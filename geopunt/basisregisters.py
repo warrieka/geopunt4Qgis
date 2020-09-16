@@ -1,41 +1,23 @@
 # -*- coding: utf-8 -*-
-import urllib.request, urllib.error, urllib.parse, json, sys, ssl
-from .geopuntError import geopuntError
-
-from qgis.PyQt.QtWidgets import QMessageBox 
+import json, sys, urllib.parse
+from urllib.request import getproxies
+import requests
 
 class adresMatch(object):
-  def __init__(self, timeout=15, proxyUrl=""):
+  _gemUrl = "https://basisregisters.vlaanderen.be/api/v1/gemeenten/"
+  _amUrl = "https://basisregisters.vlaanderen.be/api/v1/adresmatch"
+  def __init__(self, timeout=15, proxies=None):
       self.timeout = timeout
-      self._gemUrl = "https://basisregisters.vlaanderen.be/api/v1/gemeenten/"
-      self._amUrl = "https://basisregisters.vlaanderen.be/api/v1/adresmatch?"
-      
-      self.ctx = ssl.create_default_context()
-      self.ctx.check_hostname = False
-      self.ctx.verify_mode = ssl.CERT_NONE
-      
-      QMessageBox.warning( None , "AR adresMatch+gemeentenaam" , proxyUrl)
-      
-      if isinstance(proxyUrl, str)  and proxyUrl != "":
-         if proxyUrl.startswith("https"): 
-            proxy = urllib.request.ProxyHandler({'https': proxyUrl})
-         else: 
-            proxy = urllib.request.ProxyHandler({'http': proxyUrl})
-         opener = urllib.request.build_opener(proxy, urllib.request.HTTPSHandler, urllib.request.HTTPHandler)
-         urllib.request.install_opener(opener)
+      self.proxy = proxies if proxies else getproxies()
 
-  def gemeenten(self, niscode="", langcode="nl"):
-      'Return all Flemish gemeenten (Municipalities), langcode= "FR", "NL", "DE"' 
+  def gemeenten(self, langcode="nl"):
+      'Return all Flemish gemeenten (Municipalities), ylangcode= "nl", "fr", "de"' 
       data = urllib.parse.urlencode( {'Limit' : '2000' } )
-      if not niscode:  
-          url = self._gemUrl +"?"+ data
-      else: 
-          url = self._gemUrl + str(niscode)
-      response = urllib.request.urlopen(url,  timeout=self.timeout, context=self.ctx)
-      result = json.load(response)
+      result = requests.get(self._gemUrl, params=data, timeout=self.timeout, 
+                                          verify=False, proxies=self.proxy ).json()
 
       gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
-                  for n in result["gemeenten"] 
+                      for n in result["gemeenten"] 
                       if  n['gemeentenaam']['geografischeNaam']['taal'] == langcode
                       and n["gemeenteStatus"] ==  "inGebruik"]
 
@@ -55,8 +37,9 @@ class adresMatch(object):
       data["Busnummer"]    = boxnr if boxnr else ""
       values = urllib.parse.urlencode(data)
       
-      response = urllib.request.urlopen(self._amUrl + values, timeout=self.timeout, context=self.ctx)
-      return json.load(response)['adresMatches']
+      result = requests.get(self._amUrl, params=data, timeout=self.timeout , 
+                                        verify=False , proxies=self.proxy ).json()
+      return result['adresMatches']
     
   def findMatchFromSingleLine(self, adres):
       adr = [n.strip() for n in adres.split(",")]
@@ -78,11 +61,10 @@ class adresMatch(object):
       data["Postcode"]     = post
       data["Straatnaam"]   = street
       data["Huisnummer"]   = housenr
-      values = urllib.parse.urlencode(data)
-      url = self._amUrl + values
       
-      response = urllib.request.urlopen( url, timeout=self.timeout, context=self.ctx)
-      return json.load(response)['adresMatches']
+      result = requests.get(self._amUrl, params=data, timeout=self.timeout , 
+                                            verify=False  , proxies=self.proxy ).json()
+      return result['adresMatches']
 
     
   def findAdresSuggestions(self, single=None, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr="" ):

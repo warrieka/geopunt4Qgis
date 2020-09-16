@@ -1,31 +1,11 @@
 # -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-geopunt4QgisGipod
-                                A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-                            -------------------
-        begin                : 2013-12-08
-        copyright            : (C) 2013 by Kay Warrie
-        email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 from builtins import str
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QMessageBox
 from qgis.PyQt.QtGui import QIcon
 from .ui_geopunt4QgisGIPOD import Ui_gipodDlg
 import os, json, webbrowser, sys
-from .geopunt import  gipod, internet_on
+from .geopunt import  gipod
 from .tools.geometry import geometryHelper
 from .tools.gipod import gipodHelper, gipodWriter
 from .tools.settings import settings
@@ -87,16 +67,13 @@ class geopunt4QgisGipodDialog(QDialog):
         self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
 
         s = settings()
-        self.proxy = s.proxyUrl
-        self.proxyInfo = s.proxyInfo
-
+        self.proxy = s.proxy
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )        
         self.gp = gipod(self.timeout, self.proxy)
     
 
     def show(self):
       QDialog.show(self)
-      QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
 
       if  self.firstShow:
         try:

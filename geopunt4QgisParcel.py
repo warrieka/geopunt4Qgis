@@ -1,33 +1,13 @@
 # -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-geopunt4qgisdialog
-                A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-                -------------------
-    begin                : 2014-11-08
-    copyright            : (C) 2014 by Kay Warrie
-    email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 from builtins import str
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QStringListModel
-from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QCompleter, QMessageBox
+from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePolicy, QInputDialog, QCompleter
 from qgis.PyQt.QtGui import QColor
 from qgis.core import Qgis, QgsGeometry
 from qgis.gui  import QgsMessageBar, QgsRubberBand
 from .ui_geopunt4QgisParcel import Ui_geopunt4QgisParcelDlg
 import os, json, webbrowser
-from .geopunt import capakey, internet_on, geopuntError, perc
+from .geopunt import capakey, perc
 from .tools.geometry import geometryHelper
 from .tools.parcel import parcelHelper
 from .tools.settings import settings
@@ -101,30 +81,21 @@ class geopunt4QgisParcelDlg(QDialog):
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
         
         s = settings()
-        self.proxy = s.proxyUrl
-        self.proxyInfo = s.proxyInfo
-
+        self.proxy = s.proxy    
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )    
         self.parcel = capakey(self.timeout, self.proxy)
         self.perc = perc(self.timeout, self.proxy)
         
     def show(self):
-        QDialog.show(self)
-        QMessageBox.question(self.iface.mainWindow(), "DEBUG", str(self.proxyInfo), QMessageBox.Ok ) 
+        QDialog.show(self) 
 
         if self.firstShow:
-             inet = internet_on( proxyUrl=self.proxy, timeout=self.timeout )
-             if inet:
-                self.firstShow = False
-                self.municipalities = self.parcel.getMunicipalities()
-                self.ui.municipalityCbx.clear()
-                muniNames = [n['municipalityName'] for n in self.municipalities]
-                self.ui.municipalityCbx.addItems( [''] + muniNames )
-                self.setCompleter( muniNames, self.ui.municipalityCbx )
-             else:
-                self.bar.pushMessage(
-                  QCoreApplication.translate("geopunt4QgisParcelDlg", "Waarschuwing "), 
-                  QCoreApplication.translate("geopunt4QgisParcelDlg", "Kan geen verbing maken met het internet."), level=Qgis.Warning, duration=10)
+            self.firstShow = False
+            self.municipalities = self.parcel.getMunicipalities()
+            self.ui.municipalityCbx.clear()
+            muniNames = [n['municipalityName'] for n in self.municipalities]
+            self.ui.municipalityCbx.addItems( [''] + muniNames )
+            self.setCompleter( muniNames, self.ui.municipalityCbx )
 
     def saveParcel(self):
         if not self.layernameValid(): return
@@ -163,9 +134,6 @@ class geopunt4QgisParcelDlg(QDialog):
         
         try:
           self.departments = self.parcel.getDepartments(niscode)
-        except geopuntError as e:
-          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
-          return
         except Exception as e:
           self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
           return
@@ -193,9 +161,6 @@ class geopunt4QgisParcelDlg(QDialog):
 
         try:
           self.sections = [n['sectionCode'] for n in self.parcel.getSections(niscode, departmentcode)]
-        except geopuntError as e:
-          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
-          return
         except Exception as e:
           self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
           return
@@ -223,9 +188,6 @@ class geopunt4QgisParcelDlg(QDialog):
       
         try:
           self.parcels = self.parcel.getParcels( niscode, departmentcode, section )
-        except geopuntError as e:
-          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
-          return
         except Exception as e:
           self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
           return
@@ -255,9 +217,6 @@ class geopunt4QgisParcelDlg(QDialog):
             parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr)
             addresses = "; ".join(parcelInfo['adres'])
             self.ui.adresLine.setText(addresses)
-        except geopuntError as e:
-            self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
-            return
         except Exception as e:
             self.bar.pushMessage("Error", str( e.message) , level=Qgis.Critical)
             return
@@ -276,53 +235,50 @@ class geopunt4QgisParcelDlg(QDialog):
             
         section = self.ui.sectionCbx.currentText()
         parcelNr = self.ui.parcelCbx.currentText()
-        
-        try:
-            if sender is self.ui.ZoomKnop_muni and municipality != '':
-                muniInfo = self.parcel.getMunicipalitieInfo( niscode, 31370, 'full') 
-                if muniInfo == []: return
-                bbox= json.loads( muniInfo['geometry']['boundingBox'])['coordinates'][0]
-                self.clearGraphics()
-                self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )        
-                shape = json.loads( muniInfo['geometry']['shape'])
-                for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
-                return
-            if sender is self.ui.ZoomKnop_dep and municipality != '' and department != '':
-                depInfo = self.parcel.getDepartmentInfo( niscode, departmentcode, 31370, 'full') 
-                if depInfo == []: return
-                bbox= json.loads( depInfo['geometry']['boundingBox'])['coordinates'][0]
-                self.clearGraphics()
-                self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
-                shape = json.loads( depInfo['geometry']['shape'])
-                for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
-                return
-            if sender is self.ui.ZoomKnop_sect and municipality != '' and department != '' and section != '':
-                sectInfo = self.parcel.getSectionInfo( niscode, departmentcode, section, 31370, 'full') 
-                if sectInfo == []: return
-                bbox= json.loads( sectInfo['geometry']['boundingBox'])['coordinates'][0]
-                self.clearGraphics()
-                self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
-                shape = json.loads( sectInfo['geometry']['shape'])
-                for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
-                return
-            if sender is self.ui.ZoomKnop_parcel and niscode != '' and department != '' and section != '' and parcelNr != '':
-                parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
-                if parcelInfo == []: return
-                bbox= json.loads( parcelInfo['geometry']['boundingBox'])['coordinates'][0]
-                self.clearGraphics()
-                self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
-                
-                geojson = self.perc.getPercGeom( parcelInfo['capakey'] ) 
-                if len(geojson['features']) > 0: shape = geojson['features'][0]['geometry']
-                else: shape = json.loads( parcelInfo['geometry']['shape'])
 
-                for n in self.PolygonsFromJson( shape ):  
-                    self.addGraphic(n)
-                return
+        if sender is self.ui.ZoomKnop_muni and municipality != '':
+            muniInfo = self.parcel.getMunicipalitieInfo( niscode, 31370, 'full') 
+            if muniInfo == []: return
+            bbox= json.loads( muniInfo['geometry']['boundingBox'])['coordinates'][0]
+            self.clearGraphics()
+            self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )        
+            shape = json.loads( muniInfo['geometry']['shape'])
+            for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
+            return
+        if sender is self.ui.ZoomKnop_dep and municipality != '' and department != '':
+            depInfo = self.parcel.getDepartmentInfo( niscode, departmentcode, 31370, 'full') 
+            if depInfo == []: return
+            bbox= json.loads( depInfo['geometry']['boundingBox'])['coordinates'][0]
+            self.clearGraphics()
+            self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
+            shape = json.loads( depInfo['geometry']['shape'])
+            for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
+            return
+        if sender is self.ui.ZoomKnop_sect and municipality != '' and department != '' and section != '':
+            sectInfo = self.parcel.getSectionInfo( niscode, departmentcode, section, 31370, 'full') 
+            if sectInfo == []: return
+            bbox= json.loads( sectInfo['geometry']['boundingBox'])['coordinates'][0]
+            self.clearGraphics()
+            self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
+            shape = json.loads( sectInfo['geometry']['shape'])
+            for n in self.PolygonsFromJson( shape ):  self.addGraphic(n)
+            return
+        if sender is self.ui.ZoomKnop_parcel and niscode != '' and department != '' and section != '' and parcelNr != '':
+            parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
+            if parcelInfo == []: return
+            bbox= json.loads( parcelInfo['geometry']['boundingBox'])['coordinates'][0]
+            self.clearGraphics()
+            self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
+            
+            geojson = self.perc.getPercGeom( parcelInfo['capakey'] ) 
+            if len(geojson['features']) > 0: shape = geojson['features'][0]['geometry']
+            else: shape = json.loads( parcelInfo['geometry']['shape'])
+
+            for n in self.PolygonsFromJson( shape ):  
+                self.addGraphic(n)
+            return
         
-        except geopuntError as e:
-          self.bar.pushMessage("Error", str( e.message) , level=Qgis.Warning, duration=5)
-          return
+
 
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-perceel")

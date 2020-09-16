@@ -19,7 +19,7 @@ geopunt
 *                                                                         *
 ***************************************************************************/
 """
-import urllib.request
+import requests
 from .Adres import Adres
 from .basisregisters import adresMatch
 from .capakey import capakey
@@ -28,21 +28,5 @@ from .gipod import gipod
 from .perc import perc
 from .Poi import Poi
 
-def internet_on( proxyUrl="", timeout=15, testSite='http://loc.api.geopunt.be/v2/Suggestion' ):
-    opener = None
-    if isinstance(proxyUrl, str) and proxyUrl != "":
-        if proxyUrl.startswith("https"): proxy = urllib.request.ProxyHandler({'https': proxyUrl})
-        else: proxy = urllib.request.ProxyHandler({'http': proxyUrl})
-        auth =   urllib.request.HTTPBasicAuthHandler()
-        opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
-    else: 
-       proxy =  urllib.request.ProxyHandler()
-       auth =   urllib.request.HTTPBasicAuthHandler()
-       opener = urllib.request.build_opener(proxy, auth, urllib.request.HTTPHandler)
 
-    try:
-        opener.open( testSite, timeout=timeout)
-    except Exception as e:
-        return False
-    return True
 
