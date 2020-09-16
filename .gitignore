@@ -233,4 +233,5 @@ doc/*.docx
 doc/*.xlsx
 
 
-
+.env
+.vscode/*
