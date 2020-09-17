@@ -7,12 +7,7 @@ import urllib.request
 class settings(object):
     def __init__(self):
         self.s = QSettings()
-        self._getProxySettings()
-
-    def _getProxySettings(self):
-        self.proxyEnabled = proxyHost = proxyPort = proxyUser = proxyPassword = None
-        self.proxy = urllib.request.getproxies()
-
+        self.proxy = urllib.request.getproxies() #default system proxy
         self.proxyEnabled = int( self.s.value("geopunt4qgis/proxyOverwiteEnabled", 0) )
 
         if self.proxyEnabled:
@@ -21,16 +16,13 @@ class settings(object):
                 proxyHost = proxyUrl.replace("http://", '').replace("https://", '')
                 self.proxy = {'http':  'http://'+ proxyHost  ,
                               'https': 'https://'+ proxyHost }
-            elif len(self.proxy) > 0:
-                self.proxy = proxies
-            else:
-                qgsNetMan = QgsNetworkAccessManager.instance() 
-                proxy = qgsNetMan.proxy().applicationProxy() 
-                proxyHost =  proxy.hostName() 
-                proxyPort = str( proxy.port()) 
-                proxyUser =  proxy.user() 
-                proxyPassword =  proxy.password()
-                    
-                if (proxyHost != '') & (proxyHost is not None) :
-                    self.proxy = {'http': 'http://'+ proxyHost + ':' + proxyPort ,
-                                  'https': 'https://'+ proxyHost + ':' + proxyPort}         
+        else:
+            #check if a proxy is confiugured in qgis
+            qgsNetMan = QgsNetworkAccessManager.instance() 
+            proxy = qgsNetMan.proxy().applicationProxy() 
+            proxyHost =  proxy.hostName() 
+            proxyPort = str( proxy.port()) 
+                
+            if (proxyHost != '') & (proxyHost is not None) :
+                self.proxy = {'http': 'http://{}:{}'.format( proxyHost, proxyPort if proxyPort else '') ,
+                              'https': 'https://{}:{}'.format( proxyHost , proxyPort if proxyPort else '')}         
