@@ -284,14 +284,12 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
                 self.loadTable()
 
     def validateSelection(self):
-        if self.internet() != True: return
         rows = self.getSelectedRows()
     
         self.validateRows(rows)
         self.ui.addToMapKnop.setEnabled(True)
 
     def validateAll(self):
-        if self.internet() != True: return
         rowCount = self.ui.outPutTbl.rowCount()
         rows = list(range(rowCount))
     
