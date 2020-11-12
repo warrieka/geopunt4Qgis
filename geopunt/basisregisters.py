@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import json, sys, urllib.parse
+import json, sys
 from urllib.request import getproxies
 import requests
 
@@ -10,13 +10,22 @@ class adresMatch(object):
       self.timeout = timeout
       self.proxy = proxies if proxies else getproxies()
 
-  def gemeenten(self, langcode="nl"):
-      'Return all Flemish gemeenten (Municipalities), ylangcode= "nl", "fr", "de"' 
-      data = urllib.parse.urlencode( {'Limit' : '2000' } )
-      result = requests.get(self._gemUrl, params=data, timeout=self.timeout, 
+  def gemeenten(self, langcode="nl", step=500, stop=1500):
+      'Return all Flemish gemeenten (Municipalities), langcode= "nl", "fr", "de"' 
+      
+      gemeenten = []
+      data = {'limit' : step , 'offset': 0}
+      
+      while data['offset'] <= stop:
+            result = requests.get(self._gemUrl, params=data, timeout=self.timeout, 
                                           verify=False, proxies=self.proxy ).json()
+            data['offset'] += step
 
-      gemeenten = [{"Niscode": n['identificator']['objectId'], "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
+            if len(result["gemeenten"]) == 0:
+                break
+
+            gemeenten += [{"Niscode": n['identificator']['objectId'], 
+                              "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
                       for n in result["gemeenten"] 
                       if  n['gemeentenaam']['geografischeNaam']['taal'] == langcode
                       and n["gemeenteStatus"] ==  "inGebruik"]
@@ -35,8 +44,7 @@ class adresMatch(object):
       data["Huisnummer"]   = housenr if housenr else ""
       data["Index"]        = rrindex if rrindex else ""
       data["Busnummer"]    = boxnr if boxnr else ""
-      values = urllib.parse.urlencode(data)
-      
+
       result = requests.get(self._amUrl, params=data, timeout=self.timeout , 
                                         verify=False , proxies=self.proxy ).json()
       return result['adresMatches']
@@ -67,9 +75,11 @@ class adresMatch(object):
       return result['adresMatches']
 
     
-  def findAdresSuggestions(self, single=None, municipality="", niscode="", postalcode="", kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr="" ):
+  def findAdresSuggestions(self, single=None, municipality="", niscode="", postalcode="", 
+                    kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr="" ):
        if single is None:
-            matches = self.findMatches(municipality, niscode, postalcode, kadstreetcode, rrstreetcode, streetname, housenr, rrindex, boxnr)
+            matches = self.findMatches(municipality, niscode, postalcode, 
+                                        kadstreetcode, rrstreetcode, streetname, housenr, rrindex, boxnr)
        else:
             matches = self.findMatchFromSingleLine(single)
        

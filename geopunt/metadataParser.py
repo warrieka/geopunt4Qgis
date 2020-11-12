@@ -162,18 +162,19 @@ class MDReader(object):
         return bronnen
 
     def search(self, q='', start=1, to=20, themekey='', orgName='', dataType='', siteId='', 
-                                            inspiretheme='', inspireannex='', inspireServiceType='' ):
+                                     inspiretheme='', inspireannex='', inspireServiceType='' ):
         url = self._createFindUrl( q, start, to, themekey, orgName, dataType, siteId, inspiretheme, 
                                                                         inspireannex, inspireServiceType)
         response = requests.get(url, timeout=self.timeout, verify=False, proxies=self.proxy )
         result = ET.fromstring(response.content)
         return  result
 
-    def searchAll(self, q='', themekey='', orgName='', dataType='', siteId='', inspiretheme='', 
-                                                                    inspireannex='', inspireServiceType=''):
+    def searchAll(self, q='', themekey='', orgName='', dataType='', siteId='',
+                                     inspiretheme='', inspireannex='', inspireServiceType=''):
         start= 1
         step= 1000       
-        searchResult = self.search(q, start, step, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
+        searchResult = self.search(q, start, step, themekey, orgName, dataType, siteId, 
+                                                        inspiretheme, inspireannex, inspireServiceType)
         count = int( searchResult[0].attrib["count"] )
         start += step
         while (start) <= count:

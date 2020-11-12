@@ -292,7 +292,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
     def validateAll(self):
         rowCount = self.ui.outPutTbl.rowCount()
         rows = list(range(rowCount))
-    
         self.validateRows(rows)
         self.ui.addToMapKnop.setEnabled(True)
     

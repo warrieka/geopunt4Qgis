@@ -196,4 +196,51 @@ Solution:
     crs = self.iface.mapCanvas().mapSettings().destinationCrs()
   
 
-  
+aanpassingen 2020/11
+--------------------
+
+### Basisregisters:
+
+Bij basisregisters heeft men de limiet van maximum aantal resultaten per opvraging verlaagd van 3500 naar 500. In de Qgis plugin haal je nu de gemeentes op met een limit=1000.
+Dit kan dus niet meer in 1 call.
+
+Dit lijkt reeds zo te zijn sinds de release van 8 mei en staat vermeld in de release notes.
+
+https://overheid.vlaanderen.be/sites/default/files/media/Digitale%20overheid/Gebouwenregister/ReleaseNotes_GR%201.6%20productie.pdf?timestamp=1589265673
+
+We kregen onlangs een melding van een klant die bepaalde gemeentes niet meer kan terugvinden in de lijst.
+
+Filterest is helaas nog niet mogelijk.
+
+Kan je bekijken hoe je dit kan oplossen, ik vermoed dat je niet anders kan dan 2 calls te doen en de resultaten moet combineren.
+ 
+### Metadata:
+
+Zoals ook aangekondigd in de nieuwsbrief komen er nieuwe metadatacenters.  Normaal op 16/17/18 november.
+
+De plugins zoeken ook in de catalogus. Het is onduidelijk of dit nog zal werken aangezien er qua structuur wel een en ander gewijzigd is.
+
+Kan je kijken wat de impact is door al te testen met het beta endpoint:
+
+https://beta.metadata.vlaanderen.be/srv/dut/catalog.search#/home
+
+
+Voor bovenstaande 2 issues zouden we dus vrij snel een nieuwe versie nodig hebben (tegen de release van de nieuwe metadatacenters)
+ 
+### GIPOD:
+
+De nieuwe versie van GIPOD zal op 21 januari live gaan. De bestaande public api zal dan geen nieuwe data meer ontvangen.
+
+De nieuwe public api wordt nog ontwikkeld door het GIPOD team in november-december. Echter zal deze de structuur hebben van de bestaande private api, maar dan zonder enige authorisatie (geen oauth bearer token nodig) en wat data die gefiltered wordt.
+
+Wat basis info kan je hier vinden:
+
+https://vlaamseoverheid.atlassian.net/wiki/spaces/NGC/pages/1851031592/Public+API+-+DRAFT
+
+Vermoedelijk zullen we vooral zoeken op hinder en heb je dan dergelijk endpoint:
+
+https://api-gateway.beta.gipod.vlaanderen.be/api-documentation.html#operation/SearchMobilityHindrances
+
+Binnen AIV zullen we dit nog analyseren en voorbereiden welke calls/welke filters we wensen toe te passen.
+
+Dit kan dus nu nog niet ontwikkeld worden, maar eind januari moet er dus een nieuwe versie komen.
