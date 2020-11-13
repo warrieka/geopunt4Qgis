@@ -5,183 +5,139 @@ from urllib.request import getproxies
 import xml.etree.ElementTree as ET
 
 class MDdata(object):
-    def __init__(self, metadataXML): 
-        self.start = int( metadataXML.attrib["from"] )
-        self.to =    int( metadataXML.attrib["to"] )
-        self.count = int( metadataXML[0].attrib["count"] )
+    def __init__(self, metadataXML):
+        self.count = 0 if not metadataXML else int( metadataXML.attrib["numberOfRecordsMatched"] ) 
         self.records = []
+
+        if not metadataXML: return
         
-        mds = metadataXML.findall("metadata")
+        mds = metadataXML.findall("{http://www.opengis.net/cat/csw/2.0.2}Record")
         for md in mds:
            record = {}
-                      
-           geonet =  md.find('{http://www.fao.org/geonetwork}info')
-           if geonet.find('uuid').text != None: 
-              record['uuid'] = geonet.find('uuid').text
+           if md.find("{http://purl.org/dc/elements/1.1/}identifier") == None or not md.find("{http://purl.org/dc/elements/1.1/}identifier").text: 
+               continue 
+           record['uuid'] = md.find("{http://purl.org/dc/elements/1.1/}identifier").text
+           record['title'] = md.find('{http://purl.org/dc/elements/1.1/}title').text
+
+           description = md.find('{http://purl.org/dc/elements/1.1/}description')
+           if (description != None):
+              record['abstract'] = description.text if description.text != None else ''
+           else: record['abstract'] = ''
+
+           bbox = md.find('{http://www.opengis.net/ows}BoundingBox')
+           if (bbox != None): 
+               LowerCorner = md.find('{http://www.opengis.net/ows}LowerCorner')
+               UpperCorner = md.find('{http://www.opengis.net/ows}UpperCorner')
+               if LowerCorner and UpperCorner: 
+                   record['geoBox'] = [float(n) for n in LowerCorner.text.split(" ")] + [float(n) for n in UpperCorner.text.split(" ")]
+               else:
+                   record['geoBox'] = [3.1, 50.6, 7.4, 53.6]
            else: 
-              continue  #records with no id are just wrong
-              
-           if (md.find('title') != None) and (md.find('title').text != None):
-              record['title'] = md.find('title').text
-           else: 
-              record['title'] = ''
-             
-           if (md.find('abstract') != None) and (md.find('abstract').text != None):
-              record['abstract'] = md.find('abstract').text
-           else: 
-              record['abstract'] = ''
+               record['geoBox'] = [3.1, 50.6, 7.4, 53.6]
            
-           if (md.find('geoBox') != None) and (md.find('geoBox').text != None): 
-              record['geoBox'] = md.find('geoBox').text  #[float(i) for i in md.find('geoBox').text.split('|') ]
-           else: 
-              record['geoBox'] = ""
-           
-           record['wms'] = self._findWMS( md )
-           record['wfs'] = self._findWFS( md )
-           record['download'] = self._findDownload( md )
-           
+           record['wms']  = self._findWXS( md, "OGC:WMS" )
+           record['wfs']  = self._findWXS( md, "OGC:WFS" )
+           record['wcs']  = self._findWXS( md, "OGC:WCS" )
+           record['wmts'] = self._findWXS( md, "OGC:WMTS")
+           record['download'] = self._findDownloads( md )
            self.records.append(record)
            
-    def _findWFS(self , node ):
-        links =  "|".join( [ n.text for n in node.findall("link") ] )
-        links = links.split('|') 
-        for n in range(1, len( links )):
-            if "OGC:WFS" in links[n].upper(): 
-              if "http" in  links[n - 1]: #some wfs are store with relative path's, ignore those
-                  return links[n - 1]
-        return ""
-      
-    def _findWMS(self , node ):
-        links =  "|".join( [ n.text for n in node.findall("link") ] )
-        links = links.split('|') 
-        for n in range(1, len( links )):
-            if "OGC:WMS" in links[n].upper(): 
-              if "http" in  links[n - 1]: #some wms are stored with relative path's, ignore those
-                  return links[n - 1]
-        return ""
+    def _findWXS(self , node, protocol= None ):
+        links = [n for n in node.findall("{http://purl.org/dc/elements/1.1/}URI") 
+                            if "protocol" in n.attrib and n.attrib["protocol"] == protocol] 
+        if len(links) == 0: return ("","")
 
-    def _findDownload(self , node):
-        links =  "|".join( [ n.text for n in node.findall("link") ] )
-        links = links.split('|') 
-        for n in range(1, len( links )):
-            if "DOWNLOAD" in links[n].upper(): 
-               if "http" in  links[n - 1]: #some files are stored with relative path's, ignore those
-                  return links[n - 1]
-        return ""
+        name = links[0].attrib["name"] if "name" in links[0].attrib else links[0].text
+        return (name, links[0].text)
+
+    def _findDownloads(self , node):
+        links = [n for n in node.findall("{http://purl.org/dc/elements/1.1/}URI") 
+                         if "protocol" in n.attrib and "DOWNLOAD" in n.attrib["protocol"].upper() ] 
+        if len(links) == 0: return  ('','')
+
+        name = links[0].attrib["name"] if "name" in links[0].attrib else links[0].text
+        return (name, links[0].text)
 
 
 class MDReader(object):
-    geoNetworkUrl = "https://geoservices.informatievlaanderen.be/zoekdienst/srv/dut/"
-
-    def __init__(self, timeout=15, proxies=None):
+    def __init__(self, timeout=15, proxies=None ):
         self.timeout = timeout
+        self.geoNetworkUrl = "https://beta.metadata.vlaanderen.be/srv/dut/csw"
         self.proxy = proxies if proxies else getproxies()
-
-        self.dataTypes = [["Dataset", "dataset"],["Datasetserie","series"],
-                          ["Objectencatalogus","model"],["Service","service"]]
-        self.inspireServiceTypes =  ["Discovery","Transformation","View","Other","Invoke"]
-        self.inspireannex =  ["i","ii","iii"]
-
-    def _createFindUrl(self, q='', start=1, to=20, themekey='', orgName='', dataType='', siteId='', inspiretheme='', inspireannex='', inspireServiceType=''):
-        geopuntUrl = self.geoNetworkUrl + "/q?fast=index&sortBy=changeDate&"
-        data = {}
-        data["any"] = "*" + str(q) + "*"
-        data["to"] = to
-        data["from"] = start
+        self.dataTypes = [["Dataset", "dataset"],["Dienst","service"],
+                        ["ObjectenCatalogus",'featureCatalog'],["Datasetserie",'series']]
         
-        if themekey: 
-            if " " in themekey and not " or " in themekey.lower():
-                data["themekey"] = '"' +  themekey.lower()  + '"'
-            else: 
-                data["themekey"] = themekey.lower()
-        if orgName  and not " or " in orgName.lower():
-            if " " in orgName:
-                data["orgName"] = '"' +  orgName.lower() + '"' 
-            else: 
-                data["orgName"] = orgName.lower()
-                
-        if dataType: data['type']= dataType
-        if siteId: data['siteId']= siteId                
-                
-        if inspiretheme: 
-            if " " in inspiretheme and not " or " in inspiretheme.lower():
-                data["inspiretheme"] = '"' +  inspiretheme + '"' 
-            else: 
-                data["inspiretheme"] = inspiretheme            
-        if inspireannex and (inspireannex.lower() in self.inspireannex ) : 
-            data["inspireannex"] = inspireannex.lower()
-        if inspireServiceType : 
-            data["serviceType"] = inspireServiceType.lower() 
+    def _createFindUrl(self, q="", start=0, maxRecords=100, orgName='', dataType=''): 
+        url = self.geoNetworkUrl 
+        data = {}
+        
+        #escape '-sign's in CQL 
+        q = q.replace("'", "''")
+        orgName = orgName.replace("'", "''")
+        
+        #make CQL query
+        CQLparts = []
+        
+        if len(q.strip()) > 0: 
+            CQLparts.append(" AnyText LIKE '%" + q + "%' ")
+        if orgName: 
+            CQLparts.append(" OrganisationName = '" + orgName + "' ")
+        if dataType: 
+            CQLparts.append(" type = '" + dataType + "' ")
 
+        CQL = "(" + " AND ".join(CQLparts) + ")"
+
+        data["request"] = "GetRecords"
+        data["service"] = "CSW"
+        data["version"] = "2.0.2"
+        data["elementsetname"] = "full"
+        data["typenames"] = "gmd:MD_Metadata"
+        data["RESULTTYPE"] = "results"
+        data["constraintLanguage"] = "CQL_TEXT"
+        data["constraint_language_version"] = "1.1.0"          
+        data["maxRecords"] = maxRecords
+        data["startPosition"] = start
+        data["constraint"] = CQL
+                
         values = urllib.parse.urlencode(data)
-        result = geopuntUrl + values
+
+        return url +"?"+ values
+          
+    def list_suggestionKeyword(self):
+        url1 = self.geoNetworkUrl + "?request=GetDomain&service=CSW&version=2.0.2&PropertyName=title"
+        response = requests.get( url1, verify=False , proxies=self.proxy )
+        result   = ET.fromstring( response.content )
+        val1 = [ n.text for n in result.findall('.//{http://www.opengis.net/cat/csw/2.0.2}Value') ]
+        return val1
+
+    def list_organisations(self):
+        url = self.geoNetworkUrl + '?request=GetDomain&service=CSW&version=2.0.2&PropertyName=OrganisationName'
+        response = requests.get( url, verify=False , proxies=self.proxy )
+        result = ET.fromstring( response.content )
+        organisations = [ n.text for n in result.findall('.//{http://www.opengis.net/cat/csw/2.0.2}Value') ]
+        organisations.sort()
+        return organisations
+
+    def search(self, q="", start=0, step=100, orgName='', dataType=''):
+        url = self._createFindUrl( q, start, step, orgName, dataType)
+        response = requests.get( url, verify=False , proxies=self.proxy )
+        result = ET.fromstring( response.content )
         return result
 
-    def list_GDI_theme(self, q=''):
-        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.GDI-Vlaanderen-trefwoorden&pKeyword=*" + str(q) +"*"
-        response = requests.get(url, timeout=self.timeout, verify=False , proxies=self.proxy )
-        r = ET.fromstring(response.content)
-        themes = [ n.find("value").text for n in  r[0].findall('keyword') ]
-        themes.sort()
-        return themes
-          
-    def list_inspire_theme(self, q=''):
-        url = self.geoNetworkUrl + "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.inspire-theme&pKeyword=*{}*".format(q)
-        response = requests.get(url, timeout=self.timeout, verify=False , proxies=self.proxy )
-        r = ET.fromstring(response.content)
-        themes = [ n.find("value").text for n in  r[0].findall('keyword') ]
-        themes.sort()
-        return themes
-    
-    def list_suggestionKeyword(self, q=''):
-        url = self.geoNetworkUrl + "/main.search.suggest?field=any" 
-        if q: url= url + "&q=" + str(q) 
-        response = requests.get(url, timeout=self.timeout, verify=False , proxies=self.proxy )
-        return response.json()[1]
-
-    def list_organisations(self, q=''):
-        url = self.geoNetworkUrl + "/main.search.suggest?field=orgName" 
-        if q: 
-            url= url + "&q=" + str(q) 
-        response = requests.get(url, timeout=self.timeout, verify=False, proxies=self.proxy )
-        result = response.json()
-        if len( result ) <= 2:
-            organisations = result[1]
-            organisations.sort()
-            return organisations
-        else:
-            return []
-               
-    def list_bronnen(self):
-        url = self.geoNetworkUrl + "/xml.info?type=sources"
-        response = requests.get(url, timeout=self.timeout, verify=False, proxies=self.proxy )
-        r = ET.fromstring(response.content)
-        bronnen = [ ( n.find("uuid").text, n.find("name").text ) 
-                    for n in  r[0].findall('source') ]
-        bronnen.sort()
-        return bronnen
-
-    def search(self, q='', start=1, to=20, themekey='', orgName='', dataType='', siteId='', 
-                                     inspiretheme='', inspireannex='', inspireServiceType='' ):
-        url = self._createFindUrl( q, start, to, themekey, orgName, dataType, siteId, inspiretheme, 
-                                                                        inspireannex, inspireServiceType)
-        response = requests.get(url, timeout=self.timeout, verify=False, proxies=self.proxy )
-        result = ET.fromstring(response.content)
-        return  result
-
-    def searchAll(self, q='', themekey='', orgName='', dataType='', siteId='',
-                                     inspiretheme='', inspireannex='', inspireServiceType=''):
+    def searchAll(self, q="", orgName='', dataType=''):
         start= 1
-        step= 1000       
-        searchResult = self.search(q, start, step, themekey, orgName, dataType, siteId, 
-                                                        inspiretheme, inspireannex, inspireServiceType)
-        count = int( searchResult[0].attrib["count"] )
+        step = 100
+        result = self.search(q, start, step, orgName, dataType)
+        searchResult = result.find(".//{http://www.opengis.net/cat/csw/2.0.2}SearchResults")
+        if not searchResult: return
+        count = int( searchResult.attrib["numberOfRecordsMatched"] )
         start += step
-        while (start) <= count:
-           result = self.search(q, start, (start + step -1), themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType)
-           mds= result.findall("metadata")
+        while (start) <= count: 
+           result = self.search(q, start, step, orgName, dataType)
+           mds= result.findall(".//{http://www.opengis.net/cat/csw/2.0.2}Record")
            for md in mds: searchResult.append( md )
            start += step
+           
         return searchResult
 
 
@@ -349,3 +305,21 @@ def makeWCSuri( url, layer,srsname="EPSG:31370", format="GeoTIFF" ):
 
     uri = urllib.parse.unquote( urllib.parse.urlencode(params)  )
     return uri
+
+def xmlIsEmpty(xml_file, gmlException=True):
+    """test if a xml file contais data
+    
+    :param xml_file: a path to a xml file. 
+    :param gmlException: also return if gmlException
+    
+    return: True if empty else False
+    """
+    try:
+        tree = ET.parse(xml_file)  
+        root = tree.getroot()
+        if gmlException and "ExceptionReport" in root.tag:
+            return True
+        
+        return not len(root)
+    except:
+        return True

@@ -7,13 +7,12 @@ name=geopunt4Qgis
 qgisMinimumVersion=3.4
 description=NL: Plugin om geopunt diensten in QGIS te gebruiken 
     EN: Plug-in to use geopunt services in QGIS
-about="Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS, die de webservices van het Vlaamse geoportaal Geopunt ontsluit naar desktop GIS-gebruikers. Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan die mogen gebruikt worden door derden zoals andere overheden en bedrijven.
+about=NL: "Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS, die de webservices van het Vlaamse geoportaal Geopunt ontsluit naar desktop GIS-gebruikers. Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan die mogen gebruikt worden door derden zoals andere overheden en bedrijven.
     - Zoeken op adres [gewoon, in batch en prikken op kaart] op basis van Gebouwen- en Adressenregister Vlaanderen.
     - Zoeken naar Intressepunten in geopunt 
     - zoeken naar wegenwerken en manifestaties in GIPOD 
     - Hoogte Profielen tekenen 
     - Zoeken naar percelen 
-    - Zoeken naar lagen in de geopunt catlogus 
     EN: "Geopunt for QGIS"  is a plugin for the QGIS open source desktop GIS, which opens the web services of the Flemish geoportal Geopunt to desktop GIS users. The Flemish Geoportal Geopunt offers a number of geographic services (web services) that may be used by third parties such as other governments and companies. 
     - Geocoding [regular, batch and reverse] based on adresregistry Flanders 
     - Search for POI in geopunt 
@@ -22,7 +21,7 @@ about="Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS, di
     - Search for Parcels 
     - Search for layers in the geopunt catalog
 
-version=2.2.1
+version=2.2.3
 author=Kay Warie
 email=kaywarrie@gmail.be
 

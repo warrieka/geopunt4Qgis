@@ -6,10 +6,10 @@ from qgis.PyQt.QtGui import QColor
 from .ui_geopunt4qgis import Ui_geopunt4Qgis
 from qgis.gui import QgsMessageBar, QgsVertexMarker
 from qgis.core import Qgis, QgsPointXY
-import os, json, webbrowser
 from .geopunt import Adres, basisregisters
 from .tools.geometry import geometryHelper
 from .tools.settings import settings
+import os, json, webbrowser
 
 class geopunt4QgisAdresDialog(QDialog):
     def __init__(self, iface):
