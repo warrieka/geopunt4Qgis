@@ -62,7 +62,7 @@ class MDdata(object):
 class MDReader(object):
     def __init__(self, timeout=15, proxies=None ):
         self.timeout = timeout
-        self.geoNetworkUrl = "https://beta.metadata.vlaanderen.be/srv/dut/csw"
+        self.geoNetworkUrl = "https://metadata.vlaanderen.be/srv/dut/csw"
         self.proxy = proxies if proxies else getproxies()
         self.dataTypes = [["Dataset", "dataset"],["Dienst","service"],
                         ["ObjectenCatalogus",'featureCatalog'],["Datasetserie",'series']]

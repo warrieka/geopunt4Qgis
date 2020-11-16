@@ -129,7 +129,7 @@ class geopunt4QgisDataCatalog(QDialog):
 
             self.ui.descriptionText.setText(
                 """<h3>%s</h3><div>%s</div><br/><div>
-             <a href='https://beta.metadata.vlaanderen.be/srv/dut/catalog.search#/metadata/%s'>
+             <a href='https://metadata.vlaanderen.be/srv/dut/catalog.search#/metadata/%s'>
              Ga naar fiche</a></div>""" % (title, abstract, uuid))
 
             if self.wms:
