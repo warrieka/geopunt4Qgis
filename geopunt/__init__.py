@@ -19,7 +19,6 @@ geopunt
 *                                                                         *
 ***************************************************************************/
 """
-import requests
 from .Adres import Adres
 from .basisregisters import adresMatch
 from .capakey import capakey

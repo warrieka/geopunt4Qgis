@@ -120,32 +120,6 @@
         </layout>
        </item>
        <item>
-        <widget class="QGroupBox" name="proxyBox">
-         <property name="title">
-          <string>Proxy instellen</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_19">
-          <item>
-           <widget class="QCheckBox" name="proxyChk">
-            <property name="text">
-             <string>Systeem-proxy overrulen (vorm &lt;HOST&gt;:&lt;PORT&gt;):</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="proxyText">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="placeholderText">
-             <string>bijvoorbeeld: http://proxy.vlaanderen.be:8080</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
         <spacer name="verticalSpacer_5">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -166,7 +140,7 @@
         <x>0</x>
         <y>0</y>
         <width>457</width>
-        <height>262</height>
+        <height>264</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -587,7 +561,7 @@
         <x>0</x>
         <y>0</y>
         <width>457</width>
-        <height>314</height>
+        <height>318</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -821,22 +795,6 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>proxyChk</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>proxyText</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>48</x>
-     <y>135</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>58</x>
-     <y>164</y>
     </hint>
    </hints>
   </connection>

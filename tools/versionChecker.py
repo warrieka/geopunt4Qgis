@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-import sys, os, urllib.request
+import os, urllib.request
 import xml.etree.ElementTree as ET
 import configparser as cfg
 

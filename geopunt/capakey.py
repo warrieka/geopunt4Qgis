@@ -1,20 +1,14 @@
-# -*- coding: utf-8 -*-
-import json, sys, datetime
-from urllib.request import getproxies
-import requests
+import json
+from ..tools import getUrlData
 
 class capakey(object):
-    baseUrl = "https://geoservices.informatievlaanderen.be/capakey/api/v2" 
+    def __init__(self):
+        self.baseUrl = "https://geoservices.informatievlaanderen.be/capakey/api/v2" 
 
-    def __init__(self, timeout=15, proxies=None):
-        self.timeout = timeout
-        self.proxy = proxies if proxies else getproxies()
-      
     def getMunicipalities(self):
         url = "{0}/municipality/".format(self.baseUrl)
-        response = requests.get(url, timeout=self.timeout , 
-                            verify=False, proxies=self.proxy )
-        municipalities = response.json()
+        response = getUrlData(url)
+        municipalities = json.loads(response)
         if municipalities: return municipalities["municipalities"]
         else : return []
 
@@ -25,17 +19,16 @@ class capakey(object):
         if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
         
         url = "{0}/municipality/{1}".format( self.baseUrl, niscode )
-        response = requests.get(url, params=data, timeout=self.timeout , 
-                                         verify=False, proxies=self.proxy )
-        municipality = response.json()
+        response = getUrlData(url, params=data)
+        municipality = json.loads(response)
         return municipality
 
     def getDepartments(self, niscode):
         url = "{0}/municipality/{1}/department/".format( self.baseUrl, niscode)
-        response = requests.get(url, timeout=self.timeout , 
-                            verify=False, proxies=self.proxy )
-        departments = response.json()
-        if departments: return departments['departments']
+        response = getUrlData(url)
+        departments = json.loads(response)
+        if departments: 
+            return departments['departments']
         else : return []             
 
     def getDepartmentInfo(self, niscode, departmentCode, srs=31370, geometryType="no" ):
@@ -45,16 +38,14 @@ class capakey(object):
         if geometryType in ["no", "full", "bbox"]: data["geometry"] = geometryType
 
         url = "{0}/municipality/{1}/department/{2}".format(self.baseUrl, niscode, departmentCode)
-        response = requests.get(url, params=data, timeout=self.timeout , 
-                            verify=False, proxies=self.proxy )
-        department = response.json()
+        response = getUrlData(url, params=data)
+        department = json.loads(response)
         return department
 
     def getSections(self, niscode, departmentCode):
         url = "{0}/municipality/{1}/department/{2}/section/".format( self.baseUrl, niscode, departmentCode)
-        response = requests.get(url, timeout=self.timeout , 
-                            verify=False, proxies=self.proxy )
-        secties = response.json()
+        response = getUrlData(url)
+        secties =  json.loads(response)
         if secties: return secties['sections']
         else : return []       
 
@@ -66,17 +57,15 @@ class capakey(object):
       
         url = "{0}/municipality/{1}/department/{2}/section/{3}".format( 
                                   self.baseUrl, niscode, departmentCode, sectieCode)
-        response = requests.get(url, params=data, timeout=self.timeout , 
-                            verify=False, proxies=self.proxy )
-        sectie = response.json()
+        response = getUrlData(url, params=data )
+        sectie = json.loads(response)
         return sectie 
 
     def getParcels(self, niscode, departmentCode, sectieCode):
         url = "{0}/municipality/{1}/department/{2}/section/{3}/parcel".format( 
                               self.baseUrl, niscode, departmentCode, sectieCode)
-        response = requests.get(url, timeout=self.timeout , 
-                                  verify=False, proxies=self.proxy )
-        parcels = response.json()
+        response = getUrlData(url)
+        parcels =  json.loads(response)
         if parcels: return parcels['parcels']
         else : return []       
           
@@ -88,7 +77,6 @@ class capakey(object):
   
         url = "{0}/municipality/{1}/department/{2}/section/{3}/parcel/{4}".format( 
                               self.baseUrl, niscode, departmentCode, sectieCode, perceelnummer)
-        response = requests.get(url, params=data, timeout=self.timeout ,
-                                         verify=False, proxies=self.proxy )
-        parcel = response.json()
+        response = getUrlData(url, params=data )
+        parcel =  json.loads(response)
         return parcel

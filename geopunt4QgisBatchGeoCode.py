@@ -38,6 +38,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         #settings
         self.s = QSettings()
         self.loadSettings()
+        self.am = adresMatch()
     
         #set vars
         self.csv = None
@@ -86,7 +87,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         s = settings()
         self.proxy = s.proxy  
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
-        self.am = adresMatch(self.timeout, self.proxy)
 
     #eventHandlers
     def openHelp(self):

@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
-import json, sys, datetime, urllib.parse
-from urllib.request import getproxies
-import requests
+import json, urllib.parse
+from ..tools import getUrlData
 
 class Poi(object):
-  _poiUrl = "https://poi.api.geopunt.be/v1/core"
-  def __init__(self, timeout=15,  proxies=None):
-      self.timeout = timeout
-      self.proxy = proxies if proxies else getproxies()
+  def __init__(self):
+      self._poiUrl = "https://poi.api.geopunt.be/v1/core"
       self.resultCount = 0
       
       #REMARK: WGS coordinates as input!
@@ -21,8 +18,8 @@ class Poi(object):
   def listPoiThemes(self):
       url = self._poiUrl + "/themes"
       poithemes = None
-      response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-      poithemes = response.json()
+      response = getUrlData(url)
+      poithemes = json.loads(response)
       themes = [(  n["value"], n["term"]) for n in poithemes["categories"] ] #only need value and  term
       return themes
      
@@ -32,8 +29,8 @@ class Poi(object):
       else:
         url = self._poiUrl + "/categories"
 
-      response =  requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-      poicategories = response.json()
+      response = getUrlData(url)
+      poicategories = json.loads(response)
       categories = [(n["value"], n["term"]) for n in poicategories["categories"] ]
       return categories
     
@@ -42,9 +39,8 @@ class Poi(object):
         url = self._poiUrl + "/themes/" + themeid + "/categories/" + categoriename +"/poitypes"
       else:
         url = self._poiUrl + "/poitypes"
-
-      response =  requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-      poitypes =  response.json()
+      response = getUrlData(url)
+      poitypes = json.loads( response )
       types = [(  n["value"], n["term"]) for n in poitypes["categories"] ]
       return types
     
@@ -88,8 +84,8 @@ class Poi(object):
                bbox=None,  theme='', category='', POItype='', region='', clustering=True):
         url = self._createPoiUrl( q, c, srs, maxModel, bbox, theme, category, POItype, region, clustering)
 
-        response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-        poi =  response.json()
+        response = getUrlData(url)
+        poi = json.loads( response )
       
         if updateResults:
             self.resultCount =  int( poi["labels"][0]["value"] )

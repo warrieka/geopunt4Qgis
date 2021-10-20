@@ -3,7 +3,7 @@ from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QSizePol
 from qgis.PyQt.QtGui import QColor
 from qgis.core import Qgis, QgsPointXY
 from qgis.gui import QgsMessageBar, QgsVertexMarker
-import os, webbrowser, json
+import os, webbrowser
 from .ui_geopunt4QgisPoi import Ui_geopunt4QgisPoiDlg
 from .tools.geometry import geometryHelper
 from .tools.poi import poiHelper
@@ -14,7 +14,6 @@ class geopunt4QgisPoidialog(QDialog):
     def __init__(self, iface):
         QDialog.__init__(self, None)
         self.setWindowFlags( self.windowFlags() & ~Qt.WindowContextHelpButtonHint )
-        #self.setWindowFlags( self.windowFlags() |Qt.WindowStaysOnTopHint)
         self.iface = iface
 
         # initialize locale
@@ -40,6 +39,7 @@ class geopunt4QgisPoidialog(QDialog):
         #setup geopunt and geometryHelper objects
         self.gh = geometryHelper(self.iface)
         self.ph = poiHelper( self.iface)
+        self.poi = Poi()
         
         #create the graphicsLayer
         self.graphicsLayer = []
@@ -85,18 +85,15 @@ class geopunt4QgisPoidialog(QDialog):
         layerName =  self.s.value("geopunt4qgis/poilayerText", "")
         if layerName: self.layerName= layerName
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
-
-        s = settings()
-        self.proxy = s.proxy
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
-        self.poi = Poi(self.timeout, self.proxy)
+       
     
     def show(self):
         QDialog.show(self)
         self.setWindowModality(0) 
 
         if self.firstShow:
-            am =  basisregisters.adresMatch(self.timeout, self.proxy)
+            am =  basisregisters.adresMatch()
             gemeentes = am.gemeenten()
 
             self.poiThemes = dict( self.poi.listPoiThemes() )

@@ -1,24 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-gipodeoHelper
-                A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-                -------------------
-    begin                : 2013-12-08
-    copyright            : (C) 2013 by Kay Warrie
-    email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 import os.path 
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QFileDialog
@@ -63,7 +42,7 @@ class gipodHelper(object):
 
 
 class gipodWriter(object):
-    def __init__(self, iface, layername, CRS=31370, manifestation=False, KML="" ):
+    def __init__(self, iface, layername, CRS="EPSG:31370", manifestation=False, KML="" ):
         self.iface = iface
         self.canvas = iface.mapCanvas()
         self.layername = layername
@@ -107,9 +86,8 @@ class gipodWriter(object):
             layerOptions += ["GEOMETRY=AS_XY","SEPARATOR=SEMICOLON"]
         if ftype == "KML": 
             datasourceOptions += ["NameField=owner"]
-        srs = QgsCoordinateReferenceSystem(self.CRS)
     
-        fpath, name = os.path.split(filename)
+        fpath, _ = os.path.split(filename)
     
         if fpath and os.path.exists(fpath):          
             error, errormsg = QgsVectorFileWriter.writeAsVectorFormat(self.gipodlayer , filename, "utf-8", self.gipodlayer.crs(), ftype, layerOptions= layerOptions, datasourceOptions= datasourceOptions )

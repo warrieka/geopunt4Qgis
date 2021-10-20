@@ -1,28 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-geometryHelper
-                                A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-                            -------------------
-        begin                : 2013-12-05
-        copyright            : (C) 2013 by Kay Warrie
-        email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 import os.path
-from collections import Iterable
+from collections.abc import Iterable
 from qgis.PyQt.QtCore import QVariant
-from qgis.core import (Qgis, QgsPoint, QgsPointXY, QgsCoordinateReferenceSystem, QgsCoordinateTransform, 
+from qgis.core import ( QgsPoint, QgsPointXY, QgsCoordinateReferenceSystem, QgsCoordinateTransform, 
                        QgsGeometry, QgsRectangle, QgsField, QgsProject, QgsVectorFileWriter, QgsVectorLayer, 
                        QgsFeature, QgsPalLayerSettings, QgsTextFormat, QgsTextBufferSettings, 
                        QgsVectorLayerSimpleLabeling)
@@ -40,21 +19,27 @@ class geometryHelper(object):
     def getGetMapCrs(iface):
         return iface.mapCanvas().mapSettings().destinationCrs() 
         
-    def prjPtToMapCrs( self, xy , fromCRS=4326 ):
+    def prjPtToMapCrs( self, xy , fromCRS="EPSG:4326" ):
+        if type(fromCRS) == int: fromCRS = "EPSG:{}".format(fromCRS)
+
         point = QgsPointXY( list(xy)[0], list(xy)[1] ) if isinstance( xy, Iterable) else QgsPointXY(xy)
         fromCrs = QgsCoordinateReferenceSystem(fromCRS)
         toCrs = self.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform( fromCrs, toCrs, QgsProject.instance() )
         return   xform.transform( point )
     
-    def prjPtFromMapCrs( self, xy , toCRS=31370 ):
+    def prjPtFromMapCrs( self, xy , toCRS="EPSG:31370" ):
+        if type(toCRS) == int: toCRS = "EPSG:{}".format(toCRS)
+
         point = QgsPointXY( list(xy)[0], list(xy)[1] ) if isinstance( xy, Iterable) else QgsPointXY(xy)
         toCrs = QgsCoordinateReferenceSystem(toCRS)
         fromCrs = self.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform( fromCrs, toCrs, QgsProject.instance() )
         return   xform.transform( point )
 
-    def prjLineFromMapCrs(self, lineString, toCRS=4326 ):
+    def prjLineFromMapCrs(self, lineString, toCRS="EPSG:4326" ):
+        if type(toCRS) == int: toCRS = "EPSG:{}".format(toCRS)
+
         fromCrs = self.getGetMapCrs(self.iface)
         toCrs = QgsCoordinateReferenceSystem(toCRS)
         xform = QgsCoordinateTransform(fromCrs, toCrs, QgsProject.instance() )
@@ -64,7 +49,9 @@ class geometryHelper(object):
             wgsLine = [ QgsPoint( xform.transform( QgsPointXY(list(xy)[0], list(xy)[1]) ) ) for xy in  lineString]
         return QgsGeometry.fromPolyline( wgsLine )
 
-    def prjLineToMapCrs(self, lineString, fromCRS=4326 ):
+    def prjLineToMapCrs(self, lineString, fromCRS="EPSG:4326" ):
+        if type(fromCRS) == int: fromCRS = "EPSG:{}".format(fromCRS)
+
         fromCrs = QgsCoordinateReferenceSystem(fromCRS)
         toCrs = self.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform(fromCrs, toCrs, QgsProject.instance() )
@@ -113,12 +100,13 @@ class geometryHelper(object):
         # Refresh the map
         self.iface.mapCanvas().refresh()
 
-    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres", saveToFile=False, sender=None, startFolder=None ):
+    def save_adres_point(self, point, address, typeAddress='', layername="Geopunt_adres", 
+                                              saveToFile=False, sender=None, startFolder=None ):
         attributes = [QgsField("adres", QVariant.String), QgsField("type", QVariant.String)]
         mapcrs = self.getGetMapCrs(self.iface)
         
         if not QgsProject.instance().mapLayer(self.adreslayerid):
-            self.adreslayer = QgsVectorLayer("Point", layername, "memory")
+            self.adreslayer = QgsVectorLayer("Point?crs=epsg:31370", layername, "memory")
             self.adresProvider = self.adreslayer.dataProvider()
             self.adresProvider.addAttributes(attributes)
             self.adreslayer.updateFields()
@@ -145,17 +133,17 @@ class geometryHelper(object):
         if saveToFile and not QgsProject.instance().mapLayer(self.adreslayerid): 
           save = self._saveToFile( sender, startFolder )
           if save:
-            fpath, flType = save                
-            error, msg = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fileName=fpath, fileEncoding="utf-8", driverName=flType)
-            if error == QgsVectorFileWriter.NoError:
-              self.adreslayer = QgsVectorLayer( fpath, layername, "ogr")
-              self.adresProvider = self.adreslayer.dataProvider()
-            else: 
+             fpath, flType = save                
+             error, msg = QgsVectorFileWriter.writeAsVectorFormat(self.adreslayer, fileName=fpath, fileEncoding="utf-8", driverName=flType)
+             if error == QgsVectorFileWriter.NoError:
+                self.adreslayer = QgsVectorLayer( fpath, layername, "ogr")
+                self.adresProvider = self.adreslayer.dataProvider()
+             else: 
+                del self.adreslayer, self.adresProvider 
+                return
+          else: 
               del self.adreslayer, self.adresProvider 
               return
-          else: 
-            del self.adreslayer, self.adresProvider 
-            return
           
         #  add to map
         QgsProject.instance().addMapLayer(self.adreslayer)

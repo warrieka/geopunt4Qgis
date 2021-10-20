@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy,
                                  QToolButton, QColorDialog, QInputDialog)
@@ -55,6 +54,7 @@ class geopunt4QgisElevationDialog(QDialog):
 
         self.gh = geometryHelper( self.iface )
         self.eh = elevationHelper( self.iface, self.startDir)
+        self.elevation = elevation()
         
         #setup a message bar
         self.bar = QgsMessageBar() 
@@ -150,7 +150,6 @@ class geopunt4QgisElevationDialog(QDialog):
         if profileLineLayer:
            self.profileLineLayerTxt = profileLineLayer
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~"))        
-        self.elevation = elevation(self.timeout, self.proxy )
 
     def show(self):
         QDialog.show(self)
@@ -166,9 +165,6 @@ class geopunt4QgisElevationDialog(QDialog):
         "Portable Document Format (*.pdf) (*.pdf);;Tagged Image File Format (*.tif) (*.tif)"+
         ";;Encapsulated Postscript (*.eps) (*.eps)")
       
-        if not(sys.platform == 'win32'):
-           formats += ";;Portable Network Graphics  (*.png) (*.png)"
-      
         fileName, __ = QFileDialog.getSaveFileName( self , "Save File", self.startDir, formats);
         self.figure.savefig(fileName)
     
@@ -181,7 +177,7 @@ class geopunt4QgisElevationDialog(QDialog):
             self.anoLbl = None
         self.plot()
     
-    def onResize(self, event):
+    def onResize(self, _):
         self.figure.tight_layout()
     
     def openHelp(self):
@@ -317,8 +313,8 @@ class geopunt4QgisElevationDialog(QDialog):
         self.ax = self.figure.add_subplot(111)
 
         # plot data
-        self.ax.plot( xdata, ydata,'r*')
-        self.ax.fill_between(xdata, ydata, -9999, color='#F8E6E0' )
+        self.ax.plot( xdata, ydata, '-')
+        self.ax.fill_between(xdata, ydata, -9999, color='#03e3fc' )
         self.ax.set_ylim([ymin , ymax])
         self.ax.set_xlim([0 , None ])
         self.ax.set_ylabel("hoogte (m)")

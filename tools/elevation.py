@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 import os.path
 import numpy as np
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QFileDialog
-from qgis.core import (QgsProject, QgsField, QgsVectorLayer, QgsPoint, QgsCoordinateReferenceSystem,
+from qgis.core import (QgsProject, QgsField, QgsVectorLayer, QgsCoordinateReferenceSystem,
                        QgsCoordinateTransform, QgsGeometry, QgsVectorFileWriter, QgsFeature, QgsPointXY)
 from .geometry import geometryHelper
 
@@ -35,7 +34,7 @@ class elevationHelper(object):
             fet = QgsFeature(fields)
 
             #set geometry
-            fromCrs = QgsCoordinateReferenceSystem(4326)
+            fromCrs = QgsCoordinateReferenceSystem("EPSG:4326")
             xform = QgsCoordinateTransform( fromCrs, self.sampleslayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
             fet.setGeometry(QgsGeometry.fromPointXY(prjPt))

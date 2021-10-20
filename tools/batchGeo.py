@@ -1,24 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-batcGeoHelper
-				A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-			    -------------------
-	begin                : 2013-12-08
-	copyright            : (C) 2013 by Kay Warrie
-	email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 import os.path
 from .geometry import geometryHelper
 from qgis.PyQt.QtCore import QVariant

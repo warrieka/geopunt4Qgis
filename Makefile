@@ -18,7 +18,10 @@
 # ***************************************************************************\
 
 # CONFIGURATION
-PROFILE=E:\work\devProfile
+PROFILENAME=devProfile
+QGISBIN=C:\OSGeo4W\bin\qgis-bin.exe
+PROFILEPATH=$(APPDATA)\QGIS\QGIS3
+PROFILE=$(PROFILEPATH)\profiles\${PROFILENAME}
 
 # translation
 SOURCES = geopunt4qgis.py \
@@ -77,33 +80,22 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 %.py : %.ui
 	pyuic5 --import-from=. -o $@ $<
 
-# [KW]: extra command with my own python script, that I can also use on windows
-# workflow testPlugin.py: pack -> extract at PROFILE -> start QGIS
-runplugin: compile  
-	python $(CURDIR)\script\testPlugin.py
-	
 run: deploy
-	qgis --profiles-path $(PROFILE)
+	$(QGISBIN) --profiles-path $(PROFILEPATH)
 
 # The deploy  target only works on unix like operating system where
 # [KW]: use "make runplugin" instead on windows
 deploy: derase compile
-	mkdir $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vfr $(PY_FILES) $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vf $(UI_FILES) $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vf $(RESOURCE_FILES) $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vfr $(EXTRAS) $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
-	cp -vfr i18n $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
-
-# The dclean target removes compiled python files from plugin directory
-# also delets any .svn entry
-dclean:
-	find $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME) -iname "*.pyc" -delete
-	find $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME) -iname ".svn" -prune -exec rm -Rf {} \;
+	mkdir   $(PROFILE)\python\plugins\$(PLUGINNAME)
+	cp -vfr $(PY_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
+	cp -vf  $(UI_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
+	cp -vf  $(RESOURCE_FILES) $(PROFILE)\python\plugins\$(PLUGINNAME)
+	cp -vfr $(EXTRAS) $(PROFILE)\python\plugins\$(PLUGINNAME)
+	cp -vfr i18n $(PROFILE)\python\plugins\$(PLUGINNAME)
 
 # The derase deletes deployed plugin
 derase:
-	rm -rf $(PROFILE)\profiles\default\python\plugins\$(PLUGINNAME)
+	rm -rf $(PROFILE)\python\plugins\$(PLUGINNAME)
 
 # The zip target deploys the plugin and creates a zip file with the deployed
 # content. You can then upload the zip file on http:\\plugins.qgis.org

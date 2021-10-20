@@ -1,23 +1,18 @@
 # -*- coding: utf-8 -*-
-import sys, datetime
-from urllib.request import getproxies
-import requests
+import json
+from ..tools import getUrlData
 
 class elevation(object):
-  baseUri = 'https://dhm.agiv.be/api/elevation/v1/DHMVMIXED/request'
-
-  def __init__(self, timeout=15, proxies=None):
-      self.timeout = timeout
-      self.proxy = proxies if proxies else getproxies()
+  def __init__(self):
+      self.baseUri = 'https://dhm.agiv.be/api/elevation/v1/DHMV2'
 
   def fetchElevaton(self, LineString, srs=31370, samples=50 ):
-      geojson = {}
-      geojson["SrsIn"] = srs
-      geojson["SrsOut"] = srs 
-      geojson["LineString"] = {"coordinates": LineString , "type":"LineString" }
-      geojson["Samples"] = samples
-      #data =  json.dumps(geojson)
-      req = requests.post(self.baseUri, timeout= self.timeout, json=geojson, 
-                                                verify=False, proxies=self.proxy )
-      return req.json()
+      locations = "|".join( ["{},{}".format(*f) for f in LineString ] )
+      data = {}
+      data["SrsIn"] = srs
+      data["SrsOut"] = srs 
+      data["Locations"] = locations
+      data["Samples"] = samples
+      resp = getUrlData(self.baseUri, params=data )
+      return json.loads( resp )
 

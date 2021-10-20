@@ -1,13 +1,14 @@
-# -*- coding: utf-8 -*-
-from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QRegExp, QSortFilterProxyModel, QStringListModel
-from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QCompleter, QInputDialog, QSizePolicy
+from qgis.PyQt.QtCore import (Qt, QSettings, QTranslator, QCoreApplication,
+                                  QRegExp, QSortFilterProxyModel, QStringListModel)
+from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox, QCompleter, 
+                                 QInputDialog, QSizePolicy)
 from qgis.PyQt.QtGui import QStandardItem, QStandardItemModel
 from .ui_geopunt4QgisDataCatalog import Ui_geopunt4QgisDataCatalogDlg
 from qgis.core import Qgis, QgsProject, QgsRasterLayer, QgsVectorLayer
 from qgis.gui import QgsMessageBar
-from .geopunt.metadataParser import MDReader, MDdata, getWmsLayerNames, getWFSLayerNames, makeWFSuri
+from .geopunt.metadataParser import (MDReader, MDdata, getWmsLayerNames, getWFSLayerNames, 
+                                     makeWFSuri)
 from .tools.geometry import geometryHelper
-from .tools.settings import settings
 import os, webbrowser, sys
 
 class geopunt4QgisDataCatalog(QDialog):
@@ -35,7 +36,7 @@ class geopunt4QgisDataCatalog(QDialog):
 
         # get settings
         self.s = QSettings()
-        self.loadSettings()
+        self.md = MDReader()
 
         self.gh = geometryHelper(self.iface)
 
@@ -75,13 +76,6 @@ class geopunt4QgisDataCatalog(QDialog):
         self.ui.modelFilterCbx.currentIndexChanged.connect(self.modelFilterCbxIndexChanged)
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         self.finished.connect(self.clean)
-
-    def loadSettings(self):
-        self.timeout = int(self.s.value("geopunt4qgis/timeout", 15))
-
-        s = settings()
-        self.proxy = s.proxy
-        self.md = MDReader(self.timeout, self.proxy)
 
     def openHelp(self):
         webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/catalogus")
@@ -191,7 +185,7 @@ class geopunt4QgisDataCatalog(QDialog):
 
     def addWMS(self):
         if self.wms == None: return
-        lyrs = getWmsLayerNames(self.wms, self.proxy)
+        lyrs = getWmsLayerNames(self.wms)
 
         if len(lyrs) == 0:
             self.bar.pushMessage("WMS",
@@ -231,7 +225,7 @@ class geopunt4QgisDataCatalog(QDialog):
 
     def addWFS(self):
         if self.wfs == None: return
-        lyrs = getWFSLayerNames(self.wfs, self.proxy)
+        lyrs = getWFSLayerNames(self.wfs)
 
         if len(lyrs) == 0:
             self.bar.pushMessage("WFS",

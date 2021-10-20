@@ -9,7 +9,7 @@ from qgis.core import Qgis, QgsPointXY
 from .geopunt import Adres, basisregisters
 from .tools.geometry import geometryHelper
 from .tools.settings import settings
-import os, json, webbrowser
+import os, webbrowser
 
 class geopunt4QgisAdresDialog(QDialog):
     def __init__(self, iface):
@@ -37,6 +37,8 @@ class geopunt4QgisAdresDialog(QDialog):
         #get settings
         self.s = QSettings()
         self.loadSettings()
+        self.gp = Adres()
+        self.am = basisregisters.adresMatch()
         
         #setup geometryHelper object
         self.gh = geometryHelper(self.iface)
@@ -86,7 +88,6 @@ class geopunt4QgisAdresDialog(QDialog):
         self.proxy = s.proxy
 
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )
-        self.gp = Adres(self.timeout, self.proxy)
         
     # overwrite
     def show(self):
@@ -94,7 +95,6 @@ class geopunt4QgisAdresDialog(QDialog):
         self.setWindowModality(0)
 
         if self.firstShow: 
-            self.am =  basisregisters.adresMatch(self.timeout, self.proxy)
             gemeenteNamen =  [n["Naam"] for n in self.am.gemeenten()]
             
             self.ui.gemeenteBox.addItems( gemeenteNamen )  

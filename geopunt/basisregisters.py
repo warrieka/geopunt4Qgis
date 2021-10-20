@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
-import json, sys
-from urllib.request import getproxies
-import requests
+import json
+from ..tools import getUrlData
+
 
 class adresMatch(object):
-  _gemUrl = "https://basisregisters.vlaanderen.be/api/v1/gemeenten/"
-  _amUrl = "https://basisregisters.vlaanderen.be/api/v1/adresmatch"
-  def __init__(self, timeout=15, proxies=None):
-      self.timeout = timeout
-      self.proxy = proxies if proxies else getproxies()
+
+  def __init__(self):
+      self._gemUrl = "https://api.basisregisters.vlaanderen.be/v1/gemeenten/"
+      self._amUrl = "https://api.basisregisters.vlaanderen.be/v1/adresmatch"
 
   def gemeenten(self, langcode="nl", step=500, stop=1500):
       'Return all Flemish gemeenten (Municipalities), langcode= "nl", "fr", "de"' 
@@ -17,8 +15,8 @@ class adresMatch(object):
       data = {'limit' : step , 'offset': 0}
       
       while data['offset'] <= stop:
-            result = requests.get(self._gemUrl, params=data, timeout=self.timeout, 
-                                          verify=False, proxies=self.proxy ).json()
+            result = json.loads( getUrlData(self._gemUrl, params=data ) )
+            
             data['offset'] += step
 
             if len(result["gemeenten"]) == 0:
@@ -33,7 +31,7 @@ class adresMatch(object):
       return sorted(gemeenten, key=lambda k: k['Naam']) 
 
   def findMatches(self, municipality="", niscode="", postalcode="", kadstreetcode="", 
-                    rrstreetcode="", streetname="", housenr="", rrindex="", boxnr=""):
+                        rrstreetcode="", streetname="", housenr="", rrindex="", boxnr=""):
       data = {}
       data["Gemeentenaam"] = municipality if municipality else ""
       data["Niscode"]      = niscode if niscode else ""
@@ -45,9 +43,8 @@ class adresMatch(object):
       data["Index"]        = rrindex if rrindex else ""
       data["Busnummer"]    = boxnr if boxnr else ""
 
-      result = requests.get(self._amUrl, params=data, timeout=self.timeout , 
-                                        verify=False , proxies=self.proxy ).json()
-      return result['adresMatches']
+      result = json.loads( getUrlData(self._amUrl, params=data) )
+      return [ n for n in result['adresMatches'] if n["adresStatus"] == "InGebruik" ]
     
   def findMatchFromSingleLine(self, adres):
       adr = [n.strip() for n in adres.split(",")]
@@ -70,21 +67,20 @@ class adresMatch(object):
       data["Straatnaam"]   = street
       data["Huisnummer"]   = housenr
       
-      result = requests.get(self._amUrl, params=data, timeout=self.timeout , 
-                                            verify=False  , proxies=self.proxy ).json()
-      return result['adresMatches']
+      result = json.loads( getUrlData( self._amUrl, params=data ) )
+      return [ n for n in result['adresMatches'] if n["adresStatus"] == "InGebruik" ]
 
     
   def findAdresSuggestions(self, single=None, municipality="", niscode="", postalcode="", 
-                    kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr="" ):
+                kadstreetcode="", rrstreetcode="", streetname="", housenr="", rrindex="", boxnr="" ):
        if single is None:
             matches = self.findMatches(municipality, niscode, postalcode, 
-                                        kadstreetcode, rrstreetcode, streetname, housenr, rrindex, boxnr)
+                       kadstreetcode, rrstreetcode, streetname, housenr, rrindex, boxnr)
        else:
             matches = self.findMatchFromSingleLine(single)
        
        results = []          
        for match in matches:
-            if "volledigAdres" in match.keys() and not 'busnummer' in match.keys():
+            if "volledigAdres" in match.keys() and not 'busnummer' in match.keys() and not match["adresStatus"] == "InGebruik":
                 results.append( match['volledigAdres']['geografischeNaam']['spelling'] )
        return results

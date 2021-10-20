@@ -1,26 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-/***************************************************************************
-poiHelper
-                                A QGIS plugin
-"Tool om geopunt in QGIS te gebruiken"
-                            -------------------
-        begin                : 2014-08-06
-        copyright            : (C) 2013 by Kay Warrie
-        email                : kaywarrie@gmail.com
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-"""
 from qgis.PyQt.QtCore import QVariant
-from qgis.core import (QgsField, QgsProject, QgsVectorLayer, QgsPoint, QgsPointXY, 
+from qgis.core import (QgsField, QgsProject, QgsVectorLayer, QgsPointXY, 
                        QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsVectorLayerSimpleLabeling,
                        QgsGeometry, QgsVectorFileWriter, QgsPalLayerSettings, QgsTextBufferSettings, QgsTextFormat )
 from qgis.PyQt.QtWidgets import QFileDialog
@@ -92,7 +71,7 @@ class poiHelper(object):
             fet = QgsFeature(fields)
 
             #set geometry
-            fromCrs = QgsCoordinateReferenceSystem(4326)
+            fromCrs = QgsCoordinateReferenceSystem("EPSG:4326")
             xform = QgsCoordinateTransform( fromCrs, self.minpoilayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
             fet.setGeometry(QgsGeometry.fromPointXY(prjPt))
@@ -119,7 +98,7 @@ class poiHelper(object):
             fet = QgsFeature(fields)
 
             #set geometry
-            fromCrs = QgsCoordinateReferenceSystem(4326)
+            fromCrs = QgsCoordinateReferenceSystem("EPSG:4326")
             xform = QgsCoordinateTransform( fromCrs, self.minpoilayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
             fet.setGeometry(QgsGeometry.fromPointXY(prjPt))
@@ -233,7 +212,7 @@ class poiHelper(object):
             fet = QgsFeature(fields)
 
             #set geometry
-            fromCrs = QgsCoordinateReferenceSystem(4326)
+            fromCrs = QgsCoordinateReferenceSystem("EPSG:4326")
             xform = QgsCoordinateTransform( fromCrs, self.poilayer.crs(), QgsProject.instance() )
             prjPt = xform.transform( pt )
             fet.setGeometry(QgsGeometry.fromPointXY(prjPt))

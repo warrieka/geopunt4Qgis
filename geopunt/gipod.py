@@ -1,38 +1,33 @@
-# -*- coding: utf-8 -*-
-import json, sys, datetime, urllib.parse
-from urllib.request import getproxies
-import requests
+import json, datetime, urllib.parse
+from ..tools import getUrlData
 
 class gipod(object):
-  baseUri = 'https://api.gipod.vlaanderen.be/ws/v1/'
-
-  def __init__(self, timeout=15,  proxies=None):
-      self.timeout = timeout
-      self.proxy = proxies if proxies else getproxies()
+  def __init__(self):
+      self.baseUri = 'https://api.gipod.vlaanderen.be/ws/v1/'
   
   def getCity(self, q="" ):
       query = urllib.parse.quote(q)
       url = self.baseUri + "referencedata/city/" + query 
-      response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-      return response.json()
+      response = getUrlData(url )
+      return json.loads(response)
 
   def getProvince(self, q="" ):
       query = urllib.parse.quote(q)
       url = self.baseUri + "referencedata/province/" + query
-      response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-      return response.json()
+      response =  getUrlData(url )
+      return json.loads(response)
 
   def getEventType(self, q="" ):
       query = urllib.parse.quote(q)
       url = self.baseUri + "referencedata/eventtype/" + query
-      response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-      return response.json()
+      response =  getUrlData(url )
+      return json.loads(response)
 
   def getOwner(self, q=''):
       query = urllib.parse.quote(q)
       url = self.baseUri + "referencedata/owner/" + query
-      response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-      return response.json()
+      response = getUrlData(url )
+      return json.loads(response)
 
   def _createWorkassignmentUrl(self, owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
       "startdate and enddate are datetime.date\n bbox is [xmin,ymin,xmax,ymax]"
@@ -64,8 +59,8 @@ class gipod(object):
 
   def fetchWorkassignment(self,owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
       url = self._createWorkassignmentUrl(owner, startdate, enddate, city, province, srs, bbox, c, offset )
-      response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-      return response.json()
+      response = getUrlData(url )
+      return json.loads(response)
       
   def allManifestations(self, owner="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[]):
       counter = 0
@@ -109,9 +104,9 @@ class gipod(object):
   
   def fetchManifestation(self, owner="", eventtype="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[], c=50, offset=0 ):
       url = self._createManifestationUrl(owner, eventtype, startdate, enddate, city, province, srs, bbox, c, offset )
-      response = requests.get(url, timeout=self.timeout , verify=False , proxies=self.proxy )
-      return response.json()
-        
+      response = getUrlData(url )
+      return json.loads(response)
+      
   def allManifestations(self, owner="", eventtype="", startdate=None, enddate=None, city="", province="", srs=31370, bbox=[]):
       counter = 0
       mAs = self.fetchManifestation(owner, eventtype, startdate, enddate, city, province, srs, bbox, 100, counter)

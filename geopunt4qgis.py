@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator 
 from qgis.PyQt.QtWidgets import QMessageBox, QAction, QPushButton, QInputDialog
 from qgis.PyQt.QtGui import QColor, QIcon
@@ -63,6 +62,7 @@ class geopunt4Qgis(object):
         self.loadSettings()
         
         self.gh = geometryHelper(self.iface)
+        self.gp = Adres()
         self.graphicsLayer = []
 
         # Create actions that will start plugin configuration
@@ -158,10 +158,8 @@ class geopunt4Qgis(object):
         if layerName_reverse:
            self.layerName_reverse = layerName_reverse
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
-        
         self.proxy = settings().proxy
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~"))
-        self.gp = Adres(self.timeout, self.proxy)
         
     def runSettingsDlg(self):
         ' show the dialog'
@@ -247,8 +245,7 @@ class geopunt4Qgis(object):
            self.datacatalogusDlg.showNormal()
            self.datacatalogusDlg.activateWindow()
            return 
-        
-        self.datacatalogusDlg.loadSettings()
+
         self.datacatalogusDlg.show()
         # Run the dialog event loop
         self.datacatalogusDlg.exec_()
@@ -259,7 +256,6 @@ class geopunt4Qgis(object):
            self.parcelDlg.showNormal()
            self.parcelDlg.activateWindow()
            return 
-        
         self.parcelDlg.loadSettings()
         self.parcelDlg.show()
         # Run the dialog event loop
@@ -281,7 +277,7 @@ class geopunt4Qgis(object):
         
     def _reverseAdresCallback(self, point):
         self._addMarker( point )
-        lam72 = QgsCoordinateReferenceSystem(31370)
+        lam72 = QgsCoordinateReferenceSystem("EPSG:31370")
         mapCrs = self.gh.getGetMapCrs(self.iface)
         xform = QgsCoordinateTransform(mapCrs, lam72, QgsProject.instance())
         lam72clickt = xform.transform(point)

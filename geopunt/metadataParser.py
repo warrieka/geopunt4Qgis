@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-import urllib.parse, json, sys
-import requests
-from urllib.request import getproxies
+import urllib.parse
+from ..tools import getUrlData
 import xml.etree.ElementTree as ET
 
 class MDdata(object):
@@ -60,12 +58,10 @@ class MDdata(object):
 
 
 class MDReader(object):
-    def __init__(self, timeout=15, proxies=None ):
-        self.timeout = timeout
+    def __init__(self ):
         self.geoNetworkUrl = "https://metadata.vlaanderen.be/srv/dut/csw"
-        self.proxy = proxies if proxies else getproxies()
         self.dataTypes = [["Dataset", "dataset"],["Dienst","service"],
-                        ["ObjectenCatalogus",'featureCatalog'],["Datasetserie",'series']]
+                  ["ObjectenCatalogus",'featureCatalog'],["Datasetserie",'series']]
         
     def _createFindUrl(self, q="", start=0, maxRecords=100, orgName='', dataType=''): 
         url = self.geoNetworkUrl 
@@ -104,24 +100,24 @@ class MDReader(object):
         return url +"?"+ values
           
     def list_suggestionKeyword(self):
-        url1 = self.geoNetworkUrl + "?request=GetDomain&service=CSW&version=2.0.2&PropertyName=title"
-        response = requests.get( url1, verify=False , proxies=self.proxy )
-        result   = ET.fromstring( response.content )
+        url = self.geoNetworkUrl + "?request=GetDomain&service=CSW&version=2.0.2&PropertyName=title"
+        response = getUrlData(url )
+        result   = ET.fromstring( response )
         val1 = [ n.text for n in result.findall('.//{http://www.opengis.net/cat/csw/2.0.2}Value') ]
         return val1
 
     def list_organisations(self):
         url = self.geoNetworkUrl + '?request=GetDomain&service=CSW&version=2.0.2&PropertyName=OrganisationName'
-        response = requests.get( url, verify=False , proxies=self.proxy )
-        result = ET.fromstring( response.content )
+        response = getUrlData(url )
+        result   = ET.fromstring( response )
         organisations = [ n.text for n in result.findall('.//{http://www.opengis.net/cat/csw/2.0.2}Value') ]
         organisations.sort()
         return organisations
 
     def search(self, q="", start=0, step=100, orgName='', dataType=''):
         url = self._createFindUrl( q, start, step, orgName, dataType)
-        response = requests.get( url, verify=False , proxies=self.proxy )
-        result = ET.fromstring( response.content )
+        response = getUrlData(url )
+        result   = ET.fromstring( response )
         return result
 
     def searchAll(self, q="", orgName='', dataType=''):
@@ -129,13 +125,15 @@ class MDReader(object):
         step = 100
         result = self.search(q, start, step, orgName, dataType)
         searchResult = result.find(".//{http://www.opengis.net/cat/csw/2.0.2}SearchResults")
-        if not searchResult: return
+        if not searchResult: 
+            return
         count = int( searchResult.attrib["numberOfRecordsMatched"] )
         start += step
         while (start) <= count: 
            result = self.search(q, start, step, orgName, dataType)
            mds= result.findall(".//{http://www.opengis.net/cat/csw/2.0.2}Record")
-           for md in mds: searchResult.append( md )
+           for md in mds: 
+               searchResult.append( md )
            start += step
            
         return searchResult
@@ -148,16 +146,14 @@ class metaError(Exception):
         return repr(self.message)
 
       
-def getWmsLayerNames( url='', proxies=None):
-    proxy = proxies if proxies else getproxies()
+def getWmsLayerNames( url=''):
     if (not "request=GetCapabilities" in url.lower()) or (not "service=wms" in url.lower()):
       capability = url.split("?")[0] + "?request=GetCapabilities&version=1.3.0&service=wms"
     else:
       capability = url
         
-    response = requests.get(capability, verify=False , proxies=proxy )
-    result = ET.fromstring(response.content)
-
+    response = getUrlData(capability )
+    result = ET.fromstring(response)
     layers =  result.findall( ".//{http://www.opengis.net/wms}Layer" ) + result.findall( ".//Layer" ) 
     layerNames=[]
 
@@ -173,16 +169,14 @@ def getWmsLayerNames( url='', proxies=None):
 
     return layerNames
 
-def getWFSLayerNames( url, proxies=None):
-    proxy = proxies if proxies else getproxies()
+def getWFSLayerNames( url):
     if (not "request=GetCapabilities" in url.lower()) or (not "service=wfs" in url.lower()):
         capability = url.split("?")[0] + "?request=GetCapabilities&version=1.0.0&service=wfs"
     else: 
         capability = url
         
-    response = requests.get(capability, verify=False , proxies=proxy )
-    result = ET.fromstring(response.content)
-
+    response = getUrlData(capability )
+    result = ET.fromstring(response)
     layers =  result.findall( ".//{http://www.opengis.net/wfs}FeatureType" )
     layerNames=[]
 
@@ -196,15 +190,14 @@ def getWFSLayerNames( url, proxies=None):
 
     return layerNames
 
-def getWMTSlayersNames( url, proxies=None):
-    proxy = proxies if proxies else getproxies()
+def getWMTSlayersNames( url):
     if (not "request=getcapabilities" in url.lower()) or (not "service=wmts" in url.lower()):
         capability = url.split("?")[0] + "?service=WMTS&request=Getcapabilities"
     else:
         capability = url
             
-    response = requests.get(capability, verify=False , proxies=proxy )
-    result = ET.fromstring(response.content)
+    response = getUrlData(capability )
+    result = ET.fromstring(response)
 
     content = result.find( "{http://www.opengis.net/wmts/1.0}Contents" )
     layers =  content.findall( "{http://www.opengis.net/wmts/1.0}Layer" )
@@ -229,8 +222,7 @@ def getWMTSlayersNames( url, proxies=None):
 
     return layerNames
 
-def getWCSlayerNames( url, proxies=None ):
-    proxy = proxies if proxies else getproxies()
+def getWCSlayerNames( url):
     wcsNS = "http://www.opengis.net/wcs/1.1"
 
     if (not "request=getcapabilities" in url.lower()) or (not "service=wcs" in url.lower()):
@@ -238,7 +230,7 @@ def getWCSlayerNames( url, proxies=None ):
     else:
       capability = url
 
-    response = requests.get(capability, verify=False , proxies=proxy ).content
+    response = getUrlData(capability )
 
     if 'xmlns:wcs="http://www.opengis.net/wcs/1.1.1"' in response:
         wcsNS = "http://www.opengis.net/wcs/1.1.1"
@@ -253,8 +245,8 @@ def getWCSlayerNames( url, proxies=None ):
        title = lyr.find("{http://www.opengis.net/ows/1.1}Title")
 
        DescribeCoverage = url.split("?")[0] + "?request=DescribeCoverage&version=1.1.0&service=wcs&Identifiers=" + Identifier.text
-       response = requests.get(DescribeCoverage, verify=False , proxies=proxy )
-       resultDC = ET.fromstring(response.content)
+       response = getUrlData(DescribeCoverage)
+       resultDC = ET.fromstring(response)
        CoverageDescription = resultDC.find( "{%s}CoverageDescription" % wcsNS)
        Identifier = CoverageDescription.find("{%s}Identifier" % wcsNS)
        formats =  CoverageDescription.findall( "{%s}SupportedFormat" % wcsNS)

@@ -50,11 +50,11 @@ class geopunt4QgisSettingsDialog(QDialog):
             self.ui.startDirTxt.setText(startDir)                                   
         
         #proxysettings
-        proxyOverwiteEnabled = int( self.s.value("geopunt4qgis/proxyOverwiteEnabled" , 0))
-        self.ui.proxyChk.setChecked(proxyOverwiteEnabled)
+        # proxyOverwiteEnabled = int( self.s.value("geopunt4qgis/proxyOverwiteEnabled" , 0))
+        # self.ui.proxyChk.setChecked(proxyOverwiteEnabled)
 
-        proxyText = self.s.value("geopunt4qgis/proxyUrl", "")
-        if isinstance(proxyText, str): self.ui.proxyText.setText(proxyText)
+        # proxyText = self.s.value("geopunt4qgis/proxyUrl", "")
+        # if isinstance(proxyText, str): self.ui.proxyText.setText(proxyText)
         
         #geopunt4Qgis AdresDialog settings
         adresSearchOnEdit = int( self.s.value("geopunt4qgis/adresSearchOnEdit" , 1))
@@ -153,12 +153,11 @@ class geopunt4QgisSettingsDialog(QDialog):
         self.s.setValue("geopunt4qgis/startDir", startDir)           
         
         #proxysettings
-        proxyOverwiteEnabled = int( self.ui.proxyChk.isChecked() )
-        self.s.setValue("geopunt4qgis/proxyOverwiteEnabled" , proxyOverwiteEnabled)
-
-        if proxyOverwiteEnabled:
-            proxyText = self.ui.proxyText.text()
-            self.s.setValue("geopunt4qgis/proxyUrl" , proxyText)
+        # proxyOverwiteEnabled = int( self.ui.proxyChk.isChecked() )
+        # self.s.setValue("geopunt4qgis/proxyOverwiteEnabled" , proxyOverwiteEnabled)
+        # if proxyOverwiteEnabled:
+        #     proxyText = self.ui.proxyText.text()
+        #     self.s.setValue("geopunt4qgis/proxyUrl" , proxyText)
 
         #'save geopunt4QgisAdresDialog settings'
         adresSearchOnEdit = int( self.ui.adresSearchOnEditChk.isChecked())

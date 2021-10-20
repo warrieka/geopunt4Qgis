@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from builtins import str
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication 
 from qgis.PyQt.QtWidgets import QDialog, QPushButton, QDialogButtonBox, QMessageBox
@@ -8,9 +7,7 @@ import os, json, webbrowser, sys
 from .geopunt import  gipod
 from .tools.geometry import geometryHelper
 from .tools.gipod import gipodHelper, gipodWriter
-from .tools.settings import settings
 from datetime import date, timedelta
-from urllib.error import HTTPError
 
 class geopunt4QgisGipodDialog(QDialog):
     def __init__(self, iface):
@@ -40,6 +37,7 @@ class geopunt4QgisGipodDialog(QDialog):
         self.loadSettings()
 
         self.gh = geometryHelper(self.iface)
+        self.gp = gipod()
         
         self.data = None
         
@@ -65,18 +63,12 @@ class geopunt4QgisGipodDialog(QDialog):
     def loadSettings(self):
         self.timeout =  int(  self.s.value("geopunt4qgis/timeout" ,15))
         self.saveToFile = int( self.s.value("geopunt4qgis/gipodSavetoFile" , 1))
-
-        s = settings()
-        self.proxy = s.proxy
         self.startDir = self.s.value("geopunt4qgis/startDir", os.path.expanduser("~") )        
-        self.gp = gipod(self.timeout, self.proxy)
-    
 
     def show(self):
-      QDialog.show(self)
+        QDialog.show(self)
 
-      if  self.firstShow:
-        try:
+        if self.firstShow:
             self.gemeentes = json.load( open(os.path.join(os.path.dirname(__file__), "data/gemeentenVL.json")) )
             #populate combo's
             self.ui.provinceCbx.clear()
@@ -89,9 +81,6 @@ class geopunt4QgisGipodDialog(QDialog):
             self.ui.eventCbx.addItems([""] + self.gp.getEventType())
             self.ui.mgsBox.setText('')
             self.firstShow = False
-        except HTTPError:
-            self.ui.mgsBox.setText( "<div style='color:red'>%s</div>" %  QCoreApplication.translate("geopunt4QgisGIPOD", 
-              "<strong>Waarschuwing: </strong>kan niet verbinden met internet"))
 
     def endEditChanged(self, senderDate):
         self.ui.startEdit.setMaximumDate(senderDate)
