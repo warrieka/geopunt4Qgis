@@ -7,7 +7,7 @@ from qgis.PyQt.QtGui import QColor, QBrush
 from .ui_geopunt4QgisBatchGeoCode import Ui_batchGeocodeDlg
 from .tools.batchGeo import batcGeoHelper
 from .mapTools.reverseAdres import reverseAdresMapTool
-from .geopunt import Adres, adresMatch
+from .geopunt import adresMatch
 from .tools.settings import settings
 from .tools.geometry import geometryHelper
 
@@ -103,7 +103,6 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
 
         row= 0
         while row < rowCount:
-            
             attributes = {}
             self.ui.statusProgress.setValue(row)
             if self.ui.outPutTbl.cellWidget(row,adresCol):
@@ -228,11 +227,11 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.ui.outPutTbl.setHorizontalHeaderLabels(header + [QCoreApplication.translate("batcGeoCodedialog", "gevalideerd adres")])
         
         self.ui.adresColSelect.insertItems(0, header)
-        self.ui.huisnrSelect.insertItems(0, header )
+        self.ui.huisnrSelect.insertItems(0, [QCoreApplication.translate("batcGeoCodedialog", "<geen>")]+ header )
         
-        self.ui.pcColSelect.insertItems(0, header + [QCoreApplication.translate("batcGeoCodedialog", "<geen>")])
+        self.ui.pcColSelect.insertItems(0, header+ [QCoreApplication.translate("batcGeoCodedialog", "<geen>")]  )
         self.ui.pcColSelect.setCurrentIndex(colCount)
-        self.ui.gemeenteColSelect.insertItems(0, header + [QCoreApplication.translate("batcGeoCodedialog", "<geen>")])
+        self.ui.gemeenteColSelect.insertItems(0, header+ [QCoreApplication.translate("batcGeoCodedialog", "<geen>")] )
         self.ui.gemeenteColSelect.setCurrentIndex(colCount)
         
         rowCount = 0
@@ -303,20 +302,18 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         huisnrTxt = self.ui.huisnrSelect.currentText()
         pcTxt = self.ui.pcColSelect.currentText()
         gemeenteTxt = self.ui.gemeenteColSelect.currentText()
+        geenSymbol =  QCoreApplication.translate("batcGeoCodedialog", "<geen>")
         
-        
-        if gemeenteTxt == QCoreApplication.translate("batcGeoCodedialog", "<geen>") and pcTxt == QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
-             msg = QCoreApplication.translate("batcGeoCodedialog", "Je moet een postcode of gemeente kolom opgeven.")
-             QMessageBox.warning(self, 'Warning', msg)
-             return
+        if gemeenteTxt == geenSymbol and pcTxt == geenSymbol and not self.ui.singleLineChk.isChecked():
+            msg = QCoreApplication.translate("batcGeoCodedialog", "Je moet een postcode of gemeente kolom opgeven.")
+            QMessageBox.warning(self, 'Warning', msg)
+            return
 
         validAdresCol = self.ui.outPutTbl.columnCount() -1
-        adresCol = self.headers[adresTxt] 
-        huisnrCol =  self.headers[huisnrTxt] 
-        if gemeenteTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
-              gemeenteCol = self.headers[gemeenteTxt] 
-        if pcTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"):
-              pcCol = self.headers[pcTxt] 
+        adresCol =    self.headers[adresTxt] 
+        huisnrCol =   None if huisnrTxt == geenSymbol else self.headers[huisnrTxt] 
+        gemeenteCol = None if gemeenteTxt == geenSymbol else self.headers[gemeenteTxt] 
+        pcCol =       None if pcTxt == geenSymbol else self.headers[pcTxt]
         
         self.ui.statusProgress.setValue(0)
         self.ui.statusProgress.setMaximum(len(rowIds))
@@ -324,44 +321,43 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
     
         i= 0
         while i < len( rowIds):
-              rowIdx = rowIds[i]
-              #status Progress
-              self.ui.statusProgress.setValue(i)
+            rowIdx = rowIds[i]
+            #status Progress
+            self.ui.statusProgress.setValue(i)
 
-              adres = self.ui.outPutTbl.item(rowIdx, adresCol).text()
-              huisNr = self.ui.outPutTbl.item(rowIdx, huisnrCol).text()
-              pc, muni = ('', '')
-              if pcTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"): pc = self.ui.outPutTbl.item(rowIdx, pcCol).text() 
-              if gemeenteTxt != QCoreApplication.translate("batcGeoCodedialog", "<geen>"): muni = self.ui.outPutTbl.item(rowIdx, gemeenteCol).text()
-              try:  
+            adres = self.ui.outPutTbl.item(rowIdx, adresCol).text()  if adresCol else ''
+            huisNr = self.ui.outPutTbl.item(rowIdx, huisnrCol).text()  if huisnrCol else ''
+            pc = self.ui.outPutTbl.item(rowIdx, pcCol).text() if pcCol else ''
+            muni = self.ui.outPutTbl.item(rowIdx, gemeenteCol).text() if gemeenteCol else ''
+            if not self.ui.singleLineChk.isChecked():
                 validAdres = self.am.findAdresSuggestions(municipality=muni, postalcode=pc, housenr=huisNr, streetname=adres)
-              except:
-                validAdres = []
-                
-              if type( validAdres ) is list: 
+            else:
+                validAdres = self.am.findAdresSuggestions(single=adres)
+            
+            if type( validAdres ) is list: 
                 if len(validAdres) > 1 and len( validAdres[0].split(',')) >= 2 and len(adres.strip()): 
-                   resultNR =  validAdres[0].split(',')[0].split()[-1] if len(validAdres[0].split(',')[0].split()) > 0 else validAdres[0]
-                   adresNR = adres.split(',')[0].split()[-1] if len(adres.split(',')[0].split()) > 0 else adres
-                   if adresNR == resultNR: validAdres = [validAdres[0]]
-                   
+                    resultNR =  validAdres[0].split(',')[0].split()[-1] if len(validAdres[0].split(',')[0].split()) > 0 else validAdres[0]
+                    adresNR = adres.split(',')[0].split()[-1] if len(adres.split(',')[0].split()) > 0 else adres
+                    if adresNR == resultNR: validAdres = [validAdres[0]]
+
                 validCombo = QComboBox(self.ui.adresColSelect)
                 validCombo.addItems(validAdres)
                 self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)
-    
-              if len(validAdres) == 1:
-                  self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).setEnabled(0)
-                  for col in range(len(self.headers)):
-                      self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#CCFFCC")) )
-              elif len(validAdres) > 1:
-                  self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).addItem("")
-                  for col in range(len(self.headers)):
-                      self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#FFFFC8")) )
-                      
-              elif len(validAdres) == 0:
-                  self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, None)
-                  for col in range(len(self.headers)):
-                      self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#FFBEBE")) )
-              i += 1
+
+            if len(validAdres) == 1:
+                self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).setEnabled(0)
+                for col in range(len(self.headers)):
+                    self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#CCFFCC")) )
+            elif len(validAdres) > 1:
+                self.ui.outPutTbl.cellWidget(rowIdx, validAdresCol).addItem("")
+                for col in range(len(self.headers)):
+                    self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#FFFFC8")) )
+                    
+            elif len(validAdres) == 0:
+                self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, None)
+                for col in range(len(self.headers)):
+                    self.ui.outPutTbl.item(rowIdx, col).setBackground( QBrush( QColor("#FFBEBE")) )
+            i += 1
 
         #reset statusbar
         self.ui.statusMsg.setText("")

@@ -102,6 +102,7 @@ class MDReader(object):
     def list_suggestionKeyword(self):
         url = self.geoNetworkUrl + "?request=GetDomain&service=CSW&version=2.0.2&PropertyName=title"
         response = getUrlData(url )
+        
         result   = ET.fromstring( response )
         val1 = [ n.text for n in result.findall('.//{http://www.opengis.net/cat/csw/2.0.2}Value') ]
         return val1
@@ -109,6 +110,7 @@ class MDReader(object):
     def list_organisations(self):
         url = self.geoNetworkUrl + '?request=GetDomain&service=CSW&version=2.0.2&PropertyName=OrganisationName'
         response = getUrlData(url )
+        
         result   = ET.fromstring( response )
         organisations = [ n.text for n in result.findall('.//{http://www.opengis.net/cat/csw/2.0.2}Value') ]
         organisations.sort()
@@ -117,6 +119,7 @@ class MDReader(object):
     def search(self, q="", start=0, step=100, orgName='', dataType=''):
         url = self._createFindUrl( q, start, step, orgName, dataType)
         response = getUrlData(url )
+       
         result   = ET.fromstring( response )
         return result
 

@@ -3,7 +3,6 @@ from ..tools import getUrlData
 
 
 class adresMatch(object):
-
   def __init__(self):
       self._gemUrl = "https://api.basisregisters.vlaanderen.be/v1/gemeenten/"
       self._amUrl = "https://api.basisregisters.vlaanderen.be/v1/adresmatch"
@@ -26,7 +25,7 @@ class adresMatch(object):
                               "Naam": n['gemeentenaam']['geografischeNaam']['spelling'] } 
                       for n in result["gemeenten"] 
                       if  n['gemeentenaam']['geografischeNaam']['taal'] == langcode
-                      and n["gemeenteStatus"] ==  "inGebruik"]
+                      and n["gemeenteStatus"].lower() != "gehistoreerd"]
 
       return sorted(gemeenten, key=lambda k: k['Naam']) 
 
@@ -43,8 +42,13 @@ class adresMatch(object):
       data["Index"]        = rrindex if rrindex else ""
       data["Busnummer"]    = boxnr if boxnr else ""
 
-      result = json.loads( getUrlData(self._amUrl, params=data) )
-      return [ n for n in result['adresMatches'] if n["adresStatus"] == "InGebruik" ]
+      try:
+        result = json.loads( getUrlData(self._amUrl, params=data) )
+      except BaseException as err:
+        print(f"Unexpected {err=}, {type(err)=}")
+        return []
+
+      return [ n for n in result['adresMatches'] if not "adresStatus" in n.keys() or n["adresStatus"].lower() != "gehistoreerd" ]
     
   def findMatchFromSingleLine(self, adres):
       adr = [n.strip() for n in adres.split(",")]
@@ -67,8 +71,14 @@ class adresMatch(object):
       data["Straatnaam"]   = street
       data["Huisnummer"]   = housenr
       
-      result = json.loads( getUrlData( self._amUrl, params=data ) )
-      return [ n for n in result['adresMatches'] if n["adresStatus"] == "InGebruik" ]
+      try:
+        result = json.loads( getUrlData( self._amUrl, params=data ) )
+      except BaseException as err:
+        print(f"Unexpected {err=}, {type(err)=}")  
+        return []
+
+      return [ n for n in result['adresMatches'] 
+                if not "adresStatus" in n.keys() or n["adresStatus"].lower() != "gehistoreerd" ]
 
     
   def findAdresSuggestions(self, single=None, municipality="", niscode="", postalcode="", 
@@ -81,6 +91,7 @@ class adresMatch(object):
        
        results = []          
        for match in matches:
-            if "volledigAdres" in match.keys() and not 'busnummer' in match.keys() and not match["adresStatus"] == "InGebruik":
+            if ("volledigAdres" in match.keys() and not 'busnummer' in match.keys() 
+                and ("adresStatus" not in match.keys() or match["adresStatus"].lower() != "gehistoreerd")):
                 results.append( match['volledigAdres']['geografischeNaam']['spelling'] )
        return results

@@ -121,8 +121,7 @@ class geopunt4QgisDataCatalog(QDialog):
             uuid = self.proxyModel.data(self.proxyModel.index(row, 3))
             abstract = self.proxyModel.data(self.proxyModel.index(row, 4))
 
-            self.ui.descriptionText.setText(
-                """<h3>%s</h3><div>%s</div><br/><div>
+            self.ui.descriptionText.setText( """<h3>%s</h3><div>%s</div><br/><div>
              <a href='https://metadata.vlaanderen.be/srv/dut/catalog.search#/metadata/%s'>
              Ga naar fiche</a></div>""" % (title, abstract, uuid))
 
