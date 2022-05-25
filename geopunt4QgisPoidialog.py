@@ -239,10 +239,11 @@ class geopunt4QgisPoidialog(QDialog):
             m = QgsVertexMarker(canvas)
             self.graphicsLayer.append(m)
             m.setCenter(QgsPointXY(x,y))
-            m.setColor(QColor(255,255,0))
-            m.setIconSize(1)
+            m.setColor(QColor(0,0,0))
+            m.setFillColor(QColor(255,255,0))
+            m.setIconSize(12)
             m.setIconType(QgsVertexMarker.ICON_BOX) 
-            m.setPenWidth(10)
+            m.setPenWidth(1)
 
     def onAddSelClicked(self):
         if not len( self.ui.resultLijst.selectedIndexes() ):

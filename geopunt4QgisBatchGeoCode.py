@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import csv, webbrowser, os.path
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtWidgets import (QDialog, QDialogButtonBox, QPushButton, QInputDialog, 
@@ -19,9 +18,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
         self.iface = iface
         
         # initialize locale
-        locale = QSettings().value("locale/userLocale", "nl")
-        if not locale: locale == 'nl' 
-        else: locale = locale[0:2]
+        locale = QSettings().value("locale/userLocale", "nl")[0:2]
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
         if os.path.exists(localePath):
             self.translator = QTranslator()

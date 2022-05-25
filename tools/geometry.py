@@ -200,12 +200,13 @@ class geometryHelper(object):
         else:
             return None
       
-    def addPointGraphic(self, xy, color="#FFFF00", size=1, pen=10, markerType=QgsVertexMarker.ICON_BOX ):
+    def addPointGraphic(self, xy, color="#FFFF00", size=12, pen=1, markerType=QgsVertexMarker.ICON_BOX ):
         "create a point Graphic at location xy and return it"
         pt = QgsPointXY(xy[0], xy[1]) if isinstance( xy, Iterable) else QgsPointXY(xy)
         m = QgsVertexMarker(self.canvas)
         m.setCenter(pt)
-        m.setColor(QColor(color))
+        m.setColor(QColor(0,0,0))
+        m.setFillColor(QColor(color))
         m.setIconSize(size)
         m.setIconType(markerType) 
         m.setPenWidth(pen)

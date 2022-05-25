@@ -81,7 +81,7 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 	pyuic5 --import-from=. -o $@ $<
 
 run: deploy
-	$(QGISBIN) --profiles-path $(PROFILEPATH)
+	$(QGISBIN) --profiles-path $(PROFILEPATH) --profile $(PROFILENAME)
 
 # The deploy  target only works on unix like operating system where
 # [KW]: use "make runplugin" instead on windows

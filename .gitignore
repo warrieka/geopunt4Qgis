@@ -234,4 +234,4 @@ doc/*.xlsx
 
 
 .env
-.vscode/*
+.vscode/*.log

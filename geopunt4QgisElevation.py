@@ -347,10 +347,11 @@ class geopunt4QgisElevationDialog(QDialog):
         
         self.pt = QgsVertexMarker(self.iface.mapCanvas())
         self.pt.setCenter( pt )
-        self.pt.setColor(QColor(0,255,250))
-        self.pt.setIconSize(5)
-        self.pt.setIconType(QgsVertexMarker.ICON_BOX ) # or ICON_CROSS, ICON_X
-        self.pt.setPenWidth(7)
+        self.pt.setColor(QColor(0,0,0))
+        self.pt.setFillColor(QColor(0,255,250))
+        self.pt.setIconSize(12)
+        self.pt.setIconType(QgsVertexMarker.ICON_BOX ) 
+        self.pt.setPenWidth(1)
         
         if self.xscaleUnit[0] != 1:
            msg= "lengte= %s %s" %  (round( dist * self.xscaleUnit[0], 2) , self.xscaleUnit[1])

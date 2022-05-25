@@ -1,0 +1,58 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "editor.rulers": [100],
+    "editor.wordWrapColumn": 100,
+    // PyQt Integration
+    "pyqt-integration.qtdesigner.path": "C:/OSGeo4W/bin/qgis-ltr-designer.bat",
+    "pyqt-integration.pyuic.cmd": "C:/OSGeo4W/apps/Python39/Scripts/pyuic5.exe",
+    "pyqt-integration.pylupdate.cmd": "C:/OSGeo4W/apps/Python39/Scripts/pylupdate5.exe",
+    "pyqt-integration.pyrcc.cmd": "C:/OSGeo4W/apps/Python39/Scripts/pyrcc5.exe",
+    "pyqt-integration.pyrcc.compile.filepath": "${workspace}/${qrc_name}.py",
+
+    // Linter
+    "python.linting.enabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.linting.flake8Args": [
+        "--ignore=E24,E265,E501,W504,W1401",
+        "--verbose"
+    ],
+
+    // Set Python interpreter
+    "python.defaultInterpreterPath": "C:\\OSGeo4W\\apps\\Python39\\python.exe",
+
+    // Formatting with black
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "${workspaceFolder}\\.venv_dev\\Scripts\\black.exe",
+    "python.formatting.blackArgs": ["--target-version=py39",],
+
+    "python.envFile": "${workspaceFolder}/.vscode/.env",
+
+    // Replicate the QGIS environment
+    "terminal.integrated.env.windows": {
+        // Path
+        "PATH": "C:\\OSGeo4W\\apps\\qgis-ltr\\bin;C:\\OSGeo4W\\apps\\Python39;C:\\OSGeo4W\\apps\\Python39\\Scripts;C:\\OSGeo4W\\apps\\qt5\\bin;C:\\OSGeo4W\\bin;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\WBem;C:\\OSGeo4W\\apps\\Python39\\lib\\site-packages\\pywin32_system32;C:\\OSGeo4W\\apps\\Python39\\lib\\site-packages\\numpy\\.libs",
+        // Python
+        "PYTHONHOME": "C:\\OSGeo4W\\apps\\Python39",
+        "PYTHONPATH": "C:\\OSGeo4W\\apps\\qgis-ltr\\python;%PYTHONPATH%",
+        // GDAL
+        "GDAL_DATA": "C:\\OSGeo4W\\share\\gdal",
+        "GDAL_DRIVER_PATH": "C:\\OSGeo4W\\bin\\gdalplugins",
+        "GDAL_FILENAME_IS_UTF8": "YES",
+        // GeoTIFF
+        "GEOTIFF_CSV": "C:\\OSGeo4W\\share\\epsg_csv",
+        // Qt
+        "O4W_QT_BINARIES": "C:/OSGeo4W/apps/Qt5/bin",
+        "O4W_QT_DOC": "C:/OSGeo4W/apps/Qt5/doc",
+        "O4W_QT_HEADERS": "C:/OSGeo4W/apps/Qt5/include",
+        "O4W_QT_LIBRARIES": "C:/OSGeo4W/apps/Qt5/lib",
+        "O4W_QT_PLUGINS": "C:/OSGeo4W/apps/Qt5/plugins",
+        "O4W_QT_PREFIX": "C:/OSGeo4W/apps/Qt5",
+        "O4W_QT_TRANSLATIONS": "C:/OSGeo4W/apps/Qt5/translations",
+        "QT_PLUGIN_PATH": "C:\\OSGeo4W\\apps\\qgis-ltr\\qtplugins;C:\\OSGeo4W\\apps\\qt5\\plugins",
+        // QGIS
+        "QGIS_PREFIX_PATH": "C:/OSGeo4W/apps/qgis-ltr",
+        // Cache
+        "VSI_CACHE": "TRUE",
+        "VSI_CACHE_SIZE": "1000000"
+    }
+}

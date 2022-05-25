@@ -349,10 +349,11 @@ class geopunt4Qgis(object):
     def _addMarker(self, pnt, clr=QColor(255,255,0)):
         m = QgsVertexMarker(self.iface.mapCanvas())
         m.setCenter( pnt )
-        m.setColor(clr)
-        m.setIconSize(1)
+        m.setColor(QColor(0,0,0))
+        m.setFillColor(clr)
+        m.setIconSize(12)
         m.setIconType(QgsVertexMarker.ICON_BOX) 
-        m.setPenWidth(9)
+        m.setPenWidth(1)
         self.graphicsLayer.append(m)
         return m
       

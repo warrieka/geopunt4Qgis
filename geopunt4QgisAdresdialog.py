@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from qgis.PyQt.QtCore import Qt, QSettings, QCoreApplication, QTranslator, QStringListModel
-from qgis.PyQt.QtWidgets import QDialog, QCompleter, QSizePolicy, QPushButton, QDialogButtonBox, QInputDialog, QMessageBox
+from qgis.PyQt.QtCore import (Qt, QSettings, QCoreApplication, QTranslator, 
+                                                            QStringListModel)
+from qgis.PyQt.QtWidgets import (QDialog, QCompleter, QSizePolicy, 
+                                   QPushButton, QDialogButtonBox, QInputDialog)
 from qgis.PyQt.QtGui import QColor
 from .ui_geopunt4qgis import Ui_geopunt4Qgis
 from qgis.gui import QgsMessageBar, QgsVertexMarker
@@ -168,10 +168,11 @@ class geopunt4QgisAdresDialog(QDialog):
             m = QgsVertexMarker(self.iface.mapCanvas())
             self.graphicsLayer.append(m)
             m.setCenter(QgsPointXY(x,y))
-            m.setColor(QColor(255,255,0))
-            m.setIconSize(1)
+            m.setColor(QColor(0,0,0))
+            m.setFillColor(QColor(255,255,0))
+            m.setIconSize(12)
             m.setIconType(QgsVertexMarker.ICON_BOX) 
-            m.setPenWidth(9)
+            m.setPenWidth(1)
         
         elif type( locations ) is str:
           self.bar.pushMessage(
