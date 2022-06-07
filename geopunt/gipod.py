@@ -1,5 +1,5 @@
 import json, datetime, urllib.parse
-from ..tools import getUrlData
+from ..tools.web import getUrlData
 
 class gipod(object):
   def __init__(self):

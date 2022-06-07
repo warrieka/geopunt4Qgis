@@ -11,13 +11,13 @@ from .geopunt4QgisGipod import geopunt4QgisGipodDialog
 from .geopunt4QgisElevation import mathplotlibWorks, geopunt4QgisElevationDialog
 from .geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
 from .geopunt4QgisParcel import geopunt4QgisParcelDlg
-from .geopunt        import Adres
+from .geopunt import Adres
 from .mapTools.reverseAdres import reverseAdresMapTool
 from .tools.versionChecker import versionChecker
 from .tools.geometry import geometryHelper
 from .tools.settings import settings
 import os.path, webbrowser
-from threading       import Timer
+from threading import Timer
 
 class geopunt4Qgis(object):
     def __init__(self, iface):

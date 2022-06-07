@@ -1,5 +1,5 @@
 import json
-from ..tools import getUrlData
+from ..tools.web import getUrlData
 
 
 class adresMatch(object):

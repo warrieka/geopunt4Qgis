@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import json, urllib.parse
-from ..tools import getUrlData
+from ..tools.web import getUrlData
 
 class Poi(object):
   def __init__(self):

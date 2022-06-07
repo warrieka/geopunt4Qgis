@@ -21,7 +21,7 @@ about=NL: "Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS
     - Search for Parcels 
     - Search for layers in the geopunt catalog
 
-version=2.2.7
+version=2.2.8
 author=Kay Warie
 email=kaywarrie@gmail.be
 
@@ -40,7 +40,7 @@ repository=https://github.com/warrieka/geopunt4Qgis
 icon=images/geopunt.png
 category=Web
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version
 deprecated=False

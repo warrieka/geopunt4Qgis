@@ -1,5 +1,5 @@
 import urllib.parse
-from ..tools import getUrlData
+from ..tools.web import getUrlData
 import xml.etree.ElementTree as ET
 
 class MDdata(object):

@@ -1,22 +1,3 @@
-#\***************************************************************************
-# geopunt4Qgis
-# 
-# 'Makefile for geopunt4Qgis, a QGIS plugin'
-#                             -------------------
-#        begin                : 2013-12-05
-#        copyright            : (C) 2013 by Kay Warrie
-#        email                : kaywarrie@gmail.com
-# ***************************************************************************\
-# 
-#\***************************************************************************
-# *                                                                         *
-# *   This program is free software; you can redistribute it and\or modify  *
-# *   it under the terms of the GNU General Public License as published by  *
-# *   the Free Software Foundation; either version 2 of the License, or     *
-# *   (at your option) any later version.                                   *
-# *                                                                         *
-# ***************************************************************************\
-
 # CONFIGURATION
 PROFILENAME=devProfile
 QGISBIN=C:\OSGeo4W\bin\qgis-bin.exe
