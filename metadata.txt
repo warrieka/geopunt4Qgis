@@ -4,7 +4,7 @@
 
 [general]
 name=geopunt4Qgis
-qgisMinimumVersion=3.10
+qgisMinimumVersion=3.16
 description=NL: Plugin om geopunt diensten in QGIS te gebruiken 
     EN: Plug-in to use geopunt services in QGIS
 about=NL: "Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS, die de webservices van het Vlaamse geoportaal Geopunt ontsluit naar desktop GIS-gebruikers. Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan die mogen gebruikt worden door derden zoals andere overheden en bedrijven.
