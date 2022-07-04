@@ -45,7 +45,6 @@ class adresMatch(object):
       try:
         result = json.loads( getUrlData(self._amUrl, params=data) )
       except BaseException as err:
-        print(f"Unexpected {err=}, {type(err)=}")
         return []
 
       return [ n for n in result['adresMatches'] if not "adresStatus" in n.keys() or n["adresStatus"].lower() != "gehistoreerd" ]
@@ -74,7 +73,6 @@ class adresMatch(object):
       try:
         result = json.loads( getUrlData( self._amUrl, params=data ) )
       except BaseException as err:
-        print(f"Unexpected {err=}, {type(err)=}")  
         return []
 
       return [ n for n in result['adresMatches'] 

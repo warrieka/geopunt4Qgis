@@ -4,7 +4,7 @@
 
 [general]
 name=geopunt4Qgis
-qgisMinimumVersion=3.16
+qgisMinimumVersion=3.22
 description=NL: Plugin om geopunt diensten in QGIS te gebruiken 
     EN: Plug-in to use geopunt services in QGIS
 about=NL: "Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS, die de webservices van het Vlaamse geoportaal Geopunt ontsluit naar desktop GIS-gebruikers. Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan die mogen gebruikt worden door derden zoals andere overheden en bedrijven.
@@ -21,7 +21,7 @@ about=NL: "Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS
     - Search for Parcels 
     - Search for layers in the geopunt catalog
 
-version=2.2.8
+version=2.2.8.1
 author=Kay Warie
 email=kaywarrie@gmail.be
 
@@ -29,7 +29,7 @@ email=kaywarrie@gmail.be
 
 # Optional items:
 # Uncomment the following line and add your changelog entries:
-changelog=Fix for change in marker API
+changelog=Minor Bugfix on version 2.2.8, minimum version number.
 
 # tags are comma separated with spaces allowed
 tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS, GIPOD
