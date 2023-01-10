@@ -87,7 +87,8 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
 
     #eventHandlers
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/csv-bestanden-geocoderen")
+        webbrowser.open_new_tab(
+            "http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/csv-bestanden-geocoderen")
 
     def addToMap(self): 
         if not self.layernameValid(): return
@@ -120,12 +121,13 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
                 loc = self.am.findMatchFromSingleLine(adres)
                 if len(loc) == 0: continue
                 xylb =  loc[0]["adresPositie"]["point"]["coordinates"]
-                xyType = "|".join([ loc[0]["positieSpecificatie"], loc[0]["positieGeometrieMethode"], str(loc[0]["score"]) ])
+                xyType = "|".join([ loc[0]["positieSpecificatie"], 
+                                        loc[0]["positieGeometrieMethode"], str(loc[0]["score"]) ])
 
             xymap = self.gh.prjPtToMapCrs(xylb, 31370)
-            self.batcGeoHelper.save_adres_point(xymap, adres, xyType, attritableDict=attributes, layername=self.layerName )
+            self.batcGeoHelper.save_adres_point(xymap, adres, xyType, 
+                                            attritableDict=attributes, layername=self.layerName )
 
-        
         if self.saveToFile:
               self.batcGeoHelper.saveMem2file(self.layerName)
           
@@ -154,7 +156,8 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
        self.ui.huisnrLbl.setVisible(not toggled)
        self.ui.huisnrSelect.setVisible(not toggled)
        if toggled:
-         self.ui.adresColLbl.setText(QCoreApplication.translate("batcGeoCodedialog", "Adres kolom [<straat>, <huisnr>, <postcode> <gemeente>]:"))
+         self.ui.adresColLbl.setText(QCoreApplication.translate("batcGeoCodedialog",
+                                     "Adres kolom [<straat>, <huisnr>, <postcode> <gemeente>]:"))
        else:
          self.ui.adresColLbl.setText(QCoreApplication.translate("batcGeoCodedialog", "Straatnaam kolom:"))
       
@@ -336,7 +339,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
                     resultNR =  validAdres[0].split(',')[0].split()[-1] if len(validAdres[0].split(',')[0].split()) > 0 else validAdres[0]
                     adresNR = adres.split(',')[0].split()[-1] if len(adres.split(',')[0].split()) > 0 else adres
                     if adresNR == resultNR: validAdres = [validAdres[0]]
-
+                    
                 validCombo = QComboBox(self.ui.adresColSelect)
                 validCombo.addItems(validAdres)
                 self.ui.outPutTbl.setCellWidget(rowIdx, validAdresCol, validCombo)

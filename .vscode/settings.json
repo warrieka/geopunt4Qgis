@@ -1,14 +1,12 @@
 {
-    "makefile.extensionOutputFolder": "./.vscode",
     "editor.rulers": [100],
     "editor.wordWrapColumn": 100,
     // PyQt Integration
-    "pyqt-integration.qtdesigner.path": "C:/OSGeo4W/bin/qgis-ltr-designer.bat",
+    "pyqt-integration.qtdesigner.path": "C:/OSGeo4W/bin/qgis-designer.bat",
     "pyqt-integration.pyuic.cmd": "C:/OSGeo4W/apps/Python39/Scripts/pyuic5.exe",
     "pyqt-integration.pylupdate.cmd": "C:/OSGeo4W/apps/Python39/Scripts/pylupdate5.exe",
     "pyqt-integration.pyrcc.cmd": "C:/OSGeo4W/apps/Python39/Scripts/pyrcc5.exe",
     "pyqt-integration.pyrcc.compile.filepath": "${workspace}/${qrc_name}.py",
-
     // Linter
     "python.linting.enabled": false,
     "python.linting.flake8Enabled": false,
@@ -18,14 +16,14 @@
     ],
 
     // Set Python interpreter
-    "python.defaultInterpreterPath": "C:\\OSGeo4W\\apps\\Python39\\python.exe",
+    "python.defaultInterpreterPath": "C:\\Users\\sa64489\\Anaconda3\\envs\\gemgis\\python.exe",
 
     // Formatting with black
     "python.formatting.provider": "black",
     "python.formatting.blackPath": "${workspaceFolder}\\.venv_dev\\Scripts\\black.exe",
     "python.formatting.blackArgs": ["--target-version=py39",],
-
-    "python.envFile": "${workspaceFolder}/.vscode/.env",
+    "python.analysis.extraPaths": ["C:\\Users\\sa64489\\Anaconda3\\envs\\gemgis\\Library\\python", 
+            "C:\\OSGeo4W\\apps\\qgis\\python", "C:\\OSGeo4W\\apps\\Python39\\Lib\\site-packages"],
 
     // Replicate the QGIS environment
     "terminal.integrated.env.windows": {
@@ -54,5 +52,9 @@
         // Cache
         "VSI_CACHE": "TRUE",
         "VSI_CACHE_SIZE": "1000000"
-    }
+    },
+    "cSpell.enableFiletypes": [
+        "!javascript",
+        "!python"
+    ]
 }

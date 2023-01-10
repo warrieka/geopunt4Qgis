@@ -174,24 +174,30 @@ def getWmsLayerNames( url=''):
 
 def getWFSLayerNames( url):
     if (not "request=GetCapabilities" in url.lower()) or (not "service=wfs" in url.lower()):
-        capability = url.split("?")[0] + "?request=GetCapabilities&version=1.0.0&service=wfs"
+        capability = url.split("?")[0] + "?request=GetCapabilities&version=2.0.0&service=wfs"
     else: 
         capability = url
         
     response = getUrlData(capability )
     result = ET.fromstring(response)
-    layers =  result.findall( ".//{http://www.opengis.net/wfs}FeatureType" )
+    version = '1.0.0'
+    if 'version' in result.attrib:
+        version = result.attrib['version'] 
+       
+    wfs_ns= {'wfs': 'http://www.opengis.net/wfs/2.0' if version.startswith('2.0.') 
+                                                     else 'http://www.opengis.net/wfs' } 
+    layers = result.findall( ".//wfs:FeatureType" , wfs_ns)
     layerNames=[]
 
     for lyr in layers:
-        name= lyr.find("{http://www.opengis.net/wfs}Name")
-        title = lyr.find("{http://www.opengis.net/wfs}Title")
-        srs = lyr.find("{http://www.opengis.net/wfs}SRS")
+        name= lyr.find("wfs:Name", wfs_ns)
+        title = lyr.find("wfs:Title", wfs_ns)
+        srs = lyr.find("wfs:SRS", wfs_ns)
         if ( name != None) and ( title != None ):
             if srs == None: layerNames.append(( name.text, title.text, 'EPSG:31370'))
             else: layerNames.append(( name.text, title.text, srs.text))
 
-    return layerNames
+    return (layerNames, version)
 
 def getWMTSlayersNames( url):
     if (not "request=getcapabilities" in url.lower()) or (not "service=wmts" in url.lower()):

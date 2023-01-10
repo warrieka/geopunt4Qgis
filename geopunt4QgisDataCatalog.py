@@ -92,7 +92,7 @@ class geopunt4QgisDataCatalog(QDialog):
             abstract = QStandardItem(rec['abstract'])         # 4
             wfs =  QStandardItem(rec['wfs'][1])               # 5
             wmsLyr = QStandardItem(rec['wms'][0])             # 6
-            wfsLyr = QStandardItem(rec['wfs'][1])             # 7
+            wfsLyr = QStandardItem(rec['wfs'][0])             # 7
             self.model.appendRow([title, wms, downloadLink, id, abstract, wfs, wmsLyr, wfsLyr ])
 
     def show(self):
@@ -224,7 +224,9 @@ class geopunt4QgisDataCatalog(QDialog):
 
     def addWFS(self):
         if self.wfs == None: return
-        lyrs = getWFSLayerNames(self.wfs)
+        lyrs, version = getWFSLayerNames(self.wfs)
+
+        print( self.wfsLyr , lyrs , version)
 
         if len(lyrs) == 0:
             self.bar.pushMessage("WFS",
@@ -232,21 +234,22 @@ class geopunt4QgisDataCatalog(QDialog):
                  "Kan geen lagen vinden in: %s" % self.wfs), level=Qgis.Warning, duration=10)
             return
         elif len(lyrs) == 1:
+            layerName = lyrs[0][0]
             layerTitle = lyrs[0][1]
         else:
             if self.wfsLyr in [n[0] for n in lyrs]:
                layerName = self.wfsLyr
-               layerTitle = self.wfsLyr
+               layerTitle = [n[1] for n in lyrs if n[0] == layerName][0]
             else: 
                 layerTitle, accept = QInputDialog.getItem(self, "WFS toevoegen",
                         "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0)
-                if not accept: return
-
-        layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
-        crs = [n[2] for n in lyrs if n[1] == layerTitle][0]
+                if not accept: 
+                    return
+                layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
+        crs = next( [n[2] for n in lyrs if n[0] == layerName] , "EPSG:31370")
         url = self.wfs.split('?')[0]
 
-        wfsUri = makeWFSuri(url, layerName, crs )
+        wfsUri = makeWFSuri(url, layerName, srsname=crs, version=version )
 
         try:
           vlayer = QgsVectorLayer(wfsUri, layerTitle, "WFS")

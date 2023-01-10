@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>604</width>
-    <height>352</height>
+    <width>660</width>
+    <height>394</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -107,7 +107,7 @@
         <enum>QFrame::Sunken</enum>
        </property>
        <property name="text">
-        <string>  </string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -170,7 +170,6 @@
   <zorder>laraLbl</zorder>
   <zorder></zorder>
   <zorder></zorder>
-  <zorder>label</zorder>
  </widget>
  <resources>
   <include location="resources.qrc"/>
