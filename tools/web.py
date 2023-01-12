@@ -41,7 +41,8 @@ def fetch_non_blocking(url, callback, onerror, params={}, contentType="applicati
     """
     fetcher = QgsNetworkContentFetcher()
     fetcher.finished.connect(
-        lambda: callback(fetcher.contentAsString()) if fetcher.reply().error() !=0 else onerror(fetcher.reply().errorString())
+        lambda: callback(fetcher.contentAsString()) if fetcher.reply().error() !=0 
+                                                    else onerror(fetcher.reply().errorString())
     )
     fullUrl = QUrl( url if len(params) == 0 else url +"?"+ urlencode(params) )
     request = QNetworkRequest( fullUrl )

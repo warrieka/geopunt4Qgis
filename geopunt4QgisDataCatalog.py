@@ -166,10 +166,12 @@ class geopunt4QgisDataCatalog(QDialog):
     def search(self):
         orgName = self.ui.organisatiesCbx.currentText()
         dataTypes = [n[1] for n in self.md.dataTypes if n[0] == self.ui.typeCbx.currentText()]
-        if dataTypes != []: dataType = dataTypes[0]
-        else: dataType = None
+        dataType = dataTypes[0] if dataTypes != [] else None
+        data = self.md.searchAll( self.zoek, orgName, dataType )
+        self.parse_searchResults(data)
 
-        searchResult = MDdata(self.md.searchAll( self.zoek, orgName, dataType ))
+    def parse_searchResults(self, data):
+        searchResult = MDdata(data)
         self.ui.countLbl.setText("Aantal gevonden: %s" % searchResult.count)
         self.ui.descriptionText.setText('')
         self._setModel(searchResult.records)
@@ -246,7 +248,7 @@ class geopunt4QgisDataCatalog(QDialog):
                 if not accept: 
                     return
                 layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
-        crs = next( [n[2] for n in lyrs if n[0] == layerName] , "EPSG:31370")
+        crs =  [n[2] for n in lyrs if n[0] == layerName][0]
         url = self.wfs.split('?')[0]
 
         wfsUri = makeWFSuri(url, layerName, srsname=crs, version=version )

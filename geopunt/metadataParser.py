@@ -1,5 +1,6 @@
 import urllib.parse
-from ..tools.web import getUrlData
+import asyncio
+from ..tools.web import getUrlData, fetch_non_blocking
 import xml.etree.ElementTree as ET
 
 class MDdata(object):
@@ -110,7 +111,6 @@ class MDReader(object):
     def list_organisations(self):
         url = self.geoNetworkUrl + '?request=GetDomain&service=CSW&version=2.0.2&PropertyName=OrganisationName'
         response = getUrlData(url )
-        
         result   = ET.fromstring( response )
         organisations = [ n.text for n in result.findall('.//{http://www.opengis.net/cat/csw/2.0.2}Value') ]
         organisations.sort()
@@ -140,7 +140,6 @@ class MDReader(object):
            start += step
            
         return searchResult
-
 
 class metaError(Exception):
     def __init__(self, message):
