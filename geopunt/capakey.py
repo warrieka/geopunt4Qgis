@@ -3,7 +3,7 @@ from ..tools.web import getUrlData
 
 class capakey(object):
     def __init__(self):
-        self.baseUrl = "https://geoservices.informatievlaanderen.be/capakey/api/v2" 
+        self.baseUrl = "https://geo.api.vlaanderen.be/capakey/v2/" 
 
     def getMunicipalities(self):
         url = "{0}/municipality/".format(self.baseUrl)

@@ -224,14 +224,16 @@ pip-log.txt
 
 #Translations
 *.mo
-
 *.suo
 
+# pycharm
 .idea/
 doc/*.pdf
 doc/*.docx
 doc/*.xlsx
 
-
+# vscode
 .env
 .vscode/*.log
+symbology-style.db
+user-history.db

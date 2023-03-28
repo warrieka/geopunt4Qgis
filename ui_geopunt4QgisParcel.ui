@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>420</width>
-    <height>295</height>
+    <height>294</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -28,7 +28,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntParcelSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntParcelSmall.png</iconset>
+    <normaloff>:/svg/images/Place.svg</normaloff>:/svg/images/Place.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

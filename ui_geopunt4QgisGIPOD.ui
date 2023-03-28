@@ -34,7 +34,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntGIPODsmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntGIPODsmall.png</iconset>
+    <normaloff>:/svg/images/Gipod.svg</normaloff>:/svg/images/Gipod.svg</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>

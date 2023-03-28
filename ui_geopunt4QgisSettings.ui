@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntSettingsSmall.png</iconset>
+    <normaloff>:/svg/images/Settings.svg</normaloff>:/svg/images/Settings.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -34,8 +34,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>478</width>
-        <height>257</height>
+        <width>482</width>
+        <height>302</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -139,8 +139,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>457</width>
-        <height>264</height>
+        <width>308</width>
+        <height>244</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -239,8 +239,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>478</width>
-        <height>257</height>
+        <width>251</width>
+        <height>156</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -310,8 +310,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>478</width>
-        <height>257</height>
+        <width>397</width>
+        <height>196</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -415,8 +415,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>478</width>
-        <height>257</height>
+        <width>251</width>
+        <height>156</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -486,8 +486,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>478</width>
-        <height>257</height>
+        <width>282</width>
+        <height>156</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -560,8 +560,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>457</width>
-        <height>318</height>
+        <width>280</width>
+        <height>294</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -676,8 +676,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>478</width>
-        <height>257</height>
+        <width>254</width>
+        <height>156</height>
        </rect>
       </property>
       <attribute name="icon">

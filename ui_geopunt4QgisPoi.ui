@@ -22,7 +22,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntPoiSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntPoiSmall.png</iconset>
+    <normaloff>:/svg/images/POI.svg</normaloff>:/svg/images/POI.svg</iconset>
   </property>
   <property name="sizeGripEnabled">
    <bool>false</bool>

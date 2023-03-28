@@ -5,18 +5,18 @@ from ..tools.web import getUrlData
 class perc(object):
    def __init__(self):
       self._esriCapaServer= "https://geoservices.informatievlaanderen.be/ArcGIS/rest/services/adp/MapServer/0/query" 
-      self._locUrl = "https://perc.geopunt.be/Perceel/Location"
-      self._sugUrl = "https://perc.geopunt.be/Perceel/Suggestion"
+      self._locUrl = "https://geo.api.vlaanderen.be/geolocation/v2/Location"
+      self._sugUrl = "https://geo.api.vlaanderen.be/geolocation/v2/Suggestion"
 
    def fetchLocation(self, q, c=1):
       geopuntUrl = self._locUrl
-      data = {"q": q, "c":c}
+      data = {"capakey": q, "c":c}
       LocationResult = getUrlData(geopuntUrl, params=data)
       return json.loads(LocationResult)["LocationResult"]
 
    def fetchSuggestion(self, q, c=5):
       geopuntUrl = self._sugUrl
-      data = {"q": q, "c": c}
+      data = {"capakey": q, "c": c}
       suggestion =  getUrlData(geopuntUrl, params=data)
       return json.loads(suggestion)["SuggestionResult"]
          

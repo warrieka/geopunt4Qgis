@@ -66,28 +66,30 @@ class geopunt4Qgis(object):
         self.graphicsLayer = []
 
         # Create actions that will start plugin configuration
-        self.adresAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntAddress.png"),
+        self.adresAction = QAction(QIcon(":/svg/images/Adres.svg"),
             QCoreApplication.translate("geopunt4Qgis" , u"Zoek een adres"), self.iface.mainWindow())
-        self.reverseAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntReverse.png"),
+        self.reverseAction = QAction(QIcon(":/svg/images/Place.svg"),
                 QCoreApplication.translate("geopunt4Qgis", u"Prik een adres op de kaart"), 
                 self.iface.mainWindow())
-        self.batchAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntBatchgeocode.png"),
+        self.batchAction = QAction(QIcon(":/svg/images/Bestand.svg"),
 	        QCoreApplication.translate("geopunt4Qgis", u"CSV-adresbestanden geocoderen"),
 	        self.iface.mainWindow())
-        self.poiAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntPoi.png"),
+        self.poiAction = QAction(QIcon(":/svg/images/POI.svg"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Zoek een interessante plaats"), 
 	        self.iface.mainWindow())	
-        self.gipodAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntGIPOD.png"),
+        self.gipodAction = QAction(QIcon(":/svg/images/Gipod.svg"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Bevraag GIPOD"), self.iface.mainWindow())
-        self.settingsAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntSettings.png"),
-                QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())  
-        self.elevationAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntElevation.png"),
+
+        self.elevationAction =  QAction(QIcon(":/svg/images/Hoogte.svg"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Hoogteprofiel"), self.iface.mainWindow())
-        self.datacatalogusAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntDataCatalogus.png"),
+        self.datacatalogusAction =  QAction(QIcon(":/svg/images/Catalogus.svg"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Geopunt-catalogus"), self.iface.mainWindow())
-        self.parcelAction =  QAction(QIcon(":/plugins/geopunt4Qgis/images/geopuntParcel.png"),
+        self.parcelAction =  QAction(QIcon(":/svg/images/Perceel.svg"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Zoeken naar perceel"), self.iface.mainWindow())
-        self.aboutAction = QAction(QIcon(":/plugins/geopunt4Qgis/images/geopunt.png"),
+        
+        self.settingsAction = QAction(QIcon(":/svg/images/Settings.svg"),
+                QCoreApplication.translate("geopunt4Qgis" , u"Instellingen"), self.iface.mainWindow())  
+        self.aboutAction = QAction(QIcon(":/svg/images/Info.svg"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Over geopunt4Qgis"), self.iface.mainWindow())
  
         # connect the action to the run method

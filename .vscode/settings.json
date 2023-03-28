@@ -56,5 +56,10 @@
     "cSpell.enableFiletypes": [
         "!javascript",
         "!python"
-    ]
+    ],
+    "files.exclude": {
+        "**/symbology-style.db": true,
+        "**/user-history.db": true,
+        "LICENSE.txt": true
+    }
 }

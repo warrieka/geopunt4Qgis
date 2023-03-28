@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntDataCatalogusSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntDataCatalogusSmall.png</iconset>
+    <normaloff>:/svg/images/Catalogus.svg</normaloff>:/svg/images/Catalogus.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="bottomMargin">

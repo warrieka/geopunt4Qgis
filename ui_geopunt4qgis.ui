@@ -16,7 +16,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntAddressSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntAddressSmall.png</iconset>
+    <normaloff>:/svg/images/Adres.svg</normaloff>:/svg/images/Adres.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

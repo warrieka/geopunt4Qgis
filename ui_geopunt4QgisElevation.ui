@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntElevationSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntElevationSmall.png</iconset>
+    <normaloff>:/svg/images/Hoogte.svg</normaloff>:/svg/images/Hoogte.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

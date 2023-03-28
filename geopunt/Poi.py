@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json, urllib.parse
 from ..tools.web import getUrlData
 

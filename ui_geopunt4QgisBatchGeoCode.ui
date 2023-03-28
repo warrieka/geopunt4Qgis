@@ -19,7 +19,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/geopunt4Qgis/images/geopuntBatchgeocodeSmall.png</normaloff>:/plugins/geopunt4Qgis/images/geopuntBatchgeocodeSmall.png</iconset>
+    <normaloff>:/svg/images/Bestand.svg</normaloff>:/svg/images/Bestand.svg</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>

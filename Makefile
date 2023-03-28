@@ -1,6 +1,6 @@
 # CONFIGURATION
 PROFILENAME=devProfile
-QGISBIN=C:\OSGeo4W\bin\qgis-ltr-bin.exe
+QGISBIN=C:\OSGeo4W\bin\qgis-ltr-bin.exe #C:\OSGeo4W\bin\qgis-bin.exe
 PROFILEPATH=$(APPDATA)\QGIS\QGIS3
 PROFILE=$(PROFILEPATH)\profiles\${PROFILENAME}
 

@@ -53,6 +53,18 @@
     <file>images/Wms.png</file>
     <file>images/wrench.png</file>
     <file>images/zip.png</file>
+
   </qresource>
-  <qresource prefix="rest"/>
+  <qresource prefix="svg">
+    <file>images/Adres.svg</file>
+    <file>images/Bestand.svg</file>
+    <file>images/Catalogus.svg</file>
+    <file>images/Gipod.svg</file>
+    <file>images/Hoogte.svg</file>
+    <file>images/Info.svg</file>
+    <file>images/Perceel.svg</file>
+    <file>images/Place.svg</file>
+    <file>images/POI.svg</file>
+    <file>images/Settings.svg</file>
+  </qresource>
 </RCC>
