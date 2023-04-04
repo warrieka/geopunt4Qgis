@@ -2,6 +2,7 @@
 ## special ##
 ui_*.py
 *_rc.py
+docs/test.*
 
 ###############
 ## Kdevelop  ##

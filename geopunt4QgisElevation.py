@@ -2,7 +2,8 @@ from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy,
                                  QToolButton, QColorDialog, QInputDialog)
 from qgis.PyQt.QtGui import QIcon, QColor
-from qgis.core import Qgis, QgsRasterLayer, QgsProject
+from qgis.core import (Qgis, QgsRasterLayer, QgsProject, QgsStyle, QgsRasterShader,
+                       QgsColorRampShader, QgsSingleBandPseudoColorRenderer)
 from qgis.gui import  QgsMessageBar, QgsVertexMarker 
 from .ui_geopunt4QgisElevation import Ui_elevationDlg
 
@@ -13,7 +14,7 @@ try:
   from matplotlib.figure import Figure
   import numpy as np
   mathplotlibWorks = True
-except:
+except ImportError:
   mathplotlibWorks = False    
   
 #other libs
@@ -89,7 +90,7 @@ class geopunt4QgisElevationDialog(QDialog):
         self.figure.canvas.mpl_connect('motion_notify_event', self.showGraphMotion)
         self.ui.saveLineBtn.clicked.connect(self.saveLineClicked)
         self.ui.savePntBtn.clicked.connect(self.savePntClicked)
-        self.ui.addDHMbtn.clicked.connect(self.addDHMasWMS) 
+        self.ui.addDHMbtn.clicked.connect(self.addDHMasWCS) 
         self.ui.refreshBtn.clicked.connect( self.onRefresh )
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         
@@ -138,9 +139,6 @@ class geopunt4QgisElevationDialog(QDialog):
     def loadSettings(self):
         self.timeout =  int( self.s.value("geopunt4qgis/timeout" ,15))
 
-        s = settings()
-        self.proxy = s.proxy
-
         self.samplesSavetoFile = int( self.s.value("geopunt4qgis/samplesSavetoFile" , 1))
         sampleLayer = self.s.value("geopunt4qgis/sampleLayerTxt", "")
         if sampleLayer:  
@@ -162,8 +160,7 @@ class geopunt4QgisElevationDialog(QDialog):
     def save_fig(self):
         formats = (
         "Joint Photographic Experts Group (*.jpg) (*.jpg);;Scalable Vector Grapics (*.svg) (*.svg);;"+
-        "Portable Document Format (*.pdf) (*.pdf);;Tagged Image File Format (*.tif) (*.tif)"+
-        ";;Encapsulated Postscript (*.eps) (*.eps)")
+        "Portable Document Format (*.pdf) (*.pdf);;Tagged Image File Format (*.tif) (*.tif)")
       
         fileName, __ = QFileDialog.getSaveFileName( self , "Save File", self.startDir, formats);
         self.figure.savefig(fileName)
@@ -264,17 +261,33 @@ class geopunt4QgisElevationDialog(QDialog):
           ydata = np.array( [n[3] for n in self.profile ] )
           self.ax.fill_between( xdata, ydata, -9999, color=clr.name() )
     
-    def addDHMasWMS(self):
+    def addDHMasWCS(self):
         crs = self.gh.getGetMapCrs(self.iface).authid()
         if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
            crs = 'EPSG:31370' 
-        dhmUrl =  "url=https://geoservices.informatievlaanderen.be/raadpleegdiensten/DHMV/wms&layers=DHMVII_DTM_1m&&format=image/png&styles=default&crs="+ crs
-
+        #dhmUrl =  "url=https://geoservices.informatievlaanderen.be/raadpleegdiensten/DHMV/wms&layers=DHMVII_DTM_1m&&format=image/png&styles=default&crs="+ crs
+        dhmUrl = "https://geo.api.vlaanderen.be/el-dtm/wcs?IgnoreAxisOrientation=1&dpiMode=7&identifier=EL.GridCoverage.DTM&url=https://geo.api.vlaanderen.be/el-dtm/wcs"
         try:
-            rlayer = QgsRasterLayer(dhmUrl, 'Hoogtemodel', 'wms') 
+            rlayer = QgsRasterLayer(dhmUrl, 'Hoogtemodel', 'wcs') 
             if rlayer.isValid():
-               rlayer.renderer().setOpacity(0.8)
-               QgsProject.instance().addMapLayer(rlayer)
+                colorRamp = QgsStyle().defaultStyle().colorRamp('Turbo')
+                fnc = QgsColorRampShader(0,200)
+                fnc.setColorRampType(QgsColorRampShader.Interpolated)
+                fnc.setSourceColorRamp(colorRamp)
+                fnc.classifyColorRamp(15)
+
+                shader = QgsRasterShader()
+                shader.setRasterShaderFunction(fnc)
+
+                renderer = QgsSingleBandPseudoColorRenderer(rlayer.dataProvider(), 1, shader)
+                renderer.setClassificationMin(0)
+                renderer.setClassificationMax(200)
+                renderer.setOpacity(0.8)
+
+                rlayer.setRenderer(renderer)
+                rlayer.triggerRepaint()
+                QgsProject.instance().addMapLayer(rlayer)
+
             else: self.bar.pushMessage("Error", 
                 QCoreApplication.translate("geopunt4QgisElevationDialog", "Kan WMS niet laden"), 
                 level=Qgis.Critical, duration=10) 
