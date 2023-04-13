@@ -18,12 +18,11 @@ except ImportError:
   mathplotlibWorks = False    
   
 #other libs
-import os, webbrowser, sys
+import os, webbrowser
 from .tools.geometry import geometryHelper
 from .tools.elevation import elevationHelper
-from .tools.settings import settings
 from .mapTools.elevationProfile import lineTool
-from .geopunt import elevation
+from .geopunt import elevation, dhm
 
 class geopunt4QgisElevationDialog(QDialog):
     def __init__(self, iface):
@@ -56,6 +55,7 @@ class geopunt4QgisElevationDialog(QDialog):
         self.gh = geometryHelper( self.iface )
         self.eh = elevationHelper( self.iface, self.startDir)
         self.elevation = elevation()
+        self.dhm = dhm()
         
         #setup a message bar
         self.bar = QgsMessageBar() 
@@ -262,38 +262,11 @@ class geopunt4QgisElevationDialog(QDialog):
           self.ax.fill_between( xdata, ydata, -9999, color=clr.name() )
     
     def addDHMasWCS(self):
-        crs = self.gh.getGetMapCrs(self.iface).authid()
-        if crs != 'EPSG:31370' or  crs != 'EPSG:3857' or  crs != 'EPSG:3043':
-           crs = 'EPSG:31370' 
-        #dhmUrl =  "url=https://geoservices.informatievlaanderen.be/raadpleegdiensten/DHMV/wms&layers=DHMVII_DTM_1m&&format=image/png&styles=default&crs="+ crs
-        dhmUrl = "https://geo.api.vlaanderen.be/el-dtm/wcs?IgnoreAxisOrientation=1&dpiMode=7&identifier=EL.GridCoverage.DTM&url=https://geo.api.vlaanderen.be/el-dtm/wcs"
-        try:
-            rlayer = QgsRasterLayer(dhmUrl, 'Hoogtemodel', 'wcs') 
-            if rlayer.isValid():
-                colorRamp = QgsStyle().defaultStyle().colorRamp('Turbo')
-                fnc = QgsColorRampShader(0,200)
-                fnc.setColorRampType(QgsColorRampShader.Interpolated)
-                fnc.setSourceColorRamp(colorRamp)
-                fnc.classifyColorRamp(15)
-
-                shader = QgsRasterShader()
-                shader.setRasterShaderFunction(fnc)
-
-                renderer = QgsSingleBandPseudoColorRenderer(rlayer.dataProvider(), 1, shader)
-                renderer.setClassificationMin(0)
-                renderer.setClassificationMax(200)
-                renderer.setOpacity(0.8)
-
-                rlayer.setRenderer(renderer)
-                rlayer.triggerRepaint()
-                QgsProject.instance().addMapLayer(rlayer)
-
-            else: self.bar.pushMessage("Error", 
-                QCoreApplication.translate("geopunt4QgisElevationDialog", "Kan WMS niet laden"), 
-                level=Qgis.Critical, duration=10) 
-        except: 
-            self.bar.pushMessage("Error", str( sys.exc_info()[1] ), level=Qgis.Critical, duration=10)
-            return 
+        if self.dhm.dhmlayer:
+            QgsProject.instance().addMapLayer(self.dhm.dhmlayer)
+        else: self.bar.pushMessage("Error", 
+            QCoreApplication.translate("geopunt4QgisElevationDialog", "Kan WCS niet laden"), 
+            level=Qgis.Critical, duration=10) 
         
     def plot(self):
         if self.Rubberline == None: return

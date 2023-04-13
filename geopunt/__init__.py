@@ -26,6 +26,6 @@ from .elevation import elevation
 from .gipod import gipod
 from .perc import perc
 from .Poi import Poi
-
+from .dhm import dhm
 
 
