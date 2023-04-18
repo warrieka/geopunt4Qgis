@@ -2,8 +2,7 @@ from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy,
                                  QToolButton, QColorDialog, QInputDialog)
 from qgis.PyQt.QtGui import QIcon, QColor
-from qgis.core import (Qgis, QgsRasterLayer, QgsProject, QgsStyle, QgsRasterShader,
-                       QgsColorRampShader, QgsSingleBandPseudoColorRenderer)
+from qgis.core import Qgis, QgsProject
 from qgis.gui import  QgsMessageBar, QgsVertexMarker 
 from .ui_geopunt4QgisElevation import Ui_elevationDlg
 
@@ -90,7 +89,7 @@ class geopunt4QgisElevationDialog(QDialog):
         self.figure.canvas.mpl_connect('motion_notify_event', self.showGraphMotion)
         self.ui.saveLineBtn.clicked.connect(self.saveLineClicked)
         self.ui.savePntBtn.clicked.connect(self.savePntClicked)
-        self.ui.addDHMbtn.clicked.connect(self.addDHMasWCS) 
+        self.ui.addDHMbtn.clicked.connect(lambda: QgsProject.instance().addMapLayer(self.dhm.dhmLayer()) ) 
         self.ui.refreshBtn.clicked.connect( self.onRefresh )
         self.ui.buttonBox.helpRequested.connect(self.openHelp)
         
@@ -178,7 +177,8 @@ class geopunt4QgisElevationDialog(QDialog):
         self.figure.tight_layout()
     
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/hoogteprofiel")
+        webbrowser.open_new_tab(
+           "http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/hoogteprofiel")
     
     def drawBtnClicked(self):
         self.clean()
@@ -260,14 +260,7 @@ class geopunt4QgisElevationDialog(QDialog):
           xdata = np.array( [n[0] for n in self.profile ] ) * self.xscaleUnit[0]
           ydata = np.array( [n[3] for n in self.profile ] )
           self.ax.fill_between( xdata, ydata, -9999, color=clr.name() )
-    
-    def addDHMasWCS(self):
-        if self.dhm.dhmlayer:
-            QgsProject.instance().addMapLayer(self.dhm.dhmlayer)
-        else: self.bar.pushMessage("Error", 
-            QCoreApplication.translate("geopunt4QgisElevationDialog", "Kan WCS niet laden"), 
-            level=Qgis.Critical, duration=10) 
-        
+
     def plot(self):
         if self.Rubberline == None: return
       
@@ -276,6 +269,7 @@ class geopunt4QgisElevationDialog(QDialog):
         nrSamples = self.ui.nrOfSampleSpin.value()
         
         self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
+        self.dhm.fetchAsArray( self.Rubberline.asGeometry(), c=nrSamples ) 
 
         if np.max( [n[0] for n in self.profile ] ) > 1000: self.xscaleUnit = (0.001 , "km" )
         else: self.xscaleUnit = (1 , "m" )
