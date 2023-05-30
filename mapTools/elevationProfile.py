@@ -1,6 +1,6 @@
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QCursor
-from qgis.core import QgsGeometry, QgsPoint
+from qgis.core import QgsGeometry, QgsPoint, QgsWkbTypes
 from qgis.gui import QgsMapTool, QgsRubberBand
 
 class lineTool(QgsMapTool):
@@ -11,7 +11,7 @@ class lineTool(QgsMapTool):
         self.cursor = QCursor(Qt.CrossCursor)
         self.callback   = callback
         
-        self.rubberBand = QgsRubberBand(self.canvas, 2)
+        self.rubberBand = QgsRubberBand(self.canvas)
         self.points  = []
         self.rubberBand.setColor(Qt.red)
         self.rubberBand.setWidth(1)
