@@ -158,7 +158,8 @@ class poiHelper(object):
             self.poilayer.updateFields()    
         
         fields=self.poilayer.fields()
-        
+        feats = []
+
         for point in points:
             pt = QgsPointXY( point['location']['points'][0]['Point']['coordinates'][0], 
                            point['location']['points'][0]['Point']['coordinates'][1]  )
@@ -234,9 +235,10 @@ class poiHelper(object):
             fet['link'] = link
             fet['lastupdate'] = tijd
             fet['owner'] = owner
+            feats.append(fet)
       
-            self.poiProvider.addFeatures([ fet ])
-            self.poilayer.updateExtents()
+        self.poiProvider.addFeatures(feats)
+        self.poilayer.updateExtents()
     
         if saveToFile and not QgsProject.instance().mapLayer(self.poilayerid):
             save = self._saveToFile( sender, startFolder )

@@ -1,4 +1,5 @@
 import os.path
+import pathlib, locale
 import numpy as np
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QFileDialog
@@ -14,7 +15,7 @@ class elevationHelper(object):
         self.startFolder= startFolder
 
     def save_sample_points(self, pointData, profileName="", layername="elevation_samples", saveToFile=None, sender=None):
-        ''
+        'save sample points als maplayer'
         attributes = [ QgsField("name", QVariant.String),
           QgsField("Dist", QVariant.Double), QgsField("z_taw", QVariant.Double) ]
     
@@ -25,7 +26,8 @@ class elevationHelper(object):
             self.sampleslayer.updateFields()    
         
         fields= self.sampleslayer.fields()
-        
+        feats = []
+
         for point in pointData:
             #create the geometry
             pt = QgsPointXY( point[1], point[2] )
@@ -34,23 +36,24 @@ class elevationHelper(object):
             fet = QgsFeature(fields)
 
             #set geometry
-            fromCrs = QgsCoordinateReferenceSystem("EPSG:4326")
-            xform = QgsCoordinateTransform( fromCrs, self.sampleslayer.crs(), QgsProject.instance() )
-            prjPt = xform.transform( pt )
-            fet.setGeometry(QgsGeometry.fromPointXY(prjPt))
+            # fromCrs = QgsCoordinateReferenceSystem("EPSG:4326")
+            # xform = QgsCoordinateTransform( fromCrs, self.sampleslayer.crs(), QgsProject.instance() )
+            # prjPt = xform.transform( pt )
+            fet.setGeometry(QgsGeometry.fromPointXY(pt))
       
             fet['name'] = profileName
             fet['dist'] =  point[0]
             if  point[3] > -9999 : fet['z_taw'] =  point[3]            
-      
-            self.samplesProvider.addFeatures([ fet ])
-            self.sampleslayer.updateExtents()
+            feats.append(fet) 
+
+        self.samplesProvider.addFeatures(feats) 
+        self.sampleslayer.updateExtents()
     
         if saveToFile and not QgsProject.instance().mapLayer(self.sampleslayerid):
             save = self._saveToFile( sender, os.path.join( self.startFolder, layername))
             if save:
               fpath, flType = save
-              error, msg = QgsVectorFileWriter.writeAsVectorFormat(layer=self.sampleslayer, 
+              error, _ = QgsVectorFileWriter.writeAsVectorFormat(layer=self.sampleslayer, 
                                               fileName=fpath, fileEncoding="utf-8", driverName=flType ) 
               if error == QgsVectorFileWriter.NoError:
                   self.sampleslayer = QgsVectorLayer( fpath , layername, "ogr")
@@ -63,7 +66,7 @@ class elevationHelper(object):
               return 
 
         # add layer if not already
-        print( QgsProject.instance().addMapLayer(self.sampleslayer) )
+        QgsProject.instance().addMapLayer(self.sampleslayer) 
 
         # store layer id and refresh
         self.sampleslayerid = self.sampleslayer.id()
@@ -104,7 +107,7 @@ class elevationHelper(object):
             save = self._saveToFile( sender, os.path.join( self.startFolder, layername ))
             if save:
               fpath, flType = save
-              error, msg = QgsVectorFileWriter.writeAsVectorFormat(layer=self.profilelayer, 
+              error, _ = QgsVectorFileWriter.writeAsVectorFormat(layer=self.profilelayer, 
                                     fileName=fpath, fileEncoding="utf-8", driverName=flType )
               if error == QgsVectorFileWriter.NoError:
                   self.profilelayer = QgsVectorLayer( fpath , layername, "ogr")
@@ -122,6 +125,27 @@ class elevationHelper(object):
         # store layer id and refresh
         self.profilelayerId = self.profilelayer.id()
         self.iface.mapCanvas().refresh()
+
+
+    def saveToCsv( self, sender, narray, title=''):
+        filter = "Comma separated value File (excel) (*.csv);;TextFile (*.txt);;Any File (*.*)" 
+        fName, _ = QFileDialog.getSaveFileName( sender, 
+                "open file" , filter=filter, directory= os.path.join(self.startFolder, title))
+        
+        decimal_point = locale.localeconv()['decimal_point']
+        sep = ";" if decimal_point == ',' else ','
+        if fName:
+          ext = os.path.splitext( fName )[1]
+          if "TXT" in ext.upper(): sep = " "
+          hdr = sep.join(['dist','x','y','z'])
+          np.savetxt(fName, narray, delimiter=sep, header=hdr, fmt='%.2f' )
+       
+        if title == '':
+           title=  os.path.basename(fName)
+        uri =  pathlib.Path(fName).as_uri() + f"?delimiter={sep}&yField=y&xField=x&useHeader=yes"
+        self.sampleslayer = QgsVectorLayer(uri, title , 'delimitedtext')
+        QgsProject.instance().addMapLayer(self.sampleslayer)
+        return self.sampleslayer
 
     def _saveToFile( self, sender, startFolder=None ):
         filter = "OGC GeoPackage (*.gpkg);;ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)" 

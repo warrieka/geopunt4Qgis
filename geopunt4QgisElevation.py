@@ -2,7 +2,7 @@ from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox, QFileDialog, QSizePolicy,
                                  QToolButton, QColorDialog, QInputDialog)
 from qgis.PyQt.QtGui import QIcon, QColor
-from qgis.core import Qgis, QgsProject
+from qgis.core import Qgis, QgsProject, QgsPointXY
 from qgis.gui import  QgsMessageBar, QgsVertexMarker 
 from .ui_geopunt4QgisElevation import Ui_elevationDlg
 
@@ -21,7 +21,7 @@ import os, webbrowser
 from .tools.geometry import geometryHelper
 from .tools.elevation import elevationHelper
 from .mapTools.elevationProfile import lineTool
-from .geopunt import elevation, dhm
+from .geopunt import dhm
 
 class geopunt4QgisElevationDialog(QDialog):
     def __init__(self, iface):
@@ -53,7 +53,6 @@ class geopunt4QgisElevationDialog(QDialog):
 
         self.gh = geometryHelper( self.iface )
         self.eh = elevationHelper( self.iface, self.startDir)
-        self.elevation = elevation()
         self.dhm = dhm()
         
         #setup a message bar
@@ -67,7 +66,7 @@ class geopunt4QgisElevationDialog(QDialog):
                   
         # graph global vars
         self.Rubberline =  None
-        self.profile = None
+        self.profile = []
         self.pt = None
         self.ax = None
         self.ano = None
@@ -83,7 +82,7 @@ class geopunt4QgisElevationDialog(QDialog):
         self.toolbar = NavigationToolbar(self.canvas, self)
         self.ui.graphWgt.layout().addWidget(self.canvas)
         self.createCanvasToolbar()
-        
+
         #events
         self.ui.drawBtn.clicked.connect(self.drawBtnClicked)
         self.figure.canvas.mpl_connect('motion_notify_event', self.showGraphMotion)
@@ -182,7 +181,6 @@ class geopunt4QgisElevationDialog(QDialog):
     
     def drawBtnClicked(self):
         self.clean()
-        #self.reSetFigure()
         self.tool = lineTool(self.iface, self.callBack )  
         self.iface.mapCanvas().setMapTool(self.tool)
         self.showMinimized()
@@ -230,28 +228,18 @@ class geopunt4QgisElevationDialog(QDialog):
            else:  
               self.profileLineLayerTxt = layerName
            
-        if self.profile != None and self.Rubberline != None:
+        if len(self.profile) > 0 and self.Rubberline != None:
            title = self.ax.get_title()
            self.eh.save_profile( self.Rubberline.asGeometry(), self.profile, title,
                               self.profileLineLayerTxt, self.profileLineSavetoFile, sender=self )
         
     def savePntClicked(self):
-        if not hasattr(self, 'sampleLayerTxt'):
-           layerName, accept = QInputDialog.getText(None,
-              QCoreApplication.translate("geopunt4Qgis", 'Laag toevoegen'),
-              QCoreApplication.translate("geopunt4Qgis", 'Geef een naam voor de laag op:') )
-           if accept == False: 
-              return
-           else:  
-              self.sampleLayerTxt = layerName
-      
-        if self.profile != None:
+        if len(self.profile) > 0:
            title = self.ax.get_title()
-           self.eh.save_sample_points( self.profile, title, 
-                                   self.sampleLayerTxt, self.samplesSavetoFile, sender=self )
+           self.eh.saveToCsv(self, self.profile, title )
     
     def setFill( self ):
-        if self.profile == None: return
+        if self.profile == []: return
         if self.ax == None: return
         
         clr = QColorDialog.getColor( Qt.white, self, QCoreApplication.translate(
@@ -264,12 +252,8 @@ class geopunt4QgisElevationDialog(QDialog):
     def plot(self):
         if self.Rubberline == None: return
       
-        wgsLine = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() )
-        lineString = [ list(n) for n in wgsLine.asPolyline()]
         nrSamples = self.ui.nrOfSampleSpin.value()
-        
-        self.profile = self.elevation.fetchElevaton( lineString, 4326, nrSamples)
-        self.dhm.fetchAsArray( self.Rubberline.asGeometry(), c=nrSamples ) 
+        self.profile = self.dhm.fetchAsArray( self.Rubberline.asGeometry(), c=nrSamples ) 
 
         if np.max( [n[0] for n in self.profile ] ) > 1000: self.xscaleUnit = (0.001 , "km" )
         else: self.xscaleUnit = (1 , "m" )
@@ -278,12 +262,11 @@ class geopunt4QgisElevationDialog(QDialog):
         ydata = np.array( [n[3] for n in self.profile ] )
         
         #need at least 3 values
-        if len(xdata) <= 2 or len([n for n in self.profile if n[3] > -9999 ]) <= 2:
+        if len(xdata) <= 2 or len(self.profile) <= 2:
            self.bar.pushMessage("Error", 
-                QCoreApplication.translate(
-                  "geopunt4QgisElevationDialog", "Er werd geen of onvoldoende data gevonden"),
-                level=Qgis.Warning, duration=5)
-           self.profile = None
+            QCoreApplication.translate("geopunt4QgisElevationDialog", "Er werd geen of onvoldoende data gevonden"),
+            level=Qgis.Warning, duration=5)
+           self.profile = []
            return 
         
         ymin = np.min( [n[3] for n in self.profile if n[3] > -9999 ] )
@@ -314,24 +297,17 @@ class geopunt4QgisElevationDialog(QDialog):
         self.ui.saveWgt.setEnabled(True)
 
     def setMapPt(self, dist=None ):
-        if self.pt: self.iface.mapCanvas().scene().removeItem(self.pt)
-           
         if dist==None: return
-        
         if self.Rubberline == None: return 
 
         # dist is measured in lambert 72 in meters
-        lb72Line = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() , 31370 )
+        lb72Line = self.gh.prjLineFromMapCrs( self.Rubberline.asGeometry() , "EPSG:31370" )
         lb72pt = lb72Line.interpolate(dist).asPoint()
-        pt = self.gh.prjPtToMapCrs(lb72pt, 31370)
-        
-        self.pt = QgsVertexMarker(self.iface.mapCanvas())
+        pt = self.gh.prjPtToMapCrs(lb72pt, "EPSG:31370")
+
+        if self.pt is None:
+           self.makePoint()
         self.pt.setCenter( pt )
-        self.pt.setColor(QColor(0,0,0))
-        self.pt.setFillColor(QColor(0,255,250))
-        self.pt.setIconSize(12)
-        self.pt.setIconType(QgsVertexMarker.ICON_BOX ) 
-        self.pt.setPenWidth(1)
         
         if self.xscaleUnit[0] != 1:
            msg= "lengte= %s %s" %  (round( dist * self.xscaleUnit[0], 2) , self.xscaleUnit[1])
@@ -340,11 +316,22 @@ class geopunt4QgisElevationDialog(QDialog):
         
         self.ui.mgsLbl.setText( msg )    
         
+    def makePoint(self):
+        self.pt = QgsVertexMarker(self.iface.mapCanvas())
+        self.pt.setColor(QColor(0,0,0))
+        self.pt.setFillColor(QColor(0,255,250))
+        self.pt.setIconSize(12)
+        self.pt.setIconType(QgsVertexMarker.ICON_BOX ) 
+        self.pt.setPenWidth(1)
+        return self.pt
+
     def clean(self):
         if self.pt:
            self.iface.mapCanvas().scene().removeItem(self.pt)
+           self.pt = None
         if self.Rubberline:
            self.iface.mapCanvas().scene().removeItem(self.Rubberline)
+           self.Rubberline =None
            
         if self.ano: 
            self.ano.remove()
@@ -360,6 +347,6 @@ class geopunt4QgisElevationDialog(QDialog):
               
         self.canvas.draw()
         self.ui.saveWgt.setEnabled(False)
-        self.profile = None
+        self.profile = []
         self.Rubberline = None
         self.ui.mgsLbl.setText("")

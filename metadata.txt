@@ -9,7 +9,7 @@ description=NL: Plugin om geopunt diensten in QGIS te gebruiken
     EN: Plug-in to use geopunt services in QGIS
 about=NL: "Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS, die de webservices van het Vlaamse geoportaal Geopunt ontsluit naar desktop GIS-gebruikers. Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan die mogen gebruikt worden door derden zoals andere overheden en bedrijven.
     - Zoeken op adres [gewoon, in batch en prikken op kaart] op basis van Gebouwen- en Adressenregister Vlaanderen.
-    - Zoeken naar Intressepunten in geopunt 
+    - Zoeken naar intressepunten in geopunt 
     - zoeken naar wegenwerken en manifestaties in GIPOD 
     - Hoogte Profielen tekenen 
     - Zoeken naar percelen 
@@ -21,7 +21,7 @@ about=NL: "Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS
     - Search for Parcels 
     - Search for layers in the geopunt catalog
 
-version=2.3.0.1
+version=2.3.0.2
 author=Kay Warrie
 email=kaywarrie@gmail.com 
 
@@ -29,7 +29,7 @@ email=kaywarrie@gmail.com
 
 # Optional items:
 # Uncomment the following line and add your changelog entries:
-changelog=changed icons, backend services and implemented wcs support in elevation profile. 
+changelog=changed icons, backend services and implemented wcs support in elevation profile. Fix WCS call elevation
 
 # tags are comma separated with spaces allowed
 tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS, GIPOD
@@ -40,7 +40,7 @@ repository=https://github.com/warrieka/geopunt4Qgis
 icon=images/geopunt.png
 category=Web
 # experimental flag
-experimental=False
+experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version
 deprecated=False

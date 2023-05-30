@@ -61,7 +61,6 @@ class dhm:
            z= ident.results()[1]
            if z != self.nodata: 
                 return ( xy.x() , xy.y() , z )
-           print(z)
         return ( xy.x() , xy.y() , None )
     
     
@@ -83,12 +82,9 @@ class dhm:
         else:
             count = geom.length() // dist
 
-        print(dist, count)
         line = geom.densifyByDistance(dist)
         bbox = self.t.transformBoundingBox( geom.boundingBox() )
-        print(line)
         for pnt in line.asPolyline():
-            print(pnt)
             yield self.identify(pnt, bbox)
 
     def fetchAsArray(self, geom: QgsGeometry, d:float=50, c:int=None) -> Sequence:
@@ -113,13 +109,18 @@ class dhm:
         self.t = QgsCoordinateTransform( QgsProject.instance().crs(), self.crs, QgsProject.instance())
 
         line = geom.densifyByDistance(dist).asPolyline()
+
         pnt0 = line[0]
         x0, y0, z0 = self.identify(pnt0, geom.boundingBox() )
-        data = [[0, x0, y0, z0]] 
+        xyzList = [[x0, y0, z0]] 
+        rList= [0]
 
         for pnt in line[1:]:
             x,y,z = self.identify(pnt)
             r = np.sqrt( (x-x0)**2 + (y-y0)**2 )
+            rList.append(r)
             x0, y0, z0 = (x,y,z0)
-            data.append([r,x,y,z])
-        return data 
+            xyzList.append([x,y,z])
+
+        rxyz= np.hstack([ np.cumsum( rList ).reshape(-1,1), xyzList])
+        return  rxyz

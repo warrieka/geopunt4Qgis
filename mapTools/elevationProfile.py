@@ -11,7 +11,7 @@ class lineTool(QgsMapTool):
         self.cursor = QCursor(Qt.CrossCursor)
         self.callback   = callback
         
-        self.rubberBand = QgsRubberBand(self.canvas, False)
+        self.rubberBand = QgsRubberBand(self.canvas, 2)
         self.points  = []
         self.rubberBand.setColor(Qt.red)
         self.rubberBand.setWidth(1)
@@ -38,8 +38,8 @@ class lineTool(QgsMapTool):
         QgsMapTool.deactivate(self)
     
     def activate(self):
-      QgsMapTool.activate(self)
-      self.canvas.setCursor(self.cursor)
+         QgsMapTool.activate(self)
+         self.canvas.setCursor(self.cursor)
 
     def isZoomTool(self):
         return False
