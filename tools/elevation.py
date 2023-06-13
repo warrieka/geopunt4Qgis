@@ -139,9 +139,12 @@ class elevationHelper(object):
           if "TXT" in ext.upper(): sep = " "
           hdr = sep.join(['dist','x','y','z'])
           np.savetxt(fName, narray, delimiter=sep, header=hdr, fmt='%.2f' )
-       
+        else:
+           return None
+
         if title == '':
            title=  os.path.basename(fName)
+
         uri =  pathlib.Path(fName).as_uri() + f"?delimiter={sep}&yField=y&xField=x&useHeader=yes"
         self.sampleslayer = QgsVectorLayer(uri, title , 'delimitedtext')
         QgsProject.instance().addMapLayer(self.sampleslayer)

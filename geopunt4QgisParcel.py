@@ -334,7 +334,7 @@ class geopunt4QgisParcelDlg(QDialog):
 
     def addGraphic(self, geom ):
         canvas = self.iface.mapCanvas()      
-        rBand = QgsRubberBand(canvas, True) 
+        rBand = QgsRubberBand(canvas) 
         self.graphics.append( rBand )
         rBand.setToGeometry( geom, None )
         rBand.setColor(QColor(0,0,255, 70))
