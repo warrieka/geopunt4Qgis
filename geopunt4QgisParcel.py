@@ -5,7 +5,7 @@ from qgis.core import Qgis, QgsGeometry
 from qgis.gui  import QgsMessageBar, QgsRubberBand
 from .ui_geopunt4QgisParcel import Ui_geopunt4QgisParcelDlg
 import os, json, webbrowser
-from .geopunt import capakey, perc
+from .geopunt import capakey
 from .tools.geometry import geometryHelper
 from .tools.parcel import parcelHelper
 
@@ -43,8 +43,7 @@ class geopunt4QgisParcelDlg(QDialog):
         self.gh = geometryHelper(self.iface)
         self.ph = parcelHelper(self.iface)
         self.parcel = capakey()
-        self.perc = perc()
-
+        
         #variables
         self.firstShow = True 
         self.municipalities = []
@@ -107,11 +106,7 @@ class geopunt4QgisParcelDlg(QDialog):
             return
 
         parcelInfo = self.parcel.getParcel( niscode, departmentcode, section, parcelNr, 31370, 'full') 
-        geojson = self.perc.getPercGeom( parcelInfo['capakey'] ) 
-        if len(geojson['features']) > 0: 
-            shape = geojson['features'][0]['geometry']
-        else: 
-            shape = json.loads( parcelInfo['geometry']['shape'])
+        shape = json.loads( parcelInfo['geometry']['shape'])
         
         pts = [n.asPolygon() for n in self.PolygonsFromJson( shape )]
         mPolygon = QgsGeometry.fromMultiPolygonXY( pts )  
@@ -272,12 +267,7 @@ class geopunt4QgisParcelDlg(QDialog):
             self.clearGraphics()
             self.gh.zoomtoRec( bbox[0], bbox[2], 31370 )
             
-            geojson = self.perc.getPercGeom( parcelInfo['capakey'] ) 
-            if len(geojson['features']) > 0: 
-                shape = geojson['features'][0]['geometry']
-            else: 
-                shape = json.loads( parcelInfo['geometry']['shape'])
-
+            shape = json.loads( parcelInfo['geometry']['shape'])
             for n in self.PolygonsFromJson( shape ):  
                 self.addGraphic(n)
             return
