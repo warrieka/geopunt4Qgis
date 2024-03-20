@@ -7,13 +7,12 @@ from .geopunt4QgisAdresdialog import geopunt4QgisAdresDialog
 from .geopunt4QgisPoidialog import geopunt4QgisPoidialog
 from .geopunt4QgisSettingsdialog import geopunt4QgisSettingsDialog
 from .geopunt4QgisBatchGeoCode import geopunt4QgisBatcGeoCodeDialog
-from .geopunt4QgisGipod import geopunt4QgisGipodDialog
+# from .geopunt4QgisGipod import geopunt4QgisGipodDialog
 from .geopunt4QgisElevation import mathplotlibWorks, geopunt4QgisElevationDialog
 from .geopunt4QgisDataCatalog import geopunt4QgisDataCatalog
 from .geopunt4QgisParcel import geopunt4QgisParcelDlg
 from .geopunt import Adres
 from .mapTools.reverseAdres import reverseAdresMapTool
-from .tools.versionChecker import versionChecker
 from .tools.geometry import geometryHelper
 from .tools.settings import settings
 import os.path, webbrowser
@@ -37,19 +36,11 @@ class geopunt4Qgis(object):
             self.translator.load(localePath)
             QCoreApplication.installTranslator(self.translator)
 
-        #version check
-        if locale == 'nl':  
-           vc = versionChecker()
-           if not vc.isUptoDate():
-              QMessageBox.warning(self.iface.mainWindow(), QCoreApplication.translate("geopunt4Qgis", "Waarschuwing"), QCoreApplication.translate("geopunt4Qgis", 
-          "Je versie van <a href='http://plugins.qgis.org/plugins/geopunt4Qgis' >geopunt4qgis</a> is niet meer up to date. <br/>Je kunt deze upgraden via het menu:<br/> "+
-          "<strong>Plugins > Beheer en installeer Plugins > Op te waarderen.</strong><br/>Klik daarna op <strong>Plugin opwaarderen</strong>"))
-
         # Create the dialogs (after translation) and keep reference
         self.adresdlg = geopunt4QgisAdresDialog(self.iface)
         self.batchgeoDlg = geopunt4QgisBatcGeoCodeDialog(self.iface) 
         self.poiDlg = geopunt4QgisPoidialog(self.iface)        
-        self.gipodDlg = geopunt4QgisGipodDialog(self.iface)
+        # self.gipodDlg = geopunt4QgisGipodDialog(self.iface)
         self.settingsDlg = geopunt4QgisSettingsDialog()
         if mathplotlibWorks : self.elevationDlg = geopunt4QgisElevationDialog(self.iface)
         self.datacatalogusDlg = geopunt4QgisDataCatalog(self.iface)
@@ -77,13 +68,13 @@ class geopunt4Qgis(object):
         self.poiAction = QAction(QIcon(":/svg/images/POI.svg"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Zoek een interessante plaats"), 
 	        self.iface.mainWindow())	
-        self.gipodAction = QAction(QIcon(":/svg/images/Gipod.svg"),
-                QCoreApplication.translate("geopunt4Qgis" , u"Bevraag GIPOD"), self.iface.mainWindow())
+        # self.gipodAction = QAction(QIcon(":/svg/images/Gipod.svg"),
+        #         QCoreApplication.translate("geopunt4Qgis" , u"Bevraag GIPOD"), self.iface.mainWindow())
 
         self.elevationAction =  QAction(QIcon(":/svg/images/Hoogte.svg"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Hoogteprofiel"), self.iface.mainWindow())
         self.datacatalogusAction =  QAction(QIcon(":/svg/images/Catalogus.svg"),
-                QCoreApplication.translate("geopunt4Qgis" , u"Geopunt-catalogus"), self.iface.mainWindow())
+                QCoreApplication.translate("geopunt4Qgis" , u"Datavindplaats"), self.iface.mainWindow())
         self.parcelAction =  QAction(QIcon(":/svg/images/Perceel.svg"),
                 QCoreApplication.translate("geopunt4Qgis" , u"Zoeken naar perceel"), self.iface.mainWindow())
         
@@ -97,12 +88,12 @@ class geopunt4Qgis(object):
         self.reverseAction.triggered.connect(self.reverse)
         self.batchAction.triggered.connect(self.runBatch)
         self.poiAction.triggered.connect(self.runPoiDlg)
-        self.gipodAction.triggered.connect(self.runGipod)
+        # self.gipodAction.triggered.connect(self.runGipod)
         self.elevationAction.triggered.connect(self.runElevation)
         self.datacatalogusAction.triggered.connect(self.rundatacatalog)
         self.parcelAction.triggered.connect(self.runParcel)
         self.settingsAction.triggered.connect(self.runSettingsDlg)
-        self.aboutAction.triggered.connect(lambda: webbrowser.open_new_tab("https://www.geopunt.be/voor-experts/geopunt-plug-ins") )
+        self.aboutAction.triggered.connect(lambda: webbrowser.open_new_tab("https://www.vlaanderen.be/geopunt/plug-ins/qgis-plug-in") )
         
         #Create toolbar
         self.toolbar = self.iface.addToolBar("Geopunt toolbar")
@@ -112,7 +103,7 @@ class geopunt4Qgis(object):
         self.toolbar.addAction(self.reverseAction)
         self.toolbar.addAction(self.batchAction)
         self.toolbar.addAction(self.poiAction)        
-        self.toolbar.addAction(self.gipodAction)
+        # self.toolbar.addAction(self.gipodAction)
         self.toolbar.addAction(self.elevationAction)
         self.toolbar.addAction(self.parcelAction)
         self.toolbar.addAction(self.datacatalogusAction)
@@ -122,7 +113,7 @@ class geopunt4Qgis(object):
         self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.reverseAction)
         self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.batchAction)
         self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.poiAction)        
-        self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.gipodAction)
+        # self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.gipodAction)
         self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.elevationAction)
         self.iface.addPluginToWebMenu(u'&geopunt4Qgis' ,self.parcelAction)
         self.iface.addPluginToWebMenu(u"&geopunt4Qgis", self.datacatalogusAction)
@@ -137,7 +128,7 @@ class geopunt4Qgis(object):
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.batchAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.aboutAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.settingsAction)
-        self.iface.removePluginMenu(u"&geopunt4Qgis", self.gipodAction)
+        # self.iface.removePluginMenu(u"&geopunt4Qgis", self.gipodAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.elevationAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.datacatalogusAction)
         self.iface.removePluginMenu(u"&geopunt4Qgis", self.parcelAction)
@@ -147,7 +138,7 @@ class geopunt4Qgis(object):
         self.iface.removeToolBarIcon( self.reverseAction)
         self.iface.removeToolBarIcon( self.batchAction)
         self.iface.removeToolBarIcon( self.aboutAction)
-        self.iface.removeToolBarIcon( self.gipodAction)
+        # self.iface.removeToolBarIcon( self.gipodAction)
         self.iface.removeToolBarIcon( self.elevationAction)
         self.iface.removeToolBarIcon( self.datacatalogusAction)
         self.iface.removeToolBarIcon( self.parcelAction)
@@ -200,17 +191,17 @@ class geopunt4Qgis(object):
         # Run the dialog event loop
         self.poiDlg.exec_()
   
-    def runGipod(self):
-        'show the dialog'
-        if self.gipodDlg.isVisible():
-           self.gipodDlg.showNormal()
-           self.gipodDlg.activateWindow()
-           return 
+    # def runGipod(self):
+    #     'show the dialog'
+    #     if self.gipodDlg.isVisible():
+    #        self.gipodDlg.showNormal()
+    #        self.gipodDlg.activateWindow()
+    #        return 
         
-        self.gipodDlg.loadSettings()
-        self.gipodDlg.show()
-        # Run the dialog event loop
-        self.gipodDlg.exec_()
+    #     self.gipodDlg.loadSettings()
+    #     self.gipodDlg.show()
+    #     # Run the dialog event loop
+    #     self.gipodDlg.exec_()
   
     def runBatch(self):
         'show the dialog'
@@ -346,7 +337,7 @@ class geopunt4Qgis(object):
         self._clearGraphicLayer()
         
     def openReverseHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/prik-een-adres-op-kaart")
+        webbrowser.open_new_tab("https://www.vlaanderen.be/geopunt/plug-ins/qgis-plug-in/functionaliteiten-qgis-plug-in/prik-een-adres-op-kaart-in-qgis")
                 
     def _addMarker(self, pnt, clr=QColor(255,255,0)):
         m = QgsVertexMarker(self.iface.mapCanvas())

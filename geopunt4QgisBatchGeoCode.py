@@ -88,7 +88,7 @@ class geopunt4QgisBatcGeoCodeDialog(QDialog):
     #eventHandlers
     def openHelp(self):
         webbrowser.open_new_tab(
-            "http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/csv-bestanden-geocoderen")
+            "https://www.vlaanderen.be/geopunt/plug-ins/qgis-plug-in/functionaliteiten-qgis-plug-in/csv-bestanden-geocoderen-in-qgis")
 
     def addToMap(self): 
         if not self.layernameValid(): return

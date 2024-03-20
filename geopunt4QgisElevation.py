@@ -177,7 +177,7 @@ class geopunt4QgisElevationDialog(QDialog):
     
     def openHelp(self):
         webbrowser.open_new_tab(
-           "http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/hoogteprofiel")
+           "https://www.vlaanderen.be/geopunt/plug-ins/qgis-plug-in/functionaliteiten-qgis-plug-in/hoogteprofiel-in-qgis")
     
     def drawBtnClicked(self):
         self.clean()

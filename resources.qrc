@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/plugins/geopunt4Qgis">
+    <file>images/WcsLayer.png</file>
     <file>images/ico.png</file>
     <file>images/geopuntParcelSmall.png</file>
     <file>images/geopuntParcel.png</file>
@@ -53,7 +54,6 @@
     <file>images/Wms.png</file>
     <file>images/wrench.png</file>
     <file>images/zip.png</file>
-
   </qresource>
   <qresource prefix="svg">
     <file>images/Adres.svg</file>

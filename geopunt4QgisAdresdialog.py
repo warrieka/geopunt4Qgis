@@ -105,7 +105,8 @@ class geopunt4QgisAdresDialog(QDialog):
             self.firstShow = False
         
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/zoek-een-adres")
+        webbrowser.open_new_tab(
+           "https://www.vlaanderen.be/geopunt/plug-ins/qgis-plug-in/functionaliteiten-qgis-plug-in/zoek-een-adres-in-qgis")
     
     def onZoekActivated(self):
         self._clearGraphicsLayer()

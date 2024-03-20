@@ -10,18 +10,17 @@ description=NL: Plugin om geopunt diensten in QGIS te gebruiken
 about=NL: "Geopunt voor QGIS" is een plugin voor de QGIS open source desktop GIS, die de webservices van het Vlaamse geoportaal Geopunt ontsluit naar desktop GIS-gebruikers. Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan die mogen gebruikt worden door derden zoals andere overheden en bedrijven.
     - Zoeken op adres [gewoon, in batch en prikken op kaart] op basis van Gebouwen- en Adressenregister Vlaanderen.
     - Zoeken naar intressepunten in geopunt 
-    - zoeken naar wegenwerken en manifestaties in GIPOD 
     - Hoogte Profielen tekenen 
     - Zoeken naar percelen 
+    - Zoeken naar Lagen in datavindtplaats
     EN: "Geopunt for QGIS"  is a plugin for the QGIS open source desktop GIS, which opens the web services of the Flemish geoportal Geopunt to desktop GIS users. The Flemish Geoportal Geopunt offers a number of geographic services (web services) that may be used by third parties such as other governments and companies. 
     - Geocoding [regular, batch and reverse] based on adresregistry Flanders 
     - Search for POI in geopunt 
-    - Search for trafic obstructions in GIPOD 
     - Draw elevation profiles 
     - Search for Parcels 
-    - Search for layers in the geopunt catalog
+    - Search for layers in the datavindtplaats
 
-version=2.3.0.5
+version=2.4.0.0
 author=Kay Warrie
 email=kaywarrie@gmail.com 
 
@@ -29,14 +28,14 @@ email=kaywarrie@gmail.com
 
 # Optional items:
 # Uncomment the following line and add your changelog entries:
-changelog=changed icons, backend services and implemented wcs support in elevation profile. Fix WCS call elevation, save elevation sample points to csv.
+changelog=Update datacatalog now based on datavindtplaats
 
 # tags are comma separated with spaces allowed
 tags=INSPIRE, GEOPUNT, GDI, VLAANDEREN, BRUSSEL, BELGIE, ADRES, ADRESSEN, AGIV, GEOLOKATIE, GEOCODE, WEBSERVICE, GRB, CRAB, FLANDERS, BELGIUM, BRUSSELS, LOCATION, ADDRESS, POINT OF INTEREST, POI, URBIS, GIPOD
 
-homepage=http://www.geopunt.be/nl/voor-experts/geopunt-plug-ins
-tracker=https://github.com/warrieka/geopunt4Qgis/issues
-repository=https://github.com/warrieka/geopunt4Qgis
+homepage=https://www.vlaanderen.be/geopunt/plug-ins
+tracker=https://github.com/Informatievlaanderen/geopunt-plugins-qgis/issues
+repository=https://github.com/Informatievlaanderen/geopunt-plugins-qgis
 icon=images/geopunt.png
 category=Web
 # experimental flag

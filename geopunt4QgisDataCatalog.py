@@ -1,13 +1,13 @@
-from qgis.PyQt.QtCore import (Qt, QSettings, QTranslator, QCoreApplication,
-                                  QRegExp, QSortFilterProxyModel, QStringListModel)
-from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox, QCompleter, 
+from qgis.PyQt.QtCore import (Qt, QSettings, QTranslator, QCoreApplication)
+from qgis.PyQt.QtWidgets import (QDialog, QPushButton, QDialogButtonBox,
                                  QInputDialog, QSizePolicy)
 from qgis.PyQt.QtGui import QStandardItem, QStandardItemModel
 from .ui_geopunt4QgisDataCatalog import Ui_geopunt4QgisDataCatalogDlg
 from qgis.core import Qgis, QgsProject, QgsRasterLayer, QgsVectorLayer
 from qgis.gui import QgsMessageBar
-from .geopunt.metadataParser import (MDReader, MDdata, getWmsLayerNames, getWFSLayerNames, 
-                                     makeWFSuri)
+from .geopunt.metadataParser import (getWmsLayerNames, getWFSLayerNames, get_ogc_api_collections,
+                                     getWCSlayerNames, makeWFSuri, makeWCSuri, makeOGCAPIuri)
+from .geopunt.datavindPlaats import datavindPlaats
 from .tools.geometry import geometryHelper
 import os, webbrowser, sys
 
@@ -36,8 +36,7 @@ class geopunt4QgisDataCatalog(QDialog):
 
         # get settings
         self.s = QSettings()
-        self.md = MDReader()
-
+        self.dvp = datavindPlaats()
         self.gh = geometryHelper(self.iface)
 
         # setup a message bar
@@ -51,161 +50,134 @@ class geopunt4QgisDataCatalog(QDialog):
 
         # vars
         self.firstShow = True
-        self.wms = None
-        self.wfs = None
-        self.dl = None
-        self.zoek = ''
         self.bronnen = None
 
-        self.model = QStandardItemModel(self)
-        self.proxyModel = QSortFilterProxyModel(self)
-        self.proxyModel.setSourceModel(self.model)
-        self.ui.resultView.setModel(self.proxyModel)
-
-        self.completer = QCompleter(self)
-        self.completerModel = QStringListModel(self)
-        self.ui.zoekTxt.setCompleter(self.completer)
-        self.completer.setModel(self.completerModel)
+        self.resultModel = QStandardItemModel(self)
+        self.ui.resultView.setModel(self.resultModel)
 
         # eventhandlers
         self.ui.zoekBtn.clicked.connect(self.onZoekClicked)
         self.ui.addWMSbtn.clicked.connect(self.addWMS)
         self.ui.addWFSbtn.clicked.connect(self.addWFS)
-        self.ui.DLbtn.clicked.connect(lambda: self.openUrl(self.dl))
+        self.ui.addWCSbtn.clicked.connect(self.addWCS)
+        self.ui.ogcAPIbtn.clicked.connect(self.add_ogcapi)
+
         self.ui.resultView.clicked.connect(self.resultViewClicked)
-        self.ui.modelFilterCbx.currentIndexChanged.connect(self.modelFilterCbxIndexChanged)
-        self.ui.buttonBox.helpRequested.connect(self.openHelp)
+        self.ui.buttonBox.helpRequested.connect(lambda: webbrowser.open_new_tab(
+            "https://www.vlaanderen.be/geopunt/plug-ins/qgis-plug-in/functionaliteiten-qgis-plug-in/geopunt-catalogus-in-qgis"))
         self.finished.connect(self.clean)
 
-    def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/catalogus")
-
     def _setModel(self, records):
-        self.model.clear()
-        records = sorted(records, key=lambda k: k['title']) 
+        self.resultModel.clear()
+        # records = sorted(records, key=lambda k: k['title']) 
 
         for rec in records:
-            title = QStandardItem(rec['title'])               # 0
-            wms = QStandardItem(rec['wms'][1])                # 1
-            downloadLink = QStandardItem(rec['download'][1])  # 2
-            id =   QStandardItem(rec['uuid'])                 # 3
-            abstract = QStandardItem(rec['abstract'])         # 4
-            wfs =  QStandardItem(rec['wfs'][1])               # 5
-            wmsLyr = QStandardItem(rec['wms'][0])             # 6
-            wfsLyr = QStandardItem(rec['wfs'][0])             # 7
-            self.model.appendRow([title, wms, downloadLink, id, abstract, wfs, wmsLyr, wfsLyr ])
+            title = QStandardItem(rec['title'])                 # 0
+            identifier = QStandardItem(rec["identifier"])       # 1
+            description =  QStandardItem(rec["description"])    # 2
+            date_modified = QStandardItem(rec["modified"])      # 3
+            accessRights = QStandardItem(rec["accessRights"])   # 4
+            self.resultModel.appendRow([title,identifier,description,date_modified,accessRights])
 
     def show(self):
         QDialog.show(self)
         self.setWindowModality(0)
-
         if self.firstShow:
-            self.ui.organisatiesCbx.addItems([''] + self.md.list_organisations())
-            keywords = sorted(self.md.list_suggestionKeyword())
-            self.completerModel.setStringList(keywords)
-            self.ui.typeCbx.addItems([''] + [n[0] for n in self.md.dataTypes])
             self.firstShow = False
 
     # eventhandlers
     def resultViewClicked(self):
+        self.wms = self.wfs = self.wcs = self.ogcfeats = None
+
         if self.ui.resultView.selectedIndexes():
             row = self.ui.resultView.selectedIndexes()[0].row()
 
-            title = self.proxyModel.data(self.proxyModel.index(row, 0))
-            self.wms = self.proxyModel.data(self.proxyModel.index(row, 1))
-            self.dl = self.proxyModel.data(self.proxyModel.index(row, 2))
-            self.wfs = self.proxyModel.data(self.proxyModel.index(row, 5))
-            self.wmsLyr = self.proxyModel.data(self.proxyModel.index(row, 6))
-            self.wfsLyr = self.proxyModel.data(self.proxyModel.index(row, 7))
+            title = self.resultModel.data(self.resultModel.index(row, 0))
+            identifier = self.resultModel.data(self.resultModel.index(row, 1))
+            abstract = self.resultModel.data(self.resultModel.index(row, 2))
+            msg = f"""<h2>{title}</h2>
+            <div>{abstract}</div><br/>""" 
 
-            uuid = self.proxyModel.data(self.proxyModel.index(row, 3))
-            abstract = self.proxyModel.data(self.proxyModel.index(row, 4))
+            links = self.dvp.findLinks(identifier)
+            if len(links):
+                msg += '<div>Links:</div><br/>'
+                for link in links:
+                    name = link['name']
+                    url = link['url']
+                    urltype = link['type']
 
-            self.ui.descriptionText.setText( """<h3>%s</h3><div>%s</div><br/><div>
-             <a href='https://metadata.vlaanderen.be/srv/dut/catalog.search#/metadata/%s'>
-             Ga naar fiche</a></div>""" % (title, abstract, uuid))
+                    if urltype == 'wms':
+                        self.wms = url
+                        self.ui.addWMSbtn.setEnabled(1)
+                    else:
+                        self.ui.addWMSbtn.setEnabled(0)
 
-            if self.wms:
-                self.ui.addWMSbtn.setEnabled(1)
-            else:
-                self.ui.addWMSbtn.setEnabled(0)
+                    if urltype == 'wfs':
+                        self.wfs = url
+                        self.ui.addWFSbtn.setEnabled(1)
+                    else:
+                        self.ui.addWFSbtn.setEnabled(0)
 
-            if self.wfs:
-                self.ui.addWFSbtn.setEnabled(1)
-            else:
-                self.ui.addWFSbtn.setEnabled(0)
+                    if urltype == 'wcs':
+                        self.wcs = url
+                        self.ui.addWCSbtn.setEnabled(1)
+                    else:
+                        self.ui.addWCSbtn.setEnabled(0)
 
-            if self.dl:
-                self.ui.DLbtn.setEnabled(1)
-            else:
-                self.ui.DLbtn.setEnabled(0)
+                    if urltype == 'ogc-api':
+                        self.ogcfeats = url
+                        self.ui.ogcAPIbtn.setEnabled(1)
+                    else:
+                        self.ui.ogcAPIbtn.setEnabled(0)
+
+                    msg += f"<a target='_blank' href='{url}'>{name}</a> ({urltype})<br/>"
+
+            msg += f"""<div>
+             <a href='https://metadata.vlaanderen.be/srv/dut/catalog.search#/metadata/{identifier}'>
+             Ga naar metadata fiche</a></div>"""
+
+            self.ui.descriptionText.setText(msg)
 
     def onZoekClicked(self):
-        self.zoek = self.ui.zoekTxt.currentText()
-        self.search()
-
-    def modelFilterCbxIndexChanged(self):
-        value = self.ui.modelFilterCbx.currentIndex()
-        if value == 1:
-            self.filterModel(1)
-        elif value == 2:
-            self.filterModel(5)
-        elif value == 3:
-            self.filterModel(2)
-        else:
-            self.filterModel()
-
-    def filterModel(self, col=None):
-        if col != None:
-            self.proxyModel.setFilterKeyColumn(col)
-            expr = QRegExp("?*", Qt.CaseInsensitive, QRegExp.Wildcard)
-            self.proxyModel.setFilterRegExp(expr)
-        else:
-            self.proxyModel.setFilterRegExp(None)
-
-    def search(self):
-        orgName = self.ui.organisatiesCbx.currentText()
-        dataTypes = [n[1] for n in self.md.dataTypes if n[0] == self.ui.typeCbx.currentText()]
-        dataType = dataTypes[0] if dataTypes != [] else None
-        data = self.md.searchAll( self.zoek, orgName, dataType )
+        self.zoek = self.ui.zoekTxt.text()
+        dataType = None
+        if  self.ui.typeCbx.currentText() == 'Service' :
+            dataType = 'type/service'
+        elif  self.ui.typeCbx.currentText() == 'Dataset' :
+            dataType = 'type/dataset'
+        data = self.dvp.findAllItems(self.zoek, taxonomy=dataType)
         self.parse_searchResults(data)
 
     def parse_searchResults(self, data):
-        searchResult = MDdata(data)
-        self.ui.countLbl.setText("Aantal gevonden: %s" % searchResult.count)
-        self.ui.descriptionText.setText('')
-        self._setModel(searchResult.records)
-        if searchResult.count == 0:
+        if len(data) == 0:
             self.bar.pushMessage(
                 QCoreApplication.translate("geopunt4QgisPoidialog", "Waarschuwing "),
                 QCoreApplication.translate("geopunt4QgisPoidialog",
                         "Er werden geen resultaten gevonde voor deze zoekopdracht"), duration=5)
+            return
 
-    def openUrl(self, url):
-        if url: webbrowser.open_new_tab(url)
+        self.ui.countLbl.setText(f"Aantal gevonden: {len(data)}" )
+        self.ui.descriptionText.setText('')
+        self._setModel( data )
 
     def addWMS(self):
-        if self.wms == None: return
+        if self.wms is None: return
         lyrs = getWmsLayerNames(self.wms)
 
         if len(lyrs) == 0:
             self.bar.pushMessage("WMS",
                 QCoreApplication.translate("geopunt4QgisDataCatalog", 
-                                    "Kan geen lagen vinden in: %s" % self.wms),
+                                    f"Kan geen lagen vinden in: {self.wms}" ),
                 level=Qgis.Warning, duration=10)
             return
         elif len(lyrs) == 1:
             layerTitle = lyrs[0][1]
             layerName  = lyrs[0][0]
         else: 
-            if self.wmsLyr in [n[0] for n in lyrs]:
-                layerName = self.wmsLyr
-                layerTitle = self.wmsLyr
-            else: 
-                layerTitle, accept = QInputDialog.getItem(self, "WMS toevoegen",
-                             "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0)
-                if not accept: return
-                layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
+            layerTitle, accept = QInputDialog.getItem(self, "WMS toevoegen",
+                            "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0)
+            if not accept: return
+            layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
         
         crs = self.gh.getGetMapCrs(self.iface).authid()
         if  crs != 'EPSG:31370' or crs != 'EPSG:3857' or crs != 'EPSG:3043':
@@ -214,8 +186,7 @@ class geopunt4QgisDataCatalog(QDialog):
         url = self.wms.split('?')[0]
 
         if crs != 'EPSG:31370' or crs != 'EPSG:3857': crs = 'EPSG:31370'
-        wmsUrl = "contextualWMSLegend=0&dpiMode=7&url=%s&layers=%s&styles=&format=image/png&crs=%s" % (
-                                                                         url, layerName, crs)
+        wmsUrl = f"contextualWMSLegend=0&dpiMode=7&url={url}&layers={layerName}&styles=&format=image/png&crs={crs}"
         rlayer = QgsRasterLayer(wmsUrl, layerTitle, 'wms')
         if rlayer.isValid():
             QgsProject.instance().addMapLayer(rlayer)
@@ -225,10 +196,8 @@ class geopunt4QgisDataCatalog(QDialog):
                  level=Qgis.Critical, duration=10)
 
     def addWFS(self):
-        if self.wfs == None: return
+        if self.wfs is None: return
         lyrs, version = getWFSLayerNames(self.wfs)
-
-        print( self.wfsLyr , lyrs , version)
 
         if len(lyrs) == 0:
             self.bar.pushMessage("WFS",
@@ -239,19 +208,13 @@ class geopunt4QgisDataCatalog(QDialog):
             layerName = lyrs[0][0]
             layerTitle = lyrs[0][1]
         else:
-            if self.wfsLyr in [n[0] for n in lyrs]:
-               layerName = self.wfsLyr
-               layerTitle = [n[1] for n in lyrs if n[0] == layerName][0]
-            else: 
-                layerTitle, accept = QInputDialog.getItem(self, "WFS toevoegen",
-                        "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0)
-                if not accept: 
-                    return
-                layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
+            layerTitle, accept = QInputDialog.getItem(self, "WFS toevoegen",
+                    "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0)
+            if not accept: 
+                return
+            layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
         crs =  [n[2] for n in lyrs if n[0] == layerName][0]
-        url = self.wfs.split('?')[0]
-
-        wfsUri = makeWFSuri(url, layerName, srsname=crs, version=version )
+        wfsUri = makeWFSuri(self.wfs, layerName, srsname=crs, version=version )
 
         try:
           vlayer = QgsVectorLayer(wfsUri, layerTitle, "WFS")
@@ -260,16 +223,74 @@ class geopunt4QgisDataCatalog(QDialog):
             self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=Qgis.Critical, duration=10)
             return
 
+    def addWCS(self):
+        if self.wcs is None: return
+        lyrs = getWCSlayerNames(self.wcs) 
+
+        if len(lyrs) == 0:
+            self.bar.pushMessage("WCS",
+                 QCoreApplication.translate("geopunt4QgisDataCatalog",
+                 "Kan geen lagen vinden in: %s" % self.wcs), level=Qgis.Warning, duration=10)
+            return
+        elif len(lyrs) == 1:
+            layerName = lyrs[0][0]
+            layerTitle = lyrs[0][1]
+        else:
+            layerTitle, accept = QInputDialog.getItem(self, "WCS toevoegen",
+                    "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0)
+            if not accept: 
+                return
+            layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
+        format =  [n[2] for n in lyrs if n[0] == layerName][0]
+        url = self.wcs.split('?')[0]
+
+        wcsUri = makeWCSuri(url, layerName, format=format)
+
+        try:
+          vlayer = QgsRasterLayer(wcsUri, layerTitle, "wcs")
+          QgsProject.instance().addMapLayer(vlayer)
+        except:
+            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=Qgis.Critical, duration=10)
+            return
+
+    def add_ogcapi(self):
+        if self.ogcfeats is None: return
+        lyrs = get_ogc_api_collections(self.ogcfeats) 
+        
+        if len(lyrs) == 0:
+            self.bar.pushMessage("OGC-API",
+                 QCoreApplication.translate("geopunt4QgisDataCatalog",
+                 "Kan geen lagen vinden in: %s" % self.ogcfeats), level=Qgis.Warning, duration=10)
+            return
+        elif len(lyrs) == 1:
+            layerName = lyrs[0][0]
+            layerTitle = lyrs[0][1]
+        else:
+            layerTitle, accept = QInputDialog.getItem(self, "OGC laag toevoegen",
+                    "Kies een laag om toe te voegen", [n[1] for n in lyrs], editable=0)
+            if not accept: 
+                return
+            layerName = [n[0] for n in lyrs if n[1] == layerTitle][0]
+
+        ogcUri = makeOGCAPIuri(self.ogcfeats, layerName)
+        print(ogcUri)
+        try:
+            vlayer = QgsVectorLayer(ogcUri, layerTitle, "OAPIF")
+            QgsProject.instance().addMapLayer(vlayer)
+        except:
+            self.bar.pushMessage("Error", str(sys.exc_info()[1]), level=Qgis.Critical, duration=10)
+            return
+
     def clean(self):
-        self.model.clear()
+        self.resultModel.clear()
         self.wms = None
         self.wfs = None
-        self.dl = None
-        self.ui.zoekTxt.setCurrentIndex(0)
+        self.wcs = None
+        self.ogcfeats = None
+        self.ui.zoekTxt.clear()
         self.ui.descriptionText.setText('')
         self.ui.countLbl.setText("")
         self.ui.msgLbl.setText("")
-        self.ui.DLbtn.setEnabled(0)
+        self.ui.addWMSbtn.setEnabled(0)
         self.ui.addWFSbtn.setEnabled(0)
         self.ui.addWMSbtn.setEnabled(0)
-        self.ui.modelFilterCbx.setCurrentIndex(0)

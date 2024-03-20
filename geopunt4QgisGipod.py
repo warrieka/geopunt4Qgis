@@ -187,7 +187,8 @@ class geopunt4QgisGipodDialog(QDialog):
             self.ui.cityCbx.addItems([ n["Naam"] for n in self.gemeentes ])
    
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/gipod")
+        webbrowser.open_new_tab(
+            "https://www.vlaanderen.be/geopunt/plug-ins/qgis-plug-in/functionaliteiten-qgis-plug-in/gipod-data-in-qgis")
     
     def clean(self):
         self.ui.lyrName.setText("GIPOD")

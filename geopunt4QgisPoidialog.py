@@ -120,7 +120,8 @@ class geopunt4QgisPoidialog(QDialog):
             self.firstShow = False      
       
     def openHelp(self):
-        webbrowser.open_new_tab("http://www.geopunt.be/voor-experts/geopunt-plug-ins/functionaliteiten/poi")
+        webbrowser.open_new_tab(
+           "https://www.vlaanderen.be/geopunt/plug-ins/qgis-plug-in/functionaliteiten-qgis-plug-in/zoek-een-interessante-plaats-in-qgis")
     
     def onZoekActivated(self):
         txt = self.ui.poiText.text()
